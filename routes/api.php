@@ -4,7 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AdminController;
+use App\Http\Controllers\API\MontecarloController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\API\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,26 +20,41 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
+Route::get('/clear', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+ 
+    return "Cleared!";
+ });
+
+// Authentication User
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
+Route::group(['middleware' => ['auth:sanctum','verified']], function(){
+    
     Route::get('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::apiResources([
+        '/user' => UserController::class,
+    ]);
 
-    Route::get('/user/{id?}', [UserController::class, 'getUserById']);
+    Route::get('/check-data-empty/{id}', [UserController::class, 'checkDataEmpty']);
+    
+    Route::get('/check-token-user', [UserController::class, 'checktoken']);
 
+    Route::get('/montecarlo/{id}', [MontecarloController::class, 'montecarlo_count']);
+    
+    Route::post('/answer-question', [QuestionController::class, 'answer_question']);
+    Route::get('/get-user-questions/{id}', [QuestionController::class, 'user_questions']);
 });
 
-
 // Verifikasi Email
-Route::get('/email/verify', [AuthController::class, 'sendVerificationEmail'])->middleware('auth:sanctum');
+Route::get('/email/verify', [AuthController::class, 'sendVerificationEmail'])->middleware('auth:web,api');
 
-Route::get('/email/checkverified', [AuthController::class, 'checkVerifiedEmail'])->middleware('auth:sanctum');
+Route::get('/email/checkverified', [AuthController::class, 'checkVerifiedEmail'])->middleware('auth:web,api');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
@@ -45,5 +63,6 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
         'status' => true,
         'message' => 'Verified'
     ], 200);
-})->middleware(['auth:sanctum', 'signed'])->name('verification.verify');
+})->middleware(['auth:web,api', 'signed'])->name('verification.verify');
 
+require __DIR__ . '/admin.php';

@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '930b3c6c9456f9e44c3bdd65ec4e04457c77ee48',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -129,6 +129,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'f7948baaa0330277c729714910336383286305da',
+    ),
+    'fruitcake/laravel-cors' => 
+    array (
+      'pretty_version' => 'v3.0.0',
+      'version' => '3.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '7c036ec08972d8d5d9db637e772af6887828faf5',
     ),
     'fruitcake/php-cors' => 
     array (
@@ -426,12 +435,12 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '930b3c6c9456f9e44c3bdd65ec4e04457c77ee48',
     ),
     'laravel/pint' => 
     array (

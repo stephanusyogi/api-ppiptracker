@@ -14,21 +14,22 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('nip')->unique()->nullable();
-            $table->date('tgl_lahir')->nullable();
-            $table->integer('usia_pensiun')->nullable();
-            $table->string('jenis_pensiun')->nullable();
-            $table->string('no_hp')->nullable();
-            $table->float('return_cluster1')->nullable();
-            $table->float('return_cluster2')->nullable();
-            $table->float('return_cluster3')->nullable();
-            $table->float('return_cluster4')->nullable();
-            $table->float('return_cluster5')->nullable();
-            $table->float('return_cluster6')->nullable();
-            $table->float('return_cluster7')->nullable();
+            $table->string('nip')->default('');
+            $table->date('tgl_lahir')->default(date("Y-m-d"));
+            $table->integer('usia_pensiun')->default(0);
+            $table->string('jenis_pensiun')->default('');
+            $table->string('no_hp')->default('');
+            $table->string('saldo_ppip')->default('');
+            $table->float('return_cluster1')->default(0);
+            $table->float('return_cluster2')->default(0);
+            $table->float('return_cluster3')->default(0);
+            $table->float('return_cluster4')->default(0);
+            $table->float('return_cluster5')->default(0);
+            $table->float('return_cluster6')->default(0);
+            $table->float('return_cluster7')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

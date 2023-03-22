@@ -7,32 +7,44 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Traits\UUID;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use UUID;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
-        'nip',
-        'tgl_lahir',
-        'usia_pensiun',
-        'jenis_pensiun',
         'no_hp',
-        'return_cluster1',
-        'return_cluster2',
-        'return_cluster3',
-        'return_cluster4',
-        'return_cluster5',
-        'return_cluster6',
-        'return_cluster7',
+        'tgl_lahir',
+        'tgl_diangkat_pegawai',
+        'usia_diangkat_tahun',
+        'usia_diangkat_bulan',
+        'usia_pensiun',
+        'tgl_registrasi',
+        'layer_ppmp',
+        'layer_ppip',
+        'layer_personal',
+        'terdapat_investasi_pensiun',
+        'jumlah_investasi_keuangan',
+        'jumlah_investasi_properti',
+        'sewa_properti',
+        'kenaikan_properti',
+        'kenaikan_sewa',
+        'rencana_penambahan_saldo_bulan_ini',
+        'penambahan_saldo_tentative_personal_keuangan',
+        'penambahan_saldo_tentative_personal_properti',
+        'saldo_ppip',
+        'inactive',
     ];
 
     /**
@@ -41,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 
