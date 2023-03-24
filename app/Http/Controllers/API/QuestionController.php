@@ -95,7 +95,6 @@ class QuestionController extends Controller
 
     public function answer_question(Request $request)
     {
-        die(var_dump((string) Str::uuid()));
         $validator = Validator::make($request->all(), [
             'new_kodw_kuisioner'     => 'required',
             'id_user'     => 'required',
@@ -107,11 +106,28 @@ class QuestionController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        DB::table('question_answers')->insert([
-            'id_question' => $request->id_question,
-            'id_user' => $request->id_user,
-            'answer' => $request->answer,
-        ]);
+        if ($request->old_kode_kuisioner) {
+            DB::table('question_answers')->where('kode_kuisioner',$request->old_kode_kuisioner)->update([
+                'flag' => 0,
+            ]);
+
+            DB::table('question_answers')->insert([
+                'id'=> (string) Str::uuid(),
+                'id_user' => $request->id_user,
+                'kode_kuisioner' => $request->id_question,
+                'answer' => $request->answer,
+                'flag' => 1,
+            ]);
+        } else {
+            DB::table('question_answers')->insert([
+                'id'=> (string) Str::uuid(),
+                'id_user' => $request->id_user,
+                'kode_kuisioner' => $request->id_question,
+                'answer' => $request->answer,
+                'flag' => 1,
+            ]);
+        }
+        
 
         return response()->json([
             'status' => true,
