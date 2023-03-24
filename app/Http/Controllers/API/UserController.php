@@ -202,9 +202,23 @@ class UserController extends Controller
     
     public function checkKuisionerEmpty($id){
         $check = DB::table('variabel_kuisioner_target_rr_answer')
-                ->where('id_user', '=', $id)
+                ->where([
+                    ['id_user', '=', $id],
+                ])
                 ->get()->toArray();
-        die(var_dump($check));
+     
+        if (count($check) > 0) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Kuisioner Terisi Lengkap'
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'Kuisioner Tidak Lengkap'
+            ]);
+            
+        }
     }
 
     public function checktoken(Request $request){
