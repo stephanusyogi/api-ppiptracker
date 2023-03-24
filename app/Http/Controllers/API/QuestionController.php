@@ -107,11 +107,11 @@ class QuestionController extends Controller
         }
 
         if ($request->old_kode_kuisioner) {
-            DB::table('question_answers')->where('kode_kuisioner',$request->old_kode_kuisioner)->update([
+            DB::table('variabel_kuisioner_target_rr_answer')->where('kode_kuisioner',$request->old_kode_kuisioner)->update([
                 'flag' => 0,
             ]);
 
-            DB::table('question_answers')->insert([
+            DB::table('variabel_kuisioner_target_rr_answer')->insert([
                 'id'=> (string) Str::uuid(),
                 'id_user' => $request->id_user,
                 'kode_kuisioner' => $request->id_question,
@@ -119,7 +119,7 @@ class QuestionController extends Controller
                 'flag' => 1,
             ]);
         } else {
-            DB::table('question_answers')->insert([
+            DB::table('variabel_kuisioner_target_rr_answer')->insert([
                 'id'=> (string) Str::uuid(),
                 'id_user' => $request->id_user,
                 'kode_kuisioner' => $request->id_question,
