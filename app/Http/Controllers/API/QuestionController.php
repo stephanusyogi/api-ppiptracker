@@ -96,7 +96,7 @@ class QuestionController extends Controller
     public function answer_question(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'new_kode_kuisioner'     => 'required',
+            'kode_kuisioner'     => 'required',
             'id_user'     => 'required',
             'answer'     => 'required',
         ]);
@@ -105,16 +105,23 @@ class QuestionController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
+        
+        $check = DB::table('variabel_kuisioner_target_rr_answer')
+                ->where([
+                    ['id_user', '=', $request->id_user],
+                    ['kode_kuisioner', '=', $request->kode_kuisioner],
+                    ])
+                ->get()->toArray();
 
-        if ($request->old_kode_kuisioner) {
-            DB::table('variabel_kuisioner_target_rr_answer')->where('kode_kuisioner',$request->old_kode_kuisioner)->update([
+        if (count($check) > 0) {
+            DB::table('variabel_kuisioner_target_rr_answer')->where('kode_kuisioner',$request->kode_kuisioner)->update([
                 'flag' => 0,
             ]);
 
             DB::table('variabel_kuisioner_target_rr_answer')->insert([
                 'id'=> (string) Str::uuid(),
                 'id_user' => $request->id_user,
-                'kode_kuisioner' => $request->new_kode_kuisioner,
+                'kode_kuisioner' => $request->kode_kuisioner,
                 'answer' => $request->answer,
                 'flag' => 1,
             ]);
@@ -122,7 +129,7 @@ class QuestionController extends Controller
             DB::table('variabel_kuisioner_target_rr_answer')->insert([
                 'id'=> (string) Str::uuid(),
                 'id_user' => $request->id_user,
-                'kode_kuisioner' => $request->new_kode_kuisioner,
+                'kode_kuisioner' => $request->kode_kuisioner,
                 'answer' => $request->answer,
                 'flag' => 1,
             ]);
