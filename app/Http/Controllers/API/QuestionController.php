@@ -114,7 +114,7 @@ class QuestionController extends Controller
             DB::table('variabel_kuisioner_target_rr_answer')->insert([
                 'id'=> (string) Str::uuid(),
                 'id_user' => $request->id_user,
-                'kode_kuisioner' => $request->id_question,
+                'kode_kuisioner' => $request->new_kode_kuisioner,
                 'answer' => $request->answer,
                 'flag' => 1,
             ]);
@@ -122,7 +122,7 @@ class QuestionController extends Controller
             DB::table('variabel_kuisioner_target_rr_answer')->insert([
                 'id'=> (string) Str::uuid(),
                 'id_user' => $request->id_user,
-                'kode_kuisioner' => $request->id_question,
+                'kode_kuisioner' => $request->new_kode_kuisioner,
                 'answer' => $request->answer,
                 'flag' => 1,
             ]);
