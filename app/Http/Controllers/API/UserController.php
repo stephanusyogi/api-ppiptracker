@@ -200,6 +200,10 @@ class UserController extends Controller
     }
     
     public function checkKuisionerEmpty($id){
+        $kuisioner = DB::table('variabel_kuisioner_target_rr')
+                ->where('saat_pensiun', '=', 0)
+                ->get()->toArray();
+        die(var_dump($kuisioner));
     }
 
     public function checktoken(Request $request){
