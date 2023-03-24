@@ -204,7 +204,7 @@ class UserController extends Controller
         $check = DB::table('variabel_kuisioner_target_rr_answer')
                 ->where('id_user', '=', $id)
                 ->get()->toArray();
-        die(var_dump($kuisioner));
+        die(var_dump($check));
     }
 
     public function checktoken(Request $request){
