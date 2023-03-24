@@ -199,6 +199,8 @@ class UserController extends Controller
 
     }
     
+    public function checkKuisionerEmpty($id){
+    }
 
     public function checktoken(Request $request){
         if(Auth::guard('api')->check()){

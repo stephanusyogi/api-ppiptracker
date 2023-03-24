@@ -133,5 +133,18 @@ class QuestionController extends Controller
         ],200);
     }
 
+    
+    public function get_kuisioner(){
+        $kuisioner = DB::table('variabel_kuisioner_target_rr')
+                ->where('saat_pensiun', '=', 0)
+                ->get()->toArray();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'List Questions',
+            'data' => $kuisioner
+        ],200);
+    }
+
 }
 

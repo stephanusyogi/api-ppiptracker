@@ -42,13 +42,16 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
     ]);
 
     Route::get('/check-data-empty/{id}', [UserController::class, 'checkDataEmpty']);
+
+    Route::get('/check-kuisioner-empty/{id}', [UserController::class, 'checkKuisionerEmpty']);
     
     Route::get('/check-token-user', [UserController::class, 'checktoken']);
 
     Route::get('/montecarlo/{id}', [MontecarloController::class, 'montecarlo_count']);
     
     Route::post('/answer-question', [QuestionController::class, 'answer_question']);
-    Route::get('/get-user-questions/{id}', [QuestionController::class, 'user_questions']);
+
+    Route::get('/kuisioner', [QuestionController::class, 'get_kuisioner']);
 });
 
 // Verifikasi Email
