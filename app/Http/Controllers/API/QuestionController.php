@@ -159,7 +159,7 @@ class QuestionController extends Controller
     
     public function get_kuisioner(){
         $kuisioner = DB::table('variabel_kuisioner_target_rr')
-                ->select('kuisioner')
+                ->select('kuisioner', 'kode_kuisioner')
                 ->where('saat_pensiun', '=', 0)
                 ->get()->toArray();
 
