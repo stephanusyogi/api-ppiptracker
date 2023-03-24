@@ -160,7 +160,10 @@ class QuestionController extends Controller
     public function get_kuisioner(){
         $kuisioner = DB::table('variabel_kuisioner_target_rr')
                 ->select('kuisioner', 'kode_kuisioner')
-                ->where('saat_pensiun', '=', 0)
+                ->where([
+                    ['saat_pensiun', '=', 0],
+                    ['general_kuisioner', '=', 1],
+                ])
                 ->get()->toArray();
 
         return response()->json([
