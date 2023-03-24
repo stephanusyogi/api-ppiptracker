@@ -96,7 +96,7 @@ class QuestionController extends Controller
     public function answer_question(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'new_kodw_kuisioner'     => 'required',
+            'new_kode_kuisioner'     => 'required',
             'id_user'     => 'required',
             'answer'     => 'required',
         ]);
@@ -127,7 +127,6 @@ class QuestionController extends Controller
                 'flag' => 1,
             ]);
         }
-        
 
         return response()->json([
             'status' => true,
