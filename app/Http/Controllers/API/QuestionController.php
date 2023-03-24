@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\QuestionResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
@@ -94,9 +95,9 @@ class QuestionController extends Controller
 
     public function answer_question(Request $request)
     {
-
+        die(var_dump((string) Str::uuid()));
         $validator = Validator::make($request->all(), [
-            'id_question'     => 'required',
+            'new_kodw_kuisioner'     => 'required',
             'id_user'     => 'required',
             'answer'     => 'required',
         ]);
