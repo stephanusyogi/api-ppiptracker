@@ -151,7 +151,9 @@ class QuestionController extends Controller
                 ['flag','=',1],
                 ['kode_kuisioner','=',$query],
             ])
-            ->get()->toArray();
+            ->get()->toArray()[0];
+
+            die(var_dump($questions));
 
             return $questions[0]["answer"]."%";
             
