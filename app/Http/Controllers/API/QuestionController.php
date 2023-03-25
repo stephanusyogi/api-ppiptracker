@@ -151,9 +151,16 @@ class QuestionController extends Controller
                 ['flag','=',1],
                 ['kode_kuisioner','=',$query],
             ])
-            ->get()->toArray()[0];
+            ->get()->toArray();
 
-            return $questions->answer."%";
+            if ($count(questions) > 0) {
+                $res = $questions[0]->answer."%";
+            } else {
+                $res = $questions;
+            }
+            
+
+            return $res;
             
         }
 
