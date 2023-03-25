@@ -51,7 +51,7 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
     
     Route::post('/answer-question', [QuestionController::class, 'answer_question']);
 
-    Route::post('/user-answer-question/{id}', [QuestionController::class, 'user_questions']);
+    Route::get('/user-answer-question/{id}', [QuestionController::class, 'user_questions']);
 
     Route::get('/kuisioner', [QuestionController::class, 'get_kuisioner']);
 });
