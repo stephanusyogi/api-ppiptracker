@@ -153,7 +153,7 @@ class QuestionController extends Controller
             ])
             ->get()->toArray();
 
-            return $questions;
+            return $questions[0];
             
         }
 
