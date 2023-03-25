@@ -31,7 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         //Custom Mail
         VerifyEmail::toMailUsing(function ($notifiable, $url){
             // $spaUrl = env('MAIL_SPA_VERIFY').'/email-verification?email_verify_url='.$url;
-            $spaUrl = 'http://localhost/pension-fund-tracker/email-verification?email_verify_url='.$url;
+            // $spaUrl = 'http://localhost/pension-fund-tracker/email-verification?email_verify_url='.$url;
+            $spaUrl = 'https://yourpensiontracker.id/email-verification?email_verify_url='.$url;
 
             return(new MailMessage)
                 ->subject('Verify Email Address')
