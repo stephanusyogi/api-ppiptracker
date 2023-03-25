@@ -143,11 +143,19 @@ class QuestionController extends Controller
     }
 
     public function user_questions($id){
-        $questions = DB::table('question_answers')
-        ->where('id_user','=',$id)
-        ->get()->toArray();
-        
-        die(var_dump($questions));
+        function getData($query){
+            $questions = DB::table('variabel_kuisioner_target_rr_answer')
+            ->where([
+                ['id_user','=',$id],
+                ['flag','=',1],
+                ['kode_kuisioner','=',$query],
+            ])
+            ->get()->toArray();
+
+            return $questions;
+        }
+
+        die(var_dump(getData("BEKERJA_KONSUMSI")));
         
         return response()->json([
             'status' => true,
