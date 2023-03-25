@@ -145,6 +145,7 @@ class QuestionController extends Controller
     public function user_questions($id){
         function getData($query, $id_user){
             $questions = DB::table('variabel_kuisioner_target_rr_answer')
+            ->select("answer")
             ->where([
                 ['id_user','=',$id_user],
                 ['flag','=',1],
