@@ -153,7 +153,7 @@ class QuestionController extends Controller
             ])
             ->get()->toArray();
 
-            if ($count(questions) > 0) {
+            if (count($questions) > 0) {
                 $res = $questions[0]->answer."%";
             } else {
                 $res = $questions;
