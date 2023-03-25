@@ -153,9 +153,7 @@ class QuestionController extends Controller
             ])
             ->get()->toArray()[0];
 
-            die(var_dump($questions));
-
-            return $questions[0]["answer"]."%";
+            return $questions->answer."%";
             
         }
 
