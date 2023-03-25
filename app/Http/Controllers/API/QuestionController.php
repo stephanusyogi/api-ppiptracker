@@ -153,14 +153,62 @@ class QuestionController extends Controller
             ->get()->toArray();
 
             return $questions;
+            
         }
 
-        die(var_dump(getData("BEKERJA_KONSUMSI", $id)));
+        $user_answer = array(
+            "GAJI" => getData("GAJI", $id),
+            "BEKERJA_TOTAL_PENGELUARAN" => getData("BEKERJA_TOTAL_PENGELUARAN", $id),
+            "PENSIUN_TOTAL_PENGELUARAN" => getData("PENSIUN_TOTAL_PENGELUARAN", $id),
+            "TARGET_RR" => getData("TARGET_RR", $id),
+            "FREE_CASHFLOW" => getData("FREE_CASHFLOW", $id),
+            "KONSUMSI" => array(
+                "BEKERJA_KONSUMSI" => getData("BEKERJA_KONSUMSI", $id),
+                "PENSIUN_KONSUMSI" => getData("PENSIUN_KONSUMSI", $id),
+            ),
+            "UTILITIES" => array(
+                "BEKERJA_UTILITIES" => getData("BEKERJA_UTILITIES", $id),
+                "PENSIUN_UTILITIES" => getData("PENSIUN_UTILITIES", $id),
+            ),
+            "TRANSPORTASI" => array(
+                "BEKERJA_TRANSPORTASI" => getData("BEKERJA_TRANSPORTASI", $id),
+                "PENSIUN_TRANSPORTASI" => getData("PENSIUN_TRANSPORTASI", $id),
+            ),
+            "CICILAN" => array(
+                "BEKERJA_CICILAN" => getData("BEKERJA_CICILAN", $id),
+                "PENSIUN_CICILAN" => getData("PENSIUN_CICILAN", $id),
+            ),
+            "IBADAH" => array(
+                "BEKERJA_IBADAH" => getData("BEKERJA_IBADAH", $id),
+                "PENSIUN_IBADAH" => getData("PENSIUN_IBADAH", $id),
+            ),
+            "PENDIDIKAN" =>array(
+                "BEKERJA_PENDIDIKAN" => getData("BEKERJA_PENDIDIKAN", $id),
+                "PENSIUN_PENDIDIKAN" => getData("PENSIUN_PENDIDIKAN", $id),
+            ),
+            "KESEHATAN" =>array(
+                "BEKERJA_KESEHATAN" => getData("BEKERJA_KESEHATAN", $id),
+                "PENSIUN_KESEHATAN" => getData("PENSIUN_KESEHATAN", $id),
+            ),
+            "HIBURAN" => array(
+                "BEKERJA_HIBURAN" => getData("BEKERJA_HIBURAN", $id),
+                "PENSIUN_HIBURAN" => getData("PENSIUN_HIBURAN", $id),
+            ),
+            "INVESTASI" => array(
+                "BEKERJA_INVESTASI" => getData("BEKERJA_INVESTASI", $id),
+                "PENSIUN_INVESTASI" => getData("PENSIUN_INVESTASI", $id),
+            ),
+            "LAIN" => array(
+                "BEKERJA_LAIN" => getData("BEKERJA_LAIN", $id),
+                "PENSIUN_LAIN" => getData("PENSIUN_LAIN", $id),
+            ),
+            
+        );
         
         return response()->json([
             'status' => true,
             'message' => 'List User Answers',
-            'data' => $questions
+            'data' => $user_answer
         ],200);
     }
 
