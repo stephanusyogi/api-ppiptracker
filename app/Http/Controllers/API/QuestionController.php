@@ -144,14 +144,14 @@ class QuestionController extends Controller
 
     public function user_questions($id){
         $questions = DB::table('question_answers')
-        ->leftJoin('questions', 'question_answers.id_question', '=', 'questions.id')
-        // ->rightJoin('users', 'question_answers.id_user', '=', 'users.id')
         ->where('id_user','=',$id)
-        ->get();
+        ->get()->toArray();
+        
+        die(var_dump($questions));
         
         return response()->json([
             'status' => true,
-            'message' => 'List Questions User',
+            'message' => 'List User Answers',
             'data' => $questions
         ],200);
     }
