@@ -53,7 +53,9 @@ class AuthController extends Controller
                 'message' => 'Already Verified'
             ];
         }else{
-            $request->user()->sendEmailVerificationNotification();
+            $res = $request->user()->sendEmailVerificationNotification();
+            echo json_encode($res, true);
+            die();
             
             return[
                 'status' => true,
