@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
 });
 
 // Verifikasi Email
-Route::get('/email/verify', [AuthController::class, 'sendVerificationEmail'])->middleware('auth:web,api');
+Route::post('/email/verify', [AuthController::class, 'sendVerificationEmail'])->middleware('auth:web,api');
 
 Route::get('/email/checkverified', [AuthController::class, 'checkVerifiedEmail'])->middleware('auth:web,api');
 
