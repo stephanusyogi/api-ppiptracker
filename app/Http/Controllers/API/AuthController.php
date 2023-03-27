@@ -54,6 +54,8 @@ class AuthController extends Controller
             ];
         }else{
             $res = $request->user()->sendEmailVerificationNotification();
+            echo json_encode($res, true);
+            die();
             
             return[
                 'status' => true,
