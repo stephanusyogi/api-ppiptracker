@@ -68,6 +68,6 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
         'status' => true,
         'message' => 'Verified'
     ], 200);
-})->middleware(['auth:web,api', 'signed'])->name('verification.verify');
+})->middleware(['auth:web,api'])->name('verification.verify');
 
 require __DIR__ . '/admin.php';
