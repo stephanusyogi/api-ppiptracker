@@ -34,7 +34,7 @@ class UserController extends Controller
         }
 
         // $users = $query->latest()->paginate($per_page ? $per_page : 2);
-        $users = $query->latest();
+        $users = $query->all();
 
         return new UserResource(true, 'List Data Users!', $users);
     }
