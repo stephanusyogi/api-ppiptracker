@@ -33,7 +33,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'no_hp' => $request->no_hp,
-            'tgl_registrasi' => $date = date('YYYY-MM-DD'),
+            'tgl_registrasi' => $date = date('Y-m-d'),
             'inactive' => 0,
         ]);
 
