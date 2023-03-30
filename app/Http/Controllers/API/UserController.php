@@ -33,7 +33,8 @@ class UserController extends Controller
             ->orWhere('usia_pensiun','LIKE','%'.$search.'%');
         }
 
-        $users = $query->latest()->paginate($per_page ? $per_page : 2);
+        // $users = $query->latest()->paginate($per_page ? $per_page : 2);
+        $users = $query->latest();
 
         return new UserResource(true, 'List Data Users!', $users);
     }
