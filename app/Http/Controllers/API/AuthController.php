@@ -11,7 +11,6 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Validator;
 
-
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -65,17 +64,20 @@ class AuthController extends Controller
 
     public function checkVerifiedEmail(Request $request)
     {
-        if($request->user()->hasVerifiedEmail()){
+        // if($request->user()->hasVerifiedEmail()){
+        //     return[
+        //         'status' => true,
+        //         'message' => 'Already Verified'
+        //     ];
+        // }else{
+        //     return[
+        //         'status' => false,
+        //         'message' => 'Not Verified'
+        //     ];
+        // }
             return[
-                'status' => true,
-                'message' => 'Already Verified'
+                'user' =>  $request->user()
             ];
-        }else{
-            return[
-                'status' => false,
-                'message' => 'Not Verified'
-            ];
-        }
         
     }
 
