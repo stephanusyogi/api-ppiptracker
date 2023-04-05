@@ -33,9 +33,9 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
 Route::group(['middleware' => ['auth:sanctum','verified']], function(){
-    
-    Route::get('/logout', [AuthController::class, 'logout']);
 
     Route::apiResources([
         '/user' => UserController::class,
