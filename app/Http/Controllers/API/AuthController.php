@@ -96,10 +96,6 @@ class AuthController extends Controller
                 'message' => 'Unauthorized'
             ]);
         }
-        
-        if(auth('web')->check()){
-            Auth::user()->tokens()->delete();
-        }
 
         $user = User::where('email', $request->email)->firstOrFail();
 
@@ -117,7 +113,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         // Auth::guard('api')->user()->tokens()->delete();
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
         return response()->json([
             'status' => true,
             'message' => 'Logout Success'
