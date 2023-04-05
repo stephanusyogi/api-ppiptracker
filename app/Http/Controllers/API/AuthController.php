@@ -64,20 +64,17 @@ class AuthController extends Controller
 
     public function checkVerifiedEmail(Request $request)
     {
-        // if($request->user()->hasVerifiedEmail()){
-        //     return[
-        //         'status' => true,
-        //         'message' => 'Already Verified'
-        //     ];
-        // }else{
-        //     return[
-        //         'status' => false,
-        //         'message' => 'Not Verified'
-        //     ];
-        // }
+        if($request->user()->hasVerifiedEmail()){
             return[
-                'user' =>  $request->user()
+                'status' => true,
+                'message' => 'Already Verified'
             ];
+        }else{
+            return[
+                'status' => false,
+                'message' => 'Not Verified'
+            ];
+        }
         
     }
 
@@ -112,8 +109,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Auth::guard('api')->user()->tokens()->delete();
-        $request->user()->tokens()->delete();
+        $request->user()->currentAccessToken()->delete();
         return response()->json([
             'status' => true,
             'message' => 'Logout Success'
