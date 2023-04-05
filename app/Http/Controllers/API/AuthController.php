@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -95,6 +96,13 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
+        
+        $oldTokens = PersonalAccessToken::where('tokenable_id', $user->id)->get();
+        if (isset($oldTokens)) {
+            foreach ($oldTokens as $oldToken) {
+                $oldToken->delete();
+            }
+        }
 
         $token = $user->createToken('token-auth')->plainTextToken;
         
