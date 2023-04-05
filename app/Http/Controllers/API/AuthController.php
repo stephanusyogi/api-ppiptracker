@@ -100,7 +100,7 @@ class AuthController extends Controller
         // if(auth('web')->check()){
         //     Auth::guard('web')->user()->tokens()->delete();
         // }
-        Auth::guard('web')->user()->tokens()->delete();
+        Auth::guard('api')->user()->tokens()->delete();
 
         $user = User::where('email', $request->email)->firstOrFail();
 
