@@ -87,9 +87,9 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
         
-        $user = User::where('email', $request->email)->firstOrFail();
-        
-        if ($user) {
+        $user = User::where('email', $request->email)->first();
+
+        if ($user !== null) {
             echo json_encode($user, true);
         } else {
             echo "kosong";
