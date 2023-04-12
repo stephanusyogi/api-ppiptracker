@@ -11,6 +11,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -85,17 +86,18 @@ class AuthController extends Controller
             'email' => 'required|email|string',
             'password' => 'required|string',
         ]);
+        
+        $user = User::where('email', $request->email)->firstOrFail();
 
-        if (!Auth::guard('web')->attempt(
-            $request->only('email', 'password')
-        )) {
+        echo json_encode($user, true);
+        die();
+
+        if (!Auth::guard('web')->attempt($request->only('email', 'password'))) {
             return response()->json([
                 'status' => false,
                 'message' => 'Unauthorized'
             ]);
         }
-
-        $user = User::where('email', $request->email)->firstOrFail();
         
         $oldTokens = PersonalAccessToken::where('tokenable_id', $user->id)->get();
         if (isset($oldTokens)) {
@@ -113,7 +115,6 @@ class AuthController extends Controller
             'token_type' => 'Bearer'
         ]);
     }
-
 
     public function logout(Request $request)
     {
