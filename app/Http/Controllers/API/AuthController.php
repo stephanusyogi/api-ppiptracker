@@ -88,8 +88,13 @@ class AuthController extends Controller
         ]);
         
         $user = User::where('email', $request->email)->firstOrFail();
-
-        echo json_encode($user, true);
+        
+        if ($user) {
+            echo json_encode($user, true);
+        } else {
+            echo "kosong";
+        }
+        
         die();
 
         if (!Auth::guard('web')->attempt($request->only('email', 'password'))) {
