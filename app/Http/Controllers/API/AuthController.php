@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -90,35 +91,52 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user !== null) {
-            echo json_encode($user, true);
-        } else {
-            echo "kosong";
-        }
-        
-        die();
+            if (!Auth::guard('web')->attempt($request->only('email', 'password'))) {
+                DB::table('activity_login')->insert([
+                    'id' => (string) Str::uuid(),
+                    'id_user' => $user->id,
+                    'browser' => "Chrome 111.0.0.0",
+                    'sistem_operasi' => "Windows 10",
+                    'ip_address' => "104.237.198.198",
+                    'status' => 0,
+                ]);
 
-        if (!Auth::guard('web')->attempt($request->only('email', 'password'))) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Unauthorized'
+                ]);
+            }else{
+                
+                DB::table('activity_login')->insert([
+                    'id' => (string) Str::uuid(),
+                    'id_user' => $user->id,
+                    'browser' => "Chrome 111.0.0.0",
+                    'sistem_operasi' => "Windows 10",
+                    'ip_address' => "104.237.198.198",
+                    'status' => 1,
+                ]);
+
+                $oldTokens = PersonalAccessToken::where('tokenable_id', $user->id)->get();
+                if (isset($oldTokens)) {
+                    foreach ($oldTokens as $oldToken) {
+                        $oldToken->delete();
+                    }
+                }
+                $token = $user->createToken('token-auth')->plainTextToken;
+                
+                return response()->json([
+                    'status' => true,
+                    'data' => $user,
+                    'access_token' => $token,
+                    'token_type' => 'Bearer'
+                ]);
+            }
+        } else {
             return response()->json([
                 'status' => false,
                 'message' => 'Unauthorized'
             ]);
         }
-        
-        $oldTokens = PersonalAccessToken::where('tokenable_id', $user->id)->get();
-        if (isset($oldTokens)) {
-            foreach ($oldTokens as $oldToken) {
-                $oldToken->delete();
-            }
-        }
-
-        $token = $user->createToken('token-auth')->plainTextToken;
-        
-        return response()->json([
-            'status' => true,
-            'data' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer'
-        ]);
     }
 
     public function logout(Request $request)
