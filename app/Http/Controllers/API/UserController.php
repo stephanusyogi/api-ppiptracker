@@ -163,6 +163,8 @@ class UserController extends Controller
         $empty_status = false;
         
         $data_check = array(
+            'nip' => $user['nip'],
+            'satker' => $user['satker'],
             'tgl_lahir' => $user['tgl_lahir'],
             'tgl_diangkat_pegawai' => $user['tgl_diangkat_pegawai'],
             'usia_diangkat_tahun' => $user['usia_diangkat_tahun'],
