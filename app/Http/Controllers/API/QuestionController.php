@@ -237,7 +237,7 @@ class QuestionController extends Controller
         ],200);
     }
 
-    public function add_activity(){
+    public function add_activity(Request $request){
         DB::table('activity_update_kuisioner')->insert([
             'id' => (string) Str::uuid(),
             'id_user' => $request->id_user,
