@@ -54,6 +54,8 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
     Route::get('/user-answer-question/{id}', [QuestionController::class, 'user_questions']);
 
     Route::get('/kuisioner', [QuestionController::class, 'get_kuisioner']);
+
+    Route::post('/kuisioner-activity', [QuestionController::class, 'add_activity']);
 });
 
 // Verifikasi Email

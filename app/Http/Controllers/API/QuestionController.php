@@ -237,5 +237,20 @@ class QuestionController extends Controller
         ],200);
     }
 
+    public function add_activity(){
+        DB::table('activity_update_kuisioner')->insert([
+            'id' => (string) Str::uuid(),
+            'id_user' => $user->id,
+            'browser' => $request->browser,
+            'sistem_operasi' => $request->sistem_operasi,
+            'ip_address' => $request->ip_address,
+        ]);
+        
+        return response()->json([
+            'status' => true,
+            'message' => 'Activity Added',
+        ],200);
+    }
+
 }
 
