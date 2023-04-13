@@ -240,7 +240,7 @@ class QuestionController extends Controller
     public function add_activity(){
         DB::table('activity_update_kuisioner')->insert([
             'id' => (string) Str::uuid(),
-            'id_user' => $user->id,
+            'id_user' => $request->id_user,
             'browser' => $request->browser,
             'sistem_operasi' => $request->sistem_operasi,
             'ip_address' => $request->ip_address,
