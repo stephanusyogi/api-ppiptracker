@@ -95,9 +95,9 @@ class AuthController extends Controller
                 DB::table('activity_login')->insert([
                     'id' => (string) Str::uuid(),
                     'id_user' => $user->id,
-                    'browser' => "Chrome 111.0.0.0",
-                    'sistem_operasi' => "Windows 10",
-                    'ip_address' => "104.237.198.198",
+                    'browser' => $request->browser,
+                    'sistem_operasi' => $request->sistem_operasi,
+                    'ip_address' => $request->ip_address,
                     'status' => 0,
                 ]);
 
@@ -110,9 +110,9 @@ class AuthController extends Controller
                 DB::table('activity_login')->insert([
                     'id' => (string) Str::uuid(),
                     'id_user' => $user->id,
-                    'browser' => "Chrome 111.0.0.0",
-                    'sistem_operasi' => "Windows 10",
-                    'ip_address' => "104.237.198.198",
+                    'browser' => $request->browser,
+                    'sistem_operasi' => $request->sistem_operasi,
+                    'ip_address' => $request->ip_address,
                     'status' => 1,
                 ]);
 
