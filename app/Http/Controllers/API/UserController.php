@@ -104,29 +104,6 @@ class UserController extends Controller
     // Update User
     public function update(Request $request, User $user)
     {
-        //define validation rules
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|string',
-            'email' => 'required|email|string',
-            'nip' => 'required|string',
-            'tgl_lahir' => 'required|date',
-            'usia_pensiun' => 'required|integer',
-            'jenis_pensiun' => 'required|string',
-            'no_hp' => 'required|string',
-            'return_cluster1' => 'required|string',
-            'return_cluster2' => 'required|string',
-            'return_cluster3' => 'required|string',
-            'return_cluster4' => 'required|string',
-            'return_cluster5' => 'required|string',
-            'return_cluster6' => 'required|string',
-            'return_cluster7' => 'required|string',
-        ]);
-
-        //check if validation fails
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
         if (password_get_info($request->password)['algoName'] !== 'unknown') {
             $newPassword = $request->password;
         }else{
@@ -134,25 +111,32 @@ class UserController extends Controller
         }
 
         $user->update([
-            'name' => $request->name,
+            'nama' => $request->nama,
             'email' => $request->email,
             'password' => $newPassword,
-            'nip' => $request->nip,
-            'tgl_lahir' => $request->tgl_lahir,
-            'usia_pensiun' => $request->usia_pensiun,
-            'jenis_pensiun' => $request->jenis_pensiun,
             'no_hp' => $request->no_hp,
-            'gaji' => $request->gaji,
+            'nip' => $request->nip,
+            'satker' => $request->satker,
+            'tgl_lahir' => $request->tgl_lahir,
+            'tgl_diangkat_pegawai' => $request->tgl_diangkat_pegawai,
+            'usia_diangkat_pegawai' => $request->usia_diangkat_pegawai,
+            'usia_diangkat_bulan' => $request->usia_diangkat_bulan,
+            'usia_pensiun' => $request->usia_pensiun,
+            'tgl_registrasi' => $request->tgl_registrasi,
+            'layer_ppmp' => $request->layer_ppmp,
+            'layer_ppip' => $request->layer_ppip,
+            'layer_personal' => $request->layer_personal,
+            'terdapat_investasi_pensiun' => $request->terdapat_investasi_pensiun,
+            'jumlah_investasi_keuangan' => $request->jumlah_investasi_keuangan,
+            'jumlah_investasi_properti' => $request->jumlah_investasi_properti,
+            'sewa_properti' => $request->sewa_properti,
+            'kenaikan_properti' => $request->kenaikan_properti,
+            'kenaikan_sewa' => $request->kenaikan_sewa,
+            'rencana_penambahan_saldo_bulan_ini' => $request->rencana_penambahan_saldo_bulan_ini,
+            'penambahan_saldo_tentative_personal_keuangan' => $request->penambahan_saldo_tentative_personal_keuangan,
+            'penambahan_saldo_tentative_personal_properti' => $request->penambahan_saldo_tentative_personal_properti,
             'saldo_ppip' => $request->saldo_ppip,
-            'return_cluster1' => $request->return_cluster1,
-            'return_cluster2' => $request->return_cluster2,
-            'return_cluster3' => $request->return_cluster3,
-            'return_cluster4' => $request->return_cluster4,
-            'return_cluster5' => $request->return_cluster5,
-            'return_cluster6' => $request->return_cluster6,
-            'return_cluster7' => $request->return_cluster7,
         ]);
-
 
         //return response
         return new UserResource(true, 'Data User Berhasil Diubah!', $user);
