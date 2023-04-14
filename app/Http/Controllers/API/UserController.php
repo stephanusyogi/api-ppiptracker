@@ -119,7 +119,7 @@ class UserController extends Controller
             'satker' => $request->satker,
             'tgl_lahir' => $request->tgl_lahir,
             'tgl_diangkat_pegawai' => $request->tgl_diangkat_pegawai,
-            'usia_diangkat_pegawai' => $request->usia_diangkat_pegawai,
+            'usia_diangkat_tahun' => $request->usia_diangkat_tahun,
             'usia_diangkat_bulan' => $request->usia_diangkat_bulan,
             'usia_pensiun' => $request->usia_pensiun,
             'tgl_registrasi' => $request->tgl_registrasi,
