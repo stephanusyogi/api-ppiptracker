@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
         '/user' => UserController::class,
     ]);
 
-    Route::get('/change-password', [UserController::class, 'changePassword']);
+    Route::post('/change-password', [UserController::class, 'changePassword']);
 
     Route::get('/check-data-empty/{id}', [UserController::class, 'checkDataEmpty']);
 
