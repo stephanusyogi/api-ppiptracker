@@ -161,7 +161,7 @@ class UserController extends Controller
             'ip_address' => $request->ip_address,
         ]);
 
-        Flight::where('id', $request->id_user)->update(['password' => Hash::make($request->new_password)]);
+        User::where('id', $request->id_user)->update(['password' => Hash::make($request->new_password)]);
 
         return response()->json([
             'status' => true,
