@@ -28,6 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'no_hp',
+        'nip',
+        'satker',
         'tgl_lahir',
         'tgl_diangkat_pegawai',
         'usia_diangkat_tahun',
