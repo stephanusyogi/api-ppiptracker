@@ -104,6 +104,14 @@ class UserController extends Controller
     // Update User
     public function update(Request $request, User $user)
     {
+        DB::table('activity_update_biodata')->insert([
+            'id' => (string) Str::uuid(),
+            'id_user' => $request->id_user,
+            'browser' => $request->browser,
+            'sistem_operasi' => $request->sistem_operasi,
+            'ip_address' => $request->ip_address,
+        ]);
+
         if (password_get_info($request->password)['algoName'] !== 'unknown') {
             $newPassword = $request->password;
         }else{
