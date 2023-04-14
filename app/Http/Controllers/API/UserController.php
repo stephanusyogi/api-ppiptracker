@@ -151,6 +151,24 @@ class UserController extends Controller
         return new UserResource(true, 'Data User Berhasil Diubah!', $user);
     }
 
+    public function changePassword(Request $request){
+        
+        DB::table('activity_ubah_password')->insert([
+            'id' => (string) Str::uuid(),
+            'id_user' => $request->id_user,
+            'browser' => $request->browser,
+            'sistem_operasi' => $request->sistem_operasi,
+            'ip_address' => $request->ip_address,
+        ]);
+
+        Flight::where('id', $request->id_user)->update(['password' => Hash::make($request->new_password)]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Passsword Diperbarui!'
+        ]);
+    }
+
     public function checkDataEmpty($id){
         $user = User::find($id);
         $empty_status = false;
