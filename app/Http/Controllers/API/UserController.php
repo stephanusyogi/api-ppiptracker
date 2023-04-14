@@ -166,15 +166,7 @@ class UserController extends Controller
             'layer_ppmp' => $user['layer_ppmp'],
             'layer_ppip' => $user['layer_ppip'],
             'layer_personal' => $user['layer_personal'],
-            'terdapat_investasi_pensiun' => $user['terdapat_investasi_pensiun'],
-            'jumlah_investasi_keuangan' => $user['jumlah_investasi_keuangan'],
-            'jumlah_investasi_properti' => $user['jumlah_investasi_properti'],
-            'sewa_properti' => $user['sewa_properti'],
-            'kenaikan_properti' => $user['kenaikan_properti'],
-            'kenaikan_sewa' => $user['kenaikan_sewa'],
             'rencana_penambahan_saldo_bulan_ini' => $user['rencana_penambahan_saldo_bulan_ini'],
-            'penambahan_saldo_tentative_personal_keuangan' => $user['penambahan_saldo_tentative_personal_keuangan'],
-            'penambahan_saldo_tentative_personal_properti' => $user['penambahan_saldo_tentative_personal_properti'],
             'saldo_ppip' => $user['saldo_ppip'],
         );
         
