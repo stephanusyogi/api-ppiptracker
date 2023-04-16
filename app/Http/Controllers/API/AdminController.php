@@ -19,6 +19,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $query = Admin::query();
+        $res = Admin::all();
         $sort_field = $request->input('sort_field');
         $sort_order = $request->input('sort_order');
         $search = $request->input('search');
@@ -36,7 +37,7 @@ class AdminController extends Controller
 
         $admins = $query->latest()->paginate($per_page ? $per_page : 2);
 
-        return new AdminResource(true, 'List Data Admins!', $admins);
+        return new AdminResource(true, 'List Data Admins!', $res);
     }
 
     public function checktoken(Request $request){
