@@ -24,4 +24,20 @@ class SettingController extends Controller
         "data" => $setting_nilai_asumsi
     ],200);
   }
+  public function setting_nilai_asumsi_add(Request $request){
+  $affected = DB::table('nilai_asumsi_admin')
+    ->where('id', $request->id)
+    ->update([
+      'kenaikan_gaji' => $request->kenaikan_gaji,
+      'kenaikan_phdp' => $request->kenaikan_phdp,
+      'iuran_ppip' => $request->iuran_ppip,
+      'dasar_pembayaran_iuran_personal' => $request->dasar_pembayaran_iuran_personal,
+      'inflasi_jangka_panjang' => $request->inflasi_jangka_panjang,
+    ]);
+  return response()->json([
+      "status" =>true,
+      "message"=>"Setting Nilai Asumsi Updated!",
+      "data" => $affected
+  ],200);
+  }
 }
