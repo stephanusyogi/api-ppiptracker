@@ -24,7 +24,7 @@ class SettingController extends Controller
         "data" => $setting_nilai_asumsi
     ],200);
   }
-  public function setting_nilai_asumsi_add(Request $request){
+  public function setting_nilai_asumsi_update(Request $request){
   $affected = DB::table('nilai_asumsi_admin')
     ->where('id', $request->id)
     ->update([
