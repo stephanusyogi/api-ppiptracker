@@ -48,7 +48,7 @@ class SettingController extends Controller
     $id = $request->input('id');
     if ($id) {
       $setting_ppip = DB::table('setting_portofolio_ppip_admin')
-      ->select('*')->where('id', $is)->get();
+      ->select('*')->where('id', $id)->get();
   
       return response()->json([
           "status" =>true,
