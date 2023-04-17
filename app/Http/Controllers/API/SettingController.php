@@ -41,7 +41,7 @@ class SettingController extends Controller
     ],200);
   }
 
-  public function setting_ppip(){
+  public function setting_ppip(Request $request){
     $opsi = DB::table('setting_portofolio_ppip_admin')
     ->select('id','nama_portofolio')->get();
 
