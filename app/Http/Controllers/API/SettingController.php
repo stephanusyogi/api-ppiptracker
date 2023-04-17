@@ -42,18 +42,31 @@ class SettingController extends Controller
   }
 
   public function setting_ppip(){
-    $setting_ppip = DB::table('setting_portofolio_ppip_admin')
-    ->select('*')->get();
-
     $opsi = DB::table('setting_portofolio_ppip_admin')
     ->select('id','nama_portofolio')->get();
 
-    return response()->json([
-        "status" =>true,
-        "message"=>"Lists Setting PPIP!",
-        "opsi" => $opsi,
-        "data" => $setting_ppip
-    ],200);
+    $id = $request->input('id');
+    if ($id) {
+      $setting_ppip = DB::table('setting_portofolio_ppip_admin')
+      ->select('*')->where('id', $is)->get();
+  
+      return response()->json([
+          "status" =>true,
+          "message"=>"Lists Setting PPIP!",
+          "opsi" => $opsi,
+          "data" => $setting_ppip
+      ],200);
+    } else {
+      $setting_ppip = DB::table('setting_portofolio_ppip_admin')
+      ->select('*')->get();
+  
+      return response()->json([
+          "status" =>true,
+          "message"=>"Lists Setting PPIP!",
+          "opsi" => $opsi,
+          "data" => $setting_ppip
+      ],200);
+    }
   }
   public function setting_ppip_add(Request $request){
     DB::table('setting_portofolio_ppip_admin')->insert([
