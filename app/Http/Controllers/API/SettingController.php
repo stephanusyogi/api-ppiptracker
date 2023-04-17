@@ -46,7 +46,7 @@ class SettingController extends Controller
     ->select('*')->get();
 
     $opsi = DB::table('setting_portofolio_ppip_admin')
-    ->select('nama_portofolio')->get();
+    ->select('id','nama_portofolio')->get();
 
     return response()->json([
         "status" =>true,
