@@ -135,7 +135,7 @@ class SettingController extends Controller
       // ->select('*')->get();
 
     $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
-    ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.setting_komposisi_investasi_lifecycle_fund_admin', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id')
+    ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
     ->groupBy('setting_portofolio_personal_admin.id')
     ->get();
 
