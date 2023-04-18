@@ -80,16 +80,14 @@ class SettingController extends Controller
         'resiko_deposito' => $request->resiko_deposito,
         'korelasi_saham_pendapatan_tetap' => $request->korelasi_saham_pendapatan_tetap,
         'korelasi_saham_deposito' => $request->korelasi_saham_deposito,
-        'korelasi_pendapatan_tetap_deposito	' => $request->korelasi_pendapatan_tetap_deposito,
-        'tranche_investasi_saham	' => $request->tranche_investasi_saham,
-        'tranche_investasi_pendapatan_tetap		' => $request->tranche_investasi_pendapatan_tetap	,
-        'tranche_investasi_deposito	' => $request->tranche_investasi_deposito,
-        'tranche_likuiditas_saham	' => $request->tranche_likuiditas_saham,
-        'tranche_likuiditas_pendapatan_tetap		' => $request->tranche_likuiditas_pendapatan_tetap,
-        'tranche_likuiditas_deposito		' => $request->tranche_likuiditas_deposito,
-        'return_portofolio_tranche_investasi		' => $request->return_portofolio_tranche_investasi,
-        'return_portofolio_tranche_likuiditas		' => $request->return_portofolio_tranche_likuiditas,
-        'flag		' => 1,
+        'korelasi_pendapatan_tetap_deposito' => $request->korelasi_pendapatan_tetap_deposito,
+        'tranche_investasi_saham' => $request->tranche_investasi_saham,
+        'tranche_investasi_pendapatan_tetap' => $request->tranche_investasi_pendapatan_tetap,
+        'tranche_investasi_deposito' => $request->tranche_investasi_deposito,
+        'tranche_likuiditas_saham' => $request->tranche_likuiditas_saham,
+        'tranche_likuiditas_pendapatan_tetap' => $request->tranche_likuiditas_pendapatan_tetap,
+        'tranche_likuiditas_deposito' => $request->tranche_likuiditas_deposito,
+        'flag' => 1,
     ]);
     
     return response()->json([
@@ -111,20 +109,60 @@ class SettingController extends Controller
         'resiko_deposito' => $request->resiko_deposito,
         'korelasi_saham_pendapatan_tetap' => $request->korelasi_saham_pendapatan_tetap,
         'korelasi_saham_deposito' => $request->korelasi_saham_deposito,
-        'korelasi_pendapatan_tetap_deposito	' => $request->korelasi_pendapatan_tetap_deposito,
-        'tranche_investasi_saham	' => $request->tranche_investasi_saham,
-        'tranche_investasi_pendapatan_tetap		' => $request->tranche_investasi_pendapatan_tetap	,
-        'tranche_investasi_deposito	' => $request->tranche_investasi_deposito,
-        'tranche_likuiditas_saham	' => $request->tranche_likuiditas_saham,
-        'tranche_likuiditas_pendapatan_tetap		' => $request->tranche_likuiditas_pendapatan_tetap,
-        'tranche_likuiditas_deposito		' => $request->tranche_likuiditas_deposito,
-        'return_portofolio_tranche_investasi		' => $request->return_portofolio_tranche_investasi,
-        'return_portofolio_tranche_likuiditas		' => $request->return_portofolio_tranche_likuiditas,
-        'flag		' => $request->flag,
+        'korelasi_pendapatan_tetap_deposito' => $request->korelasi_pendapatan_tetap_deposito,
+        'tranche_investasi_saham' => $request->tranche_investasi_saham,
+        'tranche_investasi_pendapatan_tetap' => $request->tranche_investasi_pendapatan_tetap,
+        'tranche_investasi_deposito' => $request->tranche_investasi_deposito,
+        'tranche_likuiditas_saham' => $request->tranche_likuiditas_saham,
+        'tranche_likuiditas_pendapatan_tetap' => $request->tranche_likuiditas_pendapatan_tetap,
+        'tranche_likuiditas_deposito' => $request->tranche_likuiditas_deposito,
+        'flag' => $request->flag,
       ]);
     return response()->json([
         "status" =>true,
         "message"=>"Setting Nilai Asumsi Diperbarui!",
     ],200);
+  }
+  
+  public function setting_personal_lifecycle(Request $request){
+    $opsi = DB::table('setting_portofolio_personal_admin')
+    ->select('id','nama_portofolio')->get();
+
+      // $setting_ppip = DB::table('setting_portofolio_ppip_admin')
+      // ->select('*')->get();
+
+    $setting_ppip = DB::table('setting_portofolio_ppip_admin')->select('*')
+    ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_ppip_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id')
+    ->groupBy('setting_portofolio_ppip_admin.id')
+    ->get();
+
+      return response()->json([
+          "status" =>true,
+          "message"=>"Lists Setting Personal Keuangan!",
+          "opsi" => $opsi,
+          "data" => $setting_ppip
+      ],200);
+    $id = $request->input('id');
+    // if ($id) {
+    //   $setting_personal = DB::table('setting_portofolio_ppip_admin')
+    //   ->select('*')->where('id', $id)->get();
+  
+    //   return response()->json([
+    //       "status" =>true,
+    //       "message"=>"Lists Setting Personal Keuangan!",
+    //       "opsi" => $opsi,
+    //       "data" => $setting_ppip
+    //   ],200);
+    // } else {
+    //   $setting_ppip = DB::table('setting_portofolio_ppip_admin')
+    //   ->select('*')->get();
+  
+    //   return response()->json([
+    //       "status" =>true,
+    //       "message"=>"Lists Setting Personal Keuangan!",
+    //       "opsi" => $opsi,
+    //       "data" => $setting_ppip
+    //   ],200);
+    // }
   }
 }

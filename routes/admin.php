@@ -19,6 +19,10 @@ Route::group(['middleware' => ['auth:admin,api-admin']], function(){
     Route::get('/setting-ppip/admin', [SettingController::class, 'setting_ppip']);
     Route::post('/setting-ppip/admin/add', [SettingController::class, 'setting_ppip_add']);
     Route::post('/setting-ppip/admin/update', [SettingController::class, 'setting_ppip_update']);
+    
+    Route::get('/setting-personal-lifecycle/admin', [SettingController::class, 'setting_personal_lifecycle']);
+    Route::post('/setting-personal-lifecycle/admin/add', [SettingController::class, 'setting_personal_lifecycle_add']);
+    Route::post('/setting-personal-lifecycle/admin/update', [SettingController::class, 'setting_personal_lifecycle_update']);
 
     Route::get('/logout-administrator', [AdminController::class, 'logout']);
     Route::get('/check-token', [AdminController::class, 'checktoken']);
