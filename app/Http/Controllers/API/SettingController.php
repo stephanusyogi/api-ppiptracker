@@ -137,11 +137,16 @@ class SettingController extends Controller
     $kunci_hapus = array("id", "nama", "flag", "created_at", "id_setting_portofolio_personal_admin");// Array baru untuk menampung nilai-nilai yang dihapus
     $array_info_record = array();
     // Menghapus kunci dari array asal dan menambahkan ke array baru
-    foreach ($setting_ppip[0] as $kunci => $nilai) {
-        if (!in_array($kunci, $kunci_hapus)) {
-            $array_info_record[$kunci] = $nilai;
-        }
+    foreach ($setting_ppip as $record) {
+      foreach ($kunci_hapus as $kunci) {
+          unset($record[$kunci]);
+      }
     }
+    // foreach ($setting_ppip[0] as $kunci => $nilai) {
+    //     if (!in_array($kunci, $kunci_hapus)) {
+    //         $array_info_record[$kunci] = $nilai;
+    //     }
+    // }
 
       return response()->json([
           "status" =>true,
