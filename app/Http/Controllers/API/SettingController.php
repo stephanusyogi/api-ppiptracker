@@ -144,7 +144,7 @@ class SettingController extends Controller
           "message"=>"Lists Setting Personal Keuangan!",
           "opsi" => $opsi,
           "data" => $setting_ppip,
-          "data2" => $setting_lifecycle,
+          // "data2" => $setting_lifecycle,
       ],200);
     $id = $request->input('id');
     // if ($id) {
