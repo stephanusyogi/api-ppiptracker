@@ -131,15 +131,15 @@ class SettingController extends Controller
     $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
     ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
     ->groupBy('setting_portofolio_personal_admin.id')
-    ->get()->toArray();
-    die(var_dump($setting_ppip));
+    ->get();
+    
     // hapus sementara
     $kunci_hapus = array("id", "nama", "flag", "created_at", "id_setting_portofolio_personal_admin");// Array baru untuk menampung nilai-nilai yang dihapus
     $array_info_record = array();
     // Menghapus kunci dari array asal dan menambahkan ke array baru
     foreach ($setting_ppip as $record) {
       foreach ($kunci_hapus as $kunci) {
-          unset($record[$kunci]);
+          unset($record->$kunci);
       }
     }
     // foreach ($setting_ppip[0] as $kunci => $nilai) {
