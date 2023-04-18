@@ -126,7 +126,7 @@ class SettingController extends Controller
   
   public function setting_personal_lifecycle(Request $request){
     $opsi = DB::table('setting_portofolio_personal_admin')
-    ->select('id','nama_portofolio')->get();
+    ->select('id','nama')->get();
 
       // $setting_ppip = DB::table('setting_portofolio_ppip_admin')
       // ->select('*')->get();
