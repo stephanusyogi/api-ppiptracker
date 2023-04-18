@@ -143,8 +143,6 @@ class SettingController extends Controller
         }
     }
 
-    unset($array["kunci1"]);
-
       return response()->json([
           "status" =>true,
           "message"=>"Lists Setting Personal Keuangan!",
