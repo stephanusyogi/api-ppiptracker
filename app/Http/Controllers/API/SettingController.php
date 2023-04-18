@@ -128,16 +128,22 @@ class SettingController extends Controller
     $opsi = DB::table('setting_portofolio_personal_admin')
     ->select('id','nama')->get();
 
-      // $setting_ppip = DB::table('setting_portofolio_personal_admin')
-      // ->select('*')->get();
-      
-      // $setting_lifecycle = DB::table('setting_komposisi_investasi_lifecycle_fund_admin')
-      // ->select('*')->get();
-
     $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
     ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
     ->groupBy('setting_portofolio_personal_admin.id')
     ->get();
+
+    // hapus sementara
+    $kunci_hapus = array("id", "nama", "flag", "created_at", "id_setting_portofolio_personal_admin");// Array baru untuk menampung nilai-nilai yang dihapus
+    $array_info_record = array();
+    // Menghapus kunci dari array asal dan menambahkan ke array baru
+    foreach ($setting_ppip[0] as $kunci => $nilai) {
+        if (!in_array($kunci, $kunci_hapus)) {
+            $array_info_record[$kunci] = $nilai;
+        }
+    }
+
+    unset($array["kunci1"]);
 
       return response()->json([
           "status" =>true,
