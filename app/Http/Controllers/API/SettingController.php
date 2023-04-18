@@ -128,19 +128,23 @@ class SettingController extends Controller
     $opsi = DB::table('setting_portofolio_personal_admin')
     ->select('id','nama')->get();
 
-      // $setting_ppip = DB::table('setting_portofolio_ppip_admin')
-      // ->select('*')->get();
+      $setting_ppip = DB::table('setting_portofolio_ppip_admin')
+      ->select('*')->get();
+      
+      $setting_lifecycle = DB::table('setting_komposisi_investasi_lifecycle_fund_admin')
+      ->select('*')->get();
 
-    $setting_ppip = DB::table('setting_portofolio_ppip_admin')->select('*')
-    ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_ppip_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id')
-    ->groupBy('setting_portofolio_ppip_admin.id')
-    ->get();
+    // $setting_ppip = DB::table('setting_portofolio_ppip_admin')->select('*')
+    // ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_ppip_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id')
+    // ->groupBy('setting_portofolio_ppip_admin.id')
+    // ->get();
 
       return response()->json([
           "status" =>true,
           "message"=>"Lists Setting Personal Keuangan!",
           "opsi" => $opsi,
-          "data" => $setting_ppip
+          "data" => $setting_ppip,
+          "data2" => $setting_lifecycle,
       ],200);
     $id = $request->input('id');
     // if ($id) {
