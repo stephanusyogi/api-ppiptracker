@@ -128,54 +128,31 @@ class SettingController extends Controller
     $opsi = DB::table('setting_portofolio_personal_admin')
     ->select('id','nama')->get();
 
-    $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
-    ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
-    ->groupBy('setting_portofolio_personal_admin.id')
-    ->get();
-    
-    // hapus sementara
-    $kunci_hapus = array("id", "nama", "flag", "created_at", "id_setting_portofolio_personal_admin");// Array baru untuk menampung nilai-nilai yang dihapus
-    $array_info_record = array();
-    // Menghapus kunci dari array asal dan menambahkan ke array baru
-    foreach ($setting_ppip as $record) {
-      foreach ($kunci_hapus as $kunci) {
-          unset($record->$kunci);
-      }
-    }
-    // foreach ($setting_ppip[0] as $kunci => $nilai) {
-    //     if (!in_array($kunci, $kunci_hapus)) {
-    //         $array_info_record[$kunci] = $nilai;
-    //     }
-    // }
-
+    $id = $request->input('id');
+    if ($id) {
+      $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
+      ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
+      ->groupBy('setting_portofolio_personal_admin.id')->where('setting_portofolio_personal_admin.id', $id)
+      ->get();
+  
       return response()->json([
           "status" =>true,
           "message"=>"Lists Setting Personal Keuangan!",
           "opsi" => $opsi,
-          "data" => $setting_ppip,
-          // "data2" => $setting_lifecycle,
+          "data" => $setting_ppip
       ],200);
-    $id = $request->input('id');
-    // if ($id) {
-    //   $setting_personal = DB::table('setting_portofolio_ppip_admin')
-    //   ->select('*')->where('id', $id)->get();
+    } else {
+      $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
+      ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
+      ->groupBy('setting_portofolio_personal_admin.id')
+      ->get();
   
-    //   return response()->json([
-    //       "status" =>true,
-    //       "message"=>"Lists Setting Personal Keuangan!",
-    //       "opsi" => $opsi,
-    //       "data" => $setting_ppip
-    //   ],200);
-    // } else {
-    //   $setting_ppip = DB::table('setting_portofolio_ppip_admin')
-    //   ->select('*')->get();
-  
-    //   return response()->json([
-    //       "status" =>true,
-    //       "message"=>"Lists Setting Personal Keuangan!",
-    //       "opsi" => $opsi,
-    //       "data" => $setting_ppip
-    //   ],200);
-    // }
+        return response()->json([
+            "status" =>true,
+            "message"=>"Lists Setting Personal Keuangan!",
+            "opsi" => $opsi,
+            "data" => $setting_ppip,
+        ],200);
+    }
   }
 }
