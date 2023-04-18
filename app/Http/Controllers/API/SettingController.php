@@ -132,7 +132,7 @@ class SettingController extends Controller
     ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
     ->groupBy('setting_portofolio_personal_admin.id')
     ->get()->toArray();
-
+    die(var_dump($setting_ppip));
     // hapus sementara
     $kunci_hapus = array("id", "nama", "flag", "created_at", "id_setting_portofolio_personal_admin");// Array baru untuk menampung nilai-nilai yang dihapus
     $array_info_record = array();
