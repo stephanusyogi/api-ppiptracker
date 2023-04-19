@@ -142,19 +142,24 @@ class SettingController extends Controller
           "data" => $setting_ppip
       ],200);
     } else {
-      // $setting_ppip = DB::table('setting_portofolio_personal_admin')
-      //   ->select('*')
-      //   ->selectRaw('(SELECT * FROM setting_komposisi_investasi_lifecycle_fund_admin WHERE setting_portofolio_personal_admin.id = setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin) AS komposisi_investasi')
-      //   ->groupBy('setting_portofolio_personal_admin.id')
-      //   ->where('setting_portofolio_personal_admin.id', $id)
-      //   ->get();
-
       $setting_ppip = DB::table('setting_portofolio_personal_admin')
-      ->select('*')
-      ->selectRaw('(SELECT * FROM setting_komposisi_investasi_lifecycle_fund_admin WHERE setting_portofolio_personal_admin.id = setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin) AS komposisi_investasi')
-      ->groupBy('setting_portofolio_personal_admin.id')
-      ->where('setting_portofolio_personal_admin.id', $id)
-      ->get();
+        ->select('*')
+        ->selectRaw('(SELECT id as id_komposisi_investasi, nama as nama_komposisi_investasi, saham_t1,saham_t2,saham_t3,
+        pendapatan_tetap_t1,pendapatan_tetap_t2,pendapatan_tetap_t3,
+        deposito_t1,deposito_t2,deposito_t3,
+        reksadana_saham_t1,reksadana_saham_t2,reksadana_saham_t1,
+        reksadana_pendapatan_tetap_t1,
+        reksadana_pendapatan_tetap_t2,
+        reksadana_pendapatan_tetap_t3,
+        reksadana_pasar_uang_t1,reksadana_pasar_uang_t2,reksadana_pasar_uang_t3, 
+        reksadana_campuran_t1, reksadana_campuran_t2,reksadana_campuran_t3,
+        return_portofolio_personal_t1, return_portofolio_personal_t2,return_portofolio_personal_t3,
+        resiko_pasar_portofolio_personal_t1, resiko_pasar_portofolio_personal_t2, resiko_pasar_portofolio_personal_t3, flag as flag_komposisi_investasi
+        FROM setting_komposisi_investasi_lifecycle_fund_admin WHERE setting_portofolio_personal_admin.id = setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin) AS komposisi_investasi')
+        ->groupBy('setting_portofolio_personal_admin.id')
+        ->where('setting_portofolio_personal_admin.id', $id)
+        ->get();
+        
       // $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
       // ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
       // ->groupBy('setting_portofolio_personal_admin.id')
