@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\SettingController;
-
+use App\Http\Controllers\API\PengumumanController;
 
 Route::post('/login-administrator', [AdminController::class, 'login']);
 
@@ -26,6 +26,10 @@ Route::group(['middleware' => ['auth:admin,api-admin']], function(){
     Route::get('/setting-personal-lifecycle/admin', [SettingController::class, 'setting_personal_lifecycle']);
     Route::post('/setting-personal-lifecycle/admin/add', [SettingController::class, 'setting_personal_lifecycle_add']);
     Route::post('/setting-personal-lifecycle/admin/update', [SettingController::class, 'setting_personal_lifecycle_update']);
+
+    Route::post('/pengumuman/add', [PengumumanController::class, 'store']);
+    Route::post('/pengumuman/update', [PengumumanController::class, 'update']);
+    Route::post('/pengumuman/delete', [PengumumanController::class, 'delete']);
 
     Route::get('/logout-administrator', [AdminController::class, 'logout']);
     Route::get('/check-token', [AdminController::class, 'checktoken']);
