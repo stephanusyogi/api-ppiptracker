@@ -131,4 +131,14 @@ class AdminController extends Controller
             'message' => 'Logout Success'
         ],200);
     }
+    
+    public function changePassword(Request $request){
+
+        Admin::where('id', $request->id_admin)->update(['password' => Hash::make($request->new_password)]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Passsword Diperbarui!'
+        ]);
+    }
 }

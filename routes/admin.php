@@ -11,7 +11,10 @@ Route::post('/login-administrator', [AdminController::class, 'login']);
 
 Route::group(['middleware' => ['auth:admin,api-admin']], function(){
     Route::apiResources(['/admin' => AdminController::class]);
+
     Route::apiResource('/question', QuestionController::class);
+
+    Route::post('/admin/change-password', [AdminController::class, 'changePassword']);
 
     Route::get('/setting-nilai-asumsi/admin', [SettingController::class, 'setting_nilai_asumsi']);
     Route::post('/setting-nilai-asumsi/admin/update', [SettingController::class, 'setting_nilai_asumsi_update']);
