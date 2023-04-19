@@ -130,16 +130,23 @@ class SettingController extends Controller
 
     $id = $request->input('id');
     if ($id) {
-      $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
-      ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
-      ->groupBy('setting_portofolio_personal_admin.id')->where('setting_portofolio_personal_admin.id', $id)
+      $setting_personal = DB::table('setting_portofolio_personal_admin')
+      ->select('*')
+      ->where('id', $id)
       ->get();
-  
+      $response = array();
+      foreach ($setting_personal as $row) {
+          $komposisi_investasi = DB::table('setting_komposisi_investasi_lifecycle_fund_admin')
+                                  ->where('id_setting_portofolio_personal_admin', $row->id)
+                                  ->get();
+          $row->komposisi_investasi = $komposisi_investasi;
+          $response[] = $row;
+      }
       return response()->json([
           "status" =>true,
           "message"=>"Lists Setting Personal Keuangan!",
           "opsi" => $opsi,
-          "data" => $setting_ppip
+          "data" => $response,
       ],200);
     } else {
       $setting_personal = DB::table('setting_portofolio_personal_admin')->select('*')->get();
