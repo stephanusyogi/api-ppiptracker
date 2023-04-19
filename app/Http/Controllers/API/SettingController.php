@@ -159,11 +159,6 @@ class SettingController extends Controller
         ->groupBy('setting_portofolio_personal_admin.id')
         ->where('setting_portofolio_personal_admin.id', $id)
         ->get();
-        
-      // $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
-      // ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
-      // ->groupBy('setting_portofolio_personal_admin.id')
-      // ->get();
   
         return response()->json([
             "status" =>true,
