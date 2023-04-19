@@ -142,13 +142,19 @@ class SettingController extends Controller
           "data" => $setting_ppip
       ],200);
     } else {
-      $setting_ppip = DB::table('setting_portofolio_personal_admin')
-        ->select('*')
-        ->selectRaw('(SELECT * FROM setting_komposisi_investasi_lifecycle_fund_admin WHERE setting_portofolio_personal_admin.id = setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin) AS komposisi_investasi')
-        ->groupBy('setting_portofolio_personal_admin.id')
-        ->where('setting_portofolio_personal_admin.id', $id)
-        ->get();
+      // $setting_ppip = DB::table('setting_portofolio_personal_admin')
+      //   ->select('*')
+      //   ->selectRaw('(SELECT * FROM setting_komposisi_investasi_lifecycle_fund_admin WHERE setting_portofolio_personal_admin.id = setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin) AS komposisi_investasi')
+      //   ->groupBy('setting_portofolio_personal_admin.id')
+      //   ->where('setting_portofolio_personal_admin.id', $id)
+      //   ->get();
 
+      $setting_ppip = DB::table('setting_portofolio_personal_admin')
+      ->select('*')
+      ->selectRaw('(SELECT * FROM setting_komposisi_investasi_lifecycle_fund_admin WHERE setting_portofolio_personal_admin.id = setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin) AS komposisi_investasi')
+      ->groupBy('setting_portofolio_personal_admin.id')
+      ->where('setting_portofolio_personal_admin.id', $id)
+      ->get();
       // $setting_ppip = DB::table('setting_portofolio_personal_admin')->select('*')
       // ->leftjoin('setting_komposisi_investasi_lifecycle_fund_admin', 'setting_portofolio_personal_admin.id', '=', 'setting_komposisi_investasi_lifecycle_fund_admin.id_setting_portofolio_personal_admin')
       // ->groupBy('setting_portofolio_personal_admin.id')
