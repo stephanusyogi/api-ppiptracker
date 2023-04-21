@@ -470,4 +470,29 @@ class SettingController extends Controller
         "message"=>"Setting Personal Diperbarui!",
     ],200);
   }
+
+  public function setting_personal_lifecycle_bukatutup_aset(Request $request){
+    $id = $request->input('id');
+    if ($id) {
+      DB::table('setting_portofolio_personal_aset_dibuka')
+        ->where('id', $id)
+        ->update([
+          'dibuka' => $request->dibuka,
+        ]);
+
+      return response()->json([
+          "status" =>true,
+          "message"=>"Setting Aset Updated!",
+      ],200);
+    } else {
+      $setting_aset = DB::table('setting_portofolio_personal_aset_dibuka')
+      ->select('*')->get();
+  
+      return response()->json([
+          "status" =>true,
+          "message"=>"Lists Setting Aset!",
+          "data" => $setting_aset
+      ],200);
+    }
+  }
 }
