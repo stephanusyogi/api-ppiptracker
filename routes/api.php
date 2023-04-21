@@ -8,6 +8,7 @@ use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\MontecarloController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\API\QuestionController;
+use App\Http\Controllers\API\PengumumanController;
 
 /*
 |--------------------------------------------------------------------------
