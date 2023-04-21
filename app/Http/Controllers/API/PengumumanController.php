@@ -38,7 +38,6 @@ class PengumumanController extends Controller
   public function store(Request $request){
     DB::table('pengumuman')->insert([
       'id' => (string) Str::uuid(),
-      'id_admin' => $request->id_admin,
       'judul' => $request->judul,
       'deskripsi' => $request->deskripsi,
     ]);
@@ -53,7 +52,6 @@ class PengumumanController extends Controller
     DB::table('pengumuman')
       ->where('id', $request->id)
       ->update([
-        'id_admin' => $request->id_admin,
         'judul' => $request->judul,
         'deskripsi' => $request->deskripsi,
     ]);
