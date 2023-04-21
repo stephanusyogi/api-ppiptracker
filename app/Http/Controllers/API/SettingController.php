@@ -277,8 +277,6 @@ class SettingController extends Controller
         'korelasi_r_pu_r_c_tranche3' => $request->korelasi_r_pu_r_c_tranche3,
         'flag' => 1,
     ]);
-    echo $id_setting_portofolio_personal_admin;
-    die();
 
     DB::table('setting_komposisi_investasi_lifecycle_fund_admin')->insert([
       'id' => (string) Str::uuid(),
