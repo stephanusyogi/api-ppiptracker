@@ -168,7 +168,7 @@ class SettingController extends Controller
   }
   public function setting_personal_lifecycle_add(Request $request){
     DB::table('setting_portofolio_personal_admin')->insertGetId([
-        'id' => $id_setting_portofolio_personal_admin,
+        'id' => (string) Str::uuid(),
         'nama' => $request->nama,
         'return_s_tranche1' => $request->return_s_tranche1,
         'return_s_tranche2' => $request->return_s_tranche2,
