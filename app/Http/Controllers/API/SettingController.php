@@ -281,9 +281,9 @@ class SettingController extends Controller
     $response = DB::table('setting_portofolio_personal_admin')
     ->select('id')
     ->where('nama', $request->nama)
-    ->get()->toArray();
+    ->get();
     // $array = get_object_vars($response);
-    var_dump($response);
+    // var_dump($response);
     var_dump($request->nama);
     die();
 
