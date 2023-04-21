@@ -167,9 +167,6 @@ class SettingController extends Controller
     }
   }
   public function setting_personal_lifecycle_add(Request $request){
-    $id_setting_portofolio_personal_admin = Str::uuid();
-    var_dump($id_setting_portofolio_personal_admin);
-    die();
     DB::table('setting_portofolio_personal_admin')->insertGetId([
         'id' => $id_setting_portofolio_personal_admin,
         'nama' => $request->nama,
@@ -280,9 +277,17 @@ class SettingController extends Controller
         'korelasi_r_pu_r_c_tranche3' => $request->korelasi_r_pu_r_c_tranche3,
         'flag' => 1,
     ]);
+    
+    $response = DB::table('setting_portofolio_personal_admin')
+    ->select('id')
+    ->where('nama', $request->nama)
+    ->get();
+    echo $response->id;
+    die();
+
     DB::table('setting_komposisi_investasi_lifecycle_fund_admin')->insert([
       'id' => (string) Str::uuid(),
-      'id_setting_portofolio_personal_admin' => $id_setting_portofolio_personal_admin,
+      'id_setting_portofolio_personal_admin' => $response->id,
       'nama' => $request->nama,
       'saham_t1' => $request->saham_t1,
       'saham_t2' => $request->saham_t2,
