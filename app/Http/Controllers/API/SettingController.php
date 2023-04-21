@@ -282,7 +282,8 @@ class SettingController extends Controller
     ->select('id')
     ->where('nama', $request->nama)
     ->get();
-    echo $response[0]['id'];
+    $result = json_decode($response, true);
+    echo $result[0];
     die();
 
     DB::table('setting_komposisi_investasi_lifecycle_fund_admin')->insert([
