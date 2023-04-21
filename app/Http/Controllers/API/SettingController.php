@@ -281,9 +281,9 @@ class SettingController extends Controller
     $response = DB::table('setting_portofolio_personal_admin')
     ->select('id')
     ->where('nama', $request->nama)
-    ->get();
-    $array = get_object_vars($response);
-    var_dump($array);
+    ->get()->toArray();
+    // $array = get_object_vars($response);
+    var_dump($response);
     die();
 
     DB::table('setting_komposisi_investasi_lifecycle_fund_admin')->insert([
