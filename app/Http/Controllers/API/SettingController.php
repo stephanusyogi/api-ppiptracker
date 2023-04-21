@@ -167,8 +167,8 @@ class SettingController extends Controller
     }
   }
   public function setting_personal_lifecycle_add(Request $request){
-    $id_setting_portofolio_personal_admin = Str::uuid()->toString();
-    echo $id_setting_portofolio_personal_admin;
+    $id_setting_portofolio_personal_admin = Str::uuid();
+    var_dump($id_setting_portofolio_personal_admin);
     die();
     DB::table('setting_portofolio_personal_admin')->insertGetId([
         'id' => $id_setting_portofolio_personal_admin,
