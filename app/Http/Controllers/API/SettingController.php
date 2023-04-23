@@ -123,6 +123,14 @@ class SettingController extends Controller
         "message"=>"Setting Nilai Asumsi Diperbarui!",
     ],200);
   }
+  public function setting_ppip_hitung_nilai(Request $request){
+    $port_ppip = DB::table('setting_portofolio_ppip_admin')
+    ->select('*')->get()->toArray();
+    foreach ($port_ppip as $key) {
+      echo $key['id'];
+    }
+    return true;
+  }
   
   public function setting_personal_lifecycle(Request $request){
     $opsi = DB::table('setting_portofolio_personal_admin')
