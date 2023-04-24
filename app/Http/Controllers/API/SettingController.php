@@ -545,7 +545,8 @@ class SettingController extends Controller
     }
 
     foreach ($response as $obj) {
-      echo $obj->komposisi_investasi[0]['nama'];
+      $komposisi_investasi = $obj->komposisi_investasi;
+      echo $komposisi_investasi->nama;
         // foreach ($obj as $key => $value) {
         //   if (is_float($value)) {
         //     echo "Kolom: " . $key . " Nilai: " . round($value, 2) . "<br>";
