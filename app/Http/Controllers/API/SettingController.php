@@ -148,15 +148,24 @@ class SettingController extends Controller
       $komposisi_likuid_depo_ppip=$obj->tranche_likuiditas_deposito; //Read komposisi deposito tranche likuiditas
 
       // perhitungan return portofolio tranche investasi
-      $return_ppip_inv = ($komposisi_inv_saham_ppip*$return_saham_ppip + $komposisi_inv_fi_ppip*$return_fi_ppip + $komposisi_inv_depo_ppip*$return_depo_ppip) / 100; 
+      $return_ppip_inv = round(($komposisi_inv_saham_ppip*$return_saham_ppip + $komposisi_inv_fi_ppip*$return_fi_ppip + $komposisi_inv_depo_ppip*$return_depo_ppip) / 100, 2); 
       // perhitungan return portofolio tranche likuiditas
-      $return_ppip_likuid = ($komposisi_likuid_saham_ppip*$return_saham_ppip + $komposisi_likuid_fi_ppip*$return_fi_ppip + $komposisi_likuid_depo_ppip*$return_depo_ppip) / 100; 
-      echo "Nilai Return Portofolio Tranche Investasi: ".round($return_ppip_inv,2);
+      $return_ppip_likuid = round(($komposisi_likuid_saham_ppip*$return_saham_ppip + $komposisi_likuid_fi_ppip*$return_fi_ppip + $komposisi_likuid_depo_ppip*$return_depo_ppip) / 100, 2); 
+
+      // perhitungan resiko portofolio tranche investasi
+      $risk_ppip_inv_step1 = $komposisi_inv_saham_ppip*$komposisi_inv_saham_ppip*$risk_saham_ppip*$risk_saham_ppip + $komposisi_inv_fi_ppip*$komposisi_inv_fi_ppip*$risk_fi_ppip*$risk_fi_ppip + $komposisi_inv_depo_ppip*$komposisi_inv_depo_ppip*$risk_depo_ppip*$risk_depo_ppip;
+      $risk_ppip_inv_step2 = 2*$komposisi_inv_saham_ppip*$komposisi_inv_fi_ppip*$risk_saham_ppip*$risk_fi_ppip*$korel_saham_fi_ppip+ 2*$komposisi_inv_saham_ppip*$komposisi_inv_depo_ppip*$risk_saham_ppip*$risk_depo_ppip*$korel_saham_depo_ppip+2*$komposisi_inv_fi_ppip*$komposisi_inv_depo_ppip*$risk_fi_ppip*$risk_depo_ppip*$korel_fi_depo_ppip;
+      $risk_ppip_inv = $risk_ppip_inv_step1+$risk_ppip_inv_step2;
+      
+      // perhitungan resiko portofolio tranche likuiditas
+      $risk_ppip_likuid_step1 = $komposisi_likuid_saham_ppip*$komposisi_likuid_saham_ppip*$risk_saham_ppip*$risk_saham_ppip + $komposisi_likuid_fi_ppip*$komposisi_likuid_fi_ppip*$risk_fi_ppip*$risk_fi_ppip + $komposisi_likuid_depo_ppip*$komposisi_likuid_depo_ppip*$risk_depo_ppip*$risk_depo_ppip;
+      $risk_ppip_likuid_step2 = 2*$komposisi_likuid_saham_ppip*$komposisi_likuid_fi_ppip*$risk_saham_ppip*$risk_fi_ppip*$korel_saham_fi_ppip+ 2*$komposisi_likuid_saham_ppip*$komposisi_likuid_depo_ppip*$risk_saham_ppip*$risk_depo_ppip*$korel_saham_depo_ppip+2*$komposisi_likuid_fi_ppip*$komposisi_likuid_depo_ppip*$risk_fi_ppip*$risk_depo_ppip*$korel_fi_depo_ppip;
+      $risk_ppip_likuid = sqrt($risk_ppip_likuid_step1+$risk_ppip_likuid_step2);
+      echo "resiko investasi: ".$risk_ppip_inv;
       echo "<br/>";
-      echo "Nilai Return Portofolio Tranche Likuiditas: ".round($return_ppip_likuid,2);
+      echo "resiko investasi: ".$risk_ppip_likuid;
       echo "<br/>";
-      echo "----------";
-      echo "<br/>";
+      echo "-----";
     }
   }
   
