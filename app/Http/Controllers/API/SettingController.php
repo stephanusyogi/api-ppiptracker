@@ -543,6 +543,8 @@ class SettingController extends Controller
         $row->komposisi_investasi = $komposisi_investasi;
         $response[] = $row;
     }
+    echo json_encode($response, true);
+    die();
 
     foreach ($response as $obj) {
       // $komposisi_investasi = $obj->komposisi_investasi;
