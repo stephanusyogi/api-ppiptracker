@@ -551,9 +551,20 @@ class SettingController extends Controller
           }else {
             echo "Kolom: " . $key . " Nilai: " . $value . "<br>";
           }
+          foreach ($key["komposisi_investasi"] as $array => $val) {
+            if (is_float($val)) {
+              echo "Kolom: " . $array . " Nilai: " . round($val, 2) . "<br>";
+            }else {
+              echo "Kolom: " . $array . " Nilai: " . $val . "<br>";
+            }
+          }
         }
-        die();
     }
+    
+    return response()->json([
+      "status" =>true,
+      "message"=>"Setting Updated!",
+    ],200); 
   }
 
 
