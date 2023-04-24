@@ -545,21 +545,22 @@ class SettingController extends Controller
     }
 
     foreach ($response as $obj) {
-        foreach ($obj as $key => $value) {
-          if (is_float($value)) {
-            echo "Kolom: " . $key . " Nilai: " . round($value, 2) . "<br>";
-          }elseif (is_array($value)) {
-            foreach ($value as $array_key => $array_value) {
-              if (is_float($val)) {
-                echo "Kolom: " . $array_key . " Nilai: " . round($array_value, 2) . "<br>";
-              }else {
-                echo "Kolom: " . $array_key . " Nilai: " . $array_value . "<br>";
-              }
-            }
-          }else {
-            echo "Kolom: " . $key . " Nilai: " . $value . "<br>";
-          }
-        }
+      echo $obj->komposisi_investasi;
+        // foreach ($obj as $key => $value) {
+        //   if (is_float($value)) {
+        //     echo "Kolom: " . $key . " Nilai: " . round($value, 2) . "<br>";
+        //   }elseif (is_array($value)) {
+        //     foreach ($value as $array_key => $array_value) {
+        //       if (is_float($val)) {
+        //         echo "Kolom: " . $array_key . " Nilai: " . round($array_value, 2) . "<br>";
+        //       }else {
+        //         echo "Kolom: " . $array_key . " Nilai: " . $array_value . "<br>";
+        //       }
+        //     }
+        //   }else {
+        //     echo "Kolom: " . $key . " Nilai: " . $value . "<br>";
+        //   }
+        // }
         die();
     }
     
