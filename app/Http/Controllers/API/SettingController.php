@@ -151,9 +151,9 @@ class SettingController extends Controller
       $return_ppip_inv = ($komposisi_inv_saham_ppip*$return_saham_ppip + $komposisi_inv_fi_ppip*$return_fi_ppip + $komposisi_inv_depo_ppip*$return_depo_ppip) / 100; 
       // perhitungan return portofolio tranche likuiditas
       $return_ppip_likuid = ($komposisi_likuid_saham_ppip*$return_saham_ppip + $komposisi_likuid_fi_ppip*$return_fi_ppip + $komposisi_likuid_depo_ppip*$return_depo_ppip) / 100; 
-      echo "Nilai Return Portofolio Tranche Investasi: ".$return_ppip_inv;
+      echo "Nilai Return Portofolio Tranche Investasi: ".round($return_ppip_inv,2);
       echo "<br/>";
-      echo "Nilai Return Portofolio Tranche Likuiditas: ".$return_ppip_likuid;
+      echo "Nilai Return Portofolio Tranche Likuiditas: ".round($return_ppip_likuid,2);
       echo "<br/>";
       echo "----------";
       echo "<br/>";
