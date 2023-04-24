@@ -579,9 +579,10 @@ class SettingController extends Controller
     ],200); 
   }
 
-  public function tranche1()
+  public function tranche1($data)
     {
-      echo $komposisi_investasi = $obj->komposisi_investasi[0];
+      $komposisi_investasi = $data->komposisi_investasi[0];
+      echo $komposisi_investasi->nama;
       die();
     }
 }
