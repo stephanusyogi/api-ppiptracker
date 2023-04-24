@@ -127,25 +127,25 @@ class SettingController extends Controller
     $port_ppip = DB::table('setting_portofolio_ppip_admin')
     ->select('*')->get()->toArray();
     foreach ($port_ppip as $obj) {
-      $return_saham_ppip=$obj->return_saham; //Read return saham
-      $return_fi_ppip=$obj->return_pendapatan_tetap; //Read return pendapatan tetap
-      $return_depo_ppip=$obj->return_deposito; //Read return deposito
+      $return_saham_ppip=round($obj->return_saham ,2); //Read return saham
+      $return_fi_ppip=round($obj->return_pendapatan_tetap ,2); //Read return pendapatan tetap
+      $return_depo_ppip=round($obj->return_deposito ,2); //Read return deposito
       
-      $risk_saham_ppip=$obj->resiko_saham; //Read risk saham
-      $risk_fi_ppip=$obj->resiko_pendapatan_tetap; //Read risk pendapatan tetap
-      $risk_depo_ppip=$obj->resiko_deposito; //Read risk deposito
+      $risk_saham_ppip=round($obj->resiko_saham ,2); //Read risk saham
+      $risk_fi_ppip=round($obj->resiko_pendapatan_tetap ,2); //Read risk pendapatan tetap
+      $risk_depo_ppip=round($obj->resiko_deposito ,2); //Read risk deposito
       
-      $korel_saham_fi_ppip=$obj->korelasi_saham_pendapatan_tetap; //Read korelasi saham - pendapatan tetap
-      $korel_saham_depo_ppip=$obj->korelasi_saham_deposito; //Read korelasi saham - deposito
-      $korel_fi_depo_ppip=$obj->korelasi_pendapatan_tetap_deposito; //Read korelasi pendapatan tetap - deposito
+      $korel_saham_fi_ppip=round($obj->korelasi_saham_pendapatan_tetap ,2); //Read korelasi saham - pendapatan tetap
+      $korel_saham_depo_ppip=round($obj->korelasi_saham_deposito ,2); //Read korelasi saham - deposito
+      $korel_fi_depo_ppip=round($obj->korelasi_pendapatan_tetap_deposito ,2); //Read korelasi pendapatan tetap - deposito
       
-      $komposisi_inv_saham_ppip=$obj->tranche_investasi_saham; //Read komposisi saham tranche investasi
-      $komposisi_inv_fi_ppip=$obj->tranche_investasi_pendapatan_tetap; //Read komposisi pendapatan tetap tranche investasi
-      $komposisi_inv_depo_ppip=$obj->tranche_investasi_deposito; //Read komposisi deposito tranche investasi
+      $komposisi_inv_saham_ppip=round($obj->tranche_investasi_saham ,2); //Read komposisi saham tranche investasi
+      $komposisi_inv_fi_ppip=round($obj->tranche_investasi_pendapatan_tetap ,2); //Read komposisi pendapatan tetap tranche investasi
+      $komposisi_inv_depo_ppip=round($obj->tranche_investasi_deposito ,2); //Read komposisi deposito tranche investasi
       
-      $komposisi_likuid_saham_ppip=$obj->tranche_likuiditas_saham; //Read komposisi saham tranche likuiditas
-      $komposisi_likuid_fi_ppip=$obj->tranche_likuiditas_pendapatan_tetap; //Read komposisi pendapatan tetap tranche likuiditas
-      $komposisi_likuid_depo_ppip=$obj->tranche_likuiditas_deposito; //Read komposisi deposito tranche likuiditas
+      $komposisi_likuid_saham_ppip=round($obj->tranche_likuiditas_saham ,2); //Read komposisi saham tranche likuiditas
+      $komposisi_likuid_fi_ppip=round($obj->tranche_likuiditas_pendapatan_tetap ,2); //Read komposisi pendapatan tetap tranche likuiditas
+      $komposisi_likuid_depo_ppip=round($obj->tranche_likuiditas_deposito ,2); //Read komposisi deposito tranche likuiditas
 
       // perhitungan return portofolio tranche investasi
       $return_ppip_inv = round(($komposisi_inv_saham_ppip*$return_saham_ppip + $komposisi_inv_fi_ppip*$return_fi_ppip + $komposisi_inv_depo_ppip*$return_depo_ppip) / 100, 2); 
