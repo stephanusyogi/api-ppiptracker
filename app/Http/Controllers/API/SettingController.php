@@ -127,14 +127,6 @@ class SettingController extends Controller
     $port_ppip = DB::table('setting_portofolio_ppip_admin')
     ->select('*')->get()->toArray();
     foreach ($port_ppip as $obj) {
-      foreach ($obj as $key => $value) {
-        if (is_float($value)) {
-          echo "Kolom: " . $key . " Nilai: " . round($value,2) . "<br>";
-        }else{
-          echo "Kolom: " . $key . " Nilai: " . $value . "<br>";
-        }
-      }
-      die();
       $return_saham_ppip=round($obj->return_saham ,2); //Read return saham
       $return_fi_ppip=round($obj->return_pendapatan_tetap ,2); //Read return pendapatan tetap
       $return_depo_ppip=round($obj->return_deposito ,2); //Read return deposito
@@ -165,12 +157,12 @@ class SettingController extends Controller
       // $risk_ppip_inv_step2 = 2*$komposisi_inv_saham_ppip*$komposisi_inv_fi_ppip*$risk_saham_ppip*$risk_fi_ppip*$korel_saham_fi_ppip+ 2*$komposisi_inv_saham_ppip*$komposisi_inv_depo_ppip*$risk_saham_ppip*$risk_depo_ppip*$korel_saham_depo_ppip+2*$komposisi_inv_fi_ppip*$komposisi_inv_depo_ppip*$risk_fi_ppip*$risk_depo_ppip*$korel_fi_depo_ppip;
       $risk_ppip_inv_step1 = $komposisi_inv_saham_ppip * $komposisi_inv_saham_ppip * $risk_saham_ppip * $risk_saham_ppip + $komposisi_inv_fi_ppip * $komposisi_inv_fi_ppip * $risk_fi_ppip * $risk_fi_ppip + $komposisi_inv_depo_ppip * $komposisi_inv_depo_ppip * $risk_depo_ppip * $risk_depo_ppip;
       $risk_ppip_inv_step2 = 2 * $komposisi_inv_saham_ppip * $komposisi_inv_fi_ppip * $risk_saham_ppip * $risk_fi_ppip * $korel_saham_fi_ppip + 2 * $komposisi_inv_saham_ppip * $komposisi_inv_depo_ppip * $risk_saham_ppip * $risk_depo_ppip * $korel_saham_depo_ppip + 2 * $komposisi_inv_fi_ppip * $komposisi_inv_depo_ppip * $risk_fi_ppip * $risk_depo_ppip * $korel_fi_depo_ppip;
-      $risk_ppip_inv = round($risk_ppip_inv_step1+$risk_ppip_inv_step2, 2);
+      $risk_ppip_inv = round(sqrt($risk_ppip_inv_step1+$risk_ppip_inv_step2) / 100, 2);
       
       // perhitungan resiko portofolio tranche likuiditas
       $risk_ppip_likuid_step1 = $komposisi_likuid_saham_ppip*$komposisi_likuid_saham_ppip*$risk_saham_ppip*$risk_saham_ppip + $komposisi_likuid_fi_ppip*$komposisi_likuid_fi_ppip*$risk_fi_ppip*$risk_fi_ppip + $komposisi_likuid_depo_ppip*$komposisi_likuid_depo_ppip*$risk_depo_ppip*$risk_depo_ppip;
       $risk_ppip_likuid_step2 = 2*$komposisi_likuid_saham_ppip*$komposisi_likuid_fi_ppip*$risk_saham_ppip*$risk_fi_ppip*$korel_saham_fi_ppip+ 2*$komposisi_likuid_saham_ppip*$komposisi_likuid_depo_ppip*$risk_saham_ppip*$risk_depo_ppip*$korel_saham_depo_ppip+2*$komposisi_likuid_fi_ppip*$komposisi_likuid_depo_ppip*$risk_fi_ppip*$risk_depo_ppip*$korel_fi_depo_ppip;
-      $risk_ppip_likuid = round(sqrt($risk_ppip_likuid_step1+$risk_ppip_likuid_step2), 2);
+      $risk_ppip_likuid = round(sqrt($risk_ppip_likuid_step1+$risk_ppip_likuid_step2) / 100, 2);
       echo "resiko investasi: ".$risk_ppip_inv;
       echo "<br/>";
       echo "resiko investasi: ".$risk_ppip_likuid;
