@@ -146,6 +146,17 @@ class SettingController extends Controller
       $komposisi_likuid_saham_ppip=$obj->tranche_likuiditas_saham; //Read komposisi saham tranche likuiditas
       $komposisi_likuid_fi_ppip=$obj->tranche_likuiditas_pendapatan_tetap; //Read komposisi pendapatan tetap tranche likuiditas
       $komposisi_likuid_depo_ppip=$obj->tranche_likuiditas_deposito; //Read komposisi deposito tranche likuiditas
+
+      // perhitungan return portofolio tranche investasi
+      $return_ppip_inv = $komposisi_inv_saham_ppip*$return_saham_ppip + $komposisi_inv_fi_ppip*$return_fi_ppip + $komposisi_inv_depo_ppip*$return_depo_ppip; 
+      // perhitungan return portofolio tranche likuiditas
+      $return_ppip_likuid = $komposisi_likuid_saham_ppip*$return_saham_ppip + $komposisi_likuid_fi_ppip*$return_fi_ppip + $komposisi_likuid_depo_ppip*$return_depo_ppip; 
+      echo "Nilai Return Portofolio Tranche Investasi: ".$return_ppip_inv;
+      echo "<br>";
+      echo "Nilai Return Portofolio Tranche Likuiditas: ".$return_ppip_likuid;
+      echo "<br>";
+      echo "----------";
+      echo "<br>";
     }
   }
   
