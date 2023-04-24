@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth:admin,api-admin']], function(){
     Route::post('/setting-ppip/admin/update', [SettingController::class, 'setting_ppip_update']);
     
     Route::get('/setting-personal-lifecycle/admin', [SettingController::class, 'setting_personal_lifecycle']);
+    Route::post('/setting-personal-lifecycle/admin/hitung-nilai', [SettingController::class, 'setting_personal_lifecycle_hitung_nilai']);
     Route::post('/setting-personal-lifecycle/admin/add', [SettingController::class, 'setting_personal_lifecycle_add']);
     Route::post('/setting-personal-lifecycle/admin/update', [SettingController::class, 'setting_personal_lifecycle_update']);
     Route::post('/setting-personal-lifecycle/admin/buka-tutup-aset', [SettingController::class, 'setting_personal_lifecycle_bukatutup_aset']);

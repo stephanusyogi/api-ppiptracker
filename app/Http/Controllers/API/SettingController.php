@@ -180,6 +180,7 @@ class SettingController extends Controller
     ],200); 
   }
   
+  
   public function setting_personal_lifecycle(Request $request){
     $opsi = DB::table('setting_portofolio_personal_admin')
     ->select('id','nama')->get();
@@ -532,6 +533,29 @@ class SettingController extends Controller
         "message"=>"Setting Personal Diperbarui!",
     ],200);
   }
+  public function setting_personal_lifecycle_hitung_nilai(Request $request){
+    $setting_personal = DB::table('setting_portofolio_personal_admin')->select('*')->get();
+    $response = array();
+    foreach ($setting_personal as $row) {
+        $komposisi_investasi = DB::table('setting_komposisi_investasi_lifecycle_fund_admin')
+                                ->where('id_setting_portofolio_personal_admin', $row->id)
+                                ->get();
+        $row->komposisi_investasi = $komposisi_investasi;
+        $response[] = $row;
+    }
+
+    foreach ($response as $obj) {
+        foreach ($obj as $key => $value) {
+          if (is_float($value)) {
+            echo "Kolom: " . $key . " Nilai: " . round($value, 2) . "<br>";
+          }else {
+            echo "Kolom: " . $key . " Nilai: " . $value . "<br>";
+          }
+        }
+        die();
+    }
+  }
+
 
   public function setting_personal_lifecycle_bukatutup_aset(Request $request){
     $id = $request->input('id');
