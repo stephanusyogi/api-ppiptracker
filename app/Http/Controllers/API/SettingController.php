@@ -128,7 +128,11 @@ class SettingController extends Controller
     ->select('*')->get()->toArray();
     foreach ($port_ppip as $obj) {
       foreach ($obj as $key => $value) {
+        if (is_float($value)) {
           echo "Kolom: " . $key . " Nilai: " . round($value,2) . "<br>";
+        }else{
+          echo "Kolom: " . $key . " Nilai: " . $value . "<br>";
+        }
       }
       die();
       $return_saham_ppip=round($obj->return_saham ,2); //Read return saham
