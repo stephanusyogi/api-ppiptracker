@@ -533,45 +533,6 @@ class SettingController extends Controller
         "message"=>"Setting Personal Diperbarui!",
     ],200);
   }
-  public function setting_personal_lifecycle_hitung_nilai(Request $request){
-    $setting_personal = DB::table('setting_portofolio_personal_admin')->select('*')->get();
-    $response = array();
-    foreach ($setting_personal as $row) {
-        $komposisi_investasi = DB::table('setting_komposisi_investasi_lifecycle_fund_admin')
-                                ->where('id_setting_portofolio_personal_admin', $row->id)
-                                ->get();
-        $row->komposisi_investasi = $komposisi_investasi;
-        $response[] = $row;
-    }
-
-    foreach ($response as $obj) {
-      $komposisi_investasi = $obj->komposisi_investasi[0];
-      echo $komposisi_investasi->nama;
-        // foreach ($obj as $key => $value) {
-        //   if (is_float($value)) {
-        //     echo "Kolom: " . $key . " Nilai: " . round($value, 2) . "<br>";
-        //   }elseif (is_array($value)) {
-        //     foreach ($value as $array_key => $array_value) {
-        //       if (is_float($val)) {
-        //         echo "Kolom: " . $array_key . " Nilai: " . round($array_value, 2) . "<br>";
-        //       }else {
-        //         echo "Kolom: " . $array_key . " Nilai: " . $array_value . "<br>";
-        //       }
-        //     }
-        //   }else {
-        //     echo "Kolom: " . $key . " Nilai: " . $value . "<br>";
-        //   }
-        // }
-        die();
-    }
-    
-    return response()->json([
-      "status" =>true,
-      "message"=>"Setting Updated!",
-    ],200); 
-  }
-
-
   public function setting_personal_lifecycle_bukatutup_aset(Request $request){
     $id = $request->input('id');
     if ($id) {
@@ -596,4 +557,31 @@ class SettingController extends Controller
       ],200);
     }
   }
+  public function setting_personal_lifecycle_hitung_nilai(Request $request){
+    $setting_personal = DB::table('setting_portofolio_personal_admin')->select('*')->get();
+    $response = array();
+    foreach ($setting_personal as $row) {
+        $komposisi_investasi = DB::table('setting_komposisi_investasi_lifecycle_fund_admin')
+                                ->where('id_setting_portofolio_personal_admin', $row->id)
+                                ->get();
+        $row->komposisi_investasi = $komposisi_investasi;
+        $response[] = $row;
+    }
+
+    foreach ($response as $obj) {
+      $this->tranche1($obj);
+      die();
+    }
+    
+    return response()->json([
+      "status" =>true,
+      "message"=>"Setting Updated!",
+    ],200); 
+  }
+
+  public function tranche1()
+    {
+      echo $komposisi_investasi = $obj->komposisi_investasi[0];
+      die();
+    }
 }
