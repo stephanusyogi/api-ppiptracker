@@ -172,12 +172,12 @@ class SettingController extends Controller
           'resiko_portofolio_tranche_likuiditas' => $risk_ppip_likuid,
           'flag' => 1,
         ]);
-
-        return response()->json([
-          "status" =>true,
-          "message"=>"Setting Updated!",
-        ],200); 
     }
+    
+    return response()->json([
+      "status" =>true,
+      "message"=>"Setting Updated!",
+    ],200); 
   }
   
   public function setting_personal_lifecycle(Request $request){
