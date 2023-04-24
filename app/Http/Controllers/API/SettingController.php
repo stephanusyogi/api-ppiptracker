@@ -127,6 +127,11 @@ class SettingController extends Controller
     $port_ppip = DB::table('setting_portofolio_ppip_admin')
     ->select('*')->get()->toArray();
     foreach ($port_ppip as $obj) {
+      $attributes = $obj->getAttributes();
+      foreach ($attributes as $key => $value) {
+          echo "Kolom: " . $key . " Nilai: " . $value . "<br>";
+      }
+      die();
       $return_saham_ppip=round($obj->return_saham ,2); //Read return saham
       $return_fi_ppip=round($obj->return_pendapatan_tetap ,2); //Read return pendapatan tetap
       $return_depo_ppip=round($obj->return_deposito ,2); //Read return deposito
