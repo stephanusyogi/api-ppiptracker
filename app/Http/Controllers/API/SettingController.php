@@ -543,12 +543,10 @@ class SettingController extends Controller
         $row->komposisi_investasi = $komposisi_investasi;
         $response[] = $row;
     }
-    echo json_encode($response, true);
-    die();
 
     foreach ($response as $obj) {
-      // $komposisi_investasi = $obj->komposisi_investasi;
-      echo $obj;
+      $komposisi_investasi = $obj->komposisi_investasi[0];
+      echo json_encode($komposisi_investasi, true);
         // foreach ($obj as $key => $value) {
         //   if (is_float($value)) {
         //     echo "Kolom: " . $key . " Nilai: " . round($value, 2) . "<br>";
