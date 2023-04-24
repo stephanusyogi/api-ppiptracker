@@ -87,7 +87,7 @@ class SettingController extends Controller
         'tranche_likuiditas_saham' => $request->tranche_likuiditas_saham,
         'tranche_likuiditas_pendapatan_tetap' => $request->tranche_likuiditas_pendapatan_tetap,
         'tranche_likuiditas_deposito' => $request->tranche_likuiditas_deposito,
-        'flag' => 1,
+        'flag' => 0,
     ]);
     
     return response()->json([
@@ -155,12 +155,12 @@ class SettingController extends Controller
       // perhitungan resiko portofolio tranche investasi
       $risk_ppip_inv_step1 = $komposisi_inv_saham_ppip*$komposisi_inv_saham_ppip*$risk_saham_ppip*$risk_saham_ppip + $komposisi_inv_fi_ppip*$komposisi_inv_fi_ppip*$risk_fi_ppip*$risk_fi_ppip + $komposisi_inv_depo_ppip*$komposisi_inv_depo_ppip*$risk_depo_ppip*$risk_depo_ppip;
       $risk_ppip_inv_step2 = 2*$komposisi_inv_saham_ppip*$komposisi_inv_fi_ppip*$risk_saham_ppip*$risk_fi_ppip*$korel_saham_fi_ppip+ 2*$komposisi_inv_saham_ppip*$komposisi_inv_depo_ppip*$risk_saham_ppip*$risk_depo_ppip*$korel_saham_depo_ppip+2*$komposisi_inv_fi_ppip*$komposisi_inv_depo_ppip*$risk_fi_ppip*$risk_depo_ppip*$korel_fi_depo_ppip;
-      $risk_ppip_inv = $risk_ppip_inv_step1+$risk_ppip_inv_step2;
+      $risk_ppip_inv = round($risk_ppip_inv_step1+$risk_ppip_inv_step2, 2);
       
       // perhitungan resiko portofolio tranche likuiditas
       $risk_ppip_likuid_step1 = $komposisi_likuid_saham_ppip*$komposisi_likuid_saham_ppip*$risk_saham_ppip*$risk_saham_ppip + $komposisi_likuid_fi_ppip*$komposisi_likuid_fi_ppip*$risk_fi_ppip*$risk_fi_ppip + $komposisi_likuid_depo_ppip*$komposisi_likuid_depo_ppip*$risk_depo_ppip*$risk_depo_ppip;
       $risk_ppip_likuid_step2 = 2*$komposisi_likuid_saham_ppip*$komposisi_likuid_fi_ppip*$risk_saham_ppip*$risk_fi_ppip*$korel_saham_fi_ppip+ 2*$komposisi_likuid_saham_ppip*$komposisi_likuid_depo_ppip*$risk_saham_ppip*$risk_depo_ppip*$korel_saham_depo_ppip+2*$komposisi_likuid_fi_ppip*$komposisi_likuid_depo_ppip*$risk_fi_ppip*$risk_depo_ppip*$korel_fi_depo_ppip;
-      $risk_ppip_likuid = sqrt($risk_ppip_likuid_step1+$risk_ppip_likuid_step2);
+      $risk_ppip_likuid = round(sqrt($risk_ppip_likuid_step1+$risk_ppip_likuid_step2), 2);
       echo "resiko investasi: ".$risk_ppip_inv;
       echo "<br/>";
       echo "resiko investasi: ".$risk_ppip_likuid;
@@ -320,7 +320,7 @@ class SettingController extends Controller
         'korelasi_r_pu_r_c_tranche1' => $request->korelasi_r_pu_r_c_tranche1,
         'korelasi_r_pu_r_c_tranche2' => $request->korelasi_r_pu_r_c_tranche2,
         'korelasi_r_pu_r_c_tranche3' => $request->korelasi_r_pu_r_c_tranche3,
-        'flag' => 1,
+        'flag' => 0,
     ]);
     
     $response = DB::table('setting_portofolio_personal_admin')
@@ -360,7 +360,7 @@ class SettingController extends Controller
       'resiko_pasar_portofolio_personal_t1' => $request->resiko_pasar_portofolio_personal_t1,
       'resiko_pasar_portofolio_personal_t2' => $request->resiko_pasar_portofolio_personal_t2,
       'resiko_pasar_portofolio_personal_t3' => $request->resiko_pasar_portofolio_personal_t3,
-      'flag' => 1,
+      'flag' => 0,
     ]);
     
     return response()->json([
