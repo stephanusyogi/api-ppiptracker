@@ -127,9 +127,8 @@ class SettingController extends Controller
     $port_ppip = DB::table('setting_portofolio_ppip_admin')
     ->select('*')->get()->toArray();
     foreach ($port_ppip as $key) {
-      echo $key['id'];
+      echo $key->id;
     }
-    return true;
   }
   
   public function setting_personal_lifecycle(Request $request){
