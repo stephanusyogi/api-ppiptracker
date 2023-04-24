@@ -646,13 +646,17 @@ class SettingController extends Controller
       $risk_personal_tranche1_step5= 2*$komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $korel_rdsaham_rdfi_personal_tranche1 + 2*$komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $korel_rdsaham_rdpu_personal_tranche1 + 2*$komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_rdsaham_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 5
       $risk_personal_tranche1_step6= 2*$komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $korel_rdfi_rdpu_personal_tranche1 + 2*$komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_rdfi_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 6
       $risk_personal_tranche1_step7= 2*$komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_rdpu_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 7
-      $risk_personal_tranche1= round((sqrt($risk_personal_tranche1_step1+$risk_personal_tranche1_step2+$risk_personal_tranche1_step3+$risk_personal_tranche1_step4+$risk_personal_tranche1_step5+$risk_personal_tranche1_step6+$risk_personal_tranche1_step7))/100, 2);// risiko all
+      $risk_personal_tranche1= (sqrt($risk_personal_tranche1_step1+$risk_personal_tranche1_step2+$risk_personal_tranche1_step3+$risk_personal_tranche1_step4+$risk_personal_tranche1_step5+$risk_personal_tranche1_step6+$risk_personal_tranche1_step7))/100;// risiko all
 
-      echo round($return_personal_tranche1, 2);
-      die();
-      return array(
-        "return_personal_tranche1" => $return_personal_tranche1,
-        "risk_personal_tranche1" => $risk_personal_tranche1,
+      
+      $return_personal_tranche = round($return_personal_tranche1, 2);
+      $risk_personal_tranche = round($return_personal_tranche1, 2);
+      
+      $result = array(
+        "return_personal_tranche1" => $return_personal_tranche,
+        "risk_personal_tranche1" => $risk_personal_tranche,
       );
+
+      return $result;
     }
 }
