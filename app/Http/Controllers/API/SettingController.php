@@ -570,8 +570,11 @@ class SettingController extends Controller
 
     foreach ($response as $obj) {
       $tranche1 = $this->setting_personal_lifecycle_hitung_nilai_tranche1($obj);
+      echo $tranche1["risk_personal_tranche1"];
+      die();
       $tranche2 = $this->setting_personal_lifecycle_hitung_nilai_tranche2($obj);
       $tranche3 = $this->setting_personal_lifecycle_hitung_nilai_tranche3($obj);
+
     }
     
     return response()->json([
@@ -638,7 +641,7 @@ class SettingController extends Controller
       
       $return_personal_tranche1 = ($komposisi_tranche1_saham_personal*$return_saham_personal_tranche1 + $komposisi_tranche1_fi_personal*$return_fi_personal_tranche1 + $komposisi_tranche1_depo_personal*$return_depo_personal_tranche1+ $komposisi_tranche1_rdsaham_personal*$return_rdsaham_personal_tranche1+ $komposisi_tranche1_rdfi_personal*$return_rdfi_personal_tranche1+ $komposisi_tranche1_rdpu_personal*$return_rdpu_personal_tranche1+ $komposisi_tranche1_rdcampuran_personal*$return_rdcampuran_personal_tranche1)/100; // perhitungan return portofolio tranche 1
       
-      $risk_personal_tranche1_step1= $komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1* $komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1 + $komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1* $komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1 + $komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1* $komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1+ $komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1+ $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1+ $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1+ $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 2
+      $risk_personal_tranche1_step1= $komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1* $komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1 + $komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1* $komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1 + $komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1* $komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1+ $komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1+ $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1+ $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1+ $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 1
       $risk_personal_tranche1_step2= 2*$komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1* $komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1* $korel_saham_fi_personal_tranche1 + 2*$komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1* $komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1* $korel_saham_depo_personal_tranche1 + 2*$komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1* $komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $korel_saham_rdsaham_personal_tranche1 + 2*$komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1* $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $korel_saham_rdfi_personal_tranche1 + 2*$komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $korel_saham_rdpu_personal_tranche1 + 2*$komposisi_tranche1_saham_personal*$risk_saham_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_saham_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 2
       $risk_personal_tranche1_step3= 2*$komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1* $komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1* $korel_fi_depo_personal_tranche1 + 2*$komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1* $komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $korel_fi_rdsaham_personal_tranche1 + 2*$komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1* $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $korel_fi_rdfi_personal_tranche1 + 2*$komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $korel_fi_rdpu_personal_tranche1 + 2*$komposisi_tranche1_fi_personal*$risk_fi_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_fi_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 3
       $risk_personal_tranche1_step4= 2*$komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1* $komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $korel_depo_rdsaham_personal_tranche1 + 2*$komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1* $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $korel_depo_rdfi_personal_tranche1 + 2*$komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $korel_depo_rdpu_personal_tranche1 + 2*$komposisi_tranche1_depo_personal*$risk_depo_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_depo_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 4
@@ -647,21 +650,6 @@ class SettingController extends Controller
       $risk_personal_tranche1_step7= 2*$komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_rdpu_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 7
       $risk_personal_tranche1= sqrt($risk_personal_tranche1_step1+$risk_personal_tranche1_step2+$risk_personal_tranche1_step3+$risk_personal_tranche1_step4+$risk_personal_tranche1_step5+$risk_personal_tranche1_step6+$risk_personal_tranche1_step7) / 100;// risiko all
 
-      echo $risk_personal_tranche1_step1;
-      echo "<br/>";
-      echo $risk_personal_tranche1_step2;
-      echo "<br/>";
-      echo $risk_personal_tranche1_step3;
-      echo "<br/>";
-      echo $risk_personal_tranche1_step4;
-      echo "<br/>";
-      echo $risk_personal_tranche1_step5;
-      echo "<br/>";
-      echo $risk_personal_tranche1_step6;
-      echo "<br/>";
-      echo $risk_personal_tranche1_step7;
-      echo "<br/>";
-      die();
       $result = array(
         "return_personal_tranche1" => $return_personal_tranche1,
         "risk_personal_tranche1" => $risk_personal_tranche1,
