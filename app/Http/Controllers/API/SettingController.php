@@ -571,8 +571,8 @@ class SettingController extends Controller
     foreach ($response as $obj) {
       $tranche1 = $this->setting_personal_lifecycle_hitung_nilai_tranche1($obj);
       $tranche2 = $this->setting_personal_lifecycle_hitung_nilai_tranche2($obj);
-      echo $tranche1["return_personal_tranche2"];
-      echo $tranche1["risk_personal_tranche2"];
+      echo $tranche2["return_personal_tranche2"];
+      echo $tranche2["risk_personal_tranche2"];
       die();
     }
     
