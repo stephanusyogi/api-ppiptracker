@@ -621,7 +621,7 @@ class SettingController extends Controller
       $korel_saham_rdpu_personal_tranche1 =  $this->check_status_aset( $data->korelasi_s_r_pu_tranche1 , $status_aset['status_saham'],  $status_aset['status_reksadana_pasar_uang']); //Read korelasi saham - rdpu
       $korel_saham_rdcampuran_personal_tranche1 =  $this->check_status_aset($data->korelasi_s_r_c_tranche1 , $status_aset['status_saham'],  $status_aset['status_reksadana_saham']) ; //Read korelasi saham - rdsaham
       
-      $korel_fi_depo_personal_tranche1 =  $this->check_status_aset($data->korelasi_pt_d_tranche1 , $status_aset['status_pendapatan_tetap'],  $status_aset['status_status_depositoreksadana_campuran']) ; //Read korelasi fi - deposito
+      $korel_fi_depo_personal_tranche1 =  $this->check_status_aset($data->korelasi_pt_d_tranche1 , $status_aset['status_pendapatan_tetap'],  $status_aset['status_deposito']) ; //Read korelasi fi - deposito
       $korel_fi_rdsaham_personal_tranche1 =  $this->check_status_aset($data->korealsi_pt_r_s_tranche1 , $status_aset['status_pendapatan_tetap'],  $status_aset['status_reksadana_saham']) ; //Read korelasi fi - rdsaham
       $korel_fi_rdfi_personal_tranche1 =  $this->check_status_aset($data->korelasi_pt_r_pt_tranche1 , $status_aset['status_pendapatan_tetap'],  $status_aset['status_reksadana_pendapatan_tetap']) ; //Read korelasi fi - rdfi
       $korel_fi_rdpu_personal_tranche1 =  $this->check_status_aset( $data->korelasi_pt_r_pu_tranche1 , $status_aset['status_pendapatan_tetap'],  $status_aset['status_reksadana_pasar_uang']); //Read korelasi fi - rdpu
