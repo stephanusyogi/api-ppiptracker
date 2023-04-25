@@ -570,7 +570,7 @@ class SettingController extends Controller
 
     // Check Status
     $status_aset = DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Reksa Dana Pasar Uang')->get();
-    var_dump($status_aset);
+    echo $status_aset->dibuka;
     die();
 
 
