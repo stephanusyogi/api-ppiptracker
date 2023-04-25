@@ -569,7 +569,7 @@ class SettingController extends Controller
     }
 
     // Check Status
-    $status_aset = DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Reksa Dana Pasar Uang')->get();
+    $status_aset = DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Reksa Dana Pasar Uang')->get()[0];
     echo $status_aset->dibuka;
     die();
 
