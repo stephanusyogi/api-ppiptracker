@@ -568,11 +568,18 @@ class SettingController extends Controller
         $response[] = $row;
     }
 
-    // Check Status
-    $status_aset = DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Reksa Dana Pasar Uang')->get()[0];
-    echo $status_aset->dibuka;
+    // Check Status Aset
+    $status_aset = array(
+      "status_saham" => DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Saham')->get()[0]->dibuka,
+      "status_pendapatan_tetap" => DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Pendapatan Tetap')->get()[0]->dibuka,
+      "status_deposito" => DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Deposito')->get()[0]->dibuka,
+      "status_reksadana_saham" => DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Reksa Dana Saham')->get()[0]->dibuka,
+      "status_reksadana_pendapatan_tetap" => DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Reksa Dana Pendapatan Tetap')->get()[0]->dibuka,
+      "status_reksadana_pasar_uang" => DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Reksa Dana Pasar Uang')->get()[0]->dibuka,
+      "status_reksadana_campuran" => DB::table('setting_portofolio_personal_aset_dibuka')->select('*')->where('jenis_aset' , 'Reksa Dana Campuran')->get()[0]->dibuka,
+    );
+    echo json_encode($status_aset, true);
     die();
-
 
     foreach ($response as $obj) {
       $tranche1 = $this->setting_personal_lifecycle_hitung_nilai_tranche1($obj);
