@@ -582,7 +582,7 @@ class SettingController extends Controller
     foreach ($response as $obj) {
       $tranche1 = $this->setting_personal_lifecycle_hitung_nilai_tranche1($obj, $status_aset);
       $tranche2 = $this->setting_personal_lifecycle_hitung_nilai_tranche2($obj, $status_aset);
-      $tranche3 = $this->setting_personal_lifecycle_hitung_nilai_tranche3($obj);
+      $tranche3 = $this->setting_personal_lifecycle_hitung_nilai_tranche3($obj, $status_aset);
       echo round($tranche3["return_personal_tranche3"], 2);
       echo "<br/>";
       echo round($tranche3["risk_personal_tranche3"], 2);
@@ -752,7 +752,7 @@ class SettingController extends Controller
     return $result;
   }
   
-  public function setting_personal_lifecycle_hitung_nilai_tranche3($data){
+  public function setting_personal_lifecycle_hitung_nilai_tranche3($data, $status_aset){
     // Personal Keuangan
     $return_saham_personal_tranche3 = $this->check_status_aset($data->return_s_tranche3 , $status_aset['status_saham'], null); //Read return saham
     $return_fi_personal_tranche3 =  $this->check_status_aset($data->return_pt_tranche3 , $status_aset['status_pendapatan_tetap'], null)  ; //Read return pendapatan tetap
