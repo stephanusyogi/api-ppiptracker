@@ -641,6 +641,7 @@ class SettingController extends Controller
       
       echo $korel_fi_depo_personal_tranche1." , ".$korel_fi_rdsaham_personal_tranche1.' , '.$korel_fi_rdfi_personal_tranche1.' , '.$korel_fi_rdpu_personal_tranche1.' , '.$korel_fi_rdcampuran_personal_tranche1;
       echo "<br/>";
+      die();
       
       $korel_depo_rdsaham_personal_tranche1 =  $this->check_status_aset($data->korelasi_d_r_s_tranche1 , $status_aset['status_deposito'],  $status_aset['status_reksadana_saham']) ; //Read korelasi depo - rdsaham
       $korel_depo_rdfi_personal_tranche1 =  $this->check_status_aset($data->korelasi_d_r_pt_tranche1 , $status_aset['status_deposito'],  $status_aset['status_reksadana_pendapatan_tetap']) ; //Read korelasi depo - rdfi
