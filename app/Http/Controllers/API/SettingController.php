@@ -659,25 +659,25 @@ class SettingController extends Controller
       $risk_rdpu_personal_tranche1 = 0.13; //Read risk reksadana pasar uang
       $risk_rdcampuran_personal_tranche1 = 0; //Read risk reksadana campuran
       
-      $korel_saham_fi_personal_tranche1 = 33; //Read korelasi saham - pendapatan tetap
+      $korel_saham_fi_personal_tranche1 = 0.33; //Read korelasi saham - pendapatan tetap
       $korel_saham_depo_personal_tranche1 = 0; //Read korelasi saham - deposito
-      $korel_saham_rdsaham_personal_tranche1 = 90; //Read korelasi saham - rdsaham
-      $korel_saham_rdfi_personal_tranche1 = 33; //Read korelasi saham - rdfi
+      $korel_saham_rdsaham_personal_tranche1 = 0.90; //Read korelasi saham - rdsaham
+      $korel_saham_rdfi_personal_tranche1 = 0.33; //Read korelasi saham - rdfi
       $korel_saham_rdpu_personal_tranche1 = 0; //Read korelasi saham - rdpu
       $korel_saham_rdcampuran_personal_tranche1 = 0; //Read korelasi saham - rdsaham
       
-      $korel_fi_depo_personal_tranche1 = 1; //Read korelasi fi - deposito
-      $korel_fi_rdsaham_personal_tranche1 = 22; //Read korelasi fi - rdsaham
-      $korel_fi_rdfi_personal_tranche1 = 90; //Read korelasi fi - rdfi
-      $korel_fi_rdpu_personal_tranche1 = 1; //Read korelasi fi - rdpu
+      $korel_fi_depo_personal_tranche1 = 0.1; //Read korelasi fi - deposito
+      $korel_fi_rdsaham_personal_tranche1 = 0.22; //Read korelasi fi - rdsaham
+      $korel_fi_rdfi_personal_tranche1 = 0.90; //Read korelasi fi - rdfi
+      $korel_fi_rdpu_personal_tranche1 = 0.1; //Read korelasi fi - rdpu
       $korel_fi_rdcampuran_personal_tranche1 = 0; //Read korelasi fi - rdsaham
       
       $korel_depo_rdsaham_personal_tranche1 = 0; //Read korelasi depo - rdsaham
-      $korel_depo_rdfi_personal_tranche1 = 12; //Read korelasi depo - rdfi
-      $korel_depo_rdpu_personal_tranche1 = 99; //Read korelasi depo - rdpu
+      $korel_depo_rdfi_personal_tranche1 = 0.12; //Read korelasi depo - rdfi
+      $korel_depo_rdpu_personal_tranche1 = 0.99; //Read korelasi depo - rdpu
       $korel_depo_rdcampuran_personal_tranche1 = 0; //Read korelasi depo - rdsaham
       
-      $korel_rdsaham_rdfi_personal_tranche1 = 33; //Read korelasi rdsaham - rdfi
+      $korel_rdsaham_rdfi_personal_tranche1 = 0.33; //Read korelasi rdsaham - rdfi
       $korel_rdsaham_rdpu_personal_tranche1 = 0; //Read korelasi rdsaham - rdpu
       $korel_rdsaham_rdcampuran_personal_tranche1 = 0; //Read korelasi rdsaham - rdsaham
 
