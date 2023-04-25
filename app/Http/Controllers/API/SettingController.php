@@ -570,6 +570,8 @@ class SettingController extends Controller
 
     foreach ($response as $obj) {
       $tranche1 = $this->setting_personal_lifecycle_hitung_nilai_tranche1($obj);
+      echo $tranche1["return_personal_tranche1"];
+      echo "<br/>";
       echo $tranche1["risk_personal_tranche1"];
       die();
       $tranche2 = $this->setting_personal_lifecycle_hitung_nilai_tranche2($obj);
@@ -601,32 +603,32 @@ class SettingController extends Controller
       $risk_rdpu_personal_tranche1 = $data->resiko_r_pu_tranche1; //Read risk reksadana pasar uang
       $risk_rdcampuran_personal_tranche1 = $data->resiko_r_c_tranche1; //Read risk reksadana campuran
       
-      $korel_saham_fi_personal_tranche1 = $data->korelasi_s_pt_tranche1; //Read korelasi saham - pendapatan tetap
-      $korel_saham_depo_personal_tranche1 = $data->korelasi_s_d_tranche1; //Read korelasi saham - deposito
-      $korel_saham_rdsaham_personal_tranche1 = $data->korelasi_s_r_s_tranche1; //Read korelasi saham - rdsaham
-      $korel_saham_rdfi_personal_tranche1 = $data->korealsi_s_r_pt_tranche1; //Read korelasi saham - rdfi
-      $korel_saham_rdpu_personal_tranche1 = $data->korelasi_s_r_pu_tranche1; //Read korelasi saham - rdpu
-      $korel_saham_rdcampuran_personal_tranche1 = $data->korelasi_s_r_c_tranche1; //Read korelasi saham - rdsaham
+      $korel_saham_fi_personal_tranche1 = $data->korelasi_s_pt_tranche1 * 100; //Read korelasi saham - pendapatan tetap
+      $korel_saham_depo_personal_tranche1 = $data->korelasi_s_d_tranche1 * 100; //Read korelasi saham - deposito
+      $korel_saham_rdsaham_personal_tranche1 = $data->korelasi_s_r_s_tranche1  * 100; //Read korelasi saham - rdsaham
+      $korel_saham_rdfi_personal_tranche1 = $data->korealsi_s_r_pt_tranche1  * 100; //Read korelasi saham - rdfi
+      $korel_saham_rdpu_personal_tranche1 = $data->korelasi_s_r_pu_tranche1 * 100; //Read korelasi saham - rdpu
+      $korel_saham_rdcampuran_personal_tranche1 = $data->korelasi_s_r_c_tranche1 * 100; //Read korelasi saham - rdsaham
       
-      $korel_fi_depo_personal_tranche1 = $data->korelasi_pt_d_tranche1; //Read korelasi fi - deposito
-      $korel_fi_rdsaham_personal_tranche1 = $data->korealsi_pt_r_s_tranche1; //Read korelasi fi - rdsaham
-      $korel_fi_rdfi_personal_tranche1 = $data->korelasi_pt_r_pt_tranche1; //Read korelasi fi - rdfi
-      $korel_fi_rdpu_personal_tranche1 = $data->korelasi_pt_r_pu_tranche1; //Read korelasi fi - rdpu
-      $korel_fi_rdcampuran_personal_tranche1 = $data->korelasi_pt_r_c_tranche1; //Read korelasi fi - rdsaham
+      $korel_fi_depo_personal_tranche1 = $data->korelasi_pt_d_tranche1 * 100; //Read korelasi fi - deposito
+      $korel_fi_rdsaham_personal_tranche1 = $data->korealsi_pt_r_s_tranche1 * 100; //Read korelasi fi - rdsaham
+      $korel_fi_rdfi_personal_tranche1 = $data->korelasi_pt_r_pt_tranche1 * 100; //Read korelasi fi - rdfi
+      $korel_fi_rdpu_personal_tranche1 = $data->korelasi_pt_r_pu_tranche1 * 100; //Read korelasi fi - rdpu
+      $korel_fi_rdcampuran_personal_tranche1 = $data->korelasi_pt_r_c_tranche1 * 100; //Read korelasi fi - rdsaham
       
-      $korel_depo_rdsaham_personal_tranche1 = $data->korelasi_d_r_s_tranche1; //Read korelasi depo - rdsaham
-      $korel_depo_rdfi_personal_tranche1 = $data->korelasi_d_r_pt_tranche1; //Read korelasi depo - rdfi
-      $korel_depo_rdpu_personal_tranche1 = $data->korelasi_d_r_pu_tranche1; //Read korelasi depo - rdpu
-      $korel_depo_rdcampuran_personal_tranche1 = $data->korelasi_d_r_c_tranche1; //Read korelasi depo - rdsaham
+      $korel_depo_rdsaham_personal_tranche1 = $data->korelasi_d_r_s_tranche1 * 100; //Read korelasi depo - rdsaham
+      $korel_depo_rdfi_personal_tranche1 = $data->korelasi_d_r_pt_tranche1 * 100; //Read korelasi depo - rdfi
+      $korel_depo_rdpu_personal_tranche1 = $data->korelasi_d_r_pu_tranche1 * 100; //Read korelasi depo - rdpu
+      $korel_depo_rdcampuran_personal_tranche1 = $data->korelasi_d_r_c_tranche1 * 100; //Read korelasi depo - rdsaham
       
-      $korel_rdsaham_rdfi_personal_tranche1 = $data->korelasi_r_s_r_pt_tranche1; //Read korelasi rdsaham - rdfi
-      $korel_rdsaham_rdpu_personal_tranche1 = $data->korelasi_r_s_r_pu_tranche1; //Read korelasi rdsaham - rdpu
-      $korel_rdsaham_rdcampuran_personal_tranche1 = $data->korelasi_r_s_r_c_tranche1; //Read korelasi rdsaham - rdsaham
+      $korel_rdsaham_rdfi_personal_tranche1 = $data->korelasi_r_s_r_pt_tranche1 * 100; //Read korelasi rdsaham - rdfi
+      $korel_rdsaham_rdpu_personal_tranche1 = $data->korelasi_r_s_r_pu_tranche1 * 100; //Read korelasi rdsaham - rdpu
+      $korel_rdsaham_rdcampuran_personal_tranche1 = $data->korelasi_r_s_r_c_tranche1 * 100; //Read korelasi rdsaham - rdsaham
 
-      $korel_rdfi_rdpu_personal_tranche1 = $data->korelasi_r_pt_r_pu_tranche1; //Read korelasi rdfi - rdpu
-      $korel_rdfi_rdcampuran_personal_tranche1 = $data->korelasi_r_pt_r_c_tranche1; //Read korelasi rdfi - rdsaham
+      $korel_rdfi_rdpu_personal_tranche1 = $data->korelasi_r_pt_r_pu_tranche1 * 100; //Read korelasi rdfi - rdpu
+      $korel_rdfi_rdcampuran_personal_tranche1 = $data->korelasi_r_pt_r_c_tranche1 * 100; //Read korelasi rdfi - rdsaham
       
-      $korel_rdpu_rdcampuran_personal_tranche1 = $data->korelasi_r_pu_r_c_tranche1; //Read korelasi rdpu - rdsaham
+      $korel_rdpu_rdcampuran_personal_tranche1 = $data->korelasi_r_pu_r_c_tranche1 * 100; //Read korelasi rdpu - rdsaham
         
       // LifeCycle
       $komposisi_investasi = $data->komposisi_investasi[0];
@@ -648,7 +650,7 @@ class SettingController extends Controller
       $risk_personal_tranche1_step5= 2*$komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $korel_rdsaham_rdfi_personal_tranche1 + 2*$komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $korel_rdsaham_rdpu_personal_tranche1 + 2*$komposisi_tranche1_rdsaham_personal*$risk_rdsaham_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_rdsaham_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 5
       $risk_personal_tranche1_step6= 2*$komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $korel_rdfi_rdpu_personal_tranche1 + 2*$komposisi_tranche1_rdfi_personal*$risk_rdfi_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_rdfi_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 6
       $risk_personal_tranche1_step7= 2*$komposisi_tranche1_rdpu_personal*$risk_rdpu_personal_tranche1* $komposisi_tranche1_rdcampuran_personal*$risk_rdcampuran_personal_tranche1* $korel_rdpu_rdcampuran_personal_tranche1; // perhitungan risk portofolio tranche 1 step 7
-      $risk_personal_tranche1= sqrt($risk_personal_tranche1_step1+$risk_personal_tranche1_step2+$risk_personal_tranche1_step3+$risk_personal_tranche1_step4+$risk_personal_tranche1_step5+$risk_personal_tranche1_step6+$risk_personal_tranche1_step7) / 100;// risiko all
+      $risk_personal_tranche1= sqrt($risk_personal_tranche1_step1+$risk_personal_tranche1_step2+$risk_personal_tranche1_step3+$risk_personal_tranche1_step4+$risk_personal_tranche1_step5+$risk_personal_tranche1_step6+$risk_personal_tranche1_step7);// risiko all
 
       $result = array(
         "return_personal_tranche1" => $return_personal_tranche1,
