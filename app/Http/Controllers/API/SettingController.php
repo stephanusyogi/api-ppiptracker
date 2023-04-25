@@ -823,7 +823,7 @@ class SettingController extends Controller
   }
 
   public function check_status_aset($value, $firststatus, $secondstatus){
-    if ($secondstatus) {
+    if ($secondstatus != null) {
       if (!$firststatus) {
         return 0;
       }elseif (!$secondstatus) {
