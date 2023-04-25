@@ -652,6 +652,62 @@ class SettingController extends Controller
         "risk_personal_tranche1" => $risk_personal_tranche1,
       );
 
+      $test = array(
+        "return_saham_personal_tranche1" => $data->return_s_tranche1, //Read return saham
+        "return_fi_personal_tranche1" => $data->return_pt_tranche1, //Read return pendapatan tetap
+        "return_depo_personal_tranche1" => $data->return_d_tranche1, //Read return deposito
+        "return_rdsaham_personal_tranche1" => $data->return_r_s_tranche1, //Read return reksadana saham
+        "return_rdfi_personal_tranche1" => $data->return_r_pt_tranche1, //Read return reksadana pendapatan tetap
+        "return_rdpu_personal_tranche1" => $data->return_r_pu_tranche1, //Read return reksadana pasar uang
+        "return_rdcampuran_personal_tranche1" => $data->return_r_c_tranche1, //Read return reksadana campuran
+        
+        "risk_saham_personal_tranche1" => $data->resiko_s_tranche1, //Read risk saham
+        "risk_fi_personal_tranche1" => $data->resiko_pt_tranche1, //Read risk pendapatan tetap
+        "risk_depo_personal_tranche1" => $data->resiko_d_tranche1, //Read risk deposito
+        "risk_rdsaham_personal_tranche1" => $data->resiko_r_s_tranche1, //Read risk reksadana saham
+        "risk_rdfi_personal_tranche1" => $data->resiko_r_pt_tranche1, //Read risk reksadanapendapatan tetap
+        "risk_rdpu_personal_tranche1" => $data->resiko_r_pu_tranche1, //Read risk reksadana pasar uang
+        "risk_rdcampuran_personal_tranche1" => $data->resiko_r_c_tranche1, //Read risk reksadana campuran
+        
+        "korel_saham_fi_personal_tranche1" => $data->korelasi_s_pt_tranche1, //Read korelasi saham - pendapatan tetap
+        "korel_saham_depo_personal_tranche1" => $data->korelasi_s_d_tranche1, //Read korelasi saham - deposito
+        "korel_saham_rdsaham_personal_tranche1" => $data->korelasi_s_r_s_tranche1, //Read korelasi saham - rdsaham
+        "korel_saham_rdfi_personal_tranche1" => $data->korealsi_s_r_pt_tranche1, //Read korelasi saham - rdfi
+        "korel_saham_rdpu_personal_tranche1" => $data->korelasi_s_r_pu_tranche1, //Read korelasi saham - rdpu
+        "korel_saham_rdcampuran_personal_tranche1" => $data->korelasi_s_r_c_tranche1, //Read korelasi saham - rdsaham
+        
+        "korel_fi_depo_personal_tranche1" => $data->korelasi_pt_d_tranche1, //Read korelasi fi - deposito
+        "korel_fi_rdsaham_personal_tranche1" => $data->korealsi_pt_r_s_tranche1, //Read korelasi fi - rdsaham
+        "korel_fi_rdfi_personal_tranche1" => $data->korelasi_pt_r_pt_tranche1, //Read korelasi fi - rdfi
+        "korel_fi_rdpu_personal_tranche1" => $data->korelasi_pt_r_pu_tranche1, //Read korelasi fi - rdpu
+        "korel_fi_rdcampuran_personal_tranche1" => $data->korelasi_pt_r_c_tranche1, //Read korelasi fi - rdsaham
+        
+        "korel_depo_rdsaham_personal_tranche1" => $data->korelasi_d_r_s_tranche1, //Read korelasi depo - rdsaham
+        "korel_depo_rdfi_personal_tranche1" => $data->korelasi_d_r_pt_tranche1, //Read korelasi depo - rdfi
+        "korel_depo_rdpu_personal_tranche1" => $data->korelasi_d_r_pu_tranche1, //Read korelasi depo - rdpu
+        "korel_depo_rdcampuran_personal_tranche1" => $data->korelasi_d_r_c_tranche1, //Read korelasi depo - rdsaham
+        
+        "korel_rdsaham_rdfi_personal_tranche1" => $data->korelasi_r_s_r_pt_tranche1, //Read korelasi rdsaham - rdfi
+        "korel_rdsaham_rdpu_personal_tranche1" => $data->korelasi_r_s_r_pu_tranche1, //Read korelasi rdsaham - rdpu
+        "korel_rdsaham_rdcampuran_personal_tranche1" => $data->korelasi_r_s_r_c_tranche1, //Read korelasi rdsaham - rdsaham
+      
+        "korel_rdfi_rdpu_personal_tranche1" => $data->korelasi_r_pt_r_pu_tranche1, //Read korelasi rdfi - rdpu
+        "korel_rdfi_rdcampuran_personal_tranche1" => $data->korelasi_r_pt_r_c_tranche1, //Read korelasi rdfi - rdsaham
+        
+        "korel_rdpu_rdcampuran_personal_tranche1" => $data->korelasi_r_pu_r_c_tranche1, //Read korelasi rdpu - rdsaham
+      
+        "komposisi_tranche1_saham_personal" => $komposisi_investasi->saham_t1, //Read komposisi saham tranche 1
+        "komposisi_tranche1_fi_personal" => $komposisi_investasi->pendapatan_tetap_t1, //Read komposisi pendapatan tetap tranche 1
+        "komposisi_tranche1_depo_personal" => $komposisi_investasi->deposito_t1, //Read komposisi deposito tranche 1
+        "komposisi_tranche1_rdsaham_personal" => $komposisi_investasi->reksadana_saham_t1, //Read komposisi reksadana saham tranche 1
+        "komposisi_tranche1_rdfi_personal" => $komposisi_investasi->reksadana_pendapatan_tetap_t1, //Read komposisi reksadana pendapatan tetap tranche 1
+        "komposisi_tranche1_rdpu_personal" => $komposisi_investasi->reksadana_pasar_uang_t1, //Read komposisi reksadana pasar uang tranche 1
+        "komposisi_tranche1_rdcampuran_personal" => $komposisi_investasi->reksadana_campuran_t1, //Read komposisi reksadana campuran tranche 1
+      );
+
+      echo json_encode($test, true);
+      die();
+
       return $result;
   }
 }
