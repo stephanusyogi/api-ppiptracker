@@ -244,6 +244,46 @@ class UserController extends Controller
         }
     }
 
+    // Update Tracking Data
+    public function update_tracking_data(Request $request){
+        $id_user = $request->input('id_user');
+        
+        // Add Activity
+        DB::table('activity_update_tracking_data')->insert([
+            'id' => (string) Str::uuid(),
+            'id_user' => $id_user,
+            'browser' => $request->browser,
+            'sistem_operasi' => $request->sistem_operasi,
+            'ip_address' => $request->ip_address,
+        ]);
+
+        // Ubah Flag Data Terbaru ke => 0
+        DB::table('users_update_tracking_data')
+        ->where('id_user', $id_user)
+        ->where('flag', 1)
+        ->update([
+            'flag' => 0,
+        ]);
+
+        // Tambahkan Data Baru
+        DB::table('users_update_tracking_data')->insert([
+            'id' => (string) Str::uuid(),
+            'id_user' => $id_user,
+            'saldo_ppip' => $request->saldo_ppip,
+            'saldo_personal_pasar_keuangan' => $request->saldo_personal_pasar_keuangan,
+            'saldo_personal_properti' => $request->saldo_personal_properti,
+            'penambahan_saldo_ppip' => $request->penambahan_saldo_ppip,
+            'penambahan_saldo_personal_keuangan' => $request->penambahan_saldo_personal_keuangan,
+            'penambahan_saldo_personal_properti' => $request->penambahan_saldo_personal_properti,
+            'flag' => 1,
+        ]);
+        
+        return response()->json([
+            "status" =>true,
+            "message"=>"Tracking Data User Updated!",
+        ],200);    
+    }
+
     // Setting Nilai Asumsi
     public function setting_nilai_asumsi(Request $request){
         $id_user = $request->input('id_user');
