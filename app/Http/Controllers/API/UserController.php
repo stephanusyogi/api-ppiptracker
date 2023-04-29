@@ -255,7 +255,7 @@ class UserController extends Controller
         return response()->json([
             "status" =>true,
             "message"=>"Tracking Data User!",
-            "data" => $id_user
+            "data" => $tracking_data
         ],200);    
     }
     public function update_tracking_data(Request $request){
