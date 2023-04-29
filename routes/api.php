@@ -61,6 +61,19 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
     Route::post('/kuisioner-activity', [QuestionController::class, 'add_activity']);
 
     Route::get('/pengumuman', [PengumumanController::class, 'index']);
+
+    // Setting
+    Route::get('/setting-nilai-asumsi/user', [UserController::class, 'setting_nilai_asumsi']);
+    Route::post('/setting-nilai-asumsi/user/add', [UserController::class, 'setting_nilai_asumsi_add']);
+    
+    Route::get('/setting-ppip/user', [UserController::class, 'setting_ppip']);
+    Route::post('/setting-ppip/user/add', [UserController::class, 'setting_ppip_add']);
+    
+    Route::get('/setting-personal-lifecycle/user', [UserController::class, 'setting_personal_lifecycle']);
+    Route::post('/setting-personal-lifecycle/user/add', [UserController::class, 'setting_personal_lifecycle_add']);
+    
+    Route::get('/setting-treatment/user', [UserController::class, 'setting_treatment']);
+    Route::post('/setting-treatment/user/add', [UserController::class, 'setting_treatment_add']);
 });
 
 // Verifikasi Email
