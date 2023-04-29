@@ -244,7 +244,20 @@ class UserController extends Controller
         }
     }
 
-    // Update Tracking Data
+    // Tracking Data
+    public function tracking_data(Request $request){
+        $id_user = $request->input('id_user');
+        $tracking_data = DB::table('users_update_tracking_data')
+        ->where('id_user', $id_user)
+        ->where('flag', 1)
+        ->select('*')->get();
+        
+        return response()->json([
+            "status" =>true,
+            "message"=>"Tracking Data User!",
+            "data" => $id_user
+        ],200);    
+    }
     public function update_tracking_data(Request $request){
         $id_user = $request->input('id_user');
         

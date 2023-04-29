@@ -62,8 +62,9 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
 
     Route::get('/pengumuman', [PengumumanController::class, 'index']);
 
-    // Update Tracking Data
-    Route::get('/update-tracking-data', [UserController::class, 'update_tracking_data']);
+    // Tracking Data
+    Route::get('/update-tracking-data', [UserController::class, 'tracking_data']);
+    Route::post('/update-tracking-data', [UserController::class, 'update_tracking_data']);
 
     // Setting
     Route::get('/setting-nilai-asumsi/user', [UserController::class, 'setting_nilai_asumsi']);
