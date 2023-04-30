@@ -300,16 +300,29 @@ class UserController extends Controller
     // Setting Nilai Asumsi
     public function setting_nilai_asumsi(Request $request){
         $id_user = $request->input('id_user');
-        $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
-        ->where('id_user', $id_user)
-        ->where('flag', 1)
-        ->select('*')->get();
-        
-        return response()->json([
-            "status" =>true,
-            "message"=>"Setting Nilai Asumsi User!",
-            "data" => $setting_nilai_asumsi_user
-        ],200);    
+
+        if ($id_user) {
+            $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
+            ->where('id_user', $id_user)
+            ->where('flag', 1)
+            ->select('*')->get();
+            
+            return response()->json([
+                "status" =>true,
+                "message"=>"Setting Nilai Asumsi User!",
+                "data" => $setting_nilai_asumsi_user
+            ],200);    
+        }else{
+            $setting_nilai_asumsi = DB::table('nilai_asumsi_admin')
+            ->select('*')->get();
+            
+            return response()->json([
+                "status" =>true,
+                "message"=>"Lists Setting Nilai Asumsi!",
+                "data" => $setting_nilai_asumsi
+            ],200);
+        }
+
     }
     public function setting_nilai_asumsi_add(Request $request){
         $id_user = $request->input('id_user');
