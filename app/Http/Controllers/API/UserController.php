@@ -390,7 +390,7 @@ class UserController extends Controller
             ->select('id','nama_portofolio')->get();
 
             $setting_ppip = DB::table('setting_portofolio_ppip_admin')
-            ->select('*')->where('id', $id)->get();
+            ->select('*')->where('id', $id_investasi)->get();
         
             return response()->json([
                 "status" =>true,
