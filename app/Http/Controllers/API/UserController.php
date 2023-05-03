@@ -371,6 +371,9 @@ class UserController extends Controller
         $id_investasi = $request->input('id_investasi');
 
         if ($id_user) {
+            $opsi = DB::table('setting_portofolio_ppip_admin')
+            ->select('id','nama_portofolio')->get();
+
             $setting_ppip_user = DB::table('setting_portofolio_ppip')->select('*')
             ->where('id_user', $id_user)
             ->where('flag', 1)
@@ -379,6 +382,7 @@ class UserController extends Controller
             return response()->json([
                 "status" =>true,
                 "message"=>"Setting PPIP User!",
+                "opsi" => $opsi,
                 "data" => $setting_ppip_user
             ],200);
         } elseif ($id_investasi) {
@@ -465,6 +469,9 @@ class UserController extends Controller
         $id_investasi = $request->input('id_investasi');
 
         if ($id_user) {
+            $opsi = DB::table('setting_portofolio_personal_admin')
+            ->select('id','nama')->get();
+
             $setting_personal_lifecycle = array();
             // Personal Keuangan
             $setting_personal_user = DB::table('setting_portofolio_personal')->select('*')
@@ -484,6 +491,7 @@ class UserController extends Controller
             return response()->json([
                 "status" =>true,
                 "message"=>"Setting Personal LifeCyecle User!",
+                "opsi" => $opsi,
                 "data" => $setting_personal_lifecycle
             ],200);
         } elseif ($id_investasi) {
