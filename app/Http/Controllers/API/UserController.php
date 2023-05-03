@@ -454,6 +454,10 @@ class UserController extends Controller
             'tranche_likuiditas_saham' => $request->tranche_likuiditas_saham,
             'tranche_likuiditas_pendapatan_tetap' => $request->tranche_likuiditas_pendapatan_tetap,
             'tranche_likuiditas_deposito' => $request->tranche_likuiditas_deposito,
+            'return_portofolio_tranche_investasi'=> $request->return_portofolio_tranche_investasi,
+            'return_portofolio_tranche_likuiditas'=> $request->return_portofolio_tranche_likuiditas,
+            'resiko_portofolio_tranche_investasi'=> $request->resiko_portofolio_tranche_investasi,
+            'resiko_portofolio_tranche_likuiditas'=> $request->resiko_portofolio_tranche_likuiditas,
             'flag' => 1,
         ]);
         
