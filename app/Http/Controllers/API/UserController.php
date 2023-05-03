@@ -372,7 +372,7 @@ class UserController extends Controller
 
         if ($id_user) {
             $opsi = DB::table('setting_portofolio_ppip_admin')
-            ->select('id','nama_portofolio')->get();
+            ->select('id','nama_portofolio')->where('flag', 1)->get();
 
             $setting_ppip_user = DB::table('setting_portofolio_ppip')->select('*')
             ->where('id_user', $id_user)
@@ -470,7 +470,7 @@ class UserController extends Controller
 
         if ($id_user) {
             $opsi = DB::table('setting_portofolio_personal_admin')
-            ->select('id','nama')->get();
+            ->select('id','nama')->where('flag', 1)->get();
 
             $setting_personal_lifecycle = array();
             // Personal Keuangan
