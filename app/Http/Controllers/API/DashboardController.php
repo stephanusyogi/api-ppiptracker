@@ -27,9 +27,9 @@ class DashboardController extends Controller
       // -----------------------------------------------------------------------
 
       //B.1 Hitung usia diangkat
-      $res = User::select('tgl_lahir','tgl_diangkat_pegawai')->where('id',$id_user)->get()[0];
-      $date1 = date_create($res->tgl_lahir); //Read tanggal lahir
-      $date2 = date_create($res->tgl_diangkat_pegawai); //Read tanggal diangkat
+      $data_user = User::select('*')->where('id',$id_user)->get()[0];
+      $date1 = date_create($data_user->tgl_lahir); //Read tanggal lahir
+      $date2 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
 
       $diff = date_diff($date1,$date2);
 
@@ -39,7 +39,7 @@ class DashboardController extends Controller
       // -----------------------------------------------------------------------
       //C.1. Simulasi Basic - hitung usia (usia diisi dari januari 2023 s.d. desember 2100)
       $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
-      $date1=date_create($res->tgl_lahir); //Read tanggal lahir
+      $date1=date_create($data_user->tgl_lahir); //Read tanggal lahir
       $date2=date_create("2023-01-01"); //januari 2023
       $diff=date_diff($date1,$date2);
 
@@ -75,13 +75,13 @@ class DashboardController extends Controller
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
       $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
-      $date1=date_create($res->tgl_diangkat_pegawai); //Read tanggal diangkat
+      $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
       $date2=date_create("2023-01-01"); //januari 2023
       $diff=date_diff($date1,$date2);
 
       //Output: Create $masa_dinas_tahun[$i] dan $masa_dinas_bulan[$i] ke masing-masing tahun dan bulan di database masa dinas
-      $sisa_masa_kerja_tahun = array();
-      $sisa_masa_kerja_bulan = array();
+      $sisa_masa_dinas_tahun = array();
+      $sisa_masa_dinas_bulan = array();
       
       for($year=2023; $year<=2100; $year++){
           for($month=1; $month<=12; $month++){
@@ -99,14 +99,56 @@ class DashboardController extends Controller
               }
 
               $key_tahun = $year . "_" . $month;
-              $sisa_masa_kerja_tahun[$key_tahun] = $tahun;
+              $sisa_masa_dinas_tahun[$key_tahun] = $tahun;
 
               $key_bulan = $year . "_" . $month;
-              $sisa_masa_kerja_bulan[$key_bulan] = $bulan;
+              $sisa_masa_dinas_bulan[$key_bulan] = $bulan;
           }
       }
-
-      echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_masa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_masa_kerja_bulan));
+      
+      // -----------------------------------------------------------------------
+      //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
+      $usia_pensiun=$data_user->usia_pensiun; //read usia pensiun
+      $tahun_pensiun=$usia_pensiun - 1;
+      $bulan_pensiun=12;
+      
+      $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
+     
+      for ($i=1;$i<=$jml;$i++){
+        
+        if($i==1){
+          $usia_tahun[$i]=24; //read usia tahun saat januari 2023
+          $usia_bulan[$i]=2; //read usia bulan saat januari 2023
+          
+          $sisa_kerja_tahun[$i]=$tahun_pensiun - $usia_tahun[$i];
+          $sisa_kerja_bulan[$i]=$bulan_pensiun - $usia_bulan[$i];
+          
+            //konversi bulan dari posisi dari 1-12 ke 0-11
+            if($sisa_kerja_bulan[$i]==12){
+            $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]+1;
+            $sisa_kerja_bulan[$i]=0;
+            }  
+            //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia
+          
+            //menurunkan bulan
+            if($sisa_kerja_bulan[$i]<=0){
+              $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]-1;
+              $sisa_kerja_bulan[$i]=11;
+            } else{
+              $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
+            }
+        
+        } else {
+          if($sisa_kerja_bulan[$i]<=0){
+              $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]-1;
+              $sisa_kerja_bulan[$i]=11;
+          }
+          //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
+          $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
+        }
+        
+      }
+      echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_kerja_bulan));
       die();
 
       return response()->json([
