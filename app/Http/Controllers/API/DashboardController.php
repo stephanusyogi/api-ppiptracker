@@ -64,10 +64,11 @@ class DashboardController extends Controller
                 }
 
                 //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
-                $key = $year . "_" . $month;
+                $key_tahun = $year . "_" . $month;
+                $usia_tahun[$key_tahun] = $tahun;
 
-                $usia_tahun[$key] = $tahun;
-                $usia_bulan[$key] = $bulan;
+                $key_bulan = $year . "_" . $month;
+                $usia_bulan[$key_bulan] = $bulan;
             }
         }
       
