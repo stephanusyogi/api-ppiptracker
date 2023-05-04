@@ -9,6 +9,7 @@ use App\Http\Controllers\API\MontecarloController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\PengumumanController;
+use App\Http\Controllers\API\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,9 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
     Route::post('/kuisioner-activity', [QuestionController::class, 'add_activity']);
 
     Route::get('/pengumuman', [PengumumanController::class, 'index']);
+
+    // Dashboard
+    Route::get('/generate-data-dashboard', [DashboardController::class, 'index']);
 
     // Tracking Data
     Route::get('/update-tracking-data', [UserController::class, 'tracking_data']);
