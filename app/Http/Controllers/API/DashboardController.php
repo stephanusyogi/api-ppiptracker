@@ -22,9 +22,11 @@ class DashboardController extends Controller
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
         ->get();
-
-        die(var_dump($target_replacement_ratio));
       
-        echo json_encode($target_replacement_ratio, true);
+      return response()->json([
+        "status" =>true,
+        "message"=>"Testing Hitung Awal!",
+        "data_testing" => $target_replacement_ratio
+      ],200);
     }
 }
