@@ -43,37 +43,72 @@ class DashboardController extends Controller
       $date2=date_create("2023-01-01"); //januari 2023
       $diff=date_diff($date1,$date2);
 
+      //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
       $usia_tahun = array();
       $usia_bulan = array();
       
-        for($year=2023; $year<=2100; $year++){
-            for($month=1; $month<=12; $month++){
-              
-                if($year==2023 && $month==1){
-                  $tahun=(int)$diff->format('%y');
+      for($year=2023; $year<=2100; $year++){
+          for($month=1; $month<=12; $month++){
+            
+              if($year==2023 && $month==1){
+                $tahun=(int)$diff->format('%y');
 
-                  $bulan=(int)$diff->format('%m');
-                  $bulan = $bulan +1;
-                } else {
-                  if($bulan >=12){
-                    $tahun = $tahun+1;
+                $bulan=(int)$diff->format('%m');
+                $bulan = $bulan +1;
+              } else {
+                if($bulan >=12){
+                  $tahun = $tahun+1;
 
-                    $bulan = 1;
-                  }
-                  $bulan = $bulan +1;
+                  $bulan = 1;
                 }
+                $bulan = $bulan +1;
+              }
 
-                //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
-                $key_tahun = $year . "_" . $month;
-                $usia_tahun[$key_tahun] = $tahun;
+              $key_tahun = $year . "_" . $month;
+              $usia_tahun[$key_tahun] = $tahun;
 
-                $key_bulan = $year . "_" . $month;
-                $usia_bulan[$key_bulan] = $bulan;
-            }
-        }
+              $key_bulan = $year . "_" . $month;
+              $usia_bulan[$key_bulan] = $bulan;
+          }
+      }
       
-      echo json_encode(array("usia_tahun" => $usia_tahun, "usia_bulan"=>$usia_bulan), true);
+      // -----------------------------------------------------------------------
+      //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
+      $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
+      $date1=date_create($res->tgl_diangkat_pegawai); //Read tanggal diangkat
+      $date2=date_create("2023-01-01"); //januari 2023
+      $diff=date_diff($date1,$date2);
+
+      //Output: Create $masa_dinas_tahun[$i] dan $masa_dinas_bulan[$i] ke masing-masing tahun dan bulan di database masa dinas
+      $sisa_masa_kerja_tahun = array();
+      $sisa_masa_kerja_bulan = array();
+      
+      for($year=2023; $year<=2100; $year++){
+          for($month=1; $month<=12; $month++){
+            
+              if($year==2023 && $month==1){
+                $tahun=(int)$diff->format('%y');
+                $bulan=(int)$diff->format('%m');
+                $bulan = $bulan +1;
+              } else {
+                if($bulan >=12){
+                  $bulan = 1;
+                  $tahun = $tahun+1;
+                }
+                $bulan = $bulan +1;
+              }
+
+              $key_tahun = $year . "_" . $month;
+              $sisa_masa_kerja_tahun[$key_tahun] = $tahun;
+
+              $key_bulan = $year . "_" . $month;
+              $sisa_masa_kerja_bulan[$key_bulan] = $bulan;
+          }
+      }
+
+      echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_masa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_masa_kerja_bulan));
       die();
+
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
