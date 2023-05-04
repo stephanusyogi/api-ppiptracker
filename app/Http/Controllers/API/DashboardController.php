@@ -37,26 +37,21 @@ class DashboardController extends Controller
       $bulan = $diff->format('%m');
 
       // -----------------------------------------------------------------------
-      die(var_dump($res->tgl_lahir));
       //C.1. Simulasi Basic - hitung usia (usia diisi dari januari 2023 s.d. desember 2100)
       $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
       $date1=date_create($res->tgl_lahir); //Read tanggal lahir
       $date2=date_create("2023-01-01"); //januari 2023
       $diff=date_diff($date1,$date2);
 
-      $tahun_bulan = array();
+      $usia_tahun = array();
+      $usia_bulan = array();
       
       for ($i=1;$i<=$jml;$i++){  
         if($i==1){
-          $tahun=$diff->format('%y');
-          $bulan=$diff->format('%m');
+          $tahun=(int)$diff->format('%y');
+          $bulan=(int)$diff->format('%m');
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia
           $bulan = $bulan +1;
-
-          $tahun_bulan[] = array(
-            "tahun" => $tahun,
-            "bulan" => $bulan,
-          );
         } else {
           if($bulan >=12){
             $bulan = 1;
@@ -64,15 +59,23 @@ class DashboardController extends Controller
           }
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
           $bulan = $bulan +1;
-          
-          $tahun_bulan[] = array(
-            "tahun" => $tahun,
-            "bulan" => $bulan,
-          );
         } 
+
+        for($year=2023; $year<=2100; $year++){
+            for($month=1; $month<=12; $month++){
+                $key = $year . "_" . $month;
+                $usia_tahun[$key] = $tahun;
+            }
+        }
+        for($year=2023; $year<=2100; $year++){
+            for($month=1; $month<=12; $month++){
+                $key = $year . "_" . $month;
+                $usia_bulan[$key] = $bulan;
+            }
+        }
       }
       
-      echo json_encode($tahun_bulan, true);
+      echo json_encode(array("usia_tahun" => $usia_tahun, "usia_bulan"=>$usia_bulan), true);
       die();
       return response()->json([
         "status" =>true,
