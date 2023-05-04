@@ -12,7 +12,6 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
-      die(var_dump($id_user));
 
       //A.1 Hitung Target Replacement Ratio
       $target_replacement_ratio = DB::table('variabel_kuisioner_target_rr_answer')
@@ -23,6 +22,8 @@ class DashboardController extends Controller
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
         ->get();
+
+        die(var_dump($target_replacement_ratio));
       
         echo json_encode($target_replacement_ratio, true);
     }
