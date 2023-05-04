@@ -21,8 +21,8 @@ class DashboardController extends Controller
             ['flag','=',1],
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
-        ->get();
-        
+        ->get()[0];
+
       $target_replacement_ratio = round($res->answer,2);
       
       return response()->json([
