@@ -43,6 +43,8 @@ class DashboardController extends Controller
       $date1=date_create($res->tgl_lahir); //Read tanggal lahir
       $date2=date_create("2023-01-01"); //januari 2023
       $diff=date_diff($date1,$date2);
+
+      die(var_dump($diff));
       
       for ($i=1;$i<=$jml;$i++){  
         if($i==1){
