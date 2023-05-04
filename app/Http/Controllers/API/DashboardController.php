@@ -44,7 +44,7 @@ class DashboardController extends Controller
       $date2=date_create("2023-01-01"); //januari 2023
       $diff=date_diff($date1,$date2);
 
-      die(var_dump($diff));
+      $tahun_bulan = array();
       
       for ($i=1;$i<=$jml;$i++){  
         if($i==1){
@@ -52,6 +52,9 @@ class DashboardController extends Controller
           $bulan=$diff->format('%m');
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia
           $bulan = $bulan +1;
+
+          $tahun_bulan['tahun'] = $tahun;
+          $tahun_bulan['bulan'] = $bulan;
         } else {
           if($bulan >=12){
             $bulan = 1;
@@ -59,10 +62,11 @@ class DashboardController extends Controller
           }
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
           $bulan = $bulan +1;
+          
+          $tahun_bulan['tahun'] = $tahun;
+          $tahun_bulan['bulan'] = $bulan;
         } 
-        echo $tahun;
-        echo "<br/>";
-        echo $bulan;
+        echo json_encode($tahun_bulan, true);
         die();
       }
       return response()->json([
