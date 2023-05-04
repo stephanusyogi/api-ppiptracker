@@ -35,7 +35,34 @@ class DashboardController extends Controller
 
       $tahun = $diff->format('%y');
       $bulan = $diff->format('%m');
+
+      // -----------------------------------------------------------------------
       
+      //C.1. Simulasi Basic - hitung usia (usia diisi dari januari 2023 s.d. desember 2100)
+      $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
+      $date1=date_create($res->tgl_lahir); //Read tanggal lahir
+      $date2=date_create("2023-01-01"); //januari 2023
+      $diff=date_diff($date1,$date2);
+      
+      for ($i=1;$i<=$jml;$i++){  
+        if($i==1){
+          $tahun=$diff->format('%y');
+          $bulan=$diff->format('%m');
+          //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia
+          $bulan = $bulan +1;
+        } else {
+          if($bulan >=12){
+            $bulan = 1;
+            $tahun = $tahun+1;
+          }
+          //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
+          $bulan = $bulan +1;
+        } 
+        echo $tahun;
+        echo "<br/>";
+        echo $bulan;
+        die();
+      }
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
