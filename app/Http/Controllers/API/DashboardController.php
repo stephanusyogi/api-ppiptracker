@@ -70,9 +70,10 @@ class DashboardController extends Controller
             "bulan" => $bulan,
           );
         } 
-        echo json_encode($tahun_bulan, true);
-        die();
       }
+      
+      echo json_encode($tahun_bulan, true);
+      die();
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
