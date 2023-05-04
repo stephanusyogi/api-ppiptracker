@@ -22,13 +22,20 @@ class DashboardController extends Controller
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
         ->get()[0];
-
       $target_replacement_ratio = round($res->answer,2);
+
+      //B.1 Hitung usia diangkat
+      $res = User::select('tgl_lahir','tgl_diangkat_pegawai')->where('id',$id_user)->get();
+      $date1=date_create("1992-06-24"); //Read tanggal lahir
+      $date2=date_create("2018-02-06"); //Read tanggal diangkat
+      $diff=date_diff($date1,$date2);
+
+      die(var_dump($res));
       
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
-        "data_testing" => $target_replacement_ratio
+        "data_testing" => $res
       ],200);
     }
 }
