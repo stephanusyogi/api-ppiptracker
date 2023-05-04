@@ -46,34 +46,35 @@ class DashboardController extends Controller
       $usia_tahun = array();
       $usia_bulan = array();
       
-      for ($i=1;$i<=$jml;$i++){  
-        if($i==1){
-          $tahun=(int)$diff->format('%y');
-          $bulan=(int)$diff->format('%m');
-          //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia
-          $bulan = $bulan +1;
-        } else {
-          if($bulan >=12){
-            $bulan = 1;
-            $tahun = $tahun+1;
-          }
-          //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
-          $bulan = $bulan +1;
-        } 
+      // for ($i=1;$i<=$jml;$i++){   
 
         for($year=2023; $year<=2100; $year++){
             for($month=1; $month<=12; $month++){
+              
+                if($month==1){
+                  $tahun=(int)$diff->format('%y');
+                  $bulan=(int)$diff->format('%m');
+                  $bulan = $bulan +1;
+                } else {
+                  if($bulan >=12){
+                    $bulan = 1;
+                    $tahun = $tahun+1;
+                  }
+                  $bulan = $bulan +1;
+                }
+
+                //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
                 $key = $year . "_" . $month;
                 $usia_tahun[$key] = $tahun;
             }
         }
-        for($year=2023; $year<=2100; $year++){
-            for($month=1; $month<=12; $month++){
-                $key = $year . "_" . $month;
-                $usia_bulan[$key] = $bulan;
-            }
-        }
-      }
+        // for($year=2023; $year<=2100; $year++){
+        //     for($month=1; $month<=12; $month++){
+        //         $key = $year . "_" . $month;
+        //         $usia_bulan[$key] = $bulan;
+        //     }
+        // }
+      // }
       
       echo json_encode(array("usia_tahun" => $usia_tahun, "usia_bulan"=>$usia_bulan), true);
       die();
