@@ -14,7 +14,7 @@ class DashboardController extends Controller
       $id_user = $request->input('id_user');
 
       //A.1 Hitung Target Replacement Ratio
-      $target_replacement_ratio = DB::table('variabel_kuisioner_target_rr_answer')
+      $res = DB::table('variabel_kuisioner_target_rr_answer')
         ->select("answer")
         ->where([
             ['id_user','=',$id_user],
@@ -22,6 +22,8 @@ class DashboardController extends Controller
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
         ->get();
+        
+      $target_replacement_ratio = round($res->answer,2);
       
       return response()->json([
         "status" =>true,
