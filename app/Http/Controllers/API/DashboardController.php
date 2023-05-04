@@ -37,7 +37,7 @@ class DashboardController extends Controller
       $bulan = $diff->format('%m');
 
       // -----------------------------------------------------------------------
-      
+      die(var_dump($res->tgl_lahir));
       //C.1. Simulasi Basic - hitung usia (usia diisi dari januari 2023 s.d. desember 2100)
       $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
       $date1=date_create($res->tgl_lahir); //Read tanggal lahir
