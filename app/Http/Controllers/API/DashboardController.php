@@ -53,8 +53,10 @@ class DashboardController extends Controller
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia
           $bulan = $bulan +1;
 
-          $tahun_bulan['tahun'] = $tahun;
-          $tahun_bulan['bulan'] = $bulan;
+          $tahun_bulan[] = array(
+            "tahun" => $tahun,
+            "bulan" => $bulan,
+          );
         } else {
           if($bulan >=12){
             $bulan = 1;
@@ -63,8 +65,10 @@ class DashboardController extends Controller
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
           $bulan = $bulan +1;
           
-          $tahun_bulan['tahun'] = $tahun;
-          $tahun_bulan['bulan'] = $bulan;
+          $tahun_bulan[] = array(
+            "tahun" => $tahun,
+            "bulan" => $bulan,
+          );
         } 
         echo json_encode($tahun_bulan, true);
         die();
