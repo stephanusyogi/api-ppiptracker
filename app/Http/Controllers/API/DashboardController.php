@@ -51,14 +51,16 @@ class DashboardController extends Controller
         for($year=2023; $year<=2100; $year++){
             for($month=1; $month<=12; $month++){
               
-                if($month==1){
+                if($year==2023 && $month==1){
                   $tahun=(int)$diff->format('%y');
+
                   $bulan=(int)$diff->format('%m');
                   $bulan = $bulan +1;
                 } else {
                   if($bulan >=12){
-                    $bulan = 1;
                     $tahun = $tahun+1;
+                    
+                    $bulan = 1;
                   }
                   $bulan = $bulan +1;
                 }
