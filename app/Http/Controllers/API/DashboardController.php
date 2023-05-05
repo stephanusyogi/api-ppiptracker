@@ -155,7 +155,28 @@ class DashboardController extends Controller
             $sisa_kerja_bulan[$key_bulan] = $sisa_kerja_bulan_hitung;
           }
       }
-      echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_kerja_bulan));
+
+      // -----------------------------------------------------------------------
+      //C.4. Flag Pensiun/belum pensiun 
+
+      $flag_pensiun = array();
+      
+      for($year=2023; $year<=2100; $year++){
+        for($month=1; $month<=12; $month++){
+          $key = $year . "_" . $month;
+          $flag_sisa_kerja_tahun=$sisa_kerja_tahun[$key];//Read sisa masa kerja tahun
+          $flag_sisa_kerja_bulan=$sisa_kerja_bulan[$key];//Read sisa masa kerja bulan
+          
+          if($flag_sisa_kerja_tahun<0){
+            $flag=1;//sudah pensiun
+          } else {
+            $flag=0;//belum pensiun
+          }
+          $flag_pensiun[$key] = $flag;
+        }
+      }
+
+      echo json_encode($flag_pensiun, true);
       die();
 
       return response()->json([
