@@ -142,21 +142,19 @@ class DashboardController extends Controller
             var_dump($sisa_kerja_bulan)."<br/>";
         
         } else {
+          echo "else<br/>";
+          var_dump($sisa_kerja_tahun)."<br/>";
+          var_dump($sisa_kerja_bulan)."<br/>";
+          die();
           if($sisa_kerja_bulan[$i]<=0){
               $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]-1;
               $sisa_kerja_bulan[$i]=11;
           }
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
           $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
-
-          echo "else<br/>";
         }
-
-        var_dump($sisa_kerja_tahun);
-        echo "<br/>";
-        var_dump($sisa_kerja_bulan);
-        die();
       }
+      die();
       echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_kerja_bulan));
       die();
 
