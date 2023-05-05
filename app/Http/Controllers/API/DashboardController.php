@@ -113,26 +113,20 @@ class DashboardController extends Controller
       $bulan_pensiun=12;
       
       $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
-
-      
-      echo $usia_pensiun."<br/>";
-      echo $tahun_pensiun."<br/>";
-      echo $usia_tahun['2023_1']."<br/>";
-      echo $usia_bulan['2023_1']."<br/>";
      
       for ($i=1;$i<=$jml;$i++){
         
         if($i==1){
-          $usia_tahun[$i]=24; //read usia tahun saat januari 2023
-          $usia_bulan[$i]=2; //read usia bulan saat januari 2023
+          $usia_tahun[$i]=$usia_tahun['2023_1']; //read usia tahun saat januari 2023
+          $usia_bulan[$i]=$usia_bulan['2023_1']; //read usia bulan saat januari 2023
           
           $sisa_kerja_tahun[$i]=$tahun_pensiun - $usia_tahun[$i];
           $sisa_kerja_bulan[$i]=$bulan_pensiun - $usia_bulan[$i];
           
             //konversi bulan dari posisi dari 1-12 ke 0-11
             if($sisa_kerja_bulan[$i]==12){
-            $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]+1;
-            $sisa_kerja_bulan[$i]=0;
+              $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]+1;
+              $sisa_kerja_bulan[$i]=0;
             }  
             //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia
           
@@ -143,6 +137,9 @@ class DashboardController extends Controller
             } else{
               $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
             }
+            echo "if<br/>";
+            echo $usia_pensiun."<br/>";
+            echo $tahun_pensiun."<br/>";
         
         } else {
           if($sisa_kerja_bulan[$i]<=0){
@@ -151,9 +148,13 @@ class DashboardController extends Controller
           }
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
           $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
+
+          echo "else<br/>";
         }
 
         var_dump($sisa_kerja_tahun);
+        echo "<br/>";
+        var_dump($sisa_kerja_bulan);
         die();
       }
       echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_kerja_bulan));
