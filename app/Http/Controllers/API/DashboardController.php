@@ -139,6 +139,8 @@ class DashboardController extends Controller
             }
         
         } else {
+          echo json_encode($sisa_kerja_tahun, true);
+          die();
           if($sisa_kerja_bulan[$i]<=0){
               $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]-1;
               $sisa_kerja_bulan[$i]=11;
@@ -147,8 +149,6 @@ class DashboardController extends Controller
           $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
         }
       }
-      echo json_encode($sisa_kerja_tahun, true);
-      die();
       echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_kerja_bulan));
       die();
 
