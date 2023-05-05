@@ -105,8 +105,6 @@ class DashboardController extends Controller
               $sisa_masa_dinas_bulan[$key_bulan] = $bulan;
           }
       }
-      echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_masa_dinas_tahun, "sisa_masa_kerja_bulan"=>$sisa_masa_dinas_bulan));
-      die();
 
       
       // -----------------------------------------------------------------------
@@ -116,48 +114,48 @@ class DashboardController extends Controller
       $bulan_pensiun=12;
       
       $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
+      
+      $sisa_kerja_tahun = array();
+      $sisa_kerja_bulan = array();
      
-      for ($i=1;$i<=$jml;$i++){
-        
-        if($i==1){
-          $usia_tahun[$i]=$usia_tahun['2023_1']; //read usia tahun saat januari 2023
-          $usia_bulan[$i]=$usia_bulan['2023_1']; //read usia bulan saat januari 2023
-          
-          $sisa_kerja_tahun[$i]=$tahun_pensiun - $usia_tahun[$i];
-          $sisa_kerja_bulan[$i]=$bulan_pensiun - $usia_bulan[$i];
-          
-            //konversi bulan dari posisi dari 1-12 ke 0-11
-            if($sisa_kerja_bulan[$i]==12){
-              $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]+1;
-              $sisa_kerja_bulan[$i]=0;
-            }  
-            //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia
-          
-            //menurunkan bulan
-            if($sisa_kerja_bulan[$i]<=0){
-              $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]-1;
-              $sisa_kerja_bulan[$i]=11;
-            } else{
-              $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
+      for($year=2023; $year<=2100; $year++){
+          for($month=1; $month<=12; $month++){
+            $usia_tahun=$usia_tahun[$year.'_'.$month]; //read usia tahun saat januari 2023
+            $usia_bulan=$usia_bulan[$year.'_'.$month]; //read usia bulan saat januari 2023
+
+            $sisa_kerja_tahun_hitung = $tahun_pensiun - $usia_tahun;
+            $sisa_kerja_bulan_hitung = $bulan_pensiun - $usia_bulan;
+
+            if($year==2023 && $month==1){  
+                //konversi bulan dari posisi dari 1-12 ke 0-11
+                if($sisa_kerja_bulan_hitung == 12){
+                  $sisa_kerja_tahun_hitung = $sisa_kerja_tahun_hitung + 1;
+                  $sisa_kerja_bulan_hitung = 0;
+                }  
+              
+                //menurunkan bulan
+                if($sisa_kerja_bulan_hitung<=0){
+                  $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
+                  $sisa_kerja_bulan_hitung=11;
+                } else{
+                  $sisa_kerja_bulan_hitung=$sisa_kerja_bulan_hitung-1;
+                }
+            
+            } else {
+              if($sisa_kerja_bulan<=0){
+                  $sisa_kerja_tahun=$sisa_kerja_tahun-1;
+                  $sisa_kerja_bulan=11;
+              }
+              $sisa_kerja_bulan=$sisa_kerja_bulan-1;
             }
-            echo "if<br/>";
-            var_dump($sisa_kerja_tahun)."<br/>";
-            var_dump($sisa_kerja_bulan)."<br/>";
-        
-        } else {
-          if($sisa_kerja_bulan[$i]<=0){
-              echo "else in if<br/>";
-              var_dump($sisa_kerja_tahun)."<br/>";
-              var_dump($sisa_kerja_bulan)."<br/>";
-              die();
-              $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]-1;
-              $sisa_kerja_bulan[$i]=11;
+            
+            $key_tahun = $year . "_" . $month;
+            $sisa_kerja_tahun[$key_tahun] = $tahun;
+
+            $key_bulan = $year . "_" . $month;
+            $sisa_kerja_bulan[$key_bulan] = $bulan;
           }
-          //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
-          $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
-        }
       }
-      die();
       echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_kerja_bulan));
       die();
 
