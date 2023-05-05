@@ -175,17 +175,23 @@ class DashboardController extends Controller
           $flag_pensiun[$key] = $flag;
         }
       }
+      
+      // -----------------------------------------------------------------------
+    //D. Hitung Montecarlo PPIP
+    //Input: Read sisa masa kerja tahun saat awal tahun, portofolio investasi PPIP yang dipilih peserta, return dan risk portofolio ppip, tabel normal inverse;
+    $setting_ppip_user = DB::table('setting_portofolio_ppip')->select('*')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->get()[0];
+    for($year=2023; $year<=2100; $year++){
 
-      echo json_encode($flag_pensiun, true);
-      die();
+    }
+    echo json_encode($setting_ppip_user, true);
+    die();
 
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
-        "data_testing" => array(
-          "tahun" => $tahun,
-          "bulan" => $bulan,
-        )
       ],200);
     }
 }
