@@ -142,11 +142,11 @@ class DashboardController extends Controller
             var_dump($sisa_kerja_bulan)."<br/>";
         
         } else {
-          echo "else<br/>";
-          var_dump($sisa_kerja_tahun)."<br/>";
-          var_dump($sisa_kerja_bulan)."<br/>";
-          die();
           if($sisa_kerja_bulan[$i]<=0){
+              echo "else<br/>";
+              var_dump($sisa_kerja_tahun)."<br/>";
+              var_dump($sisa_kerja_bulan)."<br/>";
+              die();
               $sisa_kerja_tahun[$i]=$sisa_kerja_tahun[$i]-1;
               $sisa_kerja_bulan[$i]=11;
           }
