@@ -120,14 +120,12 @@ class DashboardController extends Controller
      
       for($year=2023; $year<=2100; $year++){
           for($month=1; $month<=12; $month++){
-            $key_usia = $year . "_" . $month;
-            $usia_tahun=$usia_tahun[$key_usia]; //read usia tahun saat januari 2023
-            $usia_bulan=$usia_bulan[$key_usia]; //read usia bulan saat januari 2023
-
-            $sisa_kerja_tahun_hitung = $tahun_pensiun - $usia_tahun;
-            $sisa_kerja_bulan_hitung = $bulan_pensiun - $usia_bulan;
-
             if($year==2023 && $month==1){  
+              $usia_tahun=$usia_tahun["2023_1"]; //read usia tahun saat januari 2023
+              $usia_bulan=$usia_bulan["2023_1"]; //read usia bulan saat januari 2023
+  
+              $sisa_kerja_tahun_hitung = $tahun_pensiun - $usia_tahun;
+              $sisa_kerja_bulan_hitung = $bulan_pensiun - $usia_bulan;
                 //konversi bulan dari posisi dari 1-12 ke 0-11
                 if($sisa_kerja_bulan_hitung == 12){
                   $sisa_kerja_tahun_hitung = $sisa_kerja_tahun_hitung + 1;
@@ -143,11 +141,11 @@ class DashboardController extends Controller
                 }
             
             } else {
-              if($sisa_kerja_bulan<=0){
-                  $sisa_kerja_tahun=$sisa_kerja_tahun-1;
-                  $sisa_kerja_bulan=11;
+              if($sisa_kerja_bulan_hitung<=0){
+                  $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
+                  $sisa_kerja_bulan_hitung=11;
               }
-              $sisa_kerja_bulan=$sisa_kerja_bulan-1;
+              $sisa_kerja_bulan_hitung=$sisa_kerja_bulan_hitung-1;
             }
             
             $key_tahun = $year . "_" . $month;
