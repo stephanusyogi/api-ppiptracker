@@ -117,6 +117,8 @@ class DashboardController extends Controller
       
       echo $usia_pensiun."<br/>";
       echo $tahun_pensiun."<br/>";
+      echo $usia_tahun['2023_1']."<br/>";
+      echo $usia_bulan['2023_1']."<br/>";
      
       for ($i=1;$i<=$jml;$i++){
         
