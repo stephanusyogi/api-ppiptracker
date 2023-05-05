@@ -146,6 +146,8 @@ class DashboardController extends Controller
           //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
           $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
         }
+        echo json_encode($sisa_kerja_tahun, true);
+        die();
         
       }
       echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_kerja_bulan));
