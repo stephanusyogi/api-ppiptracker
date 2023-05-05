@@ -120,8 +120,8 @@ class DashboardController extends Controller
      
       for($year=2023; $year<=2100; $year++){
           for($month=1; $month<=12; $month++){
-            $usia_tahun=$usia_tahun[$year.'_'.$month]; //read usia tahun saat januari 2023
-            $usia_bulan=$usia_bulan[$year.'_'.$month]; //read usia bulan saat januari 2023
+            $usia_tahun=$usia_tahun["$year.'_'.$month"]; //read usia tahun saat januari 2023
+            $usia_bulan=$usia_bulan["$year.'_'.$month"]; //read usia bulan saat januari 2023
 
             $sisa_kerja_tahun_hitung = $tahun_pensiun - $usia_tahun;
             $sisa_kerja_bulan_hitung = $bulan_pensiun - $usia_bulan;
