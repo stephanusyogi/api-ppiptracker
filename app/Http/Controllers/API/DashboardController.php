@@ -139,7 +139,7 @@ class DashboardController extends Controller
                 } else{
                   $sisa_kerja_bulan_hitung=$sisa_kerja_bulan_hitung-1;
                 }
-            
+                
             } else {
               if($sisa_kerja_bulan_hitung<=0){
                   $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
@@ -149,10 +149,10 @@ class DashboardController extends Controller
             }
             
             $key_tahun = $year . "_" . $month;
-            $sisa_kerja_tahun[$key_tahun] = $tahun;
+            $sisa_kerja_tahun[$key_tahun] = $sisa_kerja_tahun_hitung;
 
             $key_bulan = $year . "_" . $month;
-            $sisa_kerja_bulan[$key_bulan] = $bulan;
+            $sisa_kerja_bulan[$key_bulan] = $sisa_kerja_bulan_hitung;
           }
       }
       echo json_encode(array("sisa_masa_kerja_tahun"=>$sisa_kerja_tahun, "sisa_masa_kerja_bulan"=>$sisa_kerja_bulan));
