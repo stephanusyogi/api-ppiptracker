@@ -138,8 +138,8 @@ class DashboardController extends Controller
               $sisa_kerja_bulan[$i]=$sisa_kerja_bulan[$i]-1;
             }
             echo "if<br/>";
-            echo $usia_pensiun."<br/>";
-            echo $tahun_pensiun."<br/>";
+            var_dump($sisa_kerja_tahun)."<br/>";
+            var_dump($sisa_kerja_bulan)."<br/>";
         
         } else {
           if($sisa_kerja_bulan[$i]<=0){
