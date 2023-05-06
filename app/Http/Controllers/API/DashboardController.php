@@ -370,7 +370,7 @@ class DashboardController extends Controller
       $return_personal = array();
       $risk_personal = array();
 
-      $nab_ppip = array();
+      $nab_personal = array();
 
       for($year=2023; $year<=2100; $year++){
         $key_tahun = $year . "_1";
@@ -400,9 +400,31 @@ class DashboardController extends Controller
         $tranche_personal[$year] = $tranche_personal_hitung;
         $return_personal[$year] = $return_personal_hitung;
         $risk_personal[$year] = $risk_personal_hitung;
+
+        //+++++++++++++++++++++++++++++++++
+        //E.4. Hitung Montecarlo personal - hitung NAB
+        if($tranche_personal_hitung != "null"){ //jika masih belum pensiun
+          $previous_nab_personal = null;
+          for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
+            if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
+                $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+                $nab_personal_hitung=round(100 * (1 + ($return_personal_hitung[$i] / 100) + (($risk_personal_hitung[$i] / 100) * $norminv[$acak]) ),2);
+            } else{
+                $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+                $nab_personal_hitung=round($previous_nab_personal * (1 + ($return_personal_hitung[$i] / 100) + (($risk_personal_hitung[$i] / 100) * $norminv[$acak]) ),2);
+            }
+            $nab_personal[$year] = $nab_personal_hitung;
+            $previous_nab = $nab_personal[$year];
+          }
+        } else{ //jika sudah pensiun
+          for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
+                $nab_personal_hitung = 0;
+                $nab_personal[$year] = $nab_personal_hitung;
+            }
+        }
       }
 
-      echo json_encode($tranche_personal, true);
+      echo json_encode($nab_personal, true);
       die();
     }
 }
