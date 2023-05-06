@@ -424,7 +424,7 @@ class DashboardController extends Controller
         }
       }
 
-      echo json_encode($nab_personal, true);
+      echo json_encode($tranche_personal_hitung, true);
       die();
     }
 }
