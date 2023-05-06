@@ -178,6 +178,8 @@ class DashboardController extends Controller
         $norminv[$i]=$tabel_norminv[$i]->norm_inv;//Read tabel normal inverse
     }
 
+    echo json_encode($norminv, true);
+    die();
     //mulai perhitungan
     $tranche_ppip = array();
     $return_ppip = array();
@@ -213,28 +215,27 @@ class DashboardController extends Controller
         $risk_ppip[$key_loop] = $risk_ppip_hitung;
         
 
-        // //+++++++++++++++++++++++++++++++++
-        // //D.4. Hitung Montecarlo PPIP - hitung NAB
-        // if($tranche_ppip[$i] != "null"){ //jika masih belum pensiun
-          
-        //   for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
-        //       if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
+        //+++++++++++++++++++++++++++++++++
+        //D.4. Hitung Montecarlo PPIP - hitung NAB
+        if($tranche_ppip[$i] != "null"){ //jika masih belum pensiun
+          for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
+              if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                   
-        //           $acak= mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-        //           $nab_ppip[$i][$j]=round(100 * (1 + ($return_ppip[$i] / 100) + (($risk_ppip[$i] / 100) * $tabel_norminv[$acak]) ),2);
-        //       } else{
+                  $acak= mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+                  $nab_ppip[$i][$j]=round(100 * (1 + ($return_ppip[$i] / 100) + (($risk_ppip[$i] / 100) * $tabel_norminv[$acak]) ),2);
+              } else{
                 
-        //           $acak= mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-        //           $nab_ppip[$i][$j]=round($nab_ppip[$i-1][$j] * (1 + ($return_ppip[$i] / 100) + (($risk_ppip[$i] / 100) * $tabel_norminv[$acak]) ),2);
-        //       }
-        //   }
+                  $acak= mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+                  $nab_ppip[$i][$j]=round($nab_ppip[$i-1][$j] * (1 + ($return_ppip[$i] / 100) + (($risk_ppip[$i] / 100) * $tabel_norminv[$acak]) ),2);
+              }
+          }
             
           
-        // } else{ //jika sudah pensiun
-        //   for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
-        //       $nab_ppip[$i][$j]=0;
-        //   }
-        // }
+        } else{ //jika sudah pensiun
+          for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
+              $nab_ppip[$i][$j]=0;
+          }
+        }
         
         // //+++++++++++++++++++++++++++++++++
         // //D.5., D.6., dan D.7. Hitung Montecarlo PPIP - hitung percentile 95, 50, dan 5 dari NAB
