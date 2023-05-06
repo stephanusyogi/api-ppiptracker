@@ -187,7 +187,7 @@ class DashboardController extends Controller
     // Tabel Norm Inverse
     $tabel_norminv = DB::table('distribusi_normal')->select('norm_inv')
       ->get()->toArray();
-    for ($i=1;$i<=count($tabel_norminv);$i++){ //$i adalah primary key dari tabel normal inverse yang ada di database
+    for ($i=1;$i<count($tabel_norminv);$i++){ //$i adalah primary key dari tabel normal inverse yang ada di database
         $norminv[$i]=$tabel_norminv[$i];//Read tabel normal inverse
     }
     for($year=2023; $year<=2100; $year++){
