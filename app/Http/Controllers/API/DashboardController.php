@@ -175,30 +175,8 @@ class DashboardController extends Controller
 
       // -----------------------------------------------------------------------
       //E. Hitung Montecarlo Personal Keuangan
-      //Input: Read sisa masa kerja tahun saat awal tahun, portofolio investasi Personal yang dipilih peserta, return dan risk portofolio Personal, tabel normal inverse;
-      $setting_personal_lifecycle_user = array();
-      // Personal Keuangan
-      $setting_personal_user = DB::table('setting_portofolio_personal')->select('*')
-      ->where('id_user', $id_user)
-      ->where('flag', 1)
-      ->get()[0];
+      $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
 
-      // Lifecycle
-      $setting_lifecycle_user = DB::table('setting_komposisi_investasi_lifecycle_fund')->select('*')
-      ->where('id_user', $id_user)
-      ->where('flag', 1)
-      ->get()[0];
-      $setting_personal_lifecycle_user["personal_keuangan"] = $setting_personal_user;
-      $setting_personal_lifecycle_user["komposisi_investasi"] = $setting_lifecycle_user;
-
-      for($year=2023; $year<=2100; $year++){
-        $key_tahun = $year . "_1";
-        $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
-        $flag_pensiun_hitung = $flag_pensiun[$key_tahun];//Read flag pensiun setiap bulan januari
-      }
-
-      echo json_encode($setting_personal_lifecycle_user, true);
-      die();
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
@@ -369,5 +347,62 @@ class DashboardController extends Controller
       $percentile_50_return_monthly_ppip[$year]=$percentile_50_return_monthly_ppip_hitung;
       $percentile_05_return_monthly_ppip[$year]=$percentile_05_return_monthly_ppip_hitung;
       }
+    }
+
+    public function montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv){
+      //Input: Read sisa masa kerja tahun saat awal tahun, portofolio investasi Personal yang dipilih peserta, return dan risk portofolio Personal, tabel normal inverse;
+      $setting_personal_lifecycle_user = array();
+      // Personal Keuangan
+      $setting_personal_user = DB::table('setting_portofolio_personal')->select('*')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->get()[0];
+
+      // Lifecycle
+      $setting_lifecycle_user = DB::table('setting_komposisi_investasi_lifecycle_fund')->select('*')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->get()[0];
+      $setting_personal_lifecycle_user["personal_keuangan"] = $setting_personal_user;
+      $setting_personal_lifecycle_user["komposisi_investasi"] = $setting_lifecycle_user;
+      
+      $tranche_personal = array();
+      $return_personal = array();
+      $risk_personal = array();
+
+      $nab_ppip = array();
+
+      for($year=2023; $year<=2100; $year++){
+        $key_tahun = $year . "_1";
+        $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
+        $flag_pensiun_hitung = $flag_pensiun[$key_tahun];//Read flag pensiun setiap bulan januari
+
+        //+++++++++++++++++++++++++++++++++
+        //E.1., E.2., dan E.3. Hitung Montecarlo Personal - hitung tranche, return, dan risk
+        if($sisa_kerja_tahun_hitung>=7){
+          $tranche_personal_hitung = "tranche 1";//untuk sisa masa kerja lebih dari atau sama dengan 7 tahun , masuk ke tranche 1
+          $return_personal_hitung = 1;//read return portofolio personal dengan $pilihan_personal dan tranche 1
+          $risk_personal_hitung = 1;//read risk portofolio personal dengan $pilihan_personal dan tranche 1
+        } else if($sisa_kerja_tahun_hitung>=2){
+          $tranche_personal_hitung = "tranche 2";//untuk sisa masa kerja kurang dari 7 tahun sampai dengan 2 tahun , masuk ke tranche 2
+          $return_personal_hitung = 1;//read return portofolio personal dengan $pilihan_personal dan tranche 2
+          $risk_personal_hitung = 1;//read risk portofolio personal dengan $pilihan_personal dan tranche 2
+        } else if ($sisa_kerja_tahun_hitung<2 && $flag_pensiun_hitung == 0 ){ //flag pensiun =0 menandakan belum pensiun
+          $tranche_personal_hitung = "tranche 3";//untuk sisa masa kerja kurang dari 2 tahun , masuk ke tranche 3
+          $return_personal_hitung = 1;//read return portofolio personal dengan $pilihan_personal dan tranche 3
+          $risk_personal_hitung = 1;//read risk portofolio personal dengan $pilihan_personal dan tranche 3
+        } else {
+          $tranche_personal_hitung = "null";//sudah pensiun
+          $return_personal_hitung = "null";//sudah pensiun
+          $risk_personal_hitung = "null";//sudah pensiun
+        }
+        //Output: Create $tranche_personal[$i], $return_personal[$i], $risk_personal[$i]
+        $tranche_personal[$year] = $tranche_personal_hitung;
+        $return_personal[$year] = $return_personal_hitung;
+        $risk_personal[$year] = $risk_personal_hitung;
+      }
+
+      echo json_encode($tranche_personal, true);
+      die();
     }
 }
