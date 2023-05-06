@@ -210,7 +210,9 @@ class DashboardController extends Controller
         //Output: Create $tranche_ppip[$i], $return_ppip[$i], $risk_ppip[$i]
         $tranche_ppip[$key_loop] = $tranche_ppip_hitung;
         $return_ppip[$key_loop] = $return_ppip_hitung;
-        $risk_ppip[$key_loop] = $risk_ppip_hitung;
+        // $risk_ppip[$key_loop] = $risk_ppip_hitung;
+        echo $risk_ppip_hitung;
+        echo "<br/>";
         
         // //+++++++++++++++++++++++++++++++++
         // //D.4. Hitung Montecarlo PPIP - hitung NAB
@@ -266,7 +268,7 @@ class DashboardController extends Controller
         // //Output: Create $percentile_95_nab_ppip[$i], $percentile_50_nab_ppip[$i], dan $percentile_05_nab_ppip[$i]
       }
     }
-    echo json_encode($risk_ppip, true);
+    // echo json_encode($risk_ppip, true);
     die();
 
       return response()->json([
