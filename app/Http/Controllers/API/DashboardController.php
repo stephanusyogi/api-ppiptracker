@@ -190,6 +190,7 @@ class DashboardController extends Controller
         $key_loop = $year . "_" . $month;
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung[$i] = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
+        die();
         $flag_pensiun_hitung[$i] = $flag_pensiun[$key_tahun];//Read flag pensiun setiap bulan januari
         $z=$z+12;
         
@@ -208,7 +209,7 @@ class DashboardController extends Controller
           $return_ppip_hitung[$i] = "null";//sudah pensiun
           $risk_ppip_hitung[$i] = "null";//sudah pensiun
         }
-        
+
         //Output: Create $tranche_ppip[$i], $return_ppip[$i], $risk_ppip[$i]
         $tranche_ppip[$key_loop] = $tranche_ppip_hitung[$i];
         $return_ppip[$key_loop] = $return_ppip_hitung[$i];
