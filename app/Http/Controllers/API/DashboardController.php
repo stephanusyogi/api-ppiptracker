@@ -289,7 +289,7 @@ class DashboardController extends Controller
     $previous_percentile_50_nab_ppip = null;
     $previous_percentile_05_nab_ppip = null;
     for($year=2023; $year<=2100; $year++){
-      if ($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
+      if ($tranche_ppip[$year] != "null"){ //jika masih belum pensiun
         if ($year==1){
           //tahunan
           $percentile_95_return_ppip_hitung = ($percentile_95_nab_ppip[$year]/100)-1;
