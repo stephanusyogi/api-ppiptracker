@@ -205,8 +205,8 @@ class DashboardController extends Controller
         }
         //Output: Create $tranche_ppip[$i], $return_ppip[$i], $risk_ppip[$i]
         $tranche_ppip[$key_loop] = $tranche_ppip_hitung;
-        $return_ppip[$key_loop] = $return_ppip;
-        $risk_ppip[$key_loop] = $risk_ppip;
+        $return_ppip[$key_loop] = $return_ppip_hitung;
+        $risk_ppip[$key_loop] = $risk_ppip_hitung;
         
         // //+++++++++++++++++++++++++++++++++
         // //D.4. Hitung Montecarlo PPIP - hitung NAB
