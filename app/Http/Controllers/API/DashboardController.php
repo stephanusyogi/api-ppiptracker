@@ -287,9 +287,6 @@ class DashboardController extends Controller
         $percentile_50_nab_ppip[$key_loop] = $percentile_50_nab_ppip_hitung;
         $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
       }
-      
-      echo json_encode($nab_ppip, true);
-      die();
 
       // -----------------------------------------------------------------------
       //D.8., D.9., dan D.10. Hitung Montecarlo PPIP - hitung return dari Percentile NAB
@@ -420,6 +417,9 @@ class DashboardController extends Controller
             $nab_personal[$year] = $nab_personal_hitung;
             $previous_nab = $nab_personal[$year];
           }
+          
+        echo json_encode($nab_personal, true);
+        die();
         } else{ //jika sudah pensiun
           for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
                 $nab_personal_hitung = 0;
