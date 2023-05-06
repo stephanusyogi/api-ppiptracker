@@ -252,6 +252,9 @@ class DashboardController extends Controller
             $nab_ppip[$key_loop] = $nab_ppip_hitung;
         }
       }
+      
+      echo json_encode($nab_ppip, true);
+      die();
 
       //+++++++++++++++++++++++++++++++++
       //D.5., D.6., dan D.7. Hitung Montecarlo PPIP - hitung percentile 95, 50, dan 5 dari NAB
