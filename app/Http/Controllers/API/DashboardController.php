@@ -185,6 +185,10 @@ class DashboardController extends Controller
 
     $nab_ppip = array();
 
+    $percentile_95_nab_ppip = array();
+    $percentile_50_nab_ppip = array();
+    $percentile_50_nab_ppip = array();
+
     $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
     for($year=2023; $year<=2100; $year++){
       for($month=1; $month<=12; $month++){
@@ -237,38 +241,41 @@ class DashboardController extends Controller
           }
         }
         
-        // //+++++++++++++++++++++++++++++++++
-        // //D.5., D.6., dan D.7. Hitung Montecarlo PPIP - hitung percentile 95, 50, dan 5 dari NAB
-        // //Input: NAB yang telah dihitung sebelumnya
-        // if($tranche_ppip[$i] != "null"){ //jika masih belum pensiun
-        //     $k=0;
-        //     for ($j=1;$j<=10000;$j++){
-        //       $percentile_temp1[$k]=$nab_ppip[$i][$j]; //loading sementara isi dari NAB untuk kemudian di shorting
-        //       $k++;
-        //     }
+        //+++++++++++++++++++++++++++++++++
+        //D.5., D.6., dan D.7. Hitung Montecarlo PPIP - hitung percentile 95, 50, dan 5 dari NAB
+        //Input: NAB yang telah dihitung sebelumnya
+        if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
+            $k=0;
+            for ($j=1;$j<=10000;$j++){
+              $percentile_temp1[$k]=$nab_ppip_hitung; //loading sementara isi dari NAB untuk kemudian di shorting
+              $k++;
+            }
             
-        //     sort($percentile_temp1); //shorting array
+            sort($percentile_temp1); //shorting array
             
-        //     $k=0;
-        //     for ($j=1;$j<=10000;$j++){
-        //       $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
-        //       $k++;
-        //     }
+            $k=0;
+            for ($j=1;$j<=10000;$j++){
+              $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
+              $k++;
+            }
             
-        //     $percentile_95_nab_ppip[$i]=$percentile_temp2[round(0.95 * 10000)]; //mengambil nilai percentile 95
-        //     $percentile_50_nab_ppip[$i]=$percentile_temp2[round(0.5 * 10000)]; //mengambil nilai percentile 50
-        //     $percentile_05_nab_ppip[$i]=$percentile_temp2[round(0.05 * 10000)]; //mengambil nilai percentile 5
+            $percentile_95_nab_ppip_hitung = $percentile_temp2[round(0.95 * 10000)]; //mengambil nilai percentile 95
+            $percentile_50_nab_ppip_hitung = $percentile_temp2[round(0.5 * 10000)]; //mengambil nilai percentile 50
+            $percentile_05_nab_ppip_hitung = $percentile_temp2[round(0.05 * 10000)]; //mengambil nilai percentile 5
           
-            
-        // } else {
-        //   $percentile_95_nab_ppip[$i]=0; // nilai percentile 95 saat sudah pensiun
-        //   $percentile_50_nab_ppip[$i]=0; // nilai percentile 50 saat sudah pensiun
-        //   $percentile_05_nab_ppip[$i]=0; // nilai percentile 5 saat sudah pensiun
-        // }
-        // //Output: Create $percentile_95_nab_ppip[$i], $percentile_50_nab_ppip[$i], dan $percentile_05_nab_ppip[$i]
+        } else {
+          $percentile_95_nab_ppip_hitung = 0; // nilai percentile 95 saat sudah pensiun
+          $percentile_50_nab_ppip_hitung = 0; // nilai percentile 50 saat sudah pensiun
+          $percentile_05_nab_ppip_hitung = 0; // nilai percentile 5 saat sudah pensiun
+        }
+
+        //Output: Create $percentile_95_nab_ppip[$i], $percentile_50_nab_ppip[$i], dan $percentile_05_nab_ppip[$i]
+        $percentile_95_nab_ppip[$key_loop] = $percentile_95_nab_ppip_hitung;
+        $percentile_50_nab_ppip[$key_loop] = $percentile_50_nab_ppip_hitung;
+        $percentile_50_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
       }
     }
-    echo json_encode($risk_ppip, true);
+    echo json_encode($percentile_95_nab_ppip, true);
     die();
 
       return response()->json([
