@@ -179,6 +179,10 @@ class DashboardController extends Controller
     }
 
     //mulai perhitungan
+    $tranche_ppip = array();
+    $return_ppip = array();
+    $risk_ppip = array();
+
     $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
     for($year=2023; $year<=2100; $year++){
       for($month=1; $month<=12; $month++){
@@ -205,8 +209,8 @@ class DashboardController extends Controller
         }
         //Output: Create $tranche_ppip[$i], $return_ppip[$i], $risk_ppip[$i]
         $tranche_ppip[$key_loop] = $tranche_ppip_hitung;
-        $return_ppip[$key_loop] = $return_ppip_hitung;
-        $risk_ppip[$key_loop] = $risk_ppip_hitung;
+        // $return_ppip[$key_loop] = $return_ppip_hitung;
+        // $risk_ppip[$key_loop] = $risk_ppip_hitung;
         
         // //+++++++++++++++++++++++++++++++++
         // //D.4. Hitung Montecarlo PPIP - hitung NAB
@@ -262,8 +266,8 @@ class DashboardController extends Controller
         // //Output: Create $percentile_95_nab_ppip[$i], $percentile_50_nab_ppip[$i], dan $percentile_05_nab_ppip[$i]
       }
     }
-    // echo json_encode($norminv, true);
-    // die();
+    echo json_encode($tranche_ppip, true);
+    die();
 
       return response()->json([
         "status" =>true,
