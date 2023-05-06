@@ -415,11 +415,9 @@ class DashboardController extends Controller
                 $nab_personal_hitung=round($previous_nab_personal * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
             }
             $nab_personal[$year] = $nab_personal_hitung;
-            $previous_nab = $nab_personal[$year];
+            $previous_nab_personal = $nab_personal[$year];
           }
           
-        echo json_encode($nab_personal, true);
-        die();
         } else{ //jika sudah pensiun
           for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
                 $nab_personal_hitung = 0;
