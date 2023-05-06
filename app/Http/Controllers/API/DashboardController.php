@@ -382,16 +382,16 @@ class DashboardController extends Controller
         //E.1., E.2., dan E.3. Hitung Montecarlo Personal - hitung tranche, return, dan risk
         if($sisa_kerja_tahun_hitung>=7){
           $tranche_personal_hitung = "tranche 1";//untuk sisa masa kerja lebih dari atau sama dengan 7 tahun , masuk ke tranche 1
-          $return_personal_hitung = 1;//read return portofolio personal dengan $pilihan_personal dan tranche 1
-          $risk_personal_hitung = 1;//read risk portofolio personal dengan $pilihan_personal dan tranche 1
+          $return_personal_hitung = $setting_personal_lifecycle_user["komposisi_investasi"]->return_portofolio_personal_t1;//read return portofolio personal dengan $pilihan_personal dan tranche 1
+          $risk_personal_hitung = $setting_personal_lifecycle_user["komposisi_investasi"]->resiko_pasar_portofolio_personal_t1;//read risk portofolio personal dengan $pilihan_personal dan tranche 1
         } else if($sisa_kerja_tahun_hitung>=2){
           $tranche_personal_hitung = "tranche 2";//untuk sisa masa kerja kurang dari 7 tahun sampai dengan 2 tahun , masuk ke tranche 2
-          $return_personal_hitung = 1;//read return portofolio personal dengan $pilihan_personal dan tranche 2
-          $risk_personal_hitung = 1;//read risk portofolio personal dengan $pilihan_personal dan tranche 2
+          $return_personal_hitung = $setting_personal_lifecycle_user["komposisi_investasi"]->return_portofolio_personal_t2;//read return portofolio personal dengan $pilihan_personal dan tranche 2
+          $risk_personal_hitung = $setting_personal_lifecycle_user["komposisi_investasi"]->resiko_pasar_portofolio_personal_t2;//read risk portofolio personal dengan $pilihan_personal dan tranche 2
         } else if ($sisa_kerja_tahun_hitung<2 && $flag_pensiun_hitung == 0 ){ //flag pensiun =0 menandakan belum pensiun
           $tranche_personal_hitung = "tranche 3";//untuk sisa masa kerja kurang dari 2 tahun , masuk ke tranche 3
-          $return_personal_hitung = 1;//read return portofolio personal dengan $pilihan_personal dan tranche 3
-          $risk_personal_hitung = 1;//read risk portofolio personal dengan $pilihan_personal dan tranche 3
+          $return_personal_hitung = $setting_personal_lifecycle_user["komposisi_investasi"]->return_portofolio_personal_t3;//read return portofolio personal dengan $pilihan_personal dan tranche 3
+          $risk_personal_hitung = $setting_personal_lifecycle_user["komposisi_investasi"]->resiko_pasar_portofolio_personal_t3;//read risk portofolio personal dengan $pilihan_personal dan tranche 3
         } else {
           $tranche_personal_hitung = "null";//sudah pensiun
           $return_personal_hitung = "null";//sudah pensiun
@@ -425,7 +425,7 @@ class DashboardController extends Controller
         }
       }
 
-      echo json_encode($setting_personal_lifecycle_user, true);
+      echo json_encode($nab_personal, true);
       die();
     }
 }
