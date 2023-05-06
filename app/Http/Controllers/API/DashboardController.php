@@ -418,8 +418,8 @@ class DashboardController extends Controller
             $previous_nab_personal = $nab_personal[$year];
           }
           
-        echo json_encode($nab_personal, true);
-        die();
+        // echo json_encode($nab_personal, true);
+        // die();
         } else{ //jika sudah pensiun
           for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
                 $nab_personal_hitung = 0;
@@ -428,7 +428,7 @@ class DashboardController extends Controller
         }
       }
 
-      echo json_encode($nab_personal, true);
+      echo json_encode($return_personal, true);
       die();
     }
 }
