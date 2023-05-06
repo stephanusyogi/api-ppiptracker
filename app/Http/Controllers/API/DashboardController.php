@@ -197,7 +197,7 @@ class DashboardController extends Controller
         if($sisa_kerja_tahun_hitung>=2){
           $tranche_ppip_hitung = "investasi";//untuk sisa masa kerja lebih dari atau sama dengan 2 tahun , masuk ke tranche investasi
           $return_ppip_hitung = $setting_ppip_user->return_portofolio_tranche_investasi;//read return portofolio dari PPIP dengan $pilihan_ppip dan tranche investasi
-          $risk_ppip = $setting_ppip_user->resiko_portofolio_tranche_investasi;//read risk portofolio dari PPIP dengan $pilihan_ppip dan tranche investasi
+          $return_ppip_hitung = $setting_ppip_user->resiko_portofolio_tranche_investasi;//read risk portofolio dari PPIP dengan $pilihan_ppip dan tranche investasi
         } else if ($sisa_kerja_tahun_hitung<2 && $flag_pensiun_hitung == 0 ){ //flag pensiun =0 menandakan belum pensiun
           $tranche_ppip_hitung = "likuiditas";//untuk sisa masa kerja kurang dari 2 tahun , masuk ke tranche likuiditas
           $return_ppip_hitung = $setting_ppip_user->return_portofolio_tranche_likuiditas;//read return portofolio dari PPIP dengan $pilihan_ppip dan tranche likuiditas
@@ -210,11 +210,9 @@ class DashboardController extends Controller
         //Output: Create $tranche_ppip[$i], $return_ppip[$i], $risk_ppip[$i]
         $tranche_ppip[$key_loop] = $tranche_ppip_hitung;
         $return_ppip[$key_loop] = $return_ppip_hitung;
-        // $risk_ppip[$key_loop] = $risk_ppip_hitung;
-        echo $risk_ppip_hitung;
-        echo "<br/>";
+        $risk_ppip[$key_loop] = $risk_ppip_hitung;
         
-        
+
         // //+++++++++++++++++++++++++++++++++
         // //D.4. Hitung Montecarlo PPIP - hitung NAB
         // if($tranche_ppip[$i] != "null"){ //jika masih belum pensiun
@@ -269,7 +267,7 @@ class DashboardController extends Controller
         // //Output: Create $percentile_95_nab_ppip[$i], $percentile_50_nab_ppip[$i], dan $percentile_05_nab_ppip[$i]
       }
     }
-    // echo json_encode($risk_ppip, true);
+    echo json_encode($risk_ppip, true);
     die();
 
       return response()->json([
