@@ -192,7 +192,7 @@ class DashboardController extends Controller
     $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
     for($year=2023; $year<=2100; $year++){
       for($month=1; $month<=12; $month++){
-        $key_loop = $year . "_" . $month;
+        $key_loop = $year;
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
         $flag_pensiun_hitung = $flag_pensiun[$key_tahun];//Read flag pensiun setiap bulan januari
@@ -275,7 +275,9 @@ class DashboardController extends Controller
         $percentile_50_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
       }
     }
-    echo json_encode($percentile_95_nab_ppip, true);
+
+    // -----------------------------------------------------------------------
+    echo json_encode($percentile_50_nab_ppip, true);
     die();
 
       return response()->json([
