@@ -190,11 +190,88 @@ class DashboardController extends Controller
     for ($i=1;$i<count($tabel_norminv);$i++){ //$i adalah primary key dari tabel normal inverse yang ada di database
         $norminv[$i]=$tabel_norminv[$i]->norm_inv;//Read tabel normal inverse
     }
-    for($year=2023; $year<=2100; $year++){
 
+    //mulai perhitungan
+    $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
+    $i=1;
+    for($year=2023; $year<=2100; $year++){
+      $key = $year . "_1";
+      $sisa_kerja_tahun_hitung=$sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
+      $flag_pensiun_hitung=$flag_pensiun[$key_tahun];//Read flag pensiun setiap bulan januari
+      $z=$z+12;
+      
+      // //+++++++++++++++++++++++++++++++++
+      // //D.1., D.2., dan D.3. Hitung Montecarlo PPIP - hitung tranche, return, dan risk
+      // if($sisa_kerja_tahun[$i]>=2){
+      //   $tranche_ppip[$i]="investasi";//untuk sisa masa kerja lebih dari atau sama dengan 2 tahun , masuk ke tranche investasi
+      //   $return_ppip[$i]=1;//read return portofolio dari PPIP dengan $pilihan_ppip dan tranche investasi
+      //   $risk_ppip[$i]=1;//read risk portofolio dari PPIP dengan $pilihan_ppip dan tranche investasi
+      // } else if ($sisa_kerja_tahun[$i]<2 && $flag_pensiun[$i] == 0 ){ //flag pensiun =0 menandakan belum pensiun
+      //   $tranche_ppip[$i]="likuiditas";//untuk sisa masa kerja kurang dari 2 tahun , masuk ke tranche likuiditas
+      //   $return_ppip[$i]=1;//read return portofolio dari PPIP dengan $pilihan_ppip dan tranche likuiditas
+      //   $risk_ppip[$i]=1;//read risk portofolio dari PPIP dengan $pilihan_ppip dan tranche likuiditas
+      // } else {
+      //   $tranche_ppip[$i]="null";//sudah pensiun
+      //   $return_ppip[$i]="null";//sudah pensiun
+      //   $risk_ppip[$i]="null";//sudah pensiun
+      // }
+      // //Output: Create $tranche_ppip[$i], $return_ppip[$i], $risk_ppip[$i]
+      
+      // //+++++++++++++++++++++++++++++++++
+      // //D.4. Hitung Montecarlo PPIP - hitung NAB
+      // if($tranche_ppip[$i] != "null"){ //jika masih belum pensiun
+        
+      //   for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
+      //       if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
+                
+      //           $acak= mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+      //           $nab_ppip[$i][$j]=round(100 * (1 + ($return_ppip[$i] / 100) + (($risk_ppip[$i] / 100) * $tabel_norminv[$acak]) ),2);
+      //       } else{
+              
+      //           $acak= mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+      //           $nab_ppip[$i][$j]=round($nab_ppip[$i-1][$j] * (1 + ($return_ppip[$i] / 100) + (($risk_ppip[$i] / 100) * $tabel_norminv[$acak]) ),2);
+      //       }
+      //   }
+          
+        
+      // } else{ //jika sudah pensiun
+      //   for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
+      //       $nab_ppip[$i][$j]=0;
+      //   }
+      // }
+      
+      // //+++++++++++++++++++++++++++++++++
+      // //D.5., D.6., dan D.7. Hitung Montecarlo PPIP - hitung percentile 95, 50, dan 5 dari NAB
+      // //Input: NAB yang telah dihitung sebelumnya
+      // if($tranche_ppip[$i] != "null"){ //jika masih belum pensiun
+      //     $k=0;
+      //     for ($j=1;$j<=10000;$j++){
+      //       $percentile_temp1[$k]=$nab_ppip[$i][$j]; //loading sementara isi dari NAB untuk kemudian di shorting
+      //       $k++;
+      //     }
+          
+      //     sort($percentile_temp1); //shorting array
+          
+      //     $k=0;
+      //     for ($j=1;$j<=10000;$j++){
+      //       $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
+      //       $k++;
+      //     }
+          
+      //     $percentile_95_nab_ppip[$i]=$percentile_temp2[round(0.95 * 10000)]; //mengambil nilai percentile 95
+      //     $percentile_50_nab_ppip[$i]=$percentile_temp2[round(0.5 * 10000)]; //mengambil nilai percentile 50
+      //     $percentile_05_nab_ppip[$i]=$percentile_temp2[round(0.05 * 10000)]; //mengambil nilai percentile 5
+        
+          
+      // } else {
+      //   $percentile_95_nab_ppip[$i]=0; // nilai percentile 95 saat sudah pensiun
+      //   $percentile_50_nab_ppip[$i]=0; // nilai percentile 50 saat sudah pensiun
+      //   $percentile_05_nab_ppip[$i]=0; // nilai percentile 5 saat sudah pensiun
+      // }
+      // //Output: Create $percentile_95_nab_ppip[$i], $percentile_50_nab_ppip[$i], dan $percentile_05_nab_ppip[$i]
     }
-    echo json_encode($norminv, true);
-    die();
+    // echo json_encode($norminv, true);
+    // die();
 
       return response()->json([
         "status" =>true,
