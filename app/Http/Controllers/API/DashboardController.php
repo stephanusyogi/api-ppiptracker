@@ -408,10 +408,10 @@ class DashboardController extends Controller
           for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
             if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                 $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                $nab_personal_hitung=round(100 * (1 + ($return_personal_hitung[$i] / 100) + (($risk_personal_hitung[$i] / 100) * $norminv[$acak]) ),2);
+                $nab_personal_hitung=round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
             } else{
                 $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                $nab_personal_hitung=round($previous_nab_personal * (1 + ($return_personal_hitung[$i] / 100) + (($risk_personal_hitung[$i] / 100) * $norminv[$acak]) ),2);
+                $nab_personal_hitung=round($previous_nab_personal * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
             }
             $nab_personal[$year] = $nab_personal_hitung;
             $previous_nab = $nab_personal[$year];
