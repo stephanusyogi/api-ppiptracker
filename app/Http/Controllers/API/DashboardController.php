@@ -300,9 +300,6 @@ class DashboardController extends Controller
           $percentile_95_return_monthly_ppip_hitung = ((1+$percentile_95_return_ppip_hitung)^(1/12))-1;
           $percentile_50_return_monthly_ppip_hitung = ((1+$percentile_50_return_ppip_hitung)^(1/12))-1;
           $percentile_05_return_monthly_ppip_hitung = ((1+$percentile_05_return_ppip_hitung)^(1/12))-1;
-
-          echo $percentile_95_return_ppip_hitung;
-          die();
         } else {
           //tahunan
           $percentile_95_return_ppip_hitung = ($previous_percentile_95_nab_ppip != 0) ? ($percentile_95_nab_ppip[$year]/$previous_percentile_95_nab_ppip)-1 : 0;
