@@ -187,7 +187,7 @@ class DashboardController extends Controller
 
     $percentile_95_nab_ppip = array();
     $percentile_50_nab_ppip = array();
-    $percentile_50_nab_ppip = array();
+    $percentile_05_nab_ppip = array();
 
     $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
     for($year=2023; $year<=2100; $year++){
@@ -271,7 +271,7 @@ class DashboardController extends Controller
       //Output: Create $percentile_95_nab_ppip[$i], $percentile_50_nab_ppip[$i], dan $percentile_05_nab_ppip[$i]
       $percentile_95_nab_ppip[$key_loop] = $percentile_95_nab_ppip_hitung;
       $percentile_50_nab_ppip[$key_loop] = $percentile_50_nab_ppip_hitung;
-      $percentile_50_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
+      $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
     }
 
     // -----------------------------------------------------------------------
