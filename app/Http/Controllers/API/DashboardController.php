@@ -217,7 +217,7 @@ class DashboardController extends Controller
 
         //+++++++++++++++++++++++++++++++++
         //D.4. Hitung Montecarlo PPIP - hitung NAB
-        if($tranche_ppip[$i] != "null"){ //jika masih belum pensiun
+        if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
           $previous_nab = null;
           for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
               if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
