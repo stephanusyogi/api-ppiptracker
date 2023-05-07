@@ -184,6 +184,7 @@ class DashboardController extends Controller
       //F.1. Simulasi Gaji dan PhDP
       $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tahun_gaji_phdp, $id_user);
       //F.2. Simulasi PPMP
+      $this->simulasi_ppmp($res, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
 
       return response()->json([
         "status" =>true,
@@ -677,5 +678,52 @@ class DashboardController extends Controller
         "gaji" => $gaji,
         "phdp" => $phdp,
       );
+    }
+
+    public function simulasi_ppmp($res, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp){
+      //Input: variabel $phdp[$i] yang ada di memory, Read masa dinas tahun dan bulan, dan flag pensiun
+      $date1 = date_create($res->tgl_diangkat_pegawai); //Read tanggal diangkat
+      $date2 = date_create("2015-01-01"); //tanggal cutoff pensiun hybrid. yang diangkat setelah 1 januari 2015 ppip murni, kalau sebelumnya hybrid ppmp dan ppip
+      $diff = date_diff($date1,$date2);
+      
+      $hari = $diff->format('%R%a');
+
+      $gaji = $return_simulasi_gaji_phdp['gaji'];
+      $phdp = $return_simulasi_gaji_phdp['phdp'];
+
+      $jumlah_ppmp = array();
+      $rr_ppmp = array();
+      for($year; $year<=2100; $year++){
+        for($month=1; $month<=12; $month++){
+          $key = $year . "_" . $month;
+          if ($hari > 0){ //hybrid ppmp ppip
+            $status_mp = 1;//untuk hybrid ppmp ppip
+            
+            if ($flag_pensiun[$key]==0){ //belum pensiun
+              $masa_dinas_sementara = $sisa_kerja_tahun[$year]+($sisa_kerja_bulan[$year] / 12);
+              $masa_dinas = min($masa_dinas_sementara,32); //maksimum masa dinas yang bisa diabsorb oleh ppmp adalah 32 tahun
+              $jumlah_ppmp_hitung = 0.025 * $masa_dinas * $phdp[$year]; //rumus besar MP dalam PPMP
+              $rr_ppmp_hitung = $jumlah_ppmp_hitung / $gaji[$year]; //rumus mencari replacement ratio dalam ppmp
+              
+              //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
+            
+            } else { //sudah pensiun
+              $jumlah_ppmp_hitung = "null";
+              $rr_ppmp_hitung = "null";
+              
+              //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
+            }
+          } else { //ppip murni
+            $status_mp = 2;//untuk ppip murni
+            
+            $jumlah_ppmp_hitung = "null";
+            $rr_ppmp_hitung = "null";		
+            
+            //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
+          }
+          $jumlah_ppmp[$year] = $jumlah_ppmp_hitung;
+          $rr_ppmp[$year] = $rr_ppmp_hitung;
+        }
+      }
     }
 }
