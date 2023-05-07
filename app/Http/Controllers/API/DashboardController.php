@@ -460,6 +460,8 @@ class DashboardController extends Controller
         // }
         // //Output: Create $percentile_95_nab_personal[$i], $percentile_50_nab_personal[$i], dan $percentile_05_nab_personal[$i]
       }
-      return array("return_personal_hitung"=>$return_personal_hitung, "risk_personal_hitung"=>$risk_personal_hitung);
+      // echo json_encode();
+      // die();
+      return array("return_personal"=>$return_personal, "risk_personal"=>$risk_personal);
     }
 }
