@@ -693,7 +693,7 @@ class DashboardController extends Controller
 
       $jumlah_ppmp = array();
       $rr_ppmp = array();
-      for($year; $year<=2100; $year++){
+      for($year=2023; $year<=2100; $year++){
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           if ($hari > 0){ //hybrid ppmp ppip
