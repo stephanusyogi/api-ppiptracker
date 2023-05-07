@@ -171,16 +171,16 @@ class DashboardController extends Controller
       
       // -----------------------------------------------------------------------
       //D. Hitung Montecarlo PPIP
-      $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+      $test1 = $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
 
       // -----------------------------------------------------------------------
       //E. Hitung Montecarlo Personal Keuangan
-      $test = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+      // $test = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
 
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
-        "data" => $test
+        "data" => $test1
       ],200);
     }
 
@@ -349,6 +349,8 @@ class DashboardController extends Controller
       $percentile_50_return_monthly_ppip[$year]=$percentile_50_return_monthly_ppip_hitung;
       $percentile_05_return_monthly_ppip[$year]=$percentile_05_return_monthly_ppip_hitung;
       }
+      
+      return array("return_ppip"=>$return_ppip, "risk_ppip"=>$risk_ppip);
     }
 
     public function montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv){
@@ -395,8 +397,8 @@ class DashboardController extends Controller
           $risk_personal_hitung = $setting_personal_lifecycle_user["komposisi_investasi"]->resiko_pasar_portofolio_personal_t3;//read risk portofolio personal dengan $pilihan_personal dan tranche 3
         } else {
           $tranche_personal_hitung = "null";//sudah pensiun
-          $return_personal_hitung = "null";//sudah pensiun
-          $risk_personal_hitung = "null";//sudah pensiun
+          $return_personal_hitung = null;//sudah pensiun
+          $risk_personal_hitung = null;//sudah pensiun
         }
         //Output: Create $tranche_personal[$i], $return_personal[$i], $risk_personal[$i]
         $tranche_personal[$year] = $tranche_personal_hitung;
