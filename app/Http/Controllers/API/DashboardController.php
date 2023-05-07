@@ -175,12 +175,12 @@ class DashboardController extends Controller
 
       // -----------------------------------------------------------------------
       //E. Hitung Montecarlo Personal Keuangan
-      // $test = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+      $test = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
 
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
-        "data" => $test1
+        "data" => $test
       ],200);
     }
 
@@ -464,7 +464,7 @@ class DashboardController extends Controller
       }
       // echo json_encode();
       // die();
-      // return array("return_personal"=>$return_personal, "risk_personal"=>$risk_personal);
-      return $nab_personal;
+      return array("return_personal"=>$return_personal, "risk_personal"=>$risk_personal);
+      // return $nab_personal;
     }
 }
