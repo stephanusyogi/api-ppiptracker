@@ -404,6 +404,7 @@ class DashboardController extends Controller
         $tranche_personal[$year] = $tranche_personal_hitung;
         $return_personal[$year] = $return_personal_hitung;
         $risk_personal[$year] = $risk_personal_hitung;
+        
 
         //+++++++++++++++++++++++++++++++++
         //E.4. Hitung Montecarlo personal - hitung NAB
@@ -412,10 +413,11 @@ class DashboardController extends Controller
           for($l=1;$l<=10000;$l++){      //monte carlo 10.000 iterasi
             if($l==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                 $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                $nab_personal_hitung = round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+                // $nab_personal_hitung = round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+                $nab_personal_hitung = round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100)) ),2);
             } else{
                 $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                $nab_personal_hitung = round($previous_nab_personal * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+                $nab_personal_hitung = round($previous_nab_personal * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100)) ),2);
             }
             $nab_personal[$year] = round($nab_personal_hitung, 2);
             $previous_nab_personal = $nab_personal[$year];
