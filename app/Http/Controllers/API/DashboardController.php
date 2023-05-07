@@ -409,8 +409,8 @@ class DashboardController extends Controller
         //E.4. Hitung Montecarlo personal - hitung NAB
         if($tranche_personal_hitung != "null"){ //jika masih belum pensiun
           $previous_nab_personal = null;
-          for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
-            if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
+          for($l=1;$l<=10000;$l++){      //monte carlo 10.000 iterasi
+            if($l==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                 $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
                 $nab_personal_hitung = round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
             } else{
@@ -420,18 +420,18 @@ class DashboardController extends Controller
             $nab_personal[$year] = round($nab_personal_hitung, 2);
             $previous_nab_personal = $nab_personal[$year];
           }
-          echo "if ";
-          echo number_format($nab_personal_hitung, 2);
-          echo "<br/>";
+          // echo "if ";
+          // echo number_format($nab_personal_hitung, 2);
+          // echo "<br/>";
         } else{ //jika sudah pensiun
-          for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
+          for($l=1;$l<=10000;$l++){ //monte carlo 10.000 iterasi
               $nab_personal_hitung = 0;
               $nab_personal[$year] = round($nab_personal_hitung, 2);
           }
             
-          echo "else ";
-          echo round($number_format, 2);
-          echo "<br/>";
+          // echo "else ";
+          // echo round($number_format, 2);
+          // echo "<br/>";
         }
 
         // //+++++++++++++++++++++++++++++++++
@@ -464,6 +464,7 @@ class DashboardController extends Controller
       }
       // echo json_encode();
       // die();
-      return array("return_personal"=>$return_personal, "risk_personal"=>$risk_personal);
+      // return array("return_personal"=>$return_personal, "risk_personal"=>$risk_personal);
+      return $nab_personal;
     }
 }
