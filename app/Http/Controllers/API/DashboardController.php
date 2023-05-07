@@ -426,36 +426,34 @@ class DashboardController extends Controller
             }
         }
 
-        //+++++++++++++++++++++++++++++++++
-        //E.5., E.6., dan E.7. Hitung Montecarlo PERSONAL - hitung percentile 95, 50, dan 5 dari NAB
-        //Input: NAB yang telah dihitung sebelumnya
-        if($tranche_personal[$i] != "null"){ //jika masih belum pensiun
-          $k=0;
-          for ($j=1;$j<=10000;$j++){
-            $percentile_temp1[$k]=$nab_personal[$i][$j]; //loading sementara isi dari NAB untuk kemudian di shorting
-            $k++;
-          }
+        // //+++++++++++++++++++++++++++++++++
+        // //E.5., E.6., dan E.7. Hitung Montecarlo PERSONAL - hitung percentile 95, 50, dan 5 dari NAB
+        // //Input: NAB yang telah dihitung sebelumnya
+        // if($tranche_personal[$i] != "null"){ //jika masih belum pensiun
+        //   $k=0;
+        //   for ($j=1;$j<=10000;$j++){
+        //     $percentile_temp1[$k]=$nab_personal[$i][$j]; //loading sementara isi dari NAB untuk kemudian di shorting
+        //     $k++;
+        //   }
           
-          sort($percentile_temp1); //shorting array
+        //   sort($percentile_temp1); //shorting array
           
-          $k=0;
-          for ($j=1;$j<=10000;$j++){
-            $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
-            $k++;
-          }
+        //   $k=0;
+        //   for ($j=1;$j<=10000;$j++){
+        //     $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
+        //     $k++;
+        //   }
           
-          $percentile_95_nab_personal[$i]=$percentile_temp2[round(0.95 * 10000)]; //mengambil nilai percentile 95
-          $percentile_50_nab_personal[$i]=$percentile_temp2[round(0.5 * 10000)]; //mengambil nilai percentile 50
-          $percentile_05_nab_personal[$i]=$percentile_temp2[round(0.05 * 10000)]; //mengambil nilai percentile 5
-            
-              
-          } else {
-          $percentile_95_nab_personal[$i]=0; // nilai percentile 95 saat sudah pensiun
-          $percentile_50_nab_personal[$i]=0; // nilai percentile 50 saat sudah pensiun
-          $percentile_05_nab_personal[$i]=0; // nilai percentile 5 saat sudah pensiun
-          }
-          //Output: Create $percentile_95_nab_personal[$i], $percentile_50_nab_personal[$i], dan $percentile_05_nab_personal[$i]
-          }
+        //   $percentile_95_nab_personal[$i]=$percentile_temp2[round(0.95 * 10000)]; //mengambil nilai percentile 95
+        //   $percentile_50_nab_personal[$i]=$percentile_temp2[round(0.5 * 10000)]; //mengambil nilai percentile 50
+        //   $percentile_05_nab_personal[$i]=$percentile_temp2[round(0.05 * 10000)]; //mengambil nilai percentile 5
+        // } else {
+        //   $percentile_95_nab_personal[$i]=0; // nilai percentile 95 saat sudah pensiun
+        //   $percentile_50_nab_personal[$i]=0; // nilai percentile 50 saat sudah pensiun
+        //   $percentile_05_nab_personal[$i]=0; // nilai percentile 5 saat sudah pensiun
+        // }
+        // //Output: Create $percentile_95_nab_personal[$i], $percentile_50_nab_personal[$i], dan $percentile_05_nab_personal[$i]
+      }
       return $nab_personal;
     }
 }
