@@ -487,9 +487,9 @@ class DashboardController extends Controller
             $percentile_05_return_personal_hitung=($percentile_05_nab_personal[$year]/100)-1;
             
             //convert monthly
-            $percentile_95_return_monthly_personal_hitung=((1+$percentile_95_return_personal[$year])^(1/12))-1;
-            $percentile_50_return_monthly_personal_hitung=((1+$percentile_50_return_personal[$year])^(1/12))-1;
-            $percentile_05_return_monthly_personal_hitung=((1+$percentile_05_return_personal[$year])^(1/12))-1;
+            $percentile_95_return_monthly_personal_hitung=((1+$percentile_95_return_personal_hitung)^(1/12))-1;
+            $percentile_50_return_monthly_personal_hitung=((1+$percentile_50_return_personal_hitung)^(1/12))-1;
+            $percentile_05_return_monthly_personal_hitung=((1+$percentile_05_return_personal_hitung)^(1/12))-1;
           } else {
             
             //tahunan
@@ -498,9 +498,9 @@ class DashboardController extends Controller
             $percentile_05_return_personal_hitung=($percentile_05_nab_personal[$year]/$previous_percentile_05_nab_personal)-1;
             
             //convert monthly
-            $percentile_95_return_monthly_personal_hitung=((1+$percentile_95_return_personal[$year])^(1/12))-1;
-            $percentile_50_return_monthly_personal_hitung=((1+$percentile_50_return_personal[$year])^(1/12))-1;
-            $percentile_05_return_monthly_personal_hitung=((1+$percentile_05_return_personal[$year])^(1/12))-1;
+            $percentile_95_return_monthly_personal_hitung=((1+$percentile_95_return_personal_hitung)^(1/12))-1;
+            $percentile_50_return_monthly_personal_hitung=((1+$percentile_50_return_personal_hitung)^(1/12))-1;
+            $percentile_05_return_monthly_personal_hitung=((1+$percentile_05_return_personal_hitung)^(1/12))-1;
           }
         } else {
             $percentile_95_return_personal_hitung=0;
