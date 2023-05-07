@@ -418,12 +418,18 @@ class DashboardController extends Controller
             $nab_personal[$year] = round($nab_personal_hitung, 2);
             $previous_nab_personal = $nab_personal[$year];
           }
-          
+          echo "if";
+          echo round($nab_personal_hitung, 2);
+          echo "<bt/>";
         } else{ //jika sudah pensiun
           for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
-                $nab_personal_hitung = 0;
-                $nab_personal[$year] = round($nab_personal_hitung, 2);
-            }
+              $nab_personal_hitung = 0;
+              $nab_personal[$year] = round($nab_personal_hitung, 2);
+          }
+            
+          echo "else";
+          echo round($nab_personal_hitung, 2);
+          echo "<bt/>";
         }
 
         // //+++++++++++++++++++++++++++++++++
