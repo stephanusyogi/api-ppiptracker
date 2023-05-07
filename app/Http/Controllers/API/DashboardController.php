@@ -420,18 +420,22 @@ class DashboardController extends Controller
             $nab_personal[$year] = round($nab_personal_hitung, 2);
             $previous_nab_personal = $nab_personal[$year];
           }
-          // echo "if ";
-          // echo number_format($nab_personal_hitung, 2);
-          // echo "<br/>";
+          if (is_infinite($nab_personal[$year])) {
+            echo "Result is infinite (inf)"."<br/>";
+          } else {
+            echo $nab_personal[$year]."<br/>";
+          }
         } else{ //jika sudah pensiun
           for($l=1;$l<=10000;$l++){ //monte carlo 10.000 iterasi
               $nab_personal_hitung = 0;
               $nab_personal[$year] = round($nab_personal_hitung, 2);
           }
             
-          // echo "else ";
-          // echo round($number_format, 2);
-          // echo "<br/>";
+          if (is_infinite($nab_personal[$year])) {
+            echo "Result is infinite (inf)"."<br/>";
+          } else {
+            echo $nab_personal[$year]."<br/>";
+          }
         }
 
         // //+++++++++++++++++++++++++++++++++
