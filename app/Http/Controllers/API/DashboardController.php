@@ -12,6 +12,8 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
+      $tahun_gaji_phdp = '2023-04-01';
+      // $tahun_gaji_phdp = $request->tahun_gaji_phdp;
 
       //A.1 Hitung Target Replacement Ratio
       $res = DB::table('variabel_kuisioner_target_rr_answer')
@@ -176,11 +178,16 @@ class DashboardController extends Controller
       // -----------------------------------------------------------------------
       //E. Hitung Montecarlo Personal Keuangan
       $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+      
+      //---------------------------------------------------------
+      //F. Perhitungan Simulasi
+      //F.1. Simulasi Gaji dan PhDP
+      $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tahun_gaji_phdp, $id_user);
+      //F.2. Simulasi PPMP
 
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
-        // "data" => $test
       ],200);
     }
 
@@ -524,5 +531,151 @@ class DashboardController extends Controller
         $percentile_50_return_monthly_personal[$year]=$percentile_50_return_monthly_personal_hitung;
         $percentile_05_return_monthly_personal[$year]=$percentile_05_return_monthly_personal_hitung;
       }
+    }
+
+    public function simulasi_gaji_phdp($tahun_gaji_phdp, $id_user){
+      //Input: Read inputan user tentang gaji dan PhDP, tanggal input
+      $timestamp = strtotime($tahun_gaji_phdp);
+      $bulan=date('n', $timestamp);//Read bulan input
+      $tahun=date('Y', $timestamp);// Read tahun input
+      $kode_input=($tahun*100)+$bulan; //untuk koding input
+      
+      $gaji_input=10000000; //Read gaji yang diinput
+      $phdp_input=5000000; //Read phdp yang diinput
+
+      /*
+      $saldo_ppip_input=0; //numpang untuk mengisi saldo ppip, Read saldo ppip yang diinput
+      $saldo_personal_keuangan_input=0;//numpang untuk mengisi saldo personal keuangan, Read saldo keuangan keuangan yang diinput
+      $saldo_personal_properti_input=0;//numpang untuk mengisi saldo personal properti, Read saldo properti keuangan yang diinput
+      */
+
+      //counter letak saldo ppip dan personal
+      $counter_saldo_ppip=0;
+      $counter_saldo_personal_keuangan=0;
+      $counter_saldo_personal_properti=0;
+      
+      $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
+            ->where('id_user', $id_user)
+            ->where('flag', 1)
+            ->select('*')->get()[0];
+
+      $gaji_naik = $setting_nilai_asumsi_user->kenaikan_gaji;//Read kenaikan gaji di admin
+      $phdp_naik = $setting_nilai_asumsi_user->kenaikan_phdp;//Read kenaikan phdp di admin
+
+      $year = 2023; //tahun awal di database
+      $k=1;
+      $kode = ($year*100)+$k; //untuk perbandingan kode input
+
+      $gaji = array();
+      $phdp = array();
+
+      $previous_gaji = null;
+      $previous_phdp = null;
+      for($year; $year<=2100; $year++){
+        for($month=1; $month<=12; $month++){
+          $key = $year . "_" . $month;
+          if($kode < $kode_input){
+            if($k==12){
+              $gaji_hitung = 0;
+              $phdp_hitung = 0;
+              
+              /*
+              $saldo_ppip_sementara=0; //numpang untuk mengisi saldo ppip
+              $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
+              $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
+              */
+              
+              $year = $year+1;
+              $k=1;
+              
+              $kode = ($year*100)+$k;
+            } else{
+              $gaji_hitung = 0;
+              $phdp_hitung = 0;
+              
+              /*
+              $saldo_ppip[$i]=0; //numpang untuk mengisi saldo ppip
+              $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
+              $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
+              */
+              
+              $k=$k+1;
+              
+              $kode=($year*100)+$k;
+            }
+          } else if ($kode == $kode_input){
+            if($k==12){
+              $gaji_hitung = $gaji_input;
+              $phdp_hitung = $phdp_input;
+              
+              /*
+              $saldo_ppip[$i]=$saldo_ppip_input; //numpang untuk mengisi saldo ppip
+              $saldo_personal_keuangan[$i]=$saldo_personal_keuangan_input;//numpang untuk mengisi saldo personal keuangan
+              $saldo_personal_properti[$i]=$saldo_personal_properti_input;//numpang untuk mengisi saldo personal properti
+              */
+              
+              $counter_saldo_ppip = $month; //numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              $counter_saldo_personal_keuangan = $month;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              $counter_saldo_personal_properti = $month;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              
+              $year = $year+1;
+              $k=1;
+              
+              $kode=($year*100)+$k;
+            } else{
+              $gaji_hitung = $gaji_input;
+              $phdp_hitung = $phdp_input;
+              
+              /*
+              $saldo_ppip[$i]=$saldo_ppip_input; //numpang untuk mengisi saldo ppip
+              $saldo_personal_keuangan[$i]=$saldo_personal_keuangan_input;//numpang untuk mengisi saldo personal keuangan
+              $saldo_personal_properti[$i]=$saldo_personal_properti_input;//numpang untuk mengisi saldo personal properti
+              */
+              
+              $k=$k+1;
+              
+              $kode=($year*100)+$k;
+            }
+          } else {
+            if($k==12){
+              $gaji_hitung = $previous_gaji*(1+$gaji_naik);
+              $phdp_hitung = $previous_phdp*(1+$phdp_naik);
+              
+              /*
+              $saldo_ppip[$i]=0; //numpang untuk mengisi saldo ppip
+              $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
+              $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
+              */
+              
+              $year=$year+1;
+              $k=1;
+              
+              $kode=($year*100)+$k;
+            } else{
+              $gaji_hitung = $previous_gaji;
+              $phdp_hitung = $previous_phdp;
+              
+              /*
+              $saldo_ppip[$i]=0; //numpang untuk mengisi saldo ppip
+              $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
+              $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
+              */
+              
+              $k=$k+1;
+              
+              $kode=($year*100)+$k;
+            }
+          }
+          $gaji[$key] = $gaji_hitung;
+          $previous_gaji = $gaji[$key];
+
+          $phdp[$key] = $phdp_hitung;
+          $previous_phdp = $phdp[$key];
+        }
+      }
+      return array(
+        "gaji" => $gaji,
+        "phdp" => $phdp,
+      );
     }
 }
