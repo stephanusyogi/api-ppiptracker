@@ -404,52 +404,39 @@ class DashboardController extends Controller
         $tranche_personal[$year] = $tranche_personal_hitung;
         $return_personal[$year] = $return_personal_hitung;
         $risk_personal[$year] = $risk_personal_hitung;
-        
-        if (is_infinite($return_personal[$year])) {
-          echo "return_personal is infinite (inf)"."<br/>";
-        } else {
-          echo $return_personal[$year]."<br/>";
-        }
-
-        
-        if (is_infinite($risk_personal[$year])) {
-          echo "risk_personal is infinite (inf)"."<br/>";
-        } else {
-          echo $risk_personal[$year]."<br/>";
-        }
 
         //+++++++++++++++++++++++++++++++++
         //E.4. Hitung Montecarlo personal - hitung NAB
-        // if($tranche_personal_hitung != "null"){ //jika masih belum pensiun
-        //   $previous_nab_personal = null;
-        //   for($l=1;$l<=10000;$l++){      //monte carlo 10.000 iterasi
-        //     if($l==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
-        //         $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-        //         $nab_personal_hitung = round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
-        //     } else{
-        //         $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-        //         $nab_personal_hitung = round($previous_nab_personal * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
-        //     }
-        //     $nab_personal[$year] = round($nab_personal_hitung, 2);
-        //     $previous_nab_personal = $nab_personal[$year];
-        //   }
-        //   if (is_infinite($nab_personal[$year])) {
-        //     echo "Result is infinite (inf)"."<br/>";
-        //   } else {
-        //     echo $nab_personal[$year]."<br/>";
-        //   }
-        // } else{ //jika sudah pensiun
-        //   for($l=1;$l<=10000;$l++){ //monte carlo 10.000 iterasi
-        //       $nab_personal_hitung = 0;
-        //       $nab_personal[$year] = round($nab_personal_hitung, 2);
-        //   }
+        if($tranche_personal_hitung != "null"){ //jika masih belum pensiun
+          $previous_nab_personal = null;
+          for($l=1;$l<=10000;$l++){      //monte carlo 10.000 iterasi
+            if($l==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
+                $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+                $nab_personal_hitung = round(100 * (1 + (round($return_personal_hitung, 2) / 100) + ((round($risk_personal_hitung, 2) / 100) * $norminv[$acak]) ),2);
+            } else{
+                $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+                $nab_personal_hitung = round($previous_nab_personal * (1 + (round($return_personal_hitung, 2) / 100) + ((round($risk_personal_hitung, 2) / 100) * $norminv[$acak]) ),2);
+            }
+            $nab_personal[$year] = round($nab_personal_hitung, 2);
+            $previous_nab_personal = $nab_personal[$year];
+          }
+          if (is_infinite($nab_personal[$year])) {
+            echo "Result is infinite (inf)"."<br/>";
+          } else {
+            echo $nab_personal[$year]."<br/>";
+          }
+        } else{ //jika sudah pensiun
+          for($l=1;$l<=10000;$l++){ //monte carlo 10.000 iterasi
+              $nab_personal_hitung = 0;
+              $nab_personal[$year] = round($nab_personal_hitung, 2);
+          }
             
-        //   if (is_infinite($nab_personal[$year])) {
-        //     echo "Result is infinite (inf)"."<br/>";
-        //   } else {
-        //     echo $nab_personal[$year]."<br/>";
-        //   }
-        // }
+          if (is_infinite($nab_personal[$year])) {
+            echo "Result is infinite (inf)"."<br/>";
+          } else {
+            echo $nab_personal[$year]."<br/>";
+          }
+        }
 
         // //+++++++++++++++++++++++++++++++++
         // //E.5., E.6., dan E.7. Hitung Montecarlo PERSONAL - hitung percentile 95, 50, dan 5 dari NAB
