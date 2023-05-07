@@ -175,12 +175,12 @@ class DashboardController extends Controller
 
       // -----------------------------------------------------------------------
       //E. Hitung Montecarlo Personal Keuangan
-      // $test = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+      $test = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
 
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
-        "data" => $test1
+        "data" => $test
       ],200);
     }
 
@@ -407,32 +407,32 @@ class DashboardController extends Controller
 
         //+++++++++++++++++++++++++++++++++
         //E.4. Hitung Montecarlo personal - hitung NAB
-        // if($tranche_personal_hitung != "null"){ //jika masih belum pensiun
-        //   $previous_nab_personal = null;
-        //   for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
-        //     if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
-        //         $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-        //         $nab_personal_hitung=round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
-        //     } else{
-        //         $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-        //         $nab_personal_hitung=round($previous_nab_personal * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
-        //     }
-        //     $nab_personal[$year] = round($nab_personal_hitung, 2);
-        //     $previous_nab_personal = $nab_personal[$year];
-        //   }
-        //   echo "if";
-        //   echo round($nab_personal_hitung, 2);
-        //   echo "<bt/>";
-        // } else{ //jika sudah pensiun
-        //   for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
-        //       $nab_personal_hitung = 0;
-        //       $nab_personal[$year] = round($nab_personal_hitung, 2);
-        //   }
+        if($tranche_personal_hitung != "null"){ //jika masih belum pensiun
+          $previous_nab_personal = null;
+          for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
+            if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
+                $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+                $nab_personal_hitung = round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+            } else{
+                $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
+                $nab_personal_hitung = round($previous_nab_personal * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+            }
+            $nab_personal[$year] = round($nab_personal_hitung, 2);
+            $previous_nab_personal = $nab_personal[$year];
+          }
+          echo "if";
+          echo round($nab_personal_hitung, 2);
+          echo "<bt/>";
+        } else{ //jika sudah pensiun
+          for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
+              $nab_personal_hitung = 0;
+              $nab_personal[$year] = round($nab_personal_hitung, 2);
+          }
             
-        //   echo "else";
-        //   echo round($nab_personal_hitung, 2);
-        //   echo "<bt/>";
-        // }
+          echo "else";
+          echo round($nab_personal_hitung, 2);
+          echo "<bt/>";
+        }
 
         // //+++++++++++++++++++++++++++++++++
         // //E.5., E.6., dan E.7. Hitung Montecarlo PERSONAL - hitung percentile 95, 50, dan 5 dari NAB
