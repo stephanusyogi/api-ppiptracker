@@ -175,11 +175,12 @@ class DashboardController extends Controller
 
       // -----------------------------------------------------------------------
       //E. Hitung Montecarlo Personal Keuangan
-      $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+      $test = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
 
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
+        "data" => $test
       ],200);
     }
 
@@ -418,8 +419,6 @@ class DashboardController extends Controller
             $previous_nab_personal = $nab_personal[$year];
           }
           
-          echo json_encode($nab_personal, true);
-          die();
         } else{ //jika sudah pensiun
           for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
                 $nab_personal_hitung = 0;
@@ -457,6 +456,6 @@ class DashboardController extends Controller
           }
           //Output: Create $percentile_95_nab_personal[$i], $percentile_50_nab_personal[$i], dan $percentile_05_nab_personal[$i]
           }
-
+      return $nab_personal;
     }
 }
