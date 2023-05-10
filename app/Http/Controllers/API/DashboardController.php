@@ -12,6 +12,8 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
+      echo $id_user;
+      die();
       $tahun_gaji_phdp = '2023-04-01';
       
       // $tahun_gaji_phdp = $request->tahun_gaji_phdp;
