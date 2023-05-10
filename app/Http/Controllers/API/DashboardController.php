@@ -12,8 +12,6 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
-      echo $id_user;
-      die();
       $tahun_gaji_phdp = '2023-04-01';
       
       // $tahun_gaji_phdp = $request->tahun_gaji_phdp;
@@ -32,6 +30,8 @@ class DashboardController extends Controller
       // -----------------------------------------------------------------------
       //B.1 Hitung usia diangkat
       $data_user = User::select('*')->where('id',$id_user)->get()[0];
+      echo json_encode($data_user, true);
+      die();
       $date1 = date_create($data_user->tgl_lahir); //Read tanggal lahir
       $date2 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
 
