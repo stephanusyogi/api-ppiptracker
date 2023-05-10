@@ -30,8 +30,6 @@ class DashboardController extends Controller
       // -----------------------------------------------------------------------
       //B.1 Hitung usia diangkat
       $data_user = User::select('*')->where('id',$id_user)->get()[0];
-      echo json_encode($data_user, true);
-      die();
       $date1 = date_create($data_user->tgl_lahir); //Read tanggal lahir
       $date2 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
 
@@ -70,7 +68,8 @@ class DashboardController extends Controller
               $usia_bulan[$key_bulan] = $bulan;
           }
       }
-      
+        echo json_encode($usia_tahun, true);
+      die();
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
       $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
