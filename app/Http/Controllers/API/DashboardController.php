@@ -686,6 +686,7 @@ class DashboardController extends Controller
           if ($hari > 0){ //hybrid ppmp ppip
             $status_mp_hitung = 1;//untuk hybrid ppmp ppip
             if ($flag_pensiun[$key]==0){ //belum pensiun
+              echo $sisa_masa_dinas_tahun[$key]."<br/>";
               $masa_dinas_sementara = $sisa_masa_dinas_tahun[$key]+($sisa_masa_dinas_bulan[$key] / 12);
               $masa_dinas = min($masa_dinas_sementara,32); //maksimum masa dinas yang bisa diabsorb oleh ppmp adalah 32 tahun
               $jumlah_ppmp_hitung = 0.025 * $masa_dinas * $phdp[$key]; //rumus besar MP dalam PPMP
