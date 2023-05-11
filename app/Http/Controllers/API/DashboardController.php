@@ -668,13 +668,14 @@ class DashboardController extends Controller
 
     public function simulasi_ppmp($data_user, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp){
       //Input: variabel $phdp[$i] yang ada di memory, Read masa dinas tahun dan bulan, dan flag pensiun
-      echo json_encode($flag_pensiun, true);
-      die();
       $date1 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
       $date2 = date_create("2015-01-01"); //tanggal cutoff pensiun hybrid. yang diangkat setelah 1 januari 2015 ppip murni, kalau sebelumnya hybrid ppmp dan ppip
       $diff = date_diff($date1,$date2);
       
       $hari = $diff->format('%R%a');
+
+      echo json_encode($hari, true);
+      die();
 
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
@@ -709,6 +710,8 @@ class DashboardController extends Controller
           $status_mp[$year] = $status_mp_hitung;
         }
       }
+      echo json_encode($jumlah_ppmp, true);
+      die();
 
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
