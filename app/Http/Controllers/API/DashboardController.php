@@ -545,8 +545,8 @@ class DashboardController extends Controller
       $tahun=date('Y', $timestamp);// Read tahun input
       $kode_input=($tahun*100)+$bulan; //untuk koding input
       
-      $gaji_input=10000000; //Read gaji yang diinput
-      $phdp_input=5000000; //Read phdp yang diinput
+      $gaji_input=$request->gaji; //Read gaji yang diinput
+      $phdp_input=$request->phdp; //Read phdp yang diinput
 
       /*
       $saldo_ppip_input=0; //numpang untuk mengisi saldo ppip, Read saldo ppip yang diinput
@@ -1069,7 +1069,7 @@ class DashboardController extends Controller
       //---------------------------------------------------------
       //F. Perhitungan Simulasi
       //F.1. Simulasi Gaji dan PhDP
-      // $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $id_user);
+      $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $id_user);
       //F.2. Simulasi PPMP
       // $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
       //F.3. Simulasi PPIP
@@ -1078,6 +1078,7 @@ class DashboardController extends Controller
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
+        "data"=>$return_simulasi_gaji_phdp
       ],200);
     }
 }
