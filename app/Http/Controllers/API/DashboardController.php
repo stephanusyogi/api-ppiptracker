@@ -807,9 +807,9 @@ class DashboardController extends Controller
 
           // //+++++++++++++++++++++++++++++++++++++
           // //F.3.2., F.3.3., dan F.3.4. Simulasi PPIP - tentukan hasil investasi percentile 95, 50, dan 05
-          // $percentile_95_return_ppip_bulanan[$i] = $percentile_95_return_monthly_ppip[$j]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
-          // $percentile_50_return_ppip_bulanan[$i] = $percentile_50_return_monthly_ppip[$j]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
-          // $percentile_05_return_ppip_bulanan[$i] = $percentile_05_return_monthly_ppip[$j]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
+          $percentile_95_return_ppip_bulanan_hitung = $percentile_95_return_monthly_ppip[$key]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
+          $percentile_50_return_ppip_bulanan_hitung = $percentile_50_return_monthly_ppip[$key]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
+          $percentile_05_return_ppip_bulanan_hitung = $percentile_05_return_monthly_ppip[$key]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
           
           // if (fmod($i,12)==0){ //jika sudah bulan desember maka selanjutnya tahunnya bergeser
           //   $j = $j+1;
@@ -912,14 +912,14 @@ class DashboardController extends Controller
 
           //Output: Create $iuran[$i], $tambahan_iuran_ppip[$i], $percentile_95_return_ppip_bulanan[$i], $percentile_50_return_ppip_bulanan[$i], $percentile_05_return_ppip_bulanan[$i]
           $iuran[$key] = $iuran_hitung;
+          $percentile_95_return_ppip_bulanan[$key] = $percentile_95_return_ppip_bulanan_hitung;
+          $percentile_50_return_ppip_bulanan[$key] = $percentile_50_return_ppip_bulanan_hitung;
+          $percentile_05_return_ppip_bulanan[$key] = $percentile_05_return_ppip_bulanan_hitung;
           //output: Create $saldo_ppip_awal_p95[$i], $pengembangan_ppip_p95[$i], $saldo_ppip_akhir_p95[$i], $saldo_ppip_awal_p50[$i], $pengembangan_ppip_p50[$i], $saldo_ppip_akhir_p50[$i], $saldo_ppip_awal_p05[$i], $pengembangan_ppip_p05[$i], $saldo_ppip_akhir_p05[$i]
           //Output: Create $anuitas_ppip_p95[$i], $anuitas_ppip_p50[$i], $anuitas_ppip_p05[$i], $kupon_sbn_ppip_p95[$i], $kupon_sbn_ppip_p50[$i], $kupon_sbn_ppip_p05[$i]
           //Output: Create $rr_ppip_anuitas_p95[$i], $rr_ppip_anuitas_p50[$i], $rr_ppip_anuitas_p05[$i], $rr_ppip_kupon_sbn_p95[$i], $rr_ppip_kupon_sbn_p50[$i], $rr_ppip_kupon_sbn_p05[$i]
         }
       }
-
-      echo json_encode($iuran, true);
-      die();
     }
 
 
