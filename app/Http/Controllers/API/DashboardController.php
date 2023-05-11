@@ -361,6 +361,21 @@ class DashboardController extends Controller
         $percentile_50_return_monthly_ppip[$year]=$percentile_50_return_monthly_ppip_hitung;
         $percentile_05_return_monthly_ppip[$year]=$percentile_05_return_monthly_ppip_hitung;
       }
+      return array(
+        "tranche_ppip" => $tranche_ppip,
+        "return_ppip" => $return_ppip,
+        "risk_ppip" => $risk_ppip,
+        "nab_ppip" => $nab_ppip,
+        "percentile_95_nab_ppip" => $percentile_95_nab_ppip,
+        "percentile_50_nab_ppip" => $percentile_50_nab_ppip,
+        "percentile_05_nab_ppip" => $percentile_05_nab_ppip,
+        "percentile_95_return_ppip" => $percentile_95_return_ppip,
+        "percentile_50_return_ppip" => $percentile_50_return_ppip,
+        "percentile_05_return_ppip" => $percentile_05_return_ppip,
+        "percentile_95_return_monthly_ppip" => $percentile_95_return_monthly_ppip,
+        "percentile_50_return_monthly_ppip" => $percentile_50_return_monthly_ppip,
+        "percentile_05_return_monthly_ppip" => $percentile_05_return_monthly_ppip,
+      );
     }
 
     public function montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv){
@@ -718,13 +733,18 @@ class DashboardController extends Controller
       );
     }
 
-    public function simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp){
+    public function simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip){
       //Input: variabel $gaji{$i] yang ada di memory serta flag pensiun, status mp yang sudah dihitung sebelumnya, Read tambahan iuran ppip, Read Saldo PPIP, Read pilihan pembayaran PPIP di profil user
       
       $status_mp = $return_simulasi_ppmp['status_mp'];
       
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
+
+      
+      $percentile_95_return_monthly_ppip = $montecarlo_ppip["percentile_95_return_monthly_ppip"];
+      $percentile_50_return_monthly_ppip = $montecarlo_ppip["percentile_50_return_monthly_ppip"];
+      $percentile_05_return_monthly_ppip = $montecarlo_ppip["percentile_05_return_monthly_ppip"];
       
       $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
             ->where('id_user', $id_user)
@@ -1085,7 +1105,7 @@ class DashboardController extends Controller
       
       // -----------------------------------------------------------------------
       //D. Hitung Montecarlo PPIP
-      $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+      $montecarlo_ppip = $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
 
       // -----------------------------------------------------------------------
       //E. Hitung Montecarlo Personal Keuangan
@@ -1098,7 +1118,7 @@ class DashboardController extends Controller
       //F.2. Simulasi PPMP
       $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_masa_dinas_tahun, $sisa_masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
       //F.3. Simulasi PPIP
-      $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp);
+      $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
 
       return response()->json([
         "status" =>true,
