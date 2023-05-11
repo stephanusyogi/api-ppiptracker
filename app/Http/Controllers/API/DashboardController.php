@@ -576,7 +576,7 @@ class DashboardController extends Controller
 
       $previous_gaji = null;
       $previous_phdp = null;
-      for($year; $year<=2100; $year++){
+      for($year=2023; $year<=2100; $year++){
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           if($kode < $kode_input){
@@ -653,7 +653,6 @@ class DashboardController extends Controller
               $kode=($year*100)+$k;
             }
           }
-          echo $key."<br/>";
           $gaji[$key] = $gaji_hitung;
           $previous_gaji = $gaji[$key];
 
@@ -662,7 +661,7 @@ class DashboardController extends Controller
         }
       }
 
-      // echo json_encode($gaji, true);
+      echo json_encode($gaji, true);
       die();
       return array(
         "gaji" => $gaji,
