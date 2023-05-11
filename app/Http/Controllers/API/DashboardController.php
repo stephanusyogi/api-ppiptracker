@@ -743,7 +743,7 @@ class DashboardController extends Controller
       //Input: Read pilihan pembayaran PPIP, Read kupon SBN/SBSN dan beserta pajak dari profil user, Read Harga anuitas dari profil user
       //pembayaran PPIP jika 1=anuitas; 2=kupon SBN/SBSN
       
-      $setting_treatment_user = DB::table('nilai_asumsi_user')
+      $setting_treatment_user = DB::table('setting_treatment_pembayaran_setelah_pensiun')
             ->where('id_user', $id_user)
             ->where('flag', 1)
             ->select('*')->get()[0];
