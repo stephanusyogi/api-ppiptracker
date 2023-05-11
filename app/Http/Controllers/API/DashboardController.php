@@ -747,7 +747,8 @@ class DashboardController extends Controller
             ->where('id_user', $id_user)
             ->where('flag', 1)
             ->select('*')->get()[0];
-
+      echo json_encode($setting_treatment_user, true);
+      die();
       $pembayaran_ppip = ($setting_treatment_user->ppip === 'Beli Anuitas') ? 1 : 2;//Read pilihan pembayaran PPIP (pembayaran PPIP jika 1=anuitas; 2=kupon SBN/SBSN)
       echo $pembayaran_ppip;
       die();
