@@ -679,9 +679,6 @@ class DashboardController extends Controller
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
 
-      echo json_encode($gaji, true);
-      die();
-
       $jumlah_ppmp = array();
       $rr_ppmp = array();
       $status_mp = array();
@@ -691,7 +688,6 @@ class DashboardController extends Controller
           if ($hari > 0){ //hybrid ppmp ppip
             $status_mp_hitung = 1;//untuk hybrid ppmp ppip
             if ($flag_pensiun[$key]==0){ //belum pensiun
-              echo "tahun: ".$sisa_masa_dinas_tahun[$key].", bulan: ".$sisa_masa_dinas_bulan[$key]."<br/>";
               $masa_dinas_sementara = $sisa_masa_dinas_tahun[$key]+($sisa_masa_dinas_bulan[$key] / 12);
               $masa_dinas = min($masa_dinas_sementara,32); //maksimum masa dinas yang bisa diabsorb oleh ppmp adalah 32 tahun
               $jumlah_ppmp_hitung = 0.025 * $masa_dinas * $phdp[$key]; //rumus besar MP dalam PPMP
@@ -714,7 +710,7 @@ class DashboardController extends Controller
           $status_mp[$year] = $status_mp_hitung;
         }
       }
-      // echo json_encode($jumlah_ppmp, true);
+      echo json_encode($jumlah_ppmp, true);
       die();
 
       return array(
