@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
-      
+
       // Get Input Form Data
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
       $gaji = $request->gaji;
@@ -547,8 +547,8 @@ class DashboardController extends Controller
       $tahun=date('Y', $timestamp);// Read tahun input
       $kode_input=($tahun*100)+$bulan; //untuk koding input
       
-      $gaji_input=$request->gaji; //Read gaji yang diinput
-      $phdp_input=$request->phdp; //Read phdp yang diinput
+      $gaji_input=$gaji; //Read gaji yang diinput
+      $phdp_input=$phdp; //Read phdp yang diinput
 
       /*
       $saldo_ppip_input=0; //numpang untuk mengisi saldo ppip, Read saldo ppip yang diinput
