@@ -899,4 +899,10 @@ class DashboardController extends Controller
       }
 
     }
+
+
+    // Section Development - Yogi
+    public function index_yogi(Request $request){
+
+    }
 }
