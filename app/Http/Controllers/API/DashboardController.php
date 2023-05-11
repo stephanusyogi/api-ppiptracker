@@ -723,6 +723,9 @@ class DashboardController extends Controller
       
       $status_mp = $return_simulasi_ppmp['status_mp'];
       
+      $gaji = $return_simulasi_gaji_phdp['gaji'];
+      $phdp = $return_simulasi_gaji_phdp['phdp'];
+      
       $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
             ->where('id_user', $id_user)
             ->where('flag', 1)
