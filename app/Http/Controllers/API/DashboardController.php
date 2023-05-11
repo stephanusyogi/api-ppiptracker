@@ -627,7 +627,7 @@ class DashboardController extends Controller
               $saldo_personal_properti[$i]=$saldo_personal_properti_input;//numpang untuk mengisi saldo personal properti
               */
               $k=$k+1;
-              $kode=($j*100)+$k;
+              $kode=($year*100)+$k;
             }
           } else {
             if($k==12){
