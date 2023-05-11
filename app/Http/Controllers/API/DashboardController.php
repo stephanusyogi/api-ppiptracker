@@ -660,6 +660,9 @@ class DashboardController extends Controller
           $previous_phdp = $phdp[$key];
         }
       }
+
+      echo json_encode($gaji, true);
+      die();
       return array(
         "gaji" => $gaji,
         "phdp" => $phdp,
