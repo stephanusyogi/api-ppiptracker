@@ -745,9 +745,6 @@ class DashboardController extends Controller
       $percentile_95_return_monthly_ppip = $montecarlo_ppip["percentile_95_return_monthly_ppip"];
       $percentile_50_return_monthly_ppip = $montecarlo_ppip["percentile_50_return_monthly_ppip"];
       $percentile_05_return_monthly_ppip = $montecarlo_ppip["percentile_05_return_monthly_ppip"];
-
-      echo json_encode($percentile_95_return_monthly_ppip, true);
-      die();
       
       $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
             ->where('id_user', $id_user)
