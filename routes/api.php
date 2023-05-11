@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
     Route::get('/pengumuman', [PengumumanController::class, 'index']);
 
     // Dashboard
-    Route::get('/generate-data-dashboard', [DashboardController::class, 'index']);
+    Route::post('/generate-data-dashboard', [DashboardController::class, 'index']);
     // Sementara Section Yogi
     Route::post('/generate-yogi', [DashboardController::class, 'index_yogi']);
 
