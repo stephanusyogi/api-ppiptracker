@@ -830,9 +830,9 @@ class DashboardController extends Controller
 
           // //+++++++++++++++++++++++++++++++++++++
           // //F.3.2., F.3.3., dan F.3.4. Simulasi PPIP - tentukan hasil investasi percentile 95, 50, dan 05
-          $percentile_95_return_ppip_bulanan_hitung = $percentile_95_return_monthly_ppip[$key]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
-          $percentile_50_return_ppip_bulanan_hitung = $percentile_50_return_monthly_ppip[$key]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
-          $percentile_05_return_ppip_bulanan_hitung = $percentile_05_return_monthly_ppip[$key]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
+          $percentile_95_return_ppip_bulanan_hitung = $percentile_95_return_monthly_ppip[$year]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
+          $percentile_50_return_ppip_bulanan_hitung = $percentile_50_return_monthly_ppip[$year]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
+          $percentile_05_return_ppip_bulanan_hitung = $percentile_05_return_monthly_ppip[$year]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
           
           // if (fmod($i,12)==0){ //jika sudah bulan desember maka selanjutnya tahunnya bergeser
           //   $j = $j+1;
