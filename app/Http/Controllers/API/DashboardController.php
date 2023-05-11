@@ -904,8 +904,7 @@ class DashboardController extends Controller
     // Section Development - Yogi
     public function index_yogi(Request $request){
       $id_user = $request->input('id_user');
-      $tgl_update_gaji_phdp = '2023-04-01';
-      // $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
+      $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
 
       //A.1 Hitung Target Replacement Ratio
       $res = DB::table('variabel_kuisioner_target_rr_answer')
@@ -938,7 +937,6 @@ class DashboardController extends Controller
       //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
       $usia_tahun = array();
       $usia_bulan = array();
-      
       for($year=2023; $year<=2100; $year++){
           for($month=1; $month<=12; $month++){
               if($year==2023 && $month==1){
@@ -959,8 +957,6 @@ class DashboardController extends Controller
               $usia_bulan[$key_bulan] = $bulan;
           }
       }
-        echo json_encode($usia_bulan, true);
-      die();
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
       $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
@@ -970,7 +966,6 @@ class DashboardController extends Controller
       //Output: Create $masa_dinas_tahun[$i] dan $masa_dinas_bulan[$i] ke masing-masing tahun dan bulan di database masa dinas
       $sisa_masa_dinas_tahun = array();
       $sisa_masa_dinas_bulan = array();
-      
       for($year=2023; $year<=2100; $year++){
           for($month=1; $month<=12; $month++){
               if($year==2023 && $month==1){
@@ -992,16 +987,15 @@ class DashboardController extends Controller
           }
       }
 
-      
       // -----------------------------------------------------------------------
       //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
       $usia_pensiun=$data_user->usia_pensiun; //read usia pensiun
       $tahun_pensiun=$usia_pensiun - 1;
       $bulan_pensiun=12;
-      
+
+      //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
       $sisa_kerja_tahun = array();
       $sisa_kerja_bulan = array();
-     
       for($year=2023; $year<=2100; $year++){
           for($month=1; $month<=12; $month++){
             if($year==2023 && $month==1){  
@@ -1075,11 +1069,11 @@ class DashboardController extends Controller
       //---------------------------------------------------------
       //F. Perhitungan Simulasi
       //F.1. Simulasi Gaji dan PhDP
-      $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $id_user);
+      // $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $id_user);
       //F.2. Simulasi PPMP
-      $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
+      // $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
       //F.3. Simulasi PPIP
-      $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp);
+      // $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp);
 
       return response()->json([
         "status" =>true,
