@@ -1103,7 +1103,6 @@ class DashboardController extends Controller
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
-        "data"=>$return_simulasi_ppmp
       ],200);
     }
 }
