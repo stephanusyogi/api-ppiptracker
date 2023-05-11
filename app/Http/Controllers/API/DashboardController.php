@@ -546,8 +546,6 @@ class DashboardController extends Controller
       $bulan=date('n', $timestamp);//Read bulan input
       $tahun=date('Y', $timestamp);// Read tahun input
       $kode_input=($tahun*100)+$bulan; //untuk koding input
-      echo $kode_input;
-      die();
       
       $gaji_input=(int)$gaji_form; //Read gaji yang diinput
       $phdp_input=(int)$phdp_form; //Read phdp yang diinput
