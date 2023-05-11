@@ -1059,14 +1059,14 @@ class DashboardController extends Controller
       //F.1. Simulasi Gaji dan PhDP
       $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji, $phdp, $id_user);
       //F.2. Simulasi PPMP
-      // $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
+      $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
       //F.3. Simulasi PPIP
       // $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp);
 
       return response()->json([
         "status" =>true,
         "message"=>"Testing Hitung Awal!",
-        "data"=>$return_simulasi_gaji_phdp
+        "data"=>$return_simulasi_ppmp
       ],200);
     }
 }
