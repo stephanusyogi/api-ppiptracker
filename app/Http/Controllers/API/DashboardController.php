@@ -702,7 +702,7 @@ class DashboardController extends Controller
             // $rr_ppmp_hitung = "null";		
             // //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
           }
-          echo $sisa_masa_dinas_tahun[$key];
+          echo $sisa_masa_dinas_bulan[$key];
 
           // $jumlah_ppmp[$year] = $jumlah_ppmp_hitung;
           // $rr_ppmp[$year] = $rr_ppmp_hitung;
