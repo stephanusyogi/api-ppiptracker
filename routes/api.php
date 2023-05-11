@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function(){
     // Dashboard
     Route::get('/generate-data-dashboard', [DashboardController::class, 'index']);
     // Sementara Section Yogi
-    Route::get('/generate-yogi', [DashboardController::class, 'index_yogi']);
+    Route::post('/generate-yogi', [DashboardController::class, 'index_yogi']);
 
     // Tracking Data
     Route::get('/update-tracking-data', [UserController::class, 'tracking_data']);
