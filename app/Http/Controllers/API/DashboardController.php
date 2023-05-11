@@ -12,9 +12,11 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
-      $tahun_gaji_phdp = '2023-04-01';
       
-      // $tahun_gaji_phdp = $request->tahun_gaji_phdp;
+      // Get Input Form Data
+      $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
+      $gaji = $request->gaji;
+      $phdp = $request->phdp;
 
       //A.1 Hitung Target Replacement Ratio
       $res = DB::table('variabel_kuisioner_target_rr_answer')
@@ -538,7 +540,7 @@ class DashboardController extends Controller
       }
     }
 
-    public function simulasi_gaji_phdp($tgl_update_gaji_phdp, $id_user){
+    public function simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji, $phdp,  $id_user){
       //Input: Read inputan user tentang gaji dan PhDP, tanggal input
       $timestamp = strtotime($tgl_update_gaji_phdp);
       $bulan=date('n', $timestamp);//Read bulan input
@@ -904,7 +906,11 @@ class DashboardController extends Controller
     // Section Development - Yogi
     public function index_yogi(Request $request){
       $id_user = $request->input('id_user');
+
+      // Get Input Form Data
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
+      $gaji = $request->gaji;
+      $phdp = $request->phdp;
 
       //A.1 Hitung Target Replacement Ratio
       $res = DB::table('variabel_kuisioner_target_rr_answer')
@@ -1069,7 +1075,7 @@ class DashboardController extends Controller
       //---------------------------------------------------------
       //F. Perhitungan Simulasi
       //F.1. Simulasi Gaji dan PhDP
-      $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $id_user);
+      $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji, $phdp, $id_user);
       //F.2. Simulasi PPMP
       // $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
       //F.3. Simulasi PPIP
