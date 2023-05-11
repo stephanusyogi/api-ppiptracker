@@ -540,15 +540,15 @@ class DashboardController extends Controller
       }
     }
 
-    public function simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji, $phdp,  $id_user){
+    public function simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji_form, $phdp_form,  $id_user){
       //Input: Read inputan user tentang gaji dan PhDP, tanggal input
       $timestamp = strtotime($tgl_update_gaji_phdp);
       $bulan=date('n', $timestamp);//Read bulan input
       $tahun=date('Y', $timestamp);// Read tahun input
       $kode_input=($tahun*100)+$bulan; //untuk koding input
       
-      $gaji_input=$gaji; //Read gaji yang diinput
-      $phdp_input=$phdp; //Read phdp yang diinput
+      $gaji_input=$gaji_form; //Read gaji yang diinput
+      $phdp_input=$phdp_form; //Read phdp yang diinput
 
       /*
       $saldo_ppip_input=0; //numpang untuk mengisi saldo ppip, Read saldo ppip yang diinput
