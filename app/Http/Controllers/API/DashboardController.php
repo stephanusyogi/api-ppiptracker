@@ -684,30 +684,32 @@ class DashboardController extends Controller
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           if ($hari > 0){ //hybrid ppmp ppip
-            $status_mp_hitung = 1;//untuk hybrid ppmp ppip
-            if ($flag_pensiun[$key]==0){ //belum pensiun
-              $masa_dinas_sementara = $sisa_masa_dinas_tahun[$key]+($sisa_masa_dinas_bulan[$key] / 12);
-              $masa_dinas = min($masa_dinas_sementara,32); //maksimum masa dinas yang bisa diabsorb oleh ppmp adalah 32 tahun
-              $jumlah_ppmp_hitung = 0.025 * $masa_dinas * $phdp[$key]; //rumus besar MP dalam PPMP
-              $rr_ppmp_hitung = $jumlah_ppmp_hitung / $gaji[$key]; //rumus mencari replacement ratio dalam ppmp
-              //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
-            } else { //sudah pensiun
-              $jumlah_ppmp_hitung = "null";
-              $rr_ppmp_hitung = "null";
-              //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
-            }
+            // $status_mp_hitung = 1;//untuk hybrid ppmp ppip
+            // if ($flag_pensiun[$key]==0){ //belum pensiun
+            //   $masa_dinas_sementara = $sisa_masa_dinas_tahun[$key]+($sisa_masa_dinas_bulan[$key] / 12);
+            //   $masa_dinas = min($masa_dinas_sementara,32); //maksimum masa dinas yang bisa diabsorb oleh ppmp adalah 32 tahun
+            //   $jumlah_ppmp_hitung = 0.025 * $masa_dinas * $phdp[$key]; //rumus besar MP dalam PPMP
+            //   $rr_ppmp_hitung = $jumlah_ppmp_hitung / $gaji[$key]; //rumus mencari replacement ratio dalam ppmp
+            //   //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
+            // } else { //sudah pensiun
+            //   $jumlah_ppmp_hitung = "null";
+            //   $rr_ppmp_hitung = "null";
+            //   //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
+            // }
           } else { //ppip murni
-            $status_mp_hitung = 2;//untuk ppip murni
-            $jumlah_ppmp_hitung = "null";
-            $rr_ppmp_hitung = "null";		
-            //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
+            // $status_mp_hitung = 2;//untuk ppip murni
+            // $jumlah_ppmp_hitung = "null";
+            // $rr_ppmp_hitung = "null";		
+            // //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
           }
-          $jumlah_ppmp[$year] = $jumlah_ppmp_hitung;
-          $rr_ppmp[$year] = $rr_ppmp_hitung;
-          $status_mp[$year] = $status_mp_hitung;
+          echo $sisa_masa_dinas_tahun[$key];
+
+          // $jumlah_ppmp[$year] = $jumlah_ppmp_hitung;
+          // $rr_ppmp[$year] = $rr_ppmp_hitung;
+          // $status_mp[$year] = $status_mp_hitung;
         }
       }
-      echo json_encode($jumlah_ppmp, true);
+      // echo json_encode($jumlah_ppmp, true);
       die();
 
       return array(
@@ -974,9 +976,6 @@ class DashboardController extends Controller
               $sisa_masa_dinas_bulan[$key_bulan] = $bulan;
           }
       }
-
-      echo json_encode($sisa_masa_dinas_tahun, true);
-      die();
       // -----------------------------------------------------------------------
       //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
       $usia_pensiun=$data_user->usia_pensiun; //read usia pensiun
