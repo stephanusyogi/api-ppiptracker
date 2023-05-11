@@ -670,7 +670,7 @@ class DashboardController extends Controller
       //Input: variabel $phdp[$i] yang ada di memory, Read masa dinas tahun dan bulan, dan flag pensiun
       $date1 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
       $date2 = date_create("2015-01-01"); //tanggal cutoff pensiun hybrid. yang diangkat setelah 1 januari 2015 ppip murni, kalau sebelumnya hybrid ppmp dan ppip
-      $diff = date_diff($date1,$date2);
+      $diff = date_diff($date2,$date1);
       
       $hari = $diff->format('%R%a');
 
