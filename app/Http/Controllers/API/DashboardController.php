@@ -662,7 +662,7 @@ class DashboardController extends Controller
         }
       }
 
-      echo json_encode($gaji, true);
+      echo json_encode($phdp, true);
       die();
       return array(
         "gaji" => $gaji,
