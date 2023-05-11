@@ -546,9 +546,11 @@ class DashboardController extends Controller
       $bulan=date('n', $timestamp);//Read bulan input
       $tahun=date('Y', $timestamp);// Read tahun input
       $kode_input=($tahun*100)+$bulan; //untuk koding input
+      echo $kode_input;
+      die();
       
-      $gaji_input=$gaji_form; //Read gaji yang diinput
-      $phdp_input=$phdp_form; //Read phdp yang diinput
+      $gaji_input=(int)$gaji_form; //Read gaji yang diinput
+      $phdp_input=(int)$phdp_form; //Read phdp yang diinput
 
       /*
       $saldo_ppip_input=0; //numpang untuk mengisi saldo ppip, Read saldo ppip yang diinput
@@ -585,46 +587,37 @@ class DashboardController extends Controller
             if($k==12){
               $gaji_hitung = 0;
               $phdp_hitung = 0;
-              
               /*
               $saldo_ppip_sementara=0; //numpang untuk mengisi saldo ppip
               $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
               */
-              
               $year = $year+1;
               $k=1;
-              
               $kode = ($year*100)+$k;
             } else{
               $gaji_hitung = 0;
               $phdp_hitung = 0;
-              
               /*
               $saldo_ppip[$i]=0; //numpang untuk mengisi saldo ppip
               $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
               */
-              
               $k=$k+1;
-              
               $kode=($year*100)+$k;
             }
           } else if ($kode == $kode_input){
             if($k==12){
               $gaji_hitung = $gaji_input;
               $phdp_hitung = $phdp_input;
-              
               /*
               $saldo_ppip[$i]=$saldo_ppip_input; //numpang untuk mengisi saldo ppip
               $saldo_personal_keuangan[$i]=$saldo_personal_keuangan_input;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=$saldo_personal_properti_input;//numpang untuk mengisi saldo personal properti
               */
-              
               $counter_saldo_ppip = $month; //numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
               $counter_saldo_personal_keuangan = $month;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
               $counter_saldo_personal_properti = $month;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
-              
               $year = $year+1;
               $k=1;
               
@@ -632,44 +625,35 @@ class DashboardController extends Controller
             } else{
               $gaji_hitung = $gaji_input;
               $phdp_hitung = $phdp_input;
-              
               /*
               $saldo_ppip[$i]=$saldo_ppip_input; //numpang untuk mengisi saldo ppip
               $saldo_personal_keuangan[$i]=$saldo_personal_keuangan_input;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=$saldo_personal_properti_input;//numpang untuk mengisi saldo personal properti
               */
-              
               $k=$k+1;
-              
               $kode=($year*100)+$k;
             }
           } else {
             if($k==12){
               $gaji_hitung = $previous_gaji*(1+$gaji_naik);
               $phdp_hitung = $previous_phdp*(1+$phdp_naik);
-              
               /*
               $saldo_ppip[$i]=0; //numpang untuk mengisi saldo ppip
               $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
               */
-              
               $year=$year+1;
               $k=1;
-              
               $kode=($year*100)+$k;
             } else{
               $gaji_hitung = $previous_gaji;
               $phdp_hitung = $previous_phdp;
-              
               /*
               $saldo_ppip[$i]=0; //numpang untuk mengisi saldo ppip
               $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
               */
-              
               $k=$k+1;
-              
               $kode=($year*100)+$k;
             }
           }
