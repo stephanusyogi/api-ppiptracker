@@ -670,7 +670,7 @@ class DashboardController extends Controller
 
     public function simulasi_ppmp($data_user, $id_user, $sisa_masa_dinas_tahun, $sisa_masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp){
       //Input: variabel $phdp[$i] yang ada di memory, Read masa dinas tahun dan bulan, dan flag pensiun
-      $date1 = date_create("2018-02-06"); //Read tanggal diangkat
+      $date1 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
       $date2 = date_create("2015-01-01"); //tanggal cutoff pensiun hybrid. yang diangkat setelah 1 januari 2015 ppip murni, kalau sebelumnya hybrid ppmp dan ppip
       $diff = date_diff($date1,$date2);
       
@@ -710,8 +710,6 @@ class DashboardController extends Controller
           $status_mp[$year] = $status_mp_hitung;
         }
       }
-      echo json_encode($jumlah_ppmp, true);
-      die();
 
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
@@ -751,6 +749,8 @@ class DashboardController extends Controller
             ->select('*')->get()[0];
 
       $pembayaran_ppip = ($setting_treatment_user->ppip === 'Beli Anuitas') ? 1 : 2;//Read pilihan pembayaran PPIP (pembayaran PPIP jika 1=anuitas; 2=kupon SBN/SBSN)
+      echo $pembayaran_ppip;
+      die();
       if($pembayaran_ppip==1){
         $harga_anuitas_ppip = $setting_treatment_user->harga_anuitas_ppip;//Read harga anuitas masing-masing user
         
@@ -1063,7 +1063,7 @@ class DashboardController extends Controller
       //F.2. Simulasi PPMP
       $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_masa_dinas_tahun, $sisa_masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
       //F.3. Simulasi PPIP
-      // $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp);
+      $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp);
 
       return response()->json([
         "status" =>true,
