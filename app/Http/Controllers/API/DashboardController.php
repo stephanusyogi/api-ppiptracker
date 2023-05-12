@@ -100,8 +100,9 @@ class DashboardController extends Controller
                 if($bulan >=12){
                   $bulan = 1;
                   $tahun = $tahun+1;
-                }
+                } else {
                 $bulan = $bulan +1;
+                }
               }
 
               $key_tahun = $year . "_" . $month;
