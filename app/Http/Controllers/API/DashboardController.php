@@ -110,7 +110,7 @@ class DashboardController extends Controller
               $sisa_masa_dinas_bulan[$key_bulan] = $bulan;
           }
       }
-       echo json_encode($sisa_masa_dinas_tahun, true);
+       echo json_encode($sisa_masa_dinas_bulan, true);
        die();
       
       // -----------------------------------------------------------------------
