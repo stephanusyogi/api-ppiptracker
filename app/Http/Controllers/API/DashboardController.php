@@ -45,6 +45,11 @@ class DashboardController extends Controller
       $date1=date_create($data_user->tgl_lahir); //Read tanggal lahir
       $date2=date_create("2023-01-01"); //januari 2023
       $diff=date_diff($date1,$date2);
+      
+      $tahun=(int)$diff->format('%y');
+      $bulan=(int)$diff->format('%m');
+      echo json_encode($tahun, true);
+      die();
 
       //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
       $usia_tahun = array();
@@ -70,8 +75,8 @@ class DashboardController extends Controller
               $usia_bulan[$key_bulan] = $bulan;
           }
       }
-        echo json_encode($usia_tahun, true);
-        die();
+       // echo json_encode($usia_tahun, true);
+      //  die();
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
       $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
