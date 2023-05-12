@@ -70,8 +70,8 @@ class DashboardController extends Controller
               $usia_bulan[$key_bulan] = $bulan;
           }
       }
-        echo json_encode($usia_bulan, true);
-      die();
+        //echo json_encode($usia_bulan, true);
+        //die();
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
       $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
