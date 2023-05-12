@@ -49,6 +49,7 @@ class DashboardController extends Controller
       $tahun=(int)$diff->format('%y');
       $bulan=(int)$diff->format('%m');
       echo json_encode($tahun, true);
+      echo json_encode($bulan, true);
       die();
 
       //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
