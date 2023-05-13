@@ -114,7 +114,11 @@ class QuestionController extends Controller
                 ->get()->toArray();
 
         if (count($check) > 0) {
-            DB::table('variabel_kuisioner_target_rr_answer')->where('kode_kuisioner',$request->kode_kuisioner)->update([
+            DB::table('variabel_kuisioner_target_rr_answer')
+            ->where([
+                ['id_user', '=', $request->id_user],
+                ['kode_kuisioner', '=', $request->kode_kuisioner],
+                ])->update([
                 'flag' => 0,
             ]);
 
