@@ -754,8 +754,10 @@ class DashboardController extends Controller
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
       $counter_saldo_ppip = explode("_", $return_simulasi_gaji_phdp['counter_saldo_ppip']);
-      $counter_saldo_ppip_year = $counter_saldo_ppip[0]; 
-      $counter_saldo_ppip_month = $counter_saldo_ppip[1];
+      // $counter_saldo_ppip_year = $counter_saldo_ppip[0]; 
+      // $counter_saldo_ppip_month = $counter_saldo_ppip[1];
+      $counter_saldo_ppip_year = 2023; 
+      $counter_saldo_ppip_month = 6;
       
       $percentile_95_return_monthly_ppip = $montecarlo_ppip["percentile_95_return_monthly_ppip"];
       $percentile_50_return_monthly_ppip = $montecarlo_ppip["percentile_50_return_monthly_ppip"];
