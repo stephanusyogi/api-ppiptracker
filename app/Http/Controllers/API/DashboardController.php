@@ -43,8 +43,16 @@ class DashboardController extends Controller
       // -----------------------------------------------------------------------
       //C.1. Simulasi Basic - hitung usia (usia diisi dari januari 2023 s.d. desember 2100)
       $date1=date_create($data_user->tgl_lahir); //Read tanggal lahir
-      $date2=date_create("2023-01-01"); //januari 2023
+      $date2=date_create("2023-01-31"); //januari 2023
       $diff=date_diff($date1,$date2);
+      
+      /* cek tahun dan bulan
+      $tahun=(int)$diff->format('%y');
+      $bulan=(int)$diff->format('%m');
+      echo json_encode($tahun, true);
+      echo json_encode($bulan, true);
+      die();
+      */
 
       //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
       $usia_tahun = array();
@@ -70,12 +78,12 @@ class DashboardController extends Controller
               $usia_bulan[$key_bulan] = $bulan;
           }
       }
-        echo json_encode($usia_bulan, true);
-      die();
+       //echo json_encode($usia_tahun, true);
+       //die();
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
       $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
-      $date2=date_create("2023-01-01"); //januari 2023
+      $date2=date_create("2023-01-31"); //januari 2023
       $diff=date_diff($date1,$date2);
 
       //Output: Create $masa_dinas_tahun[$i] dan $masa_dinas_bulan[$i] ke masing-masing tahun dan bulan di database masa dinas
@@ -92,8 +100,9 @@ class DashboardController extends Controller
                 if($bulan >=12){
                   $bulan = 1;
                   $tahun = $tahun+1;
-                }
+                } else {
                 $bulan = $bulan +1;
+                }
               }
 
               $key_tahun = $year . "_" . $month;
@@ -102,7 +111,9 @@ class DashboardController extends Controller
               $sisa_masa_dinas_bulan[$key_bulan] = $bulan;
           }
       }
-
+       echo json_encode($sisa_masa_dinas_bulan, true);
+       echo json_encode($sisa_masa_dinas_tahun, true);
+       die();
       
       // -----------------------------------------------------------------------
       //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
