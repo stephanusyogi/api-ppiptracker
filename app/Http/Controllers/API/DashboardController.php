@@ -581,10 +581,9 @@ class DashboardController extends Controller
       */
 
       //counter letak saldo ppip dan personal
-      $counter_bulan = 1;
-      $counter_saldo_ppip=array();
-      $counter_saldo_personal_keuangan=0;
-      $counter_saldo_personal_properti=0;
+      $counter_saldo_ppip="2023_1";
+      $counter_saldo_personal_keuangan="2023_1";
+      $counter_saldo_personal_properti="2023_1";
       
       $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
             ->where('id_user', $id_user)
@@ -638,9 +637,9 @@ class DashboardController extends Controller
               $saldo_personal_keuangan[$i]=$saldo_personal_keuangan_input;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=$saldo_personal_properti_input;//numpang untuk mengisi saldo personal properti
               */
-              $counter_saldo_ppip_hitung = $counter_bulan; //numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
-              $counter_saldo_personal_keuangan = $counter_bulan;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
-              $counter_saldo_personal_properti = $counter_bulan;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              $counter_saldo_ppip_hitung = $key; //numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              $counter_saldo_personal_keuangan = $key;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              $counter_saldo_personal_properti = $key;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
               $j = $year+1;
               $k=1;
               
@@ -687,9 +686,6 @@ class DashboardController extends Controller
           $phdp[$key] = $phdp_hitung;
           $previous_phdp = $phdp[$key];
 
-          $counter_saldo_ppip[$key] = $counter_saldo_ppip_hitung;
-
-          $counter_bulan++;
         }
       }
 
@@ -758,7 +754,7 @@ class DashboardController extends Controller
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
       $counter_saldo_ppip = $return_simulasi_gaji_phdp['counter_saldo_ppip'];
-      echo json_encode($counter_saldo_ppip, true);
+      echo $counter_saldo_ppip;
       die();
 
       
