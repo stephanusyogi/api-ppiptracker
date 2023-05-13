@@ -831,9 +831,9 @@ class DashboardController extends Controller
           $percentile_50_return_ppip_bulanan_hitung = $percentile_50_return_monthly_ppip[$year]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
           $percentile_05_return_ppip_bulanan_hitung = $percentile_05_return_monthly_ppip[$year]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
           
-          // if (fmod($i,12)==0){ //jika sudah bulan desember maka selanjutnya tahunnya bergeser
-          //   $j = $j+1;
-          // }
+          if (fmod($i,12)==0){ //jika sudah bulan desember maka selanjutnya tahunnya bergeser
+            $j = $j+1;
+          }
           
           // //+++++++++++++++++++++++++++++++++++++
           // //F.3.5. Simulasi PPIP - tambahan iuran mandiri ppip
