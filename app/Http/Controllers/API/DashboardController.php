@@ -581,6 +581,7 @@ class DashboardController extends Controller
       */
 
       //counter letak saldo ppip dan personal
+      $counter_bulan = 1;
       $counter_saldo_ppip=0;
       $counter_saldo_personal_keuangan=0;
       $counter_saldo_personal_properti=0;
@@ -637,9 +638,9 @@ class DashboardController extends Controller
               $saldo_personal_keuangan[$i]=$saldo_personal_keuangan_input;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=$saldo_personal_properti_input;//numpang untuk mengisi saldo personal properti
               */
-              $counter_saldo_ppip = $month; //numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
-              $counter_saldo_personal_keuangan = $month;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
-              $counter_saldo_personal_properti = $month;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              $counter_saldo_ppip = $counter_bulan; //numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              $counter_saldo_personal_keuangan = $counter_bulan;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
+              $counter_saldo_personal_properti = $counter_bulan;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
               $j = $year+1;
               $k=1;
               
@@ -685,6 +686,8 @@ class DashboardController extends Controller
 
           $phdp[$key] = $phdp_hitung;
           $previous_phdp = $phdp[$key];
+
+          $counter_bulan++;
         }
       }
 
