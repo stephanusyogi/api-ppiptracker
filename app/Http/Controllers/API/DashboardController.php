@@ -912,42 +912,42 @@ class DashboardController extends Controller
             
           }
           
-          // //++++++++++++++++++++++++++++++++++++++++
-          // //F.3.15., F.3.16., dan F.3.17. Simulasi PPIP - Hitung anuitas bulanan untuk percentile 95, 50, dan 05 (hitung MP Bulanan bila dihitung menggunakan anuitas seumur hidup)
-          // $anuitas_ppip_p95[$i] = $saldo_ppip_akhir_p95[$i] / $harga_anuitas_ppip;
-          // $anuitas_ppip_p50[$i] = $saldo_ppip_akhir_p50[$i] / $harga_anuitas_ppip;
-          // $anuitas_ppip_p05[$i] = $saldo_ppip_akhir_p05[$i] / $harga_anuitas_ppip;
+          //++++++++++++++++++++++++++++++++++++++++
+          //F.3.15., F.3.16., dan F.3.17. Simulasi PPIP - Hitung anuitas bulanan untuk percentile 95, 50, dan 05 (hitung MP Bulanan bila dihitung menggunakan anuitas seumur hidup)
+          $anuitas_ppip_p95_hitung = $saldo_ppip_akhir_p95_hitung / $harga_anuitas_ppip;
+          $anuitas_ppip_p50_hitung = $saldo_ppip_akhir_p50_hitung / $harga_anuitas_ppip;
+          $anuitas_ppip_p05_hitung = $saldo_ppip_akhir_p05_hitung / $harga_anuitas_ppip;
           
-          // //++++++++++++++++++++++++++++++++++++++++
-          // //F.3.18., F.3.19., dan F.3.20. Simulasi PPIP - Hitung kupon SBN/SBSN bulanan untuk percentile 95, 50, dan 05 (hitung MP Bulanan bila dihitung menggunakan kupon SBN/SBSN)
-          // $kupon_sbn_ppip_p95[$i] = ( $saldo_ppip_akhir_p95[$i] * $kupon_sbn_ppip *(1-$pajak_sbn_ppip))/12; //pembayaran bulanan dari kupon SBN/SBSN percentile 95
-          // $kupon_sbn_ppip_p50[$i] = ( $saldo_ppip_akhir_p50[$i] * $kupon_sbn_ppip *(1-$pajak_sbn_ppip))/12; //pembayaran bulanan dari kupon SBN/SBSN percentile 50
-          // $kupon_sbn_ppip_p05[$i] = ( $saldo_ppip_akhir_p05[$i] * $kupon_sbn_ppip *(1-$pajak_sbn_ppip))/12; //pembayaran bulanan dari kupon SBN/SBSN percentile 05
+          //++++++++++++++++++++++++++++++++++++++++
+          //F.3.18., F.3.19., dan F.3.20. Simulasi PPIP - Hitung kupon SBN/SBSN bulanan untuk percentile 95, 50, dan 05 (hitung MP Bulanan bila dihitung menggunakan kupon SBN/SBSN)
+          $kupon_sbn_ppip_p95_hitung = ( $saldo_ppip_akhir_p95_hitung * $kupon_sbn_ppip *(1-$pajak_sbn_ppip))/12; //pembayaran bulanan dari kupon SBN/SBSN percentile 95
+          $kupon_sbn_ppip_p50_hitung = ( $saldo_ppip_akhir_p50_hitung * $kupon_sbn_ppip *(1-$pajak_sbn_ppip))/12; //pembayaran bulanan dari kupon SBN/SBSN percentile 50
+          $kupon_sbn_ppip_p05_hitung = ( $saldo_ppip_akhir_p05_hitung * $kupon_sbn_ppip *(1-$pajak_sbn_ppip))/12; //pembayaran bulanan dari kupon SBN/SBSN percentile 05
           
-          // //++++++++++++++++++++++++++++++++++++++++
-          // //F.3.21., F.3.22., F.3.23., F.3.24., F.3.25., dan F.3.26., Hitung RR untuk anuitas dan kupon SBN/SBSN pada percentile 95, 50, dan 05
-          // if ($gaji[$i]>0){
-          //   //untuk anuitas
-          //   $rr_ppip_anuitas_p95[$i] = $anuitas_ppip_p95[$i] / $gaji[$i];
-          //   $rr_ppip_anuitas_p50[$i] = $anuitas_ppip_p50[$i] / $gaji[$i];
-          //   $rr_ppip_anuitas_p05[$i] = $anuitas_ppip_p05[$i] / $gaji[$i];
+          //++++++++++++++++++++++++++++++++++++++++
+          //F.3.21., F.3.22., F.3.23., F.3.24., F.3.25., dan F.3.26., Hitung RR untuk anuitas dan kupon SBN/SBSN pada percentile 95, 50, dan 05
+          if ($gaji[$key]>0){
+            //untuk anuitas
+            $rr_ppip_anuitas_p95_hitung = $anuitas_ppip_p95_hitung / $gaji[$key];
+            $rr_ppip_anuitas_p50_hitung = $anuitas_ppip_p50_hitung / $gaji[$key];
+            $rr_ppip_anuitas_p05_hitung = $anuitas_ppip_p05_hitung / $gaji[$key];
             
-          //   //untuk kupon SBN/SBSN
-          //   $rr_ppip_kupon_sbn_p95[$i] = $kupon_sbn_ppip_p95[$i] / $gaji[$i];
-          //   $rr_ppip_kupon_sbn_p50[$i] = $kupon_sbn_ppip_p50[$i] / $gaji[$i];
-          //   $rr_ppip_kupon_sbn_p05[$i] = $kupon_sbn_ppip_p05[$i] / $gaji[$i];
+            //untuk kupon SBN/SBSN
+            $rr_ppip_kupon_sbn_p95_hitung = $kupon_sbn_ppip_p95_hitung / $gaji[$key];
+            $rr_ppip_kupon_sbn_p50_hitung = $kupon_sbn_ppip_p50_hitung / $gaji[$key];
+            $rr_ppip_kupon_sbn_p05_hitung = $kupon_sbn_ppip_p05_hitung / $gaji[$key];
             
-          // } else{
-          //   //untuk anuitas
-          //   $rr_ppip_anuitas_p95[$i] = 0;
-          //   $rr_ppip_anuitas_p50[$i] = 0;
-          //   $rr_ppip_anuitas_p05[$i] = 0;
+          } else{
+            //untuk anuitas
+            $rr_ppip_anuitas_p95_hitung = 0;
+            $rr_ppip_anuitas_p50_hitung = 0;
+            $rr_ppip_anuitas_p05_hitung = 0;
             
-          //   //untuk kupon SBN/SBSN
-          //   $rr_ppip_kupon_sbn_p95[$i] = 0;
-          //   $rr_ppip_kupon_sbn_p50[$i] = 0;
-          //   $rr_ppip_kupon_sbn_p05[$i] = 0;
-          // }
+            //untuk kupon SBN/SBSN
+            $rr_ppip_kupon_sbn_p95_hitung = 0;
+            $rr_ppip_kupon_sbn_p50_hitung = 0;
+            $rr_ppip_kupon_sbn_p05_hitung = 0;
+          }
 
           //Output: Create $iuran[$i], $tambahan_iuran_ppip[$i], $percentile_95_return_ppip_bulanan[$i], $percentile_50_return_ppip_bulanan[$i], $percentile_05_return_ppip_bulanan[$i]
           $iuran[$key] = $iuran_hitung;
@@ -972,7 +972,20 @@ class DashboardController extends Controller
           $previous_saldo_ppip_akhir_p05 = $saldo_ppip_akhir_p05[$key];
 
           //Output: Create $anuitas_ppip_p95[$i], $anuitas_ppip_p50[$i], $anuitas_ppip_p05[$i], $kupon_sbn_ppip_p95[$i], $kupon_sbn_ppip_p50[$i], $kupon_sbn_ppip_p05[$i]
+          $anuitas_ppip_p95 = $anuitas_ppip_p95_hitung;
+          $anuitas_ppip_p50 = $anuitas_ppip_p50_hitung;
+          $anuitas_ppip_p05 = $anuitas_ppip_p05_hitung;
+          $kupon_sbn_ppip_p95 = $kupon_sbn_ppip_p95_hitung;
+          $kupon_sbn_ppip_p50 = $kupon_sbn_ppip_p50_hitung;
+          $kupon_sbn_ppip_p05 = $kupon_sbn_ppip_p05_hitung;
+
           //Output: Create $rr_ppip_anuitas_p95[$i], $rr_ppip_anuitas_p50[$i], $rr_ppip_anuitas_p05[$i], $rr_ppip_kupon_sbn_p95[$i], $rr_ppip_kupon_sbn_p50[$i], $rr_ppip_kupon_sbn_p05[$i]
+          $rr_ppip_anuitas_p95 = $rr_ppip_anuitas_p95_hitung;
+          $rr_ppip_anuitas_p50 = $rr_ppip_anuitas_p50_hitung;
+          $rr_ppip_anuitas_p05 = $rr_ppip_anuitas_p05_hitung;
+          $rr_ppip_kupon_sbn_p95 = $rr_ppip_kupon_sbn_p95_hitung;
+          $rr_ppip_kupon_sbn_p50 = $rr_ppip_kupon_sbn_p50_hitung;
+          $rr_ppip_kupon_sbn_p05 = $rr_ppip_kupon_sbn_p05_hitung;
         }
       }
     }
