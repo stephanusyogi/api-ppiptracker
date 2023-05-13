@@ -842,13 +842,14 @@ class DashboardController extends Controller
           $percentile_50_return_ppip_bulanan_hitung = $percentile_50_return_monthly_ppip[$year]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
           $percentile_05_return_ppip_bulanan_hitung = $percentile_05_return_monthly_ppip[$year]; //menentukan percentile secara bulanan dari yang sebelumnya tahunan di monte carlo PPIP
           
-          if (fmod($i,12)==0){ //jika sudah bulan desember maka selanjutnya tahunnya bergeser
-            $j = $j+1;
-          }
+          // Tidak Dipakai Karena Menggunakan Looping Year Month
+          // if (fmod($i,12)==0){ //jika sudah bulan desember maka selanjutnya tahunnya bergeser
+          //   $j = $j+1;
+          // }
           
-          // //+++++++++++++++++++++++++++++++++++++
-          // //F.3.5. Simulasi PPIP - tambahan iuran mandiri ppip
-          // $tambahan_iuran_ppip[$i] = $persentase_tambahan_iuran_ppip * $gaji[$i];
+          //+++++++++++++++++++++++++++++++++++++
+          //F.3.5. Simulasi PPIP - tambahan iuran mandiri ppip
+          $tambahan_iuran_ppip_hitung = $persentase_tambahan_iuran_ppip * $gaji[$key];
           
           
           // //+++++++++++++++++++++++++++++++++++++
@@ -943,6 +944,7 @@ class DashboardController extends Controller
 
           //Output: Create $iuran[$i], $tambahan_iuran_ppip[$i], $percentile_95_return_ppip_bulanan[$i], $percentile_50_return_ppip_bulanan[$i], $percentile_05_return_ppip_bulanan[$i]
           $iuran[$key] = $iuran_hitung;
+          $tambahan_iuran_ppip[$key] = $tambahan_iuran_ppip_hitung;
           $percentile_95_return_ppip_bulanan[$key] = $percentile_95_return_ppip_bulanan_hitung;
           $percentile_50_return_ppip_bulanan[$key] = $percentile_50_return_ppip_bulanan_hitung;
           $percentile_05_return_ppip_bulanan[$key] = $percentile_05_return_ppip_bulanan_hitung;
@@ -951,6 +953,9 @@ class DashboardController extends Controller
           //Output: Create $rr_ppip_anuitas_p95[$i], $rr_ppip_anuitas_p50[$i], $rr_ppip_anuitas_p05[$i], $rr_ppip_kupon_sbn_p95[$i], $rr_ppip_kupon_sbn_p50[$i], $rr_ppip_kupon_sbn_p05[$i]
         }
       }
+
+      echo json_encode($tambahan_iuran_ppip, true);
+      die();
     }
 
 
