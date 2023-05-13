@@ -754,10 +754,8 @@ class DashboardController extends Controller
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
       $counter_saldo_ppip = explode("_", $return_simulasi_gaji_phdp['counter_saldo_ppip']);
-      // $counter_saldo_ppip_year = $counter_saldo_ppip[0]; 
-      // $counter_saldo_ppip_month = $counter_saldo_ppip[1];
-      $counter_saldo_ppip_year = 2023; 
-      $counter_saldo_ppip_month = 6;
+      $counter_saldo_ppip_year = $counter_saldo_ppip[0]; 
+      $counter_saldo_ppip_month = $counter_saldo_ppip[1];
       
       $percentile_95_return_monthly_ppip = $montecarlo_ppip["percentile_95_return_monthly_ppip"];
       $percentile_50_return_monthly_ppip = $montecarlo_ppip["percentile_50_return_monthly_ppip"];
@@ -820,6 +818,10 @@ class DashboardController extends Controller
       $pengembangan_ppip_p05 = array();
       $saldo_ppip_akhir_p05 = array();
 
+      $previous_saldo_ppip_akhir_p95 = null;
+      $previous_saldo_ppip_akhir_p50 = null;
+      $previous_saldo_ppip_akhir_p05 = null;
+
       //Output: Create $anuitas_ppip_p95[$i], $anuitas_ppip_p50[$i], $anuitas_ppip_p05[$i], $kupon_sbn_ppip_p95[$i], $kupon_sbn_ppip_p50[$i], $kupon_sbn_ppip_p05[$i]
       $anuitas_ppip_p95 = array();
       $anuitas_ppip_p50 = array();
@@ -861,55 +863,52 @@ class DashboardController extends Controller
           //+++++++++++++++++++++++++++++++++++++
           //F.3.6., F.3.7., F.3.8., F.3.9., F.3.10., F.3.11., F.3.12., F.3.13., dan F.3.14. Simulasi PPIP - hitung percentile 95,50,05 untuk saldo awal, hasil pengembangan, dan saldo akhir
           if($year==$counter_saldo_ppip_year && $month==$counter_saldo_ppip_month){ //tahun pertama ada saldonya
-            echo "if <br/>";
             // //percentile 95
-            // $saldo_ppip_awal_p95[$i] = $saldo_ppip_input;
-            // $pengembangan_ppip_p95[$i]= ($saldo_ppip_awal_p95[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] ) * $percentile_95_return_ppip_bulanan[$i];
-            // $saldo_ppip_akhir_p95[$i] = $saldo_ppip_awal_p95[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] + $pengembangan_ppip_p95[$i]; //saldo merupakan saldo akhir bulan
+            $saldo_ppip_awal_p95_hitung = $saldo_ppip_input;
+            $pengembangan_ppip_p95_hitung= ($saldo_ppip_awal_p95_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung ) * $percentile_95_return_ppip_bulanan_hitung;
+            $saldo_ppip_akhir_p95_hitung = $saldo_ppip_awal_p95_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung + $pengembangan_ppip_p95_hitung; //saldo merupakan saldo akhir bulan
             
             // //percentile 50
-            // $saldo_ppip_awal_p50[$i] = $saldo_ppip_input;
-            // $pengembangan_ppip_p50[$i]= ($saldo_ppip_awal_p50[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] )* $percentile_50_return_ppip_bulanan[$i];
-            // $saldo_ppip_akhir_p50[$i] = $saldo_ppip_awal_p50[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] + $pengembangan_ppip_p50[$i]; //saldo merupakan saldo akhir bulan
+            $saldo_ppip_awal_p50_hitung = $saldo_ppip_input;
+            $pengembangan_ppip_p50_hitung= ($saldo_ppip_awal_p50_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung )* $percentile_50_return_ppip_bulanan_hitung;
+            $saldo_ppip_akhir_p50_hitung = $saldo_ppip_awal_p50_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung + $pengembangan_ppip_p50_hitung; //saldo merupakan saldo akhir bulan
             
             // //percentile 05
-            // $saldo_ppip_awal_p05[$i] = $saldo_ppip_input;
-            // $pengembangan_ppip_p05[$i]= ($saldo_ppip_awal_p05[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] )* $percentile_05_return_ppip_bulanan[$i];
-            // $saldo_ppip_akhir_p05[$i] = $saldo_ppip_awal_p05[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] + $pengembangan_ppip_p05[$i]; //saldo merupakan saldo akhir bulan
+            $saldo_ppip_awal_p05_hitung = $saldo_ppip_input;
+            $pengembangan_ppip_p05_hitung= ($saldo_ppip_awal_p05_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung )* $percentile_05_return_ppip_bulanan_hitung;
+            $saldo_ppip_akhir_p05_hitung = $saldo_ppip_awal_p05_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung + $pengembangan_ppip_p05_hitung; //saldo merupakan saldo akhir bulan
             
           } else if ($year>$counter_saldo_ppip_year || $month>$counter_saldo_ppip_month) {
-            echo "else if <br/>";
             //percentile 95
-            // $saldo_ppip_awal_p95[$i] = $saldo_ppip_akhir_p95[$i-1];
-            // $pengembangan_ppip_p95[$i]= ($saldo_ppip_awal_p95[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] )* $percentile_95_return_ppip_bulanan[$i];
-            // $saldo_ppip_akhir_p95[$i] = $saldo_ppip_awal_p95[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] + $pengembangan_ppip_p95[$i]; //saldo merupakan saldo akhir bulan
+            $saldo_ppip_awal_p95_hitung = $previous_saldo_ppip_akhir_p95;
+            $pengembangan_ppip_p95_hitung= ($saldo_ppip_awal_p95_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung )* $percentile_95_return_ppip_bulanan_hitung;
+            $saldo_ppip_akhir_p95_hitung = $saldo_ppip_awal_p95_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung + $pengembangan_ppip_p95_hitung; //saldo merupakan saldo akhir bulan
             
             // //percentile 50
-            // $saldo_ppip_awal_p50[$i] = $saldo_ppip_akhir_p50[$i-1];
-            // $pengembangan_ppip_p50[$i]= ($saldo_ppip_awal_p50[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] )* $percentile_50_return_ppip_bulanan[$i];
-            // $saldo_ppip_akhir_p50[$i] = $saldo_ppip_awal_p50[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] + $pengembangan_ppip_p50[$i]; //saldo merupakan saldo akhir bulan
+            $saldo_ppip_awal_p50_hitung = $previous_saldo_ppip_akhir_p50;
+            $pengembangan_ppip_p50_hitung= ($saldo_ppip_awal_p50_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung )* $percentile_50_return_ppip_bulanan_hitung;
+            $saldo_ppip_akhir_p50_hitung = $saldo_ppip_awal_p50_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung + $pengembangan_ppip_p50_hitung; //saldo merupakan saldo akhir bulan
             
             // //percentile 05
-            // $saldo_ppip_awal_p05[$i] = $saldo_ppip_akhir_p05[$i-1];
-            // $pengembangan_ppip_p05[$i]= ($saldo_ppip_awal_p05[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] )* $percentile_05_return_ppip_bulanan[$i];
-            // $saldo_ppip_akhir_p05[$i] = $saldo_ppip_awal_p05[$i] + $tambahan_iuran_ppip[$i] + $iuran[$i] + $pengembangan_ppip_p05[$i]; //saldo merupakan saldo akhir bulan
+            $saldo_ppip_awal_p05_hitung = $previous_saldo_ppip_akhir_p05;
+            $pengembangan_ppip_p05_hitung= ($saldo_ppip_awal_p05_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung )* $percentile_05_return_ppip_bulanan_hitung;
+            $saldo_ppip_akhir_p05_hitung = $saldo_ppip_awal_p05_hitung + $tambahan_iuran_ppip_hitung + $iuran_hitung + $pengembangan_ppip_p05_hitung; //saldo merupakan saldo akhir bulan
             
           } else{
-            echo "else <br/>";
             // //percentile 95
-            // $saldo_ppip_awal_p95[$i] = 0;
-            // $pengembangan_ppip_p95[$i]= 0;
-            // $saldo_ppip_akhir_p95[$i] = 0;
+            $saldo_ppip_awal_p95_hitung = 0;
+            $pengembangan_ppip_p95_hitung= 0;
+            $saldo_ppip_akhir_p95_hitung = 0;
             
             // //percentile 50
-            // $saldo_ppip_awal_p50[$i] = 0;
-            // $pengembangan_ppip_p50[$i]= 0;
-            // $saldo_ppip_akhir_p50[$i] = 0;
+            $saldo_ppip_awal_p50_hitung = 0;
+            $pengembangan_ppip_p50_hitung= 0;
+            $saldo_ppip_akhir_p50_hitung = 0;
             
             // //percentile 05
-            // $saldo_ppip_awal_p05[$i] = 0;
-            // $pengembangan_ppip_p05[$i]= 0;
-            // $saldo_ppip_akhir_p05[$i] = 0;
+            $saldo_ppip_awal_p05_hitung = 0;
+            $pengembangan_ppip_p05_hitung= 0;
+            $saldo_ppip_akhir_p05_hitung = 0;
             
           }
           
@@ -956,13 +955,26 @@ class DashboardController extends Controller
           $percentile_95_return_ppip_bulanan[$key] = $percentile_95_return_ppip_bulanan_hitung;
           $percentile_50_return_ppip_bulanan[$key] = $percentile_50_return_ppip_bulanan_hitung;
           $percentile_05_return_ppip_bulanan[$key] = $percentile_05_return_ppip_bulanan_hitung;
+
           //output: Create $saldo_ppip_awal_p95[$i], $pengembangan_ppip_p95[$i], $saldo_ppip_akhir_p95[$i], $saldo_ppip_awal_p50[$i], $pengembangan_ppip_p50[$i], $saldo_ppip_akhir_p50[$i], $saldo_ppip_awal_p05[$i], $pengembangan_ppip_p05[$i], $saldo_ppip_akhir_p05[$i]
+          $saldo_ppip_awal_p95[$key] = $saldo_ppip_awal_p95_hitung;
+          $pengembangan_ppip_p95[$key] = $pengembangan_ppip_p95_hitung;
+          $saldo_ppip_akhir_p95[$key] = $saldo_ppip_akhir_p95_hitung;
+          $saldo_ppip_awal_p50[$key] = $saldo_ppip_awal_p50_hitung;
+          $pengembangan_ppip_p50[$key] = $pengembangan_ppip_p50_hitung;
+          $saldo_ppip_akhir_p50[$key] = $saldo_ppip_akhir_p50_hitung;
+          $saldo_ppip_awal_p05[$key] = $saldo_ppip_awal_p05_hitung;
+          $pengembangan_ppip_p05[$key] = $pengembangan_ppip_p05_hitung;
+          $saldo_ppip_akhir_p05[$key] = $saldo_ppip_akhir_p05_hitung;
+
+          $previous_saldo_ppip_akhir_p95 = $saldo_ppip_akhir_p95[$key];
+          $previous_saldo_ppip_akhir_p50 = $saldo_ppip_akhir_p50[$key];
+          $previous_saldo_ppip_akhir_p05 = $saldo_ppip_akhir_p05[$key];
 
           //Output: Create $anuitas_ppip_p95[$i], $anuitas_ppip_p50[$i], $anuitas_ppip_p05[$i], $kupon_sbn_ppip_p95[$i], $kupon_sbn_ppip_p50[$i], $kupon_sbn_ppip_p05[$i]
           //Output: Create $rr_ppip_anuitas_p95[$i], $rr_ppip_anuitas_p50[$i], $rr_ppip_anuitas_p05[$i], $rr_ppip_kupon_sbn_p95[$i], $rr_ppip_kupon_sbn_p50[$i], $rr_ppip_kupon_sbn_p05[$i]
         }
       }
-      die();
     }
 
 
