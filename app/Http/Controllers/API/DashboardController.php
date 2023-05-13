@@ -29,9 +29,6 @@ class DashboardController extends Controller
         ->get()[0];
       $target_replacement_ratio = round($res->answer,2);
 
-      echo json_encode($target_replacement_ratio, true);
-      die();
-
       // -----------------------------------------------------------------------
       //B.1 Hitung usia diangkat
       $data_user = User::select('*')->where('id',$id_user)->get()[0];
