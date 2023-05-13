@@ -12,8 +12,6 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
-      echo json_encode($id_user, true);
-      die();
 
       // Get Input Form Data
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
