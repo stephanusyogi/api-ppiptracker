@@ -1017,7 +1017,7 @@ class DashboardController extends Controller
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
       $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
-      $date2=date_create("2023-01-01"); //januari 2023
+      $date2=date_create("2023-01-31"); //januari 2023
       $diff=date_diff($date1,$date2);
 
       //Output: Create $masa_dinas_tahun[$i] dan $masa_dinas_bulan[$i] ke masing-masing tahun dan bulan di database masa dinas
