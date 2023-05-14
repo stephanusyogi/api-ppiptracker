@@ -1351,7 +1351,7 @@ class DashboardController extends Controller
       );
     }
 
-    public function indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp){
+    public function indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp){
       //Input: Read flag pensiun
       $counter_pensiun=""; //counter posisi pensiun
       $previous_flag_pensiun = null;
@@ -1508,6 +1508,27 @@ class DashboardController extends Controller
         $dashboard_penghasilan_bulanan_total_med = $dashboard_penghasilan_bulanan_ppip_med + $dashboard_penghasilan_bulanan_personal_keuangan_med + $dashboard_penghasilan_bulanan_personal_properti;
         $dashboard_penghasilan_bulanan_total_max = $dashboard_penghasilan_bulanan_ppip_max + $dashboard_penghasilan_bulanan_personal_keuangan_max + $dashboard_penghasilan_bulanan_personal_properti;
       }
+
+      // +++++++++++++++++++++++++++++++
+      //G.2.3. present value Penghasilan Bulanan pada dashboard
+      //Input: Read sisa masa kerja saat membuka
+      $tahun_ini=date('Y');//Read current date untuk tahun
+      $bulan_ini=date('n');////Read current date untuk bulan
+      $tahun_bulan_ini = $tahun_ini."_".$bulan_ini;
+      $inflasi=0.04;//Read asumsi inflasi yang di admin
+
+      $tahun_sisa_kerja = $sisa_kerja_tahun[$tahun_bulan_ini];//Read sisa masa kerja tahun untuk current date
+      $bulan_sisa_kerja = $sisa_kerja_bulan[$tahun_bulan_ini];//Read sisa masa kerja bulan untuk current date
+
+      $dashboard_penghasilan_bulanan_ppip_min_pv = $dashboard_penghasilan_bulanan_ppip_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      $dashboard_penghasilan_bulanan_ppip_med_pv = $dashboard_penghasilan_bulanan_ppip_med / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      $dashboard_penghasilan_bulanan_ppip_max_pv = $dashboard_penghasilan_bulanan_ppip_max / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+
+      $dashboard_penghasilan_bulanan_personal_keuangan_min_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      $dashboard_penghasilan_bulanan_personal_keuangan_med_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      $dashboard_penghasilan_bulanan_personal_keuangan_max_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+
+      $dashboard_penghasilan_bulanan_personal_properti_pv = $dashboard_penghasilan_bulanan_personal_properti / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
 
     }
 
@@ -1694,7 +1715,7 @@ class DashboardController extends Controller
       
       //----------------------------------------------------------------------------
       //G.1. Hitung indikator dashboard - lokasi pensiun4
-      $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan,$return_simulasi_ppmp);
+      $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp);
 
       return response()->json([
         "status" =>true,
