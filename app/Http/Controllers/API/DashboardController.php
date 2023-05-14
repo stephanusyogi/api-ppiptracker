@@ -1291,6 +1291,34 @@ class DashboardController extends Controller
       }
     }
 
+    public function indikator_dashboard($flag_pensiun){
+      //Input: Read flag pensiun
+      $counter_pensiun=""; //counter posisi pensiun
+      $previous_flag_pensiun = null;
+      
+      for($year=2023; $year<=2100; $year++){
+        for($month=1; $month<=12; $month++){
+          $key = $year . "_" . $month;
+          if ($year==2023 && $month==1){
+            if ($flag_pensiun[$key]==1){
+              $counter_pensiun = $key;// pada saat bulan ini sudah pensiun. jadi saldo yang ditampilkan adalah saldo awal
+            }
+          } else {
+            if ($flag_pensiun[$key]==1 && $previous_flag_pensiun==0){
+              $counter_pensiun = $key; // pada saat bulan ini sudah pensiun. jadi saldo yang ditampilkan adalah saldo akhir untuk bulan sebelumnya.
+            }
+          }
+          $previous_flag_pensiun = $flag_pensiun[$key];
+        }
+      }
+      
+      //----------------------------------------------------------------------------
+      //G.2. Hitung indikator dashboard - posisi saat pensiun
+      //++++++++++++++++++++++++++++++++
+      //G.2.1. RR pada dashboard
+
+    }
+
     // Section Development - Yogi
     public function index_yogi(Request $request){
       $id_user = $request->input('id_user');
@@ -1332,24 +1360,24 @@ class DashboardController extends Controller
       $usia_tahun = array();
       $usia_bulan = array();
       for($year=2023; $year<=2100; $year++){
-          for($month=1; $month<=12; $month++){
-              if($year==2023 && $month==1){
-                $tahun=(int)$diff->format('%y');
-                $bulan=(int)$diff->format('%m');
-                $bulan = $bulan +1;
-              } else {
-                if($bulan >=12){
-                  $tahun = $tahun+1;
-                  $bulan = 1;
-                }
-                $bulan = $bulan +1;
-              }
-
-              $key_tahun = $year . "_" . $month;
-              $usia_tahun[$key_tahun] = $tahun;
-              $key_bulan = $year . "_" . $month;
-              $usia_bulan[$key_bulan] = $bulan;
+        for($month=1; $month<=12; $month++){
+          if($year==2023 && $month==1){
+            $tahun=(int)$diff->format('%y');
+            $bulan=(int)$diff->format('%m');
+            $bulan = $bulan +1;
+          } else {
+            if($bulan >=12){
+              $tahun = $tahun+1;
+              $bulan = 1;
+            }
+            $bulan = $bulan +1;
           }
+
+          $key_tahun = $year . "_" . $month;
+          $usia_tahun[$key_tahun] = $tahun;
+          $key_bulan = $year . "_" . $month;
+          $usia_bulan[$key_bulan] = $bulan;
+        }
       }
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
@@ -1471,6 +1499,10 @@ class DashboardController extends Controller
       $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
       //F.5. Simulasi PERSONAL_KEUANGAN
       $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan);
+      
+      //----------------------------------------------------------------------------
+      //G.1. Hitung indikator dashboard - lokasi pensiun
+      $return_dashboard = $this->indikator_dashboard($flag_pensiun);
 
       return response()->json([
         "status" =>true,
