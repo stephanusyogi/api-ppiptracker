@@ -989,15 +989,18 @@ class DashboardController extends Controller
       }
     }
 
-    public function simulasi_personal_properti($data_user, ){
+    public function simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp){
       //F.4.1. dan F.4.2. Simulasi Properti - Hitung harga dan sewa properti
       //Input: Read harga properti, sewa tahunan, kenaikan harga properti, dan kenaikan harga sewa di profil user
-
+      echo json_encode($data_user, true);
+      die();
       $saldo_personal_properti_input=0;// Read harga properti keuangan yang diinput di profil user
       $sewa_personal_properti_input=0;// Read harga properti keuangan yang diinput di profil user
 
       $naik_harga_properti=0.1; // Read kenaikan harga properti keuangan yang diinput di profil user
       $naik_sewa_properti=0.1; // Read kenaikan sewa properti keuangan yang diinput di profil user
+
+      $gaji = $return_simulasi_gaji_phdp['gaji'];
 
 
       $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
@@ -1217,7 +1220,7 @@ class DashboardController extends Controller
       //F.3. Simulasi PPIP
       $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
       //F.4. Simulasi Personal Properti
-      $return_simulasi_personal_properti = $this->simulasi_personal_properti();
+      $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp);
 
       return response()->json([
         "status" =>true,
