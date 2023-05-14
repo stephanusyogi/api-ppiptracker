@@ -1058,7 +1058,7 @@ class DashboardController extends Controller
       );
     }
 
-    public function simulasi_personal_keuangan($data_user, $return_simulasi_gaji_phdp, $flag_pensiun){
+    public function simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun){
       //Input: variabel $gaji{$i] yang ada di memory serta flag pensiun, Read tambahan iuran personal_keuangan, Read Saldo PERSONAL_KEUANGAN
 
       //F.5.1. Simulasi PERSONAL_KEUANGAN - Hitung iuran
@@ -1394,7 +1394,7 @@ class DashboardController extends Controller
       //F.4. Simulasi Personal Properti
       $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
       //F.5. Simulasi PERSONAL_KEUANGAN
-      $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $return_simulasi_gaji_phdp, $flag_pensiun);
+      $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun);
 
       return response()->json([
         "status" =>true,
