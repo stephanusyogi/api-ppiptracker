@@ -1104,7 +1104,7 @@ class DashboardController extends Controller
       );
     }
 
-    public function simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan){
+    public function simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp){
       //Input: variabel $gaji{$i] yang ada di memory serta flag pensiun, Read tambahan iuran personal_keuangan, Read Saldo PERSONAL_KEUANGAN
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $counter_saldo_personal_keuangan = explode("_", $return_simulasi_gaji_phdp['counter_saldo_personal_keuangan']);
@@ -1351,7 +1351,7 @@ class DashboardController extends Controller
       );
     }
 
-    public function indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan){
+    public function indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp){
       //Input: Read flag pensiun
       $counter_pensiun=""; //counter posisi pensiun
       $previous_flag_pensiun = null;
@@ -1435,7 +1435,22 @@ class DashboardController extends Controller
       }
       $dashboard_penghasilan_bulanan_personal_properti = $sewa_properti[$counter_pensiun_minus_one_month] / 12;
 
+      //total penghasilan bulanan
+      //$status_mp=1 untuk hybrid ppmp ppip dan $status_mp=2 untuk ppip murni
+      $status_mp = $return_simulasi_ppmp['status_mp'];
+      $jumlah_ppmp = $return_simulasi_ppmp['jumlah_ppmp'];
+      if ($status_mp==1){
+        $dashboard_penghasilan_bulanan_ppmp = $jumlah_ppmp[$counter_pensiun_minus_one_month];
+        
+        $dashboard_penghasilan_bulanan_total_min = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_min + $dashboard_penghasilan_bulanan_personal_keuangan_min + $dashboard_penghasilan_bulanan_personal_properti;
+        $dashboard_penghasilan_bulanan_total_med = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_med + $dashboard_penghasilan_bulanan_personal_keuangan_med + $dashboard_penghasilan_bulanan_personal_properti;
+        $dashboard_penghasilan_bulanan_total_max = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_max + $dashboard_penghasilan_bulanan_personal_keuangan_max + $dashboard_penghasilan_bulanan_personal_properti;
 
+      } else {
+        $dashboard_penghasilan_bulanan_total_min = $dashboard_penghasilan_bulanan_ppip_min + $dashboard_penghasilan_bulanan_personal_keuangan_min + $dashboard_penghasilan_bulanan_personal_properti;
+        $dashboard_penghasilan_bulanan_total_med = $dashboard_penghasilan_bulanan_ppip_med + $dashboard_penghasilan_bulanan_personal_keuangan_med + $dashboard_penghasilan_bulanan_personal_properti;
+        $dashboard_penghasilan_bulanan_total_max = $dashboard_penghasilan_bulanan_ppip_max + $dashboard_penghasilan_bulanan_personal_keuangan_max + $dashboard_penghasilan_bulanan_personal_properti;
+      }
     }
 
     // Section Development - Yogi
@@ -1617,11 +1632,11 @@ class DashboardController extends Controller
       //F.4. Simulasi Personal Properti
       $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
       //F.5. Simulasi PERSONAL_KEUANGAN
-      $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan);
+      $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp);
       
       //----------------------------------------------------------------------------
-      //G.1. Hitung indikator dashboard - lokasi pensiun
-      $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan);
+      //G.1. Hitung indikator dashboard - lokasi pensiun4
+      $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan,$return_simulasi_ppmp);
 
       return response()->json([
         "status" =>true,
