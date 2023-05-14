@@ -1353,12 +1353,12 @@ class DashboardController extends Controller
       }
       $counter_pensiun_minus_one_month = sprintf("%d_%d", $counter_pensiun_year, $counter_pensiun_month);
 
-      echo $counter_pensiun_minus_one_month;
-      die();
       
       //----------------------------------------------------------------------------
       //G.2. Hitung indikator dashboard - posisi saat pensiun
       $rr_ppip_anuitas_p05 = $return_simulasi_ppip["rr_ppip_anuitas_p05"];
+      echo json_encode($rr_ppip_anuitas_p05, true);
+      die();
       $rr_ppip_anuitas_p50 = $return_simulasi_ppip["rr_ppip_anuitas_p50"];
       $rr_ppip_anuitas_p95 = $return_simulasi_ppip["rr_ppip_anuitas_p95"];
       //++++++++++++++++++++++++++++++++
