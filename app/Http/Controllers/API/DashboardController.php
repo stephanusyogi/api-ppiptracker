@@ -990,20 +990,20 @@ class DashboardController extends Controller
           $previous_saldo_ppip_akhir_p05 = $saldo_ppip_akhir_p05[$key];
 
           //Output: Create $anuitas_ppip_p95[$i], $anuitas_ppip_p50[$i], $anuitas_ppip_p05[$i], $kupon_sbn_ppip_p95[$i], $kupon_sbn_ppip_p50[$i], $kupon_sbn_ppip_p05[$i]
-          $anuitas_ppip_p95 = $anuitas_ppip_p95_hitung;
-          $anuitas_ppip_p50 = $anuitas_ppip_p50_hitung;
-          $anuitas_ppip_p05 = $anuitas_ppip_p05_hitung;
-          $kupon_sbn_ppip_p95 = $kupon_sbn_ppip_p95_hitung;
-          $kupon_sbn_ppip_p50 = $kupon_sbn_ppip_p50_hitung;
-          $kupon_sbn_ppip_p05 = $kupon_sbn_ppip_p05_hitung;
+          $anuitas_ppip_p95[$key] = $anuitas_ppip_p95_hitung;
+          $anuitas_ppip_p50[$key] = $anuitas_ppip_p50_hitung;
+          $anuitas_ppip_p05[$key] = $anuitas_ppip_p05_hitung;
+          $kupon_sbn_ppip_p95[$key] = $kupon_sbn_ppip_p95_hitung;
+          $kupon_sbn_ppip_p50[$key] = $kupon_sbn_ppip_p50_hitung;
+          $kupon_sbn_ppip_p05[$key] = $kupon_sbn_ppip_p05_hitung;
 
           //Output: Create $rr_ppip_anuitas_p95[$i], $rr_ppip_anuitas_p50[$i], $rr_ppip_anuitas_p05[$i], $rr_ppip_kupon_sbn_p95[$i], $rr_ppip_kupon_sbn_p50[$i], $rr_ppip_kupon_sbn_p05[$i]
-          $rr_ppip_anuitas_p95 = $rr_ppip_anuitas_p95_hitung;
-          $rr_ppip_anuitas_p50 = $rr_ppip_anuitas_p50_hitung;
-          $rr_ppip_anuitas_p05 = $rr_ppip_anuitas_p05_hitung;
-          $rr_ppip_kupon_sbn_p95 = $rr_ppip_kupon_sbn_p95_hitung;
-          $rr_ppip_kupon_sbn_p50 = $rr_ppip_kupon_sbn_p50_hitung;
-          $rr_ppip_kupon_sbn_p05 = $rr_ppip_kupon_sbn_p05_hitung;
+          $rr_ppip_anuitas_p95[$key] = $rr_ppip_anuitas_p95_hitung;
+          $rr_ppip_anuitas_p50[$key] = $rr_ppip_anuitas_p50_hitung;
+          $rr_ppip_anuitas_p05[$key] = $rr_ppip_anuitas_p05_hitung;
+          $rr_ppip_kupon_sbn_p95[$key] = $rr_ppip_kupon_sbn_p95_hitung;
+          $rr_ppip_kupon_sbn_p50[$key] = $rr_ppip_kupon_sbn_p50_hitung;
+          $rr_ppip_kupon_sbn_p05[$key] = $rr_ppip_kupon_sbn_p05_hitung;
         }
       }
 
@@ -1353,12 +1353,9 @@ class DashboardController extends Controller
       }
       $counter_pensiun_minus_one_month = sprintf("%d_%d", $counter_pensiun_year, $counter_pensiun_month);
 
-      
       //----------------------------------------------------------------------------
       //G.2. Hitung indikator dashboard - posisi saat pensiun
       $rr_ppip_anuitas_p05 = $return_simulasi_ppip["rr_ppip_anuitas_p05"];
-      echo json_encode($rr_ppip_anuitas_p05, true);
-      die();
       $rr_ppip_anuitas_p50 = $return_simulasi_ppip["rr_ppip_anuitas_p50"];
       $rr_ppip_anuitas_p95 = $return_simulasi_ppip["rr_ppip_anuitas_p95"];
       //++++++++++++++++++++++++++++++++
