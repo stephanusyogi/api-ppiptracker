@@ -114,16 +114,15 @@ class DashboardController extends Controller
        echo json_encode($sisa_masa_dinas_bulan, true);
        echo json_encode($sisa_masa_dinas_tahun, true);
        die();
-      
       // -----------------------------------------------------------------------
       //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
       $usia_pensiun=$data_user->usia_pensiun; //read usia pensiun
       $tahun_pensiun=$usia_pensiun - 1;
       $bulan_pensiun=12;
-      
+
+      //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
       $sisa_kerja_tahun = array();
       $sisa_kerja_bulan = array();
-     
       for($year=2023; $year<=2100; $year++){
           for($month=1; $month<=12; $month++){
             if($year==2023 && $month==1){  
@@ -188,7 +187,7 @@ class DashboardController extends Controller
       
       // -----------------------------------------------------------------------
       //D. Hitung Montecarlo PPIP
-      $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+      $montecarlo_ppip = $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
 
       // -----------------------------------------------------------------------
       //E. Hitung Montecarlo Personal Keuangan
@@ -197,11 +196,11 @@ class DashboardController extends Controller
       //---------------------------------------------------------
       //F. Perhitungan Simulasi
       //F.1. Simulasi Gaji dan PhDP
-      $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $id_user);
+      $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji, $phdp, $id_user);
       //F.2. Simulasi PPMP
-      $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_kerja_tahun, $sisa_kerja_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
+      $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_masa_dinas_tahun, $sisa_masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
       //F.3. Simulasi PPIP
-      $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp);
+      $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
 
       return response()->json([
         "status" =>true,
@@ -990,6 +989,56 @@ class DashboardController extends Controller
       }
     }
 
+    public function simulasi_personal_properti($data_user, ){
+      //F.4.1. dan F.4.2. Simulasi Properti - Hitung harga dan sewa properti
+      //Input: Read harga properti, sewa tahunan, kenaikan harga properti, dan kenaikan harga sewa di profil user
+
+      $saldo_personal_properti_input=0;// Read harga properti keuangan yang diinput di profil user
+      $sewa_personal_properti_input=0;// Read harga properti keuangan yang diinput di profil user
+
+      $naik_harga_properti=0.1; // Read kenaikan harga properti keuangan yang diinput di profil user
+      $naik_sewa_properti=0.1; // Read kenaikan sewa properti keuangan yang diinput di profil user
+
+
+      $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
+
+
+      for ($i=1;$i<=$jml;$i++){
+        if($i==$counter_saldo_personal_properti){ //tahun pertama ada saldonya
+          
+          $harga_properti[$i]=$saldo_personal_properti_input;
+          $sewa_properti[$i]=$sewa_personal_properti_input;
+          
+        } else if ($i>$counter_saldo_personal_properti) {
+          
+          if (fmod($i,12)==1){ //jika sudah bulan januari maka harga rumah dan sewa naik
+            
+            $harga_properti[$i]=$harga_properti[$i-1]*(1+$naik_harga_properti);
+            $sewa_properti[$i]=$sewa_properti[$i-1]*(1+$naik_sewa_properti);
+            
+          } else {
+            
+            $harga_properti[$i]=$harga_properti[$i-1];
+            $sewa_properti[$i]=$sewa_properti[$i-1];
+            
+          }
+          
+        } else {
+          
+          $harga_properti[$i]=0;
+          $sewa_properti[$i]=0;
+            
+        }
+
+        //+++++++++++++++++++++++++++++++++++
+        //F.4.3. Simulasi Properti - Hitung RR Properti
+        if ($gaji[$i]>0){
+          $rr_personal_properti[$i]=($sewa_properti[$i] / 12) / $gaji[$i];
+        } else {
+          $rr_personal_properti[$i]=0;
+        }
+      }
+    }
 
     // Section Development - Yogi
     public function index_yogi(Request $request){
@@ -1166,7 +1215,9 @@ class DashboardController extends Controller
       //F.2. Simulasi PPMP
       $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_masa_dinas_tahun, $sisa_masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
       //F.3. Simulasi PPIP
-      $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
+      $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
+      //F.4. Simulasi Personal Properti
+      $return_simulasi_personal_properti = $this->simulasi_personal_properti();
 
       return response()->json([
         "status" =>true,
