@@ -1006,6 +1006,35 @@ class DashboardController extends Controller
           $rr_ppip_kupon_sbn_p05 = $rr_ppip_kupon_sbn_p05_hitung;
         }
       }
+
+      return array(
+        "iuran" => $iuran,
+        "tambahan_iuran_ppip" => $tambahan_iuran_ppip,
+        "percentile_95_return_ppip_bulanan" => $percentile_95_return_ppip_bulanan,
+        "percentile_50_return_ppip_bulanan" => $percentile_50_return_ppip_bulanan,
+        "percentile_05_return_ppip_bulanan" => $percentile_05_return_ppip_bulanan,
+        "saldo_ppip_awal_p95" => $saldo_ppip_awal_p95,
+        "pengembangan_ppip_p95" => $pengembangan_ppip_p95,
+        "saldo_ppip_akhir_p95" => $saldo_ppip_akhir_p95,
+        "saldo_ppip_awal_p50" => $saldo_ppip_awal_p50,
+        "pengembangan_ppip_p50" => $pengembangan_ppip_p50,
+        "saldo_ppip_akhir_p50" => $saldo_ppip_akhir_p50,
+        "saldo_ppip_awal_p05" => $saldo_ppip_awal_p05,
+        "pengembangan_ppip_p05" => $pengembangan_ppip_p05,
+        "saldo_ppip_akhir_p05" => $saldo_ppip_akhir_p05,
+        "anuitas_ppip_p95" => $anuitas_ppip_p95,
+        "anuitas_ppip_p50" => $anuitas_ppip_p50,
+        "anuitas_ppip_p05" => $anuitas_ppip_p05,
+        "kupon_sbn_ppip_p95" => $kupon_sbn_ppip_p95,
+        "kupon_sbn_ppip_p50" => $kupon_sbn_ppip_p50,
+        "kupon_sbn_ppip_p05" => $kupon_sbn_ppip_p05,
+        "rr_ppip_anuitas_p95" => $rr_ppip_anuitas_p95,
+        "rr_ppip_anuitas_p50" => $rr_ppip_anuitas_p50,
+        "rr_ppip_anuitas_p05" => $rr_ppip_anuitas_p05,
+        "rr_ppip_kupon_sbn_p95" => $rr_ppip_kupon_sbn_p95,
+        "rr_ppip_kupon_sbn_p50" => $rr_ppip_kupon_sbn_p50,
+        "rr_ppip_kupon_sbn_p05" => $rr_ppip_kupon_sbn_p05,
+      );
     }
 
     public function simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp){
@@ -1291,7 +1320,7 @@ class DashboardController extends Controller
       }
     }
 
-    public function indikator_dashboard($flag_pensiun){
+    public function indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip){
       //Input: Read flag pensiun
       $counter_pensiun=""; //counter posisi pensiun
       $previous_flag_pensiun = null;
@@ -1311,12 +1340,41 @@ class DashboardController extends Controller
           $previous_flag_pensiun = $flag_pensiun[$key];
         }
       }
+
+      $parts_counter_pensiun = explode("_", $counter_pensiun);
+      $counter_pensiun_year = intval($parts_counter_pensiun[0]);
+      $counter_pensiun_month = intval($parts_counter_pensiun[1]);
+      // Mengurangi satu bulan
+      if ($counter_pensiun_month == 1) {
+          $counter_pensiun_year -= 1;
+          $counter_pensiun_month = 12;
+      } else {
+          $counter_pensiun_month -= 1;
+      }
+      $counter_pensiun_minus_one_month = sprintf("%d_%d", $counter_pensiun_year, $counter_pensiun_month);
       
       //----------------------------------------------------------------------------
       //G.2. Hitung indikator dashboard - posisi saat pensiun
+      $rr_ppip_anuitas_p05 = $return_simulasi_ppip["rr_ppip_anuitas_p05"];
+      $rr_ppip_anuitas_p50 = $return_simulasi_ppip["rr_ppip_anuitas_p50"];
+      $rr_ppip_anuitas_p95 = $return_simulasi_ppip["rr_ppip_anuitas_p95"];
       //++++++++++++++++++++++++++++++++
       //G.2.1. RR pada dashboard
-
+      //pembayaran PPIP jika 1=anuitas; 2=kupon SBN/SBSN
+      $setting_treatment_user = DB::table('setting_treatment_pembayaran_setelah_pensiun')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->select('*')->get()[0];
+      $pembayaran_ppip = ($setting_treatment_user->ppip === 'Beli Anuitas') ? 1 : 2;//Read pilihan pembayaran PPIP (pembayaran PPIP jika 1=anuitas; 2=kupon SBN/SBSN)
+      if($pembayaran_ppip==1){
+        $dashboard_rr_ppip_min = $rr_ppip_anuitas_p05[$counter_pensiun_minus_one_month];
+        $dashboard_rr_ppip_med = $rr_ppip_anuitas_p50[$counter_pensiun_minus_one_month];
+        $dashboard_rr_ppip_max = $rr_ppip_anuitas_p95[$counter_pensiun_minus_one_month];  
+      } else {
+        $dashboard_rr_ppip_min = $rr_ppip_kupon_sbn_p05[$counter_pensiun_minus_one_month];
+        $dashboard_rr_ppip_med = $rr_ppip_kupon_sbn_p50[$counter_pensiun_minus_one_month];
+        $dashboard_rr_ppip_max = $rr_ppip_kupon_sbn_p95[$counter_pensiun_minus_one_month];
+      }
     }
 
     // Section Development - Yogi
@@ -1502,7 +1560,7 @@ class DashboardController extends Controller
       
       //----------------------------------------------------------------------------
       //G.1. Hitung indikator dashboard - lokasi pensiun
-      $return_dashboard = $this->indikator_dashboard($flag_pensiun);
+      $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip);
 
       return response()->json([
         "status" =>true,
