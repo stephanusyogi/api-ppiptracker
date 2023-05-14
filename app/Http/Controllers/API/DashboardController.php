@@ -1451,22 +1451,64 @@ class DashboardController extends Controller
         $dashboard_rr_total_med = $dashboard_rr_ppip_med + $dashboard_rr_personal_keuangan_med + $dashboard_rr_personal_properti;
         $dashboard_rr_total_max = $dashboard_rr_ppip_max + $dashboard_rr_personal_keuangan_max + $dashboard_rr_personal_properti;
       }
-      // //total penghasilan bulanan
-      // //$status_mp=1 untuk hybrid ppmp ppip dan $status_mp=2 untuk ppip murni
-      // $status_mp = $return_simulasi_ppmp['status_mp'];
-      // $jumlah_ppmp = $return_simulasi_ppmp['jumlah_ppmp'];
-      // if ($status_mp==1){
-      //   $dashboard_penghasilan_bulanan_ppmp = $jumlah_ppmp[$counter_pensiun_minus_one_month];
-        
-      //   $dashboard_penghasilan_bulanan_total_min = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_min + $dashboard_penghasilan_bulanan_personal_keuangan_min + $dashboard_penghasilan_bulanan_personal_properti;
-      //   $dashboard_penghasilan_bulanan_total_med = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_med + $dashboard_penghasilan_bulanan_personal_keuangan_med + $dashboard_penghasilan_bulanan_personal_properti;
-      //   $dashboard_penghasilan_bulanan_total_max = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_max + $dashboard_penghasilan_bulanan_personal_keuangan_max + $dashboard_penghasilan_bulanan_personal_properti;
 
-      // } else {
-      //   $dashboard_penghasilan_bulanan_total_min = $dashboard_penghasilan_bulanan_ppip_min + $dashboard_penghasilan_bulanan_personal_keuangan_min + $dashboard_penghasilan_bulanan_personal_properti;
-      //   $dashboard_penghasilan_bulanan_total_med = $dashboard_penghasilan_bulanan_ppip_med + $dashboard_penghasilan_bulanan_personal_keuangan_med + $dashboard_penghasilan_bulanan_personal_properti;
-      //   $dashboard_penghasilan_bulanan_total_max = $dashboard_penghasilan_bulanan_ppip_max + $dashboard_penghasilan_bulanan_personal_keuangan_max + $dashboard_penghasilan_bulanan_personal_properti;
-      // }
+      //++++++++++++++++++++++++++++++++
+      //G.2.2. Penghasilan Bulanan pada dashboard
+      $anuitas_ppip_p05 = $return_simulasi_ppip["anuitas_ppip_p05"];
+      $anuitas_ppip_p50 = $return_simulasi_ppip["anuitas_ppip_p50"];
+      $anuitas_ppip_p95 = $return_simulasi_ppip["anuitas_ppip_p95"];
+      
+      $kupon_sbn_ppip_p05 = $return_simulasi_ppip["kupon_sbn_ppip_p05"];
+      $kupon_sbn_ppip_p50 = $return_simulasi_ppip["kupon_sbn_ppip_p50"];
+      $kupon_sbn_ppip_p95 = $return_simulasi_ppip["kupon_sbn_ppip_p95"];
+
+      $anuitas_personal_keuangan_p05 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p05"];
+      $anuitas_personal_keuangan_p50 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p50"];
+      $anuitas_personal_keuangan_p95 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p95"];
+
+      $kupon_sbn_personal_keuangan_p05 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p05"];
+      $kupon_sbn_personal_keuangan_p50 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p50"];
+      $kupon_sbn_personal_keuangan_p95 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p95"];
+
+      $sewa_properti = $return_simulasi_personal_properti["sewa_properti"];
+      //pembayaran PPIP jika 1=anuitas; 2=kupon SBN/SBSN
+      if($pembayaran_ppip==1){
+        $dashboard_penghasilan_bulanan_ppip_min = $anuitas_ppip_p05[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_ppip_med = $anuitas_ppip_p50[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_ppip_max = $anuitas_ppip_p95[$counter_pensiun_minus_one_month];
+      } else {
+        $dashboard_penghasilan_bulanan_ppip_min = $kupon_sbn_ppip_p05[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_ppip_med = $kupon_sbn_ppip_p50[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_ppip_max = $kupon_sbn_ppip_p95[$counter_pensiun_minus_one_month];
+      }
+
+      //pembayaran personal keuangan jika 1=anuitas; 2=kupon SBN/SBSN
+      if($pembayaran_personal_keuangan==1){
+        $dashboard_penghasilan_bulanan_personal_keuangan_min = $anuitas_personal_keuangan_p05[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_personal_keuangan_med = $anuitas_personal_keuangan_p50[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_personal_keuangan_max = $anuitas_personal_keuangan_p95[$counter_pensiun_minus_one_month];
+      } else { 
+        $dashboard_penghasilan_bulanan_personal_keuangan_min = $kupon_sbn_personal_keuangan_p05[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_personal_keuangan_med = $kupon_sbn_personal_keuangan_p50[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_personal_keuangan_max = $kupon_sbn_personal_keuangan_p95[$counter_pensiun_minus_one_month];
+      }
+      $dashboard_penghasilan_bulanan_personal_properti = $sewa_properti[$counter_pensiun_minus_one_month] / 12;
+
+      //total penghasilan bulanan
+      $jumlah_ppmp = $return_simulasi_ppmp['jumlah_ppmp'];
+      //$status_mp=1 untuk hybrid ppmp ppip dan $status_mp=2 untuk ppip murni
+      if ($status_mp==1){
+        $dashboard_penghasilan_bulanan_ppmp = $jumlah_ppmp[$counter_pensiun_minus_one_month];
+        
+        $dashboard_penghasilan_bulanan_total_min = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_min + $dashboard_penghasilan_bulanan_personal_keuangan_min + $dashboard_penghasilan_bulanan_personal_properti;
+        $dashboard_penghasilan_bulanan_total_med = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_med + $dashboard_penghasilan_bulanan_personal_keuangan_med + $dashboard_penghasilan_bulanan_personal_properti;
+        $dashboard_penghasilan_bulanan_total_max = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_max + $dashboard_penghasilan_bulanan_personal_keuangan_max + $dashboard_penghasilan_bulanan_personal_properti;
+      } else {
+        $dashboard_penghasilan_bulanan_total_min = $dashboard_penghasilan_bulanan_ppip_min + $dashboard_penghasilan_bulanan_personal_keuangan_min + $dashboard_penghasilan_bulanan_personal_properti;
+        $dashboard_penghasilan_bulanan_total_med = $dashboard_penghasilan_bulanan_ppip_med + $dashboard_penghasilan_bulanan_personal_keuangan_med + $dashboard_penghasilan_bulanan_personal_properti;
+        $dashboard_penghasilan_bulanan_total_max = $dashboard_penghasilan_bulanan_ppip_max + $dashboard_penghasilan_bulanan_personal_keuangan_max + $dashboard_penghasilan_bulanan_personal_properti;
+      }
+
     }
 
     // Section Development - Yogi
