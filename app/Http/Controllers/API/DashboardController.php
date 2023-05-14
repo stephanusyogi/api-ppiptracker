@@ -1256,7 +1256,7 @@ class DashboardController extends Controller
           
           //++++++++++++++++++++++++++++++++++++++++
           //F.5.20., F.5.21., F.5.22., F.5.23., F.5.24., dan F.5.25., Hitung RR untuk anuitas dan kupon SBN/SBSN pada percentile 95, 50, dan 05
-          if ($gaji[$year]>0){
+          if ($gaji[$key]>0){
             
             //untuk anuitas
             $rr_personal_keuangan_anuitas_p95_hitung = $anuitas_personal_keuangan_p95_hitung / $gaji[$key];
