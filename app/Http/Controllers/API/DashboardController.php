@@ -1318,9 +1318,40 @@ class DashboardController extends Controller
           $rr_personal_keuangan_kupon_sbn_p05[$key] = $rr_personal_keuangan_kupon_sbn_p05_hitung;
         }
       }
+
+      return array(
+        "iuran_personal_keuangan" => $iuran_personal_keuangan,
+        "percentile_95_return_personal_keuangan_bulanan" => $percentile_95_return_personal_keuangan_bulanan,
+        "percentile_50_return_personal_keuangan_bulanan" => $percentile_50_return_personal_keuangan_bulanan,
+        "percentile_05_return_personal_keuangan_bulanan" => $percentile_05_return_personal_keuangan_bulanan,
+        "saldo_personal_keuangan_awal_p95" => $saldo_personal_keuangan_awal_p95,
+        "pengembangan_personal_keuangan_p95" => $pengembangan_personal_keuangan_p95,
+        "saldo_personal_keuangan_akhir_p95" => $saldo_personal_keuangan_akhir_p95,
+        "saldo_personal_keuangan_awal_p50" => $saldo_personal_keuangan_awal_p50,
+        "pengembangan_personal_keuangan_p50" => $pengembangan_personal_keuangan_p50,
+        "saldo_personal_keuangan_akhir_p50" => $saldo_personal_keuangan_akhir_p50,
+        "saldo_personal_keuangan_awal_p05" => $saldo_personal_keuangan_awal_p05,
+        "pengembangan_personal_keuangan_p05" => $pengembangan_personal_keuangan_p05,
+        "saldo_personal_keuangan_akhir_p05" => $saldo_personal_keuangan_akhir_p05,
+        "previous_saldo_personal_keuangan_akhir_p95" => $previous_saldo_personal_keuangan_akhir_p95,
+        "previous_saldo_personal_keuangan_akhir_p50" => $previous_saldo_personal_keuangan_akhir_p50,
+        "previous_saldo_personal_keuangan_akhir_p05" => $previous_saldo_personal_keuangan_akhir_p05,
+        "anuitas_personal_keuangan_p95" => $anuitas_personal_keuangan_p95,
+        "anuitas_personal_keuangan_p50" => $anuitas_personal_keuangan_p50,
+        "anuitas_personal_keuangan_p05" => $anuitas_personal_keuangan_p05,
+        "kupon_sbn_personal_keuangan_p95" => $kupon_sbn_personal_keuangan_p95,
+        "kupon_sbn_personal_keuangan_p50" => $kupon_sbn_personal_keuangan_p50,
+        "kupon_sbn_personal_keuangan_p05" => $kupon_sbn_personal_keuangan_p05,
+        "rr_personal_keuangan_anuitas_p95" => $rr_personal_keuangan_anuitas_p95,
+        "rr_personal_keuangan_anuitas_p50" => $rr_personal_keuangan_anuitas_p50,
+        "rr_personal_keuangan_anuitas_p05" => $rr_personal_keuangan_anuitas_p05,
+        "rr_personal_keuangan_kupon_sbn_p95" => $rr_personal_keuangan_kupon_sbn_p95,
+        "rr_personal_keuangan_kupon_sbn_p50" => $rr_personal_keuangan_kupon_sbn_p50,
+        "rr_personal_keuangan_kupon_sbn_p05" => $rr_personal_keuangan_kupon_sbn_p05,
+      );
     }
 
-    public function indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip){
+    public function indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan){
       //Input: Read flag pensiun
       $counter_pensiun=""; //counter posisi pensiun
       $previous_flag_pensiun = null;
@@ -1358,6 +1389,16 @@ class DashboardController extends Controller
       $rr_ppip_anuitas_p05 = $return_simulasi_ppip["rr_ppip_anuitas_p05"];
       $rr_ppip_anuitas_p50 = $return_simulasi_ppip["rr_ppip_anuitas_p50"];
       $rr_ppip_anuitas_p95 = $return_simulasi_ppip["rr_ppip_anuitas_p95"];
+      
+      $anuitas_personal_keuangan_p05 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p05"];
+      $anuitas_personal_keuangan_p50 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p50"];
+      $anuitas_personal_keuangan_p95 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p95"];
+
+      $kupon_sbn_personal_keuangan_p05 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p05"];
+      $kupon_sbn_personal_keuangan_p50 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p50"];
+      $kupon_sbn_personal_keuangan_p95 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p95"];
+
+      $sewa_properti = $return_simulasi_personal_properti["sewa_properti"];
       //++++++++++++++++++++++++++++++++
       //G.2.1. RR pada dashboard
       //pembayaran PPIP jika 1=anuitas; 2=kupon SBN/SBSN
@@ -1377,20 +1418,24 @@ class DashboardController extends Controller
       }
 
       //pembayaran personal keuangan jika 1=anuitas; 2=kupon SBN/SBSN
+      $setting_treatment_user = DB::table('setting_treatment_pembayaran_setelah_pensiun')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->select('*')->get()[0];
+
+      $pembayaran_personal_keuangan=($setting_treatment_user->personal_pasar_keuangan === 'Beli Anuitas') ? 1 : 2;//Read pilihan pembayaran personal_keuangan (pembayaran personal_keuangan jika 1=anuitas; 2=kupon SBN/SBSN)
       if($pembayaran_personal_keuangan==1){
-
-        $dashboard_penghasilan_bulanan_personal_keuangan_min=$anuitas_personal_keuangan_p05[$counter_pensiun - 1];
-        $dashboard_penghasilan_bulanan_personal_keuangan_med=$anuitas_personal_keuangan_p50[$counter_pensiun - 1];
-        $dashboard_penghasilan_bulanan_personal_keuangan_max=$anuitas_personal_keuangan_p95[$counter_pensiun - 1];
-          
+        $dashboard_penghasilan_bulanan_personal_keuangan_min = $anuitas_personal_keuangan_p05[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_personal_keuangan_med = $anuitas_personal_keuangan_p50[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_personal_keuangan_max = $anuitas_personal_keuangan_p95[$counter_pensiun_minus_one_month];
       } else {
-        
-        $dashboard_penghasilan_bulanan_personal_keuangan_min=$kupon_sbn_personal_keuangan_p05[$counter_pensiun - 1];
-        $dashboard_penghasilan_bulanan_personal_keuangan_med=$kupon_sbn_personal_keuangan_p50[$counter_pensiun - 1];
-        $dashboard_penghasilan_bulanan_personal_keuangan_max=$kupon_sbn_personal_keuangan_p95[$counter_pensiun - 1];
+        $dashboard_penghasilan_bulanan_personal_keuangan_min = $kupon_sbn_personal_keuangan_p05[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_personal_keuangan_med = $kupon_sbn_personal_keuangan_p50[$counter_pensiun_minus_one_month];
+        $dashboard_penghasilan_bulanan_personal_keuangan_max = $kupon_sbn_personal_keuangan_p95[$counter_pensiun_minus_one_month];
       }
+      $dashboard_penghasilan_bulanan_personal_properti = $sewa_properti[$counter_pensiun_minus_one_month] / 12;
 
-      $dashboard_penghasilan_bulanan_personal_properti=$sewa_properti[$counter_pensiun - 1] / 12;
+
     }
 
     // Section Development - Yogi
@@ -1576,7 +1621,7 @@ class DashboardController extends Controller
       
       //----------------------------------------------------------------------------
       //G.1. Hitung indikator dashboard - lokasi pensiun
-      $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip);
+      $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan);
 
       return response()->json([
         "status" =>true,
