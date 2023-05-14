@@ -1020,7 +1020,7 @@ class DashboardController extends Controller
           if($year==$counter_saldo_personal_properti_year && $month==$counter_saldo_personal_properti_month){
             $harga_properti_hitung = $saldo_personal_properti_input;
             $sewa_properti_hitung = $sewa_personal_properti_input;
-          } else if ($year>$counter_saldo_ppip_year || $month>$counter_saldo_ppip_month) {
+          } else if ($year>$counter_saldo_personal_properti_year || $month>$counter_saldo_personal_properti_month) {
             if ($month==1){ //jika sudah bulan januari maka harga rumah dan sewa naik
               $harga_properti_hitung = $previous_harga_properti * (1+$naik_harga_properti);
               $sewa_properti_hitung = $previous_sewa_properti * (1+$naik_sewa_properti);
@@ -1236,6 +1236,7 @@ class DashboardController extends Controller
       $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
       //F.4. Simulasi Personal Properti
       $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
+      //F.5. Simulasi PERSONAL_KEUANGAN
 
       return response()->json([
         "status" =>true,
