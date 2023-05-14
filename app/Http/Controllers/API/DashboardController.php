@@ -1352,6 +1352,9 @@ class DashboardController extends Controller
           $counter_pensiun_month -= 1;
       }
       $counter_pensiun_minus_one_month = sprintf("%d_%d", $counter_pensiun_year, $counter_pensiun_month);
+
+      echo $counter_pensiun_minus_one_month;
+      die();
       
       //----------------------------------------------------------------------------
       //G.2. Hitung indikator dashboard - posisi saat pensiun
@@ -1375,6 +1378,22 @@ class DashboardController extends Controller
         $dashboard_rr_ppip_med = $rr_ppip_kupon_sbn_p50[$counter_pensiun_minus_one_month];
         $dashboard_rr_ppip_max = $rr_ppip_kupon_sbn_p95[$counter_pensiun_minus_one_month];
       }
+
+      //pembayaran personal keuangan jika 1=anuitas; 2=kupon SBN/SBSN
+      if($pembayaran_personal_keuangan==1){
+
+        $dashboard_penghasilan_bulanan_personal_keuangan_min=$anuitas_personal_keuangan_p05[$counter_pensiun - 1];
+        $dashboard_penghasilan_bulanan_personal_keuangan_med=$anuitas_personal_keuangan_p50[$counter_pensiun - 1];
+        $dashboard_penghasilan_bulanan_personal_keuangan_max=$anuitas_personal_keuangan_p95[$counter_pensiun - 1];
+          
+      } else {
+        
+        $dashboard_penghasilan_bulanan_personal_keuangan_min=$kupon_sbn_personal_keuangan_p05[$counter_pensiun - 1];
+        $dashboard_penghasilan_bulanan_personal_keuangan_med=$kupon_sbn_personal_keuangan_p50[$counter_pensiun - 1];
+        $dashboard_penghasilan_bulanan_personal_keuangan_max=$kupon_sbn_personal_keuangan_p95[$counter_pensiun - 1];
+      }
+
+      $dashboard_penghasilan_bulanan_personal_properti=$sewa_properti[$counter_pensiun - 1] / 12;
     }
 
     // Section Development - Yogi
