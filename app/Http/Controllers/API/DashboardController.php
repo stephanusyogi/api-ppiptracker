@@ -691,7 +691,9 @@ class DashboardController extends Controller
       return array(
         "gaji" => $gaji,
         "phdp" => $phdp,
-        "counter_saldo_ppip" => $counter_saldo_ppip
+        "counter_saldo_ppip" => $counter_saldo_ppip,
+        "counter_saldo_personal_properti" => $counter_saldo_personal_properti,
+        "counter_saldo_personal_keuangan" => $counter_saldo_personal_keuangan,
       );
     }
 
@@ -992,55 +994,68 @@ class DashboardController extends Controller
     public function simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp){
       //F.4.1. dan F.4.2. Simulasi Properti - Hitung harga dan sewa properti
       //Input: Read harga properti, sewa tahunan, kenaikan harga properti, dan kenaikan harga sewa di profil user
-      echo json_encode($data_user, true);
-      die();
-      $saldo_personal_properti_input=0;// Read harga properti keuangan yang diinput di profil user
-      $sewa_personal_properti_input=0;// Read harga properti keuangan yang diinput di profil user
+      $saldo_personal_properti_input=$data_user->jumlah_investasi_properti;// Read harga properti keuangan yang diinput di profil user
+      $sewa_personal_properti_input=$data_user->sewa_properti;// Read harga properti keuangan yang diinput di profil user
 
-      $naik_harga_properti=0.1; // Read kenaikan harga properti keuangan yang diinput di profil user
-      $naik_sewa_properti=0.1; // Read kenaikan sewa properti keuangan yang diinput di profil user
+      $naik_harga_properti=$data_user->kenaikan_properti; // Read kenaikan harga properti keuangan yang diinput di profil user
+      $naik_sewa_properti=$data_user->kenaikan_sewa; // Read kenaikan sewa properti keuangan yang diinput di profil user
 
       $gaji = $return_simulasi_gaji_phdp['gaji'];
+      $counter_saldo_personal_properti = explode("_", $return_simulasi_gaji_phdp['counter_saldo_personal_properti']);
+      $counter_saldo_personal_properti_year = $counter_saldo_personal_properti[0]; 
+      $counter_saldo_personal_properti_month = $counter_saldo_personal_properti[1];
 
+      $harga_properti = array();
+      $sewa_properti = array();
+      $rr_personal_properti = array();
+
+      $previous_harga_properti = null;
+      $previous_sewa_properti = null;
 
       $jml=936; // jumlah bulan dari januari 2023 s.d. desember 2100
 
-
-      for ($i=1;$i<=$jml;$i++){
-        if($i==$counter_saldo_personal_properti){ //tahun pertama ada saldonya
-          
-          $harga_properti[$i]=$saldo_personal_properti_input;
-          $sewa_properti[$i]=$sewa_personal_properti_input;
-          
-        } else if ($i>$counter_saldo_personal_properti) {
-          
-          if (fmod($i,12)==1){ //jika sudah bulan januari maka harga rumah dan sewa naik
-            
-            $harga_properti[$i]=$harga_properti[$i-1]*(1+$naik_harga_properti);
-            $sewa_properti[$i]=$sewa_properti[$i-1]*(1+$naik_sewa_properti);
-            
+      for($year=2023; $year<=2100; $year++){
+        for($month=1; $month<=12; $month++){
+          $key = $year . "_" . $month;
+          if($year==$counter_saldo_personal_properti_year && $month==$counter_saldo_personal_properti_month){
+            $harga_properti_hitung = $saldo_personal_properti_input;
+            $sewa_properti_hitung = $sewa_personal_properti_input;
+          } else if ($year>$counter_saldo_ppip_year || $month>$counter_saldo_ppip_month) {
+            if ($month==1){ //jika sudah bulan januari maka harga rumah dan sewa naik
+              $harga_properti_hitung = $previous_harga_properti * (1+$naik_harga_properti);
+              $sewa_properti_hitung = $previous_sewa_properti * (1+$naik_sewa_properti);
+            } else {
+              $harga_properti_hitung = $previous_harga_properti;
+              $sewa_properti_hitung = $previous_sewa_properti;
+            }
           } else {
-            
-            $harga_properti[$i]=$harga_properti[$i-1];
-            $sewa_properti[$i]=$sewa_properti[$i-1];
-            
+            $harga_properti_hitung = 0;
+            $sewa_properti_hitung = 0;
           }
           
-        } else {
-          
-          $harga_properti[$i]=0;
-          $sewa_properti[$i]=0;
-            
-        }
+          //+++++++++++++++++++++++++++++++++++
+          //F.4.3. Simulasi Properti - Hitung RR Properti
+          if ($gaji[$key]>0){
+            if ($sewa_properti_hitung != 0) {
+              $rr_personal_properti_hitung = ($sewa_properti_hitung / 12) / $gaji[$key];
+            } else {
+              $rr_personal_properti_hitung = 0;
+            }
+          } else {
+            $rr_personal_properti_hitung = 0;
+          }
 
-        //+++++++++++++++++++++++++++++++++++
-        //F.4.3. Simulasi Properti - Hitung RR Properti
-        if ($gaji[$i]>0){
-          $rr_personal_properti[$i]=($sewa_properti[$i] / 12) / $gaji[$i];
-        } else {
-          $rr_personal_properti[$i]=0;
+          // Output
+          $harga_properti[$key] = $harga_properti_hitung;
+          $sewa_properti[$key] = $sewa_properti_hitung;
+          $rr_personal_properti[$key] = $rr_personal_properti_hitung;
         }
       }
+      return array(
+        "harga_properti" => $harga_properti,
+        "sewa_properti" => $sewa_properti,
+        "rr_personal_properti" => $rr_personal_properti,
+      );
     }
 
     // Section Development - Yogi
@@ -1220,7 +1235,7 @@ class DashboardController extends Controller
       //F.3. Simulasi PPIP
       $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
       //F.4. Simulasi Personal Properti
-      $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp);
+      $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
 
       return response()->json([
         "status" =>true,
@@ -1228,3 +1243,4 @@ class DashboardController extends Controller
       ],200);
     }
 }
+
