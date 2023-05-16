@@ -1120,8 +1120,12 @@ class DashboardController extends Controller
       $counter_saldo_personal_keuangan_month = $counter_saldo_personal_keuangan[1];
 
       //F.5.1. Simulasi PERSONAL_KEUANGAN - Hitung iuran
-      $persentase_iuran_personal_keuangan=0.05; //Read besar iuran personal keuangan di profil user
-      $saldo_personal_keuangan_input=0; // Read saldo personal_keuangan yang diinput (saldo diasumsikan diinput di awal bulan)
+      $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
+            ->where('id_user', $id_user)
+            ->where('flag', 1)
+            ->select('*')->get()[0];
+      $persentase_iuran_personal_keuangan=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal; //Read besar iuran personal keuangan di profil user
+      $saldo_personal_keuangan_input=$setting_nilai_asumsi_user->jumlah_investasi_keuangan; // Read saldo personal_keuangan yang diinput (saldo diasumsikan diinput di awal bulan)
 
       //nilai default pilihan pembayaran personal keuangan
       //Input: Read pilihan pembayaran personal keuangan, Read kupon SBN/SBSN dan beserta pajak dari profil user, Read Harga anuitas dari profil user
