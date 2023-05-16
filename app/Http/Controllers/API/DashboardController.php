@@ -1125,7 +1125,7 @@ class DashboardController extends Controller
             ->where('flag', 1)
             ->select('*')->get()[0];
       $persentase_iuran_personal_keuangan=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal; //Read besar iuran personal keuangan di profil user
-      $saldo_personal_keuangan_input=$setting_nilai_asumsi_user->jumlah_investasi_keuangan; // Read saldo personal_keuangan yang diinput (saldo diasumsikan diinput di awal bulan)
+      $saldo_personal_keuangan_input=$data_user->jumlah_investasi_keuangan; // Read saldo personal_keuangan yang diinput (saldo diasumsikan diinput di awal bulan)
 
       //nilai default pilihan pembayaran personal keuangan
       //Input: Read pilihan pembayaran personal keuangan, Read kupon SBN/SBSN dan beserta pajak dari profil user, Read Harga anuitas dari profil user
