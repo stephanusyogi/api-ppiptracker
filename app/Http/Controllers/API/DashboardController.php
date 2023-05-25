@@ -89,6 +89,7 @@ class DashboardController extends Controller
        //echo json_encode($usia_tahun, true);
        //echo json_encode($usia_bulan, true);
        //die();
+        
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
       $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
@@ -104,27 +105,33 @@ class DashboardController extends Controller
               if($year==2023 && $month==1){
                 $tahun=(int)$diff->format('%y');
                 $bulan=(int)$diff->format('%m');
+                  
+                $key_tahun = $year . "_" . $month;
+                $masa_dinas_tahun[$key_tahun] = $tahun;
+                $key_bulan = $year . "_" . $month;
+                $masa_dinas_bulan[$key_bulan] = $bulan; 
+                  
                 $bulan = $bulan +1;
               } else {
                 if($bulan >=12){
                   $bulan = 1;
                   $tahun = $tahun+1;
-                } else {
-                $bulan = $bulan +1;
                 }
-              }
-
-              $key_tahun = $year . "_" . $month;
-              $masa_dinas_tahun[$key_tahun] = $tahun;
-              $key_bulan = $year . "_" . $month;
-              $masa_dinas_bulan[$key_bulan] = $bulan;
+                
+                $key_tahun = $year . "_" . $month;
+                $masa_dinas_tahun[$key_tahun] = $tahun;
+                $key_bulan = $year . "_" . $month;
+                $masa_dinas_bulan[$key_bulan] = $bulan;
+                
+                $bulan = $bulan +1;
+              }             
           }
       }
        
        
        echo json_encode($masa_dinas_bulan, true);
        echo json_encode($masa_dinas_tahun, true);
-       //die();
+       die();
        
        // -----------------------------------------------------------------------
        //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
