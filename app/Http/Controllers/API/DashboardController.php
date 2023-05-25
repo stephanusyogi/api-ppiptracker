@@ -112,6 +112,7 @@ class DashboardController extends Controller
                 $masa_dinas_bulan[$key_bulan] = $bulan; 
                   
                 $bulan = $bulan +1;
+                  
               } else {
                 if($bulan >=12){
                   $bulan = 1;
@@ -129,9 +130,9 @@ class DashboardController extends Controller
       }
        
        
-       echo json_encode($masa_dinas_bulan, true);
-       echo json_encode($masa_dinas_tahun, true);
-       die();
+       //echo json_encode($masa_dinas_bulan, true);
+       //echo json_encode($masa_dinas_tahun, true);
+       //die();
        
        // -----------------------------------------------------------------------
        //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
@@ -161,7 +162,13 @@ class DashboardController extends Controller
                    $sisa_kerja_tahun_hitung = $sisa_kerja_tahun_hitung + 1;
                    $sisa_kerja_bulan_hitung = 0;
                  }  
-               
+                 
+                 //keluarkan output
+                 $key_tahun = $year . "_" . $month;
+                 $sisa_kerja_tahun[$key_tahun] = $sisa_kerja_tahun_hitung;
+                 $key_bulan = $year . "_" . $month;
+                 $sisa_kerja_bulan[$key_bulan] = $sisa_kerja_bulan_hitung;
+                                  
                  //menurunkan bulan
                  if($sisa_kerja_bulan_hitung<=0){
                    $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
@@ -174,15 +181,17 @@ class DashboardController extends Controller
                if($sisa_kerja_bulan_hitung<=0){
                    $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
                    $sisa_kerja_bulan_hitung=11;
-               } else{
-               $sisa_kerja_bulan_hitung=$sisa_kerja_bulan_hitung-1;
                }
-             }
-             
-             $key_tahun = $year . "_" . $month;
-             $sisa_kerja_tahun[$key_tahun] = $sisa_kerja_tahun_hitung;
-             $key_bulan = $year . "_" . $month;
-             $sisa_kerja_bulan[$key_bulan] = $sisa_kerja_bulan_hitung;
+               
+               //keluarkan output
+               $key_tahun = $year . "_" . $month;
+               $sisa_kerja_tahun[$key_tahun] = $sisa_kerja_tahun_hitung;
+               $key_bulan = $year . "_" . $month;
+               $sisa_kerja_bulan[$key_bulan] = $sisa_kerja_bulan_hitung;
+                 
+               $sisa_kerja_bulan_hitung=$sisa_kerja_bulan_hitung-1;
+               
+             }             
            }
        }
            
