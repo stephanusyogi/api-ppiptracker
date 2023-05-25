@@ -62,21 +62,46 @@ class DashboardController extends Controller
           for($month=1; $month<=12; $month++){
               if($year==2023 && $month==1){
                 $tahun=(int)$diff->format('%y');
-                $bulan=(int)$diff->format('%m');
+                $bulan=(int)$diff->format('%m'); 
+                  
+                $key_tahun = $year . "_" . $month;
+                $usia_tahun[$key_tahun] = $tahun;
+                $key_bulan = $year . "_" . $month;
+                $usia_bulan[$key_bulan] = $bulan;
+                
                 $bulan = $bulan +1;
+                  
               } else {
-                if($bulan >=12){
+                  if($bulan >=12){
+                    $bulan = 1;
+                    $tahun = $tahun+1;
+                  }
+                $key_tahun = $year . "_" . $month;
+                $usia_tahun[$key_tahun] = $tahun;
+                $key_bulan = $year . "_" . $month;
+                $usia_bulan[$key_bulan] = $bulan;
+                
+                $bulan = $bulan +1;
+              }
+              
+              
+              /*
+              else {
+                if($bulan >=11){
                   $tahun = $tahun+1;
                   $bulan = 1;
                 } else{
                 $bulan = $bulan +1;
                 }
               }
+              
 
               $key_tahun = $year . "_" . $month;
               $usia_tahun[$key_tahun] = $tahun;
               $key_bulan = $year . "_" . $month;
               $usia_bulan[$key_bulan] = $bulan;
+              
+              */
           }
       }
        echo json_encode($usia_tahun, true);
