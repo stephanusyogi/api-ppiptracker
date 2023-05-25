@@ -122,10 +122,12 @@ class DashboardController extends Controller
        $usia_pensiun=$data_user->usia_pensiun; //read usia pensiun
        $tahun_pensiun=$usia_pensiun - 1;
        $bulan_pensiun=12;
-        
+       
+        /*
        echo json_encode($usia_pensiun, true);
        echo json_encode($tahun_pensiun, true);
        die();
+       */
  
        //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
        $sisa_kerja_tahun = array();
