@@ -308,8 +308,8 @@ class DashboardController extends Controller
         $risk_ppip[$key_loop] = $risk_ppip_hitung;
           
         echo json_encode($tranche_ppip, true);
-        echo json_encode($tranche_ppip, true);
-        echo json_encode($tranche_ppip, true);
+        echo json_encode($return_ppip, true);
+        echo json_encode($risk_ppip, true);
         die();
 
         //+++++++++++++++++++++++++++++++++
