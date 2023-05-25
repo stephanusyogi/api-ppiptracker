@@ -158,8 +158,9 @@ class DashboardController extends Controller
                if($sisa_kerja_bulan_hitung<=0){
                    $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
                    $sisa_kerja_bulan_hitung=11;
-               }
+               } else{
                $sisa_kerja_bulan_hitung=$sisa_kerja_bulan_hitung-1;
+               }
              }
              
              $key_tahun = $year . "_" . $month;
