@@ -111,14 +111,21 @@ class DashboardController extends Controller
               $masa_dinas_bulan[$key_bulan] = $bulan;
           }
       }
-       //echo json_encode($masa_dinas_bulan, true);
+       
+       /*
+       echo json_encode($masa_dinas_bulan, true);
        echo json_encode($masa_dinas_tahun, true);
        die();
+       */
        // -----------------------------------------------------------------------
        //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
        $usia_pensiun=$data_user->usia_pensiun; //read usia pensiun
        $tahun_pensiun=$usia_pensiun - 1;
        $bulan_pensiun=12;
+        
+       echo json_encode($usia_pensiun, true);
+       echo json_encode($tahun_pensiun, true);
+       die();
  
        //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
        $sisa_kerja_tahun = array();
@@ -159,7 +166,12 @@ class DashboardController extends Controller
              $sisa_kerja_bulan[$key_bulan] = $sisa_kerja_bulan_hitung;
            }
        }
- 
+           
+       echo json_encode($masa_dinas_bulan, true);
+       echo json_encode($masa_dinas_tahun, true);
+       die();
+        
+        
        // -----------------------------------------------------------------------
        //C.4. Flag Pensiun/belum pensiun 
        $flag_pensiun = array();
