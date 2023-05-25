@@ -197,7 +197,7 @@ class DashboardController extends Controller
            
        echo json_encode($sisa_kerja_bulan, true);
        echo json_encode($sisa_kerja_tahun, true);
-       die();
+       //die();
         
         
        // -----------------------------------------------------------------------
@@ -217,7 +217,8 @@ class DashboardController extends Controller
            $flag_pensiun[$key] = $flag;
          }
        }
-       
+       echo json_encode($flag_pensiun, true);
+       die();
        // Tabel Norm Inverse
        $tabel_norminv = DB::table('distribusi_normal')->select('norm_inv')
          ->get()->toArray();
