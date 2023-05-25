@@ -195,8 +195,8 @@ class DashboardController extends Controller
            }
        }
            
-       echo json_encode($sisa_kerja_bulan, true);
-       echo json_encode($sisa_kerja_tahun, true);
+       //echo json_encode($sisa_kerja_bulan, true);
+      //echo json_encode($sisa_kerja_tahun, true);
        //die();
         
         
@@ -217,8 +217,9 @@ class DashboardController extends Controller
            $flag_pensiun[$key] = $flag;
          }
        }
-       echo json_encode($flag_pensiun, true);
-       die();
+       //echo json_encode($flag_pensiun, true);
+       //die();
+        
        // Tabel Norm Inverse
        $tabel_norminv = DB::table('distribusi_normal')->select('norm_inv')
          ->get()->toArray();
@@ -299,10 +300,17 @@ class DashboardController extends Controller
           $return_ppip_hitung = "null";//sudah pensiun
           $risk_ppip_hitung = "null";//sudah pensiun
         }
+               
+          
         //Output: Create $tranche_ppip[$i], $return_ppip[$i], $risk_ppip[$i]
         $tranche_ppip[$key_loop] = $tranche_ppip_hitung;
         $return_ppip[$key_loop] = $return_ppip_hitung;
         $risk_ppip[$key_loop] = $risk_ppip_hitung;
+          
+        echo json_encode($tranche_ppip, true);
+        echo json_encode($tranche_ppip, true);
+        echo json_encode($tranche_ppip, true);
+        die();
 
         //+++++++++++++++++++++++++++++++++
         //D.4. Hitung Montecarlo PPIP - hitung NAB
