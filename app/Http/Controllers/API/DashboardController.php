@@ -310,6 +310,7 @@ class DashboardController extends Controller
         echo json_encode($tranche_ppip, true);
         echo json_encode($return_ppip, true);
         echo json_encode($risk_ppip, true);
+        echo json_encode($setting_ppip_user, true);
         die();
 
         //+++++++++++++++++++++++++++++++++
