@@ -195,8 +195,8 @@ class DashboardController extends Controller
            }
        }
            
-       echo json_encode($masa_dinas_bulan, true);
-       echo json_encode($masa_dinas_tahun, true);
+       echo json_encode($sisa_kerja_bulan, true);
+       echo json_encode($sisa_kerja_tahun, true);
        die();
         
         
