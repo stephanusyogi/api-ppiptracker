@@ -130,9 +130,9 @@ class DashboardController extends Controller
       }
        
        
-       echo json_encode($masa_dinas_bulan, true);
-       echo json_encode($masa_dinas_tahun, true);
-       die();
+       //echo json_encode($masa_dinas_bulan, true);
+       //echo json_encode($masa_dinas_tahun, true);
+       //die();
        
        // -----------------------------------------------------------------------
        //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
@@ -178,7 +178,7 @@ class DashboardController extends Controller
                  }
                  
              } else {
-               if($sisa_kerja_bulan_hitung<=0){
+               if($sisa_kerja_bulan_hitung<0){
                    $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
                    $sisa_kerja_bulan_hitung=11;
                }
