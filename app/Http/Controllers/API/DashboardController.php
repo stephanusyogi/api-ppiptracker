@@ -279,6 +279,7 @@ class DashboardController extends Controller
 
       $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
       for($year=2023; $year<=2100; $year++){
+        
         $key_loop = $year;
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
@@ -306,16 +307,20 @@ class DashboardController extends Controller
         $tranche_ppip[$key_loop] = $tranche_ppip_hitung;
         $return_ppip[$key_loop] = $return_ppip_hitung;
         $risk_ppip[$key_loop] = $risk_ppip_hitung;
-          
+        
+          /*
         echo json_encode($tranche_ppip, true);
         echo json_encode($return_ppip, true);
         echo json_encode($risk_ppip, true);
         echo json_encode($setting_ppip_user, true);
         die();
+        */
 
         //+++++++++++++++++++++++++++++++++
         //D.4. Hitung Montecarlo PPIP - hitung NAB
         if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
+          
+            
           $previous_nab = null;
           for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
               if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
