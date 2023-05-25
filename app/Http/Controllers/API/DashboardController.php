@@ -132,7 +132,7 @@ class DashboardController extends Controller
        
        echo json_encode($masa_dinas_bulan, true);
        echo json_encode($masa_dinas_tahun, true);
-       //die();
+       die();
        
        // -----------------------------------------------------------------------
        //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
