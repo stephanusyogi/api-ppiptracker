@@ -84,28 +84,10 @@ class DashboardController extends Controller
                 $bulan = $bulan +1;
               }
               
-              
-              /*
-              else {
-                if($bulan >=11){
-                  $tahun = $tahun+1;
-                  $bulan = 1;
-                } else{
-                $bulan = $bulan +1;
-                }
-              }
-              
-
-              $key_tahun = $year . "_" . $month;
-              $usia_tahun[$key_tahun] = $tahun;
-              $key_bulan = $year . "_" . $month;
-              $usia_bulan[$key_bulan] = $bulan;
-              
-              */
           }
       }
-       echo json_encode($usia_tahun, true);
-       echo json_encode($usia_bulan, true);
+       //echo json_encode($usia_tahun, true);
+       //echo json_encode($usia_bulan, true);
        //die();
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
