@@ -87,8 +87,8 @@ class DashboardController extends Controller
       $diff=date_diff($date1,$date2);
 
       //Output: Create $masa_dinas_tahun[$i] dan $masa_dinas_bulan[$i] ke masing-masing tahun dan bulan di database masa dinas
-      $sisa_masa_dinas_tahun = array();
-      $sisa_masa_dinas_bulan = array();
+      $masa_dinas_tahun = array();
+      $masa_dinas_bulan = array();
       
       for($year=2023; $year<=2100; $year++){
           for($month=1; $month<=12; $month++){
@@ -106,13 +106,13 @@ class DashboardController extends Controller
               }
 
               $key_tahun = $year . "_" . $month;
-              $sisa_masa_dinas_tahun[$key_tahun] = $tahun;
+              $masa_dinas_tahun[$key_tahun] = $tahun;
               $key_bulan = $year . "_" . $month;
-              $sisa_masa_dinas_bulan[$key_bulan] = $bulan;
+              $masa_dinas_bulan[$key_bulan] = $bulan;
           }
       }
-       echo json_encode($sisa_masa_dinas_bulan, true);
-       echo json_encode($sisa_masa_dinas_tahun, true);
+       echo json_encode($masa_dinas_bulan, true);
+       //echo json_encode($masa_dinas_tahun, true);
        die();
        // -----------------------------------------------------------------------
        //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
