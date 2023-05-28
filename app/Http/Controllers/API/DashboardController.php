@@ -277,10 +277,11 @@ class DashboardController extends Controller
       $percentile_50_nab_ppip = array();
       $percentile_05_nab_ppip = array();
       $previous_nab = array();
+      $nab_ppip_hitung = array();
 
       $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
       for($year=2023; $year<=2100; $year++){
-        /*
+        
         $key_loop = $year;
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
@@ -316,31 +317,31 @@ class DashboardController extends Controller
         echo json_encode($setting_ppip_user, true);
         die();
         */
-        /*
+        
 
         //+++++++++++++++++++++++++++++++++
         //D.4. Hitung Montecarlo PPIP - hitung NAB
         if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
-          
-            
+                  
           //$previous_nab = null;
           for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
               if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                   $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                  $nab_ppip_hitung = round(100 * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
-                  $previous_nab[$j] = $nab_ppip_hitung;
+                  $nab_ppip_hitung[$j] = round(100 * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
+                  $previous_nab[$j] = $nab_ppip_hitung[$j];
               } else{
                   $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                  $nab_ppip_hitung = round($previous_nab[$j] * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
-                  $previous_nab[$j] = $nab_ppip_hitung;
+                  $nab_ppip_hitung[$j] = round($previous_nab[$j-1] * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
+                  $previous_nab[$j] = $nab_ppip_hitung[$j];
               }
-              $nab_ppip[$key_loop] = $nab_ppip_hitung;
-              $previous_nab = $nab_ppip[$key_loop];
+              
+              //$nab_ppip[$key_loop] = $nab_ppip_hitung;
+              //$previous_nab = $nab_ppip[$key_loop];
           }
         } else{ //jika sudah pensiun
           for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
-              $nab_ppip_hitung=0;
-              $nab_ppip[$key_loop] = $nab_ppip_hitung;
+              $nab_ppip_hitung[$j]=0;
+              //$nab_ppip[$key_loop] = $nab_ppip_hitung;
           }
         }
 
@@ -348,13 +349,17 @@ class DashboardController extends Controller
         //D.5., D.6., dan D.7. Hitung Montecarlo PPIP - hitung percentile 95, 50, dan 5 dari NAB
         //Input: NAB yang telah dihitung sebelumnya
         if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
-            $k=0;
+            //$k=0;
             for ($j=1;$j<=10000;$j++){
-              $percentile_temp1[$k]=$nab_ppip_hitung; //loading sementara isi dari NAB untuk kemudian di shorting
-              $k++;
+              $percentile_temp1[$j]=$nab_ppip_hitung[$j]; //loading sementara isi dari NAB untuk kemudian di shorting
+              //$k++;
             }
             
+            echo json_encode($percentile_temp1, true);
             sort($percentile_temp1); //shorting array
+            
+            echo json_encode($percentile_temp1, true);
+            die();
             
             $k=0;
             for ($j=1;$j<=10000;$j++){
@@ -377,7 +382,7 @@ class DashboardController extends Controller
         $percentile_50_nab_ppip[$key_loop] = $percentile_50_nab_ppip_hitung;
         $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
         
-        */
+        // end dari for 2023 s.d. 2100
         echo json_encode($year, true);
       
       }
