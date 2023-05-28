@@ -276,10 +276,11 @@ class DashboardController extends Controller
       $percentile_95_nab_ppip = array();
       $percentile_50_nab_ppip = array();
       $percentile_05_nab_ppip = array();
+      $previous_nab = array();
 
       $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
       for($year=2023; $year<=2100; $year++){
-        
+        /*
         $key_loop = $year;
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
@@ -321,14 +322,16 @@ class DashboardController extends Controller
         if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
           
             
-          $previous_nab = null;
+          //$previous_nab = null;
           for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
               if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                   $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
                   $nab_ppip_hitung = round(100 * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
+                  $previous_nab[$j] = $nab_ppip_hitung;
               } else{
                   $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                  $nab_ppip_hitung = round($previous_nab * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
+                  $nab_ppip_hitung = round($previous_nab[$j] * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
+                  $previous_nab[$j] = $nab_ppip_hitung;
               }
               $nab_ppip[$key_loop] = $nab_ppip_hitung;
               $previous_nab = $nab_ppip[$key_loop];
@@ -372,8 +375,13 @@ class DashboardController extends Controller
         $percentile_95_nab_ppip[$key_loop] = $percentile_95_nab_ppip_hitung;
         $percentile_50_nab_ppip[$key_loop] = $percentile_50_nab_ppip_hitung;
         $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
+        
+        */
+        echo json_encode($year, true);
+      
       }
-
+          die();
+        
       // -----------------------------------------------------------------------
       //D.8., D.9., dan D.10. Hitung Montecarlo PPIP - hitung return dari Percentile NAB
       //termasuk dengan convert monthly di D.11., D.12., dan D.13. Hitung Montecarlo PPIP - hitung return dari Percentile NAB - convert monthly
