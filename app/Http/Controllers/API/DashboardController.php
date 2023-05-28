@@ -357,10 +357,10 @@ class DashboardController extends Controller
             }
             $n= $percentile_temp1[1];
             echo json_encode($percentile_temp1, true);
-            echo json_encode($n, true);
+            //echo json_encode($n, true);
             sort($percentile_temp1); //shorting array
             
-            echo json_encode($percentile_temp1, true);
+            //echo json_encode($percentile_temp1, true);
             $n= $percentile_temp1[1];
             echo json_encode($n, true);
             die();
