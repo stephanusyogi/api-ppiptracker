@@ -280,6 +280,7 @@ class DashboardController extends Controller
       $nab_ppip_hitung = array();
 
       $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
+      $iter_mc = 10;
       for($year=2023; $year<=2100; $year++){
         
         $key_loop = $year;
@@ -324,7 +325,7 @@ class DashboardController extends Controller
         if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
                   
           //$previous_nab = null;
-          for($j=1;$j<=10000;$j++){      //monte carlo 10.000 iterasi
+          for($j=1;$j<=$iter_mc;$j++){      //monte carlo 10.000 iterasi
               if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                   $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
                   $nab_ppip_hitung[$j] = round(100 * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
@@ -339,7 +340,7 @@ class DashboardController extends Controller
               //$previous_nab = $nab_ppip[$key_loop];
           }
         } else{ //jika sudah pensiun
-          for($j=1;$j<=10000;$j++){ //monte carlo 10.000 iterasi
+          for($j=1;$j<=$iter_mc;$j++){ //monte carlo 10.000 iterasi
               $nab_ppip_hitung[$j]=0;
               //$nab_ppip[$key_loop] = $nab_ppip_hitung;
           }
@@ -350,7 +351,7 @@ class DashboardController extends Controller
         //Input: NAB yang telah dihitung sebelumnya
         if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
             //$k=0;
-            for ($j=1;$j<=10000;$j++){
+            for ($j=1;$j<=$iter_mc;$j++){
               $percentile_temp1[$j]=$nab_ppip_hitung[$j]; //loading sementara isi dari NAB untuk kemudian di shorting
               //$k++;
             }
