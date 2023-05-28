@@ -355,11 +355,14 @@ class DashboardController extends Controller
               $percentile_temp1[$j]=$nab_ppip_hitung[$j]; //loading sementara isi dari NAB untuk kemudian di shorting
               //$k++;
             }
-            
+            $n= $percentile_temp1[1];
             echo json_encode($percentile_temp1, true);
+            echo json_encode($n, true);
             sort($percentile_temp1); //shorting array
             
             echo json_encode($percentile_temp1, true);
+            $n= $percentile_temp1[1];
+            echo json_encode($n, true);
             die();
             
             $k=0;
