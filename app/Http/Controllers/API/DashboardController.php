@@ -316,6 +316,7 @@ class DashboardController extends Controller
         echo json_encode($setting_ppip_user, true);
         die();
         */
+        /*
 
         //+++++++++++++++++++++++++++++++++
         //D.4. Hitung Montecarlo PPIP - hitung NAB
