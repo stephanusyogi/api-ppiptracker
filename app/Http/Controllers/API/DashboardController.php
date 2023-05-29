@@ -257,13 +257,15 @@ class DashboardController extends Controller
         //die();
        //F.5. Simulasi PERSONAL_KEUANGAN
        $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp);
-       echo json_encode($return_simulasi_personal_keuangan, true);
-       die();
+       //echo json_encode($return_simulasi_personal_keuangan, true);
+       //die();
         
        //----------------------------------------------------------------------------
        //G.1. Hitung indikator dashboard - lokasi pensiun4
        $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp);
- 
+       echo json_encode($return_simulasi_personal_keuangan, true);
+       die();
+        
        return response()->json([
          "status" =>true,
          "message"=>"Testing Hitung Awal!",
