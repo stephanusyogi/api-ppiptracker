@@ -753,9 +753,9 @@ class DashboardController extends Controller
       $gaji_naik = $setting_nilai_asumsi_user->kenaikan_gaji;//Read kenaikan gaji di admin
       $phdp_naik = $setting_nilai_asumsi_user->kenaikan_phdp;//Read kenaikan phdp di admin
         
-      echo json_encode($gaji_naik, true);
-      echo json_encode($phdp_naik, true);
-      die();
+      //echo json_encode($gaji_naik, true);
+      //echo json_encode($phdp_naik, true);
+      //die();
 
       $year = 2023; //tahun awal di database
       $k=1;
@@ -766,6 +766,7 @@ class DashboardController extends Controller
 
       $previous_gaji = null;
       $previous_phdp = null;
+      $tanda = 0; //untuk menandai awal mula pengisian
       for($year=2023; $year<=2100; $year++){
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
@@ -852,7 +853,9 @@ class DashboardController extends Controller
 
         }
       }
-
+      echo json_encode($gaji, true);
+      echo json_encode($phdp, true);
+      die();
       return array(
         "gaji" => $gaji,
         "phdp" => $phdp,
