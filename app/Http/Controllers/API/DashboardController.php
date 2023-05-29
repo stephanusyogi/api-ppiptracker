@@ -280,7 +280,7 @@ class DashboardController extends Controller
       $nab_ppip_hitung = array();
 
       $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
-      $iter_mc = 10;
+      $iter_mc = 10000;
       for($year=2023; $year<=2100; $year++){
         
         $key_loop = $year;
