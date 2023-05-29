@@ -238,8 +238,8 @@ class DashboardController extends Controller
        //E. Hitung Montecarlo Personal Keuangan
        $montecarlo_personal_keuangan = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
         
-       echo json_encode($montecarlo_personal_keuangan, true);
-       die();
+       //echo json_encode($montecarlo_personal_keuangan, true);
+       //die();
        
        //---------------------------------------------------------
        //F. Perhitungan Simulasi
@@ -729,6 +729,9 @@ class DashboardController extends Controller
       
       $gaji_input=(int)$gaji_form; //Read gaji yang diinput
       $phdp_input=(int)$phdp_form; //Read phdp yang diinput
+        
+      echo json_encode($gaji_input, true);
+      die();
 
       /*
       $saldo_ppip_input=0; //numpang untuk mengisi saldo ppip, Read saldo ppip yang diinput
