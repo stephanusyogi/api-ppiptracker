@@ -832,14 +832,18 @@ class DashboardController extends Controller
       
       $hari = $diff->format('%R%a');
       
-      echo json_encode($date1, true);
-      echo json_encode($date2, true);
-      echo json_encode($diff, true);
-      echo json_encode($hari, true);
-      die();
+      //echo json_encode($date1, true);
+      //echo json_encode($date2, true);
+      //echo json_encode($diff, true);
+      //echo json_encode($hari, true);
+      //die();
 
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
+        
+      echo json_encode($gaji, true);
+      echo json_encode($phdp, true);
+      die();
 
       $jumlah_ppmp = array();
       $rr_ppmp = array();
