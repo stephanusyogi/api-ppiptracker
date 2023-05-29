@@ -1350,8 +1350,8 @@ class DashboardController extends Controller
           $percentile_50_return_personal_keuangan_bulanan[$key] = $percentile_50_return_personal_bulanan_hitung;
           $percentile_05_return_personal_keuangan_bulanan[$key] = $percentile_05_return_personal_bulanan_hitung;
             
-          echo json_encode($percentile_95_return_personal_bulanan_hitung, true);
-          die();
+          //echo json_encode($percentile_95_return_personal_bulanan_hitung, true);
+          //die();
 
           
           // +++++++++++++++++++++++++++++++++++++
