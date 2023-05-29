@@ -831,7 +831,10 @@ class DashboardController extends Controller
       $diff = date_diff($date1,$date2);
       
       $hari = $diff->format('%R%a');
-        
+      
+      echo json_encode($date1, true);
+      echo json_encode($date2, true);
+      echo json_encode($diff, true);
       echo json_encode($hari, true);
       die();
 
