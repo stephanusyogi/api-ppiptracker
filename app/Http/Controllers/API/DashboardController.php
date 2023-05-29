@@ -791,7 +791,7 @@ class DashboardController extends Controller
              $counter_saldo_personal_properti = $key;//numpang kode counter, untuk menandai mulai isi saldo di bulan ke berapa
                        
           } else {
-            if($k==1){
+            if($month==1){
               $gaji_hitung = $previous_gaji*(1+$gaji_naik);
               $phdp_hitung = $previous_phdp*(1+$phdp_naik);
                 
