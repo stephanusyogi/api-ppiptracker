@@ -730,7 +730,7 @@ class DashboardController extends Controller
       $gaji_input=(int)$gaji_form; //Read gaji yang diinput
       $phdp_input=(int)$phdp_form; //Read phdp yang diinput
         
-      //echo json_encode($phdp_input, true);
+      echo json_encode($kode_input, true);
       //die();
 
       /*
@@ -774,11 +774,13 @@ class DashboardController extends Controller
             if($k==12){
               $gaji_hitung = 0;
               $phdp_hitung = 0;
+                
               /*
               $saldo_ppip_sementara=0; //numpang untuk mengisi saldo ppip
               $saldo_personal_keuangan[$i]=0;//numpang untuk mengisi saldo personal keuangan
               $saldo_personal_properti[$i]=0;//numpang untuk mengisi saldo personal properti
               */
+                
               $j = $year+1;
               $k=1;
               $kode = ($j*100)+$k;
