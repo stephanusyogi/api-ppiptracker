@@ -421,7 +421,7 @@ class DashboardController extends Controller
             $percentile_50_return_ppip_hitung = ($percentile_50_nab_ppip[$year]/100)-1;
             $percentile_05_return_ppip_hitung = ($percentile_05_nab_ppip[$year]/100)-1;
               
-            echo json_encode($percentile_95_return_ppip_hitung, true);
+            //echo json_encode($percentile_95_return_ppip_hitung, true);
             //die();
               
             $previous_percentile_95_nab_ppip = $percentile_95_return_ppip_hitung;
