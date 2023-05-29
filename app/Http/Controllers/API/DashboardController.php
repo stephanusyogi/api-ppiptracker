@@ -590,23 +590,25 @@ class DashboardController extends Controller
               //$nab_personal[$year] = round($nab_personal_hitung, 2);
           }
         }
-          echo json_encode($nab_personal_hitung, true);
-          die();
+          //echo json_encode($nab_personal_hitung, true);
+          //die();
 
         //+++++++++++++++++++++++++++++++++
         //E.5., E.6., dan E.7. Hitung Montecarlo PERSONAL - hitung percentile 95, 50, dan 5 dari NAB
         //Input: NAB yang telah dihitung sebelumnya
         if($tranche_personal_hitung != "null"){ //jika masih belum pensiun
-          $k=0;
-          for ($j=1;$j<=10000;$j++){
-            $percentile_temp1[$k]=$nab_personal_hitung; //loading sementara isi dari NAB untuk kemudian di shorting
+          $k=0; //index waktu sorting mulai dari nol
+          for ($j=1;$j<=$iterasi_mc;$j++){
+            $percentile_temp1[$k]=$nab_personal_hitung[$j]; //loading sementara isi dari NAB untuk kemudian di shorting
             $k++;
           }
           
+          echo json_encode($percentile_temp1, true);
           sort($percentile_temp1); //shorting array
-          
-          $k=0;
-          for ($j=1;$j<=10000;$j++){
+          echo json_encode($percentile_temp1, true);
+          die();
+          $k=0; //index waktu sorting mulai dari nol
+          for ($j=1;$j<=$iterasi_mc;$j++){
             $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
             $k++;
           }
