@@ -1336,7 +1336,7 @@ class DashboardController extends Controller
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
 
-          $iuran_personal_keuangan_hitung = $gaji[$key] * $persentase_iuran_personal_keuangan; //hitung besar iuran
+          $iuran_personal_keuangan_hitung = $gaji[$key] * $persentase_iuran_personal_keuangan/100; //hitung besar iuran
           
           // //+++++++++++++++++++++++++++++++++++++
           // //F.5.2., F.5.3., dan F.5.4. Simulasi PERSONAL_KEUANGAN - tentukan hasil investasi percentile 95, 50, dan 05
@@ -1364,10 +1364,10 @@ class DashboardController extends Controller
             $previous_saldo_personal_keuangan_akhir_p95 = $saldo_personal_keuangan_akhir_p95_hitung;
             
            //echo json_encode($pengembangan_personal_keuangan_p95_hitung, true);
-           echo json_encode($saldo_personal_keuangan_awal_p95_hitung, true);
-           echo json_encode($iuran_personal_keuangan_hitung, true);
+           //echo json_encode($saldo_personal_keuangan_awal_p95_hitung, true);
+           //echo json_encode($iuran_personal_keuangan_hitung, true);
            //echo json_encode($percentile_95_return_personal_bulanan_hitung, true);
-           die();
+           //die();
               
             //percentile 50
             $saldo_personal_keuangan_awal_p50_hitung = $saldo_personal_keuangan_input;
