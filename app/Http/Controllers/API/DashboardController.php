@@ -730,8 +730,8 @@ class DashboardController extends Controller
       $gaji_input=(int)$gaji_form; //Read gaji yang diinput
       $phdp_input=(int)$phdp_form; //Read phdp yang diinput
         
-      echo json_encode($phdp_input, true);
-      die();
+      //echo json_encode($phdp_input, true);
+      //die();
 
       /*
       $saldo_ppip_input=0; //numpang untuk mengisi saldo ppip, Read saldo ppip yang diinput
@@ -744,6 +744,7 @@ class DashboardController extends Controller
       $counter_saldo_personal_keuangan="2023_1";
       $counter_saldo_personal_properti="2023_1";
       
+            
       $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
             ->where('id_user', $id_user)
             ->where('flag', 1)
@@ -751,6 +752,10 @@ class DashboardController extends Controller
 
       $gaji_naik = $setting_nilai_asumsi_user->kenaikan_gaji;//Read kenaikan gaji di admin
       $phdp_naik = $setting_nilai_asumsi_user->kenaikan_phdp;//Read kenaikan phdp di admin
+        
+      echo json_encode($gaji_naik, true);
+      echo json_encode($phdp_naik, true);
+      die();
 
       $year = 2023; //tahun awal di database
       $k=1;
