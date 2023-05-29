@@ -877,10 +877,10 @@ class DashboardController extends Controller
         }
       }
       
-      //echo json_encode($jumlah_ppmp, true);
-      //echo json_encode($rr_ppmp, true);
-      //echo json_encode($status_mp, true);
-      //die();
+      echo json_encode($jumlah_ppmp, true);
+      echo json_encode($rr_ppmp, true);
+      echo json_encode($status_mp, true);
+      die();
 
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
