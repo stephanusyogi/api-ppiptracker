@@ -942,10 +942,10 @@ class DashboardController extends Controller
       if($pembayaran_ppip==1){
         $harga_anuitas_ppip = $setting_treatment_user->harga_anuitas_ppip;//Read harga anuitas masing-masing user
         
-        //$kupon_sbn_ppip =0.06125;//default 
-        //$pajak_sbn_ppip =0.01;//default
+        $kupon_sbn_ppip =0.06125;//default 
+        $pajak_sbn_ppip =0.01;//default
       } else {
-        //$harga_anuitas_ppip = 136;//default
+        $harga_anuitas_ppip = 136;//default
         
         $kupon_sbn_ppip =$setting_treatment_user->bunga_ppip;//Read kupon SBN/SBSN dari profil user
         $pajak_sbn_ppip =$setting_treatment_user->pajak_ppip;//Read pajak SBN/SBSN dari profil user
