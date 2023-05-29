@@ -413,7 +413,7 @@ class DashboardController extends Controller
       //$previous_percentile_95_nab_ppip = null;
       //$previous_percentile_50_nab_ppip = null;
       //$previous_percentile_05_nab_ppip = null;
-      for($year=2023; $year<=2024; $year++){
+      for($year=2023; $year<=2100; $year++){
         if ($tranche_ppip[$year] != "null"){ //jika masih belum pensiun
           if ($year==2023){
             //tahunan
@@ -471,13 +471,13 @@ class DashboardController extends Controller
         $percentile_50_return_monthly_ppip[$year]=$percentile_50_return_monthly_ppip_hitung;
         $percentile_05_return_monthly_ppip[$year]=$percentile_05_return_monthly_ppip_hitung;
           
-        echo json_encode($percentile_95_return_monthly_ppip_hitung, true);
-        echo json_encode($percentile_50_return_monthly_ppip_hitung, true);
-        echo json_encode($percentile_05_return_monthly_ppip_hitung, true);
+        //echo json_encode($percentile_95_return_monthly_ppip_hitung, true);
+        //echo json_encode($percentile_50_return_monthly_ppip_hitung, true);
+        //echo json_encode($percentile_05_return_monthly_ppip_hitung, true);
         //die();
         
       }
-      die();      
+      //die();      
       echo json_encode($percentile_95_return_monthly_ppip, true);
       echo json_encode($percentile_50_return_monthly_ppip, true);
       echo json_encode($percentile_05_return_monthly_ppip, true);
