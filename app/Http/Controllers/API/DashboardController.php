@@ -730,7 +730,7 @@ class DashboardController extends Controller
       $gaji_input=(int)$gaji_form; //Read gaji yang diinput
       $phdp_input=(int)$phdp_form; //Read phdp yang diinput
         
-      echo json_encode($gaji_input, true);
+      echo json_encode($phdp_input, true);
       die();
 
       /*
