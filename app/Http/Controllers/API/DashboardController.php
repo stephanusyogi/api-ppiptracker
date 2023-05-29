@@ -326,13 +326,13 @@ class DashboardController extends Controller
                   
           //$previous_nab = null;
           for($j=1;$j<=$iter_mc;$j++){      //monte carlo 10.000 iterasi
-              if($j==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
+              if($year==2023){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                   $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
                   $nab_ppip_hitung[$j] = round(100 * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
                   $previous_nab[$j] = $nab_ppip_hitung[$j];
               } else{
                   $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                  $nab_ppip_hitung[$j] = round($previous_nab[$j-1] * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
+                  $nab_ppip_hitung[$j] = round($previous_nab[$j] * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
                   $previous_nab[$j] = $nab_ppip_hitung[$j];
               }
               
