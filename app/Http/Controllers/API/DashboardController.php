@@ -832,7 +832,7 @@ class DashboardController extends Controller
       
       $hari = $diff->format('%R%a');
         
-      echo json_encode($haris, true);
+      echo json_encode($hari, true);
       die();
 
       $gaji = $return_simulasi_gaji_phdp['gaji'];
