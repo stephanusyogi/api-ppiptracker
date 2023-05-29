@@ -390,15 +390,12 @@ class DashboardController extends Controller
         $percentile_95_nab_ppip[$key_loop] = $percentile_95_nab_ppip_hitung;
         $percentile_50_nab_ppip[$key_loop] = $percentile_50_nab_ppip_hitung;
         $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
-        
-       
-          
-        echo json_encode($percentile_95_nab_ppip_hitung, true);
-        echo json_encode($percentile_50_nab_ppip_hitung, true);
-        echo json_encode($percentile_05_nab_ppip_hitung, true);
-        die();
-      
+              
       }  // end dari for 2023 s.d. 2100
+        echo json_encode($percentile_95_nab_ppip, true);
+        echo json_encode($percentile_50_nab_ppip, true);
+        echo json_encode($percentile_05_nab_ppip, true);
+        die();
           
         
       // -----------------------------------------------------------------------
