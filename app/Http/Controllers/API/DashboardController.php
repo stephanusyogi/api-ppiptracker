@@ -410,9 +410,9 @@ class DashboardController extends Controller
       $percentile_50_return_monthly_ppip=array();
       $percentile_05_return_monthly_ppip=array();
 
-      $previous_percentile_95_nab_ppip = null;
-      $previous_percentile_50_nab_ppip = null;
-      $previous_percentile_05_nab_ppip = null;
+      //$previous_percentile_95_nab_ppip = null;
+      //$previous_percentile_50_nab_ppip = null;
+      //$previous_percentile_05_nab_ppip = null;
       for($year=2023; $year<=2024; $year++){
         if ($tranche_ppip[$year] != "null"){ //jika masih belum pensiun
           if ($year==2023){
@@ -424,9 +424,9 @@ class DashboardController extends Controller
             //echo json_encode($percentile_95_return_ppip_hitung, true);
             //die();
               
-            $previous_percentile_95_nab_ppip = $percentile_95_return_ppip_hitung;
-            $previous_percentile_50_nab_ppip = $percentile_50_return_ppip_hitung;
-            $previous_percentile_05_nab_ppip = $percentile_05_return_ppip_hitung;
+            //$previous_percentile_95_nab_ppip = $percentile_95_return_ppip_hitung;
+            //$previous_percentile_50_nab_ppip = $percentile_50_return_ppip_hitung;
+            //$previous_percentile_05_nab_ppip = $percentile_05_return_ppip_hitung;
             
             //convert monthly
             $percentile_95_return_monthly_ppip_hitung = pow((1+$percentile_95_return_ppip_hitung),(1/12))-1;
@@ -439,13 +439,13 @@ class DashboardController extends Controller
             //die();
           } else {
             //tahunan
-            $percentile_95_return_ppip_hitung = ($percentile_95_nab_ppip[$year]/$previous_percentile_95_nab_ppip)-1;
-            $percentile_50_return_ppip_hitung = ($percentile_50_nab_ppip[$year]/$previous_percentile_50_nab_ppip)-1;
-            $percentile_05_return_ppip_hitung = ($percentile_05_nab_ppip[$year]/$previous_percentile_05_nab_ppip)-1;
+            $percentile_95_return_ppip_hitung = ($percentile_95_nab_ppip[$year]/$percentile_95_nab_ppip[$year-1])-1;
+            $percentile_50_return_ppip_hitung = ($percentile_50_nab_ppip[$year]/$percentile_50_nab_ppip[$year-1])-1;
+            $percentile_05_return_ppip_hitung = ($percentile_05_nab_ppip[$year]/$percentile_05_nab_ppip[$year-1])-1;
               
-            $previous_percentile_95_nab_ppip = $percentile_95_return_ppip_hitung;
-            $previous_percentile_50_nab_ppip = $percentile_50_return_ppip_hitung;
-            $previous_percentile_05_nab_ppip = $percentile_05_return_ppip_hitung;
+            //$previous_percentile_95_nab_ppip = $percentile_95_return_ppip_hitung;
+            //$previous_percentile_50_nab_ppip = $percentile_50_return_ppip_hitung;
+            //$previous_percentile_05_nab_ppip = $percentile_05_return_ppip_hitung;
             
             //convert monthly
             $percentile_95_return_monthly_ppip_hitung = pow((1+$percentile_95_return_ppip_hitung),(1/12))-1;
