@@ -335,7 +335,8 @@ class DashboardController extends Controller
                   $nab_ppip_hitung[$j] = round($previous_nab[$j-1] * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
                   $previous_nab[$j] = $nab_ppip_hitung[$j];
               }
-              
+              echo json_encode($acak, true);
+              die();
               //$nab_ppip[$key_loop] = $nab_ppip_hitung;
               //$previous_nab = $nab_ppip[$key_loop];
           }
@@ -356,7 +357,7 @@ class DashboardController extends Controller
               //$k++;
             }
             $n= $percentile_temp1[1];
-            echo json_encode($percentile_temp1, true);
+            //echo json_encode($percentile_temp1, true);
             //echo json_encode($n, true);
             sort($percentile_temp1); //shorting array
             
