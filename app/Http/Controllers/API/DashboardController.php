@@ -530,7 +530,7 @@ class DashboardController extends Controller
       $percentile_95_nab_personal = array();
       $percentile_50_nab_personal = array();
       $percentile_05_nab_personal = array();
-      $iterasi_mc=10;
+      $iterasi_mc=10000;
       for($year=2023; $year<=2100; $year++){
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
