@@ -1189,7 +1189,7 @@ class DashboardController extends Controller
       $counter_saldo_personal_properti_month = $counter_saldo_personal_properti[1];
         
       echo json_encode($counter_saldo_personal_properti, true);
-      echo json_encode($$counter_saldo_personal_properti_year, true);
+      echo json_encode($counter_saldo_personal_properti_year, true);
       echo json_encode($counter_saldo_personal_properti_month, true);
       die();
 
