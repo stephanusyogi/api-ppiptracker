@@ -429,7 +429,7 @@ class DashboardController extends Controller
             $previous_percentile_05_nab_ppip = $percentile_05_return_ppip_hitung;
             
             //convert monthly
-            $percentile_95_return_monthly_ppip_hitung = pow((1+$percentile_95_return_ppip_hitung),(1/12));
+            $percentile_95_return_monthly_ppip_hitung = pow((1+$percentile_95_return_ppip_hitung),(1/12))-1;
             $percentile_50_return_monthly_ppip_hitung = ((1+$percentile_50_return_ppip_hitung)^(1/12))-1;
             $percentile_05_return_monthly_ppip_hitung = ((1+$percentile_05_return_ppip_hitung)^(1/12))-1;
               
