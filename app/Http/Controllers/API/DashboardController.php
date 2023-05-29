@@ -231,8 +231,8 @@ class DashboardController extends Controller
        //D. Hitung Montecarlo PPIP
        $montecarlo_ppip = $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
        
-        echo json_encode($montecarlo_ppip, true);
-        die();
+        //echo json_encode($montecarlo_ppip, true);
+        //die();
  
        // -----------------------------------------------------------------------
        //E. Hitung Montecarlo Personal Keuangan
@@ -533,6 +533,10 @@ class DashboardController extends Controller
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
         $flag_pensiun_hitung = $flag_pensiun[$key_tahun];//Read flag pensiun setiap bulan januari
+        
+        echo json_encode($sisa_kerja_tahun_hitung, true);
+        echo json_encode($flag_pensiun_hitung, true);
+        die();
 
         //+++++++++++++++++++++++++++++++++
         //E.1., E.2., dan E.3. Hitung Montecarlo Personal - hitung tranche, return, dan risk
@@ -610,7 +614,7 @@ class DashboardController extends Controller
         $percentile_95_nab_personal[$year] = $percentile_95_nab_personal_hitung;
         $percentile_50_nab_personal[$year] = $percentile_50_nab_personal_hitung;
         $percentile_05_nab_personal[$year] = $percentile_05_nab_personal_hitung;
-      }
+      } // end dari for 2023 s.d. 20100
 
       //--------------------------------------------------------
       //E.8., E.9., dan E.10. Hitung Montecarlo PERSONAL - hitung return dari Percentile NAB
