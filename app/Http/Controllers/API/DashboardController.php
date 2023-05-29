@@ -524,7 +524,7 @@ class DashboardController extends Controller
       $risk_personal = array();
 
       $nab_personal = array();
-      $nab_personal_hitung = = array();
+      $nab_personal_hitung = array();
       $previous_nab_personal = array();
       
       $percentile_95_nab_personal = array();
