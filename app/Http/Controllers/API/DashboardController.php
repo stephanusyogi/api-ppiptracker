@@ -1364,7 +1364,7 @@ class DashboardController extends Controller
             $previous_saldo_personal_keuangan_akhir_p95 = $saldo_personal_keuangan_akhir_p95_hitung;
             
            //echo json_encode($pengembangan_personal_keuangan_p95_hitung, true);
-           //echo json_encode($saldo_personal_keuangan_awal_p95_hitung, true);
+           echo json_encode($saldo_personal_keuangan_awal_p95_hitung, true);
            echo json_encode($iuran_personal_keuangan_hitung, true);
            //echo json_encode($percentile_95_return_personal_bulanan_hitung, true);
            die();
