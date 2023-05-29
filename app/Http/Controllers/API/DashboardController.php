@@ -392,10 +392,11 @@ class DashboardController extends Controller
         $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
               
       }  // end dari for 2023 s.d. 2100
-        echo json_encode($percentile_95_nab_ppip, true);
-        echo json_encode($percentile_50_nab_ppip, true);
-        echo json_encode($percentile_05_nab_ppip, true);
-        die();
+        
+        //echo json_encode($percentile_95_nab_ppip, true);
+        //echo json_encode($percentile_50_nab_ppip, true);
+        //echo json_encode($percentile_05_nab_ppip, true);
+        //die();
           
         
       // -----------------------------------------------------------------------
@@ -419,6 +420,10 @@ class DashboardController extends Controller
             $percentile_95_return_ppip_hitung = ($percentile_95_nab_ppip[$year]/100)-1;
             $percentile_50_return_ppip_hitung = ($percentile_50_nab_ppip[$year]/100)-1;
             $percentile_05_return_ppip_hitung = ($percentile_05_nab_ppip[$year]/100)-1;
+              
+            $previous_percentile_95_nab_ppip = $percentile_95_return_ppip_hitung;
+            $previous_percentile_50_nab_ppip = $percentile_50_return_ppip_hitung;
+            $previous_percentile_05_nab_ppip = $percentile_05_return_ppip_hitung;
             
             //convert monthly
             $percentile_95_return_monthly_ppip_hitung = ((1+$percentile_95_return_ppip_hitung)^(1/12))-1;
@@ -429,6 +434,10 @@ class DashboardController extends Controller
             $percentile_95_return_ppip_hitung = ($percentile_95_nab_ppip[$year]/$previous_percentile_95_nab_ppip)-1;
             $percentile_50_return_ppip_hitung = ($percentile_50_nab_ppip[$year]/$previous_percentile_50_nab_ppip)-1;
             $percentile_05_return_ppip_hitung = ($percentile_05_nab_ppip[$year]/$previous_percentile_05_nab_ppip)-1;
+              
+            $previous_percentile_95_nab_ppip = $percentile_95_return_ppip_hitung;
+            $previous_percentile_50_nab_ppip = $percentile_50_return_ppip_hitung;
+            $previous_percentile_05_nab_ppip = $percentile_05_return_ppip_hitung;
             
             //convert monthly
             $percentile_95_return_monthly_ppip_hitung = ((1+$percentile_95_return_ppip_hitung)^(1/12))-1;
@@ -450,14 +459,16 @@ class DashboardController extends Controller
         $percentile_50_return_ppip[$year]=$percentile_50_return_ppip_hitung;
         $percentile_05_return_ppip[$year]=$percentile_05_return_ppip_hitung;
 
-        $previous_percentile_95_nab_ppip = $percentile_95_nab_ppip[$year];
-        $previous_percentile_50_nab_ppip = $percentile_50_nab_ppip[$year];
-        $previous_percentile_05_nab_ppip = $percentile_05_nab_ppip[$year];
-
         $percentile_95_return_monthly_ppip[$year]=$percentile_95_return_monthly_ppip_hitung;
         $percentile_50_return_monthly_ppip[$year]=$percentile_50_return_monthly_ppip_hitung;
         $percentile_05_return_monthly_ppip[$year]=$percentile_05_return_monthly_ppip_hitung;
+        
       }
+            
+      echo json_encode($percentile_95_return_monthly_ppip, true);
+      echo json_encode($percentile_50_return_monthly_ppip, true);
+      echo json_encode($percentile_05_return_monthly_ppip, true);
+      die();
       return array(
         "tranche_ppip" => $tranche_ppip,
         "return_ppip" => $return_ppip,
