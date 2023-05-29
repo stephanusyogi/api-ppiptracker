@@ -841,9 +841,9 @@ class DashboardController extends Controller
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
         
-      echo json_encode($gaji, true);
-      echo json_encode($phdp, true);
-      die();
+      //echo json_encode($gaji, true);
+      //echo json_encode($phdp, true);
+      //die();
 
       $jumlah_ppmp = array();
       $rr_ppmp = array();
@@ -876,6 +876,11 @@ class DashboardController extends Controller
           $status_mp[$year] = $status_mp_hitung;
         }
       }
+      
+      //echo json_encode($jumlah_ppmp, true);
+      //echo json_encode($rr_ppmp, true);
+      //echo json_encode($status_mp, true);
+      //die();
 
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
