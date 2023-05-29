@@ -230,6 +230,9 @@ class DashboardController extends Controller
        // -----------------------------------------------------------------------
        //D. Hitung Montecarlo PPIP
        $montecarlo_ppip = $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+       
+        echo json_encode($montecarlo_ppip, true);
+        die();
  
        // -----------------------------------------------------------------------
        //E. Hitung Montecarlo Personal Keuangan
@@ -478,10 +481,10 @@ class DashboardController extends Controller
         
       }
       //die();      
-      echo json_encode($percentile_95_return_monthly_ppip, true);
-      echo json_encode($percentile_50_return_monthly_ppip, true);
-      echo json_encode($percentile_05_return_monthly_ppip, true);
-      die();
+      //echo json_encode($percentile_95_return_monthly_ppip, true);
+      //echo json_encode($percentile_50_return_monthly_ppip, true);
+      //echo json_encode($percentile_05_return_monthly_ppip, true);
+      //die();
       return array(
         "tranche_ppip" => $tranche_ppip,
         "return_ppip" => $return_ppip,
