@@ -470,6 +470,11 @@ class DashboardController extends Controller
         $percentile_95_return_monthly_ppip[$year]=$percentile_95_return_monthly_ppip_hitung;
         $percentile_50_return_monthly_ppip[$year]=$percentile_50_return_monthly_ppip_hitung;
         $percentile_05_return_monthly_ppip[$year]=$percentile_05_return_monthly_ppip_hitung;
+          
+        echo json_encode($percentile_95_return_monthly_ppip_hitung, true);
+        echo json_encode($percentile_50_return_monthly_ppip_hitung, true);
+        echo json_encode($percentile_05_return_monthly_ppip_hitung, true);
+        die();
         
       }
             
