@@ -393,7 +393,7 @@ class DashboardController extends Controller
               
       }  // end dari for 2023 s.d. 2100
         
-        echo json_encode($percentile_95_nab_ppip, true);
+        //echo json_encode($percentile_95_nab_ppip, true);
         //echo json_encode($percentile_50_nab_ppip, true);
         //echo json_encode($percentile_05_nab_ppip, true);
         //die();
@@ -422,7 +422,7 @@ class DashboardController extends Controller
             $percentile_05_return_ppip_hitung = ($percentile_05_nab_ppip[$year]/100)-1;
               
             echo json_encode($percentile_95_return_ppip_hitung, true);
-            die();
+            //die();
               
             $previous_percentile_95_nab_ppip = $percentile_95_return_ppip_hitung;
             $previous_percentile_50_nab_ppip = $percentile_50_return_ppip_hitung;
@@ -432,6 +432,9 @@ class DashboardController extends Controller
             $percentile_95_return_monthly_ppip_hitung = ((1+$percentile_95_return_ppip_hitung)^(1/12))-1;
             $percentile_50_return_monthly_ppip_hitung = ((1+$percentile_50_return_ppip_hitung)^(1/12))-1;
             $percentile_05_return_monthly_ppip_hitung = ((1+$percentile_05_return_ppip_hitung)^(1/12))-1;
+              
+            echo json_encode($percentile_95_return_monthly_ppip_hitung, true);
+            die();
           } else {
             //tahunan
             $percentile_95_return_ppip_hitung = ($percentile_95_nab_ppip[$year]/$previous_percentile_95_nab_ppip)-1;
