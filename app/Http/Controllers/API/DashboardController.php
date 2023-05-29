@@ -237,6 +237,9 @@ class DashboardController extends Controller
        // -----------------------------------------------------------------------
        //E. Hitung Montecarlo Personal Keuangan
        $montecarlo_personal_keuangan = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
+        
+       echo json_encode($montecarlo_personal_keuangan, true);
+       die();
        
        //---------------------------------------------------------
        //F. Perhitungan Simulasi
@@ -695,10 +698,10 @@ class DashboardController extends Controller
         $percentile_50_return_monthly_personal[$year]=$percentile_50_return_monthly_personal_hitung;
         $percentile_05_return_monthly_personal[$year]=$percentile_05_return_monthly_personal_hitung;
       }
-        echo json_encode($percentile_95_return_monthly_personal, true);
-        echo json_encode($percentile_50_return_monthly_personal, true);
-        echo json_encode($percentile_05_return_monthly_personal, true);
-        die();
+       // echo json_encode($percentile_95_return_monthly_personal, true);
+       //echo json_encode($percentile_50_return_monthly_personal, true);
+       //echo json_encode($percentile_05_return_monthly_personal, true);
+       //die();
       
       return array(
         "tranche_personal" => $tranche_personal,
