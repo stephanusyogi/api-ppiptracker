@@ -900,8 +900,8 @@ class DashboardController extends Controller
       $counter_saldo_ppip_year = $counter_saldo_ppip[0]; 
       $counter_saldo_ppip_month = $counter_saldo_ppip[1];
       
-      echo json_encode($counter_saldo_ppip_month, true);
-      die();
+      //echo json_encode($counter_saldo_ppip_month, true);
+      //die();
       
       $percentile_95_return_monthly_ppip = $montecarlo_ppip["percentile_95_return_monthly_ppip"];
       $percentile_50_return_monthly_ppip = $montecarlo_ppip["percentile_50_return_monthly_ppip"];
@@ -922,6 +922,9 @@ class DashboardController extends Controller
 
       $persentase_tambahan_iuran_ppip=$setting_nilai_asumsi_user->tambahan_iuran;// Read tambahan iuran ppip di profil user
       $saldo_ppip_input=$data_user->saldo_ppip;// Read saldo ppip yang diinput (saldo diasumsikan diinput di awal bulan)
+      
+      echo json_encode($persentase_tambahan_iuran_ppip, true);
+      die();
 
       //nilai default pilihan pembayaran PPIP
       //Input: Read pilihan pembayaran PPIP, Read kupon SBN/SBSN dan beserta pajak dari profil user, Read Harga anuitas dari profil user
