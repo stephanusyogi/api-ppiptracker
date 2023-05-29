@@ -900,8 +900,8 @@ class DashboardController extends Controller
       $counter_saldo_ppip_year = $counter_saldo_ppip[0]; 
       $counter_saldo_ppip_month = $counter_saldo_ppip[1];
       
-      //echo json_encode($counter_saldo_ppip_year, true);
-      //die();
+      echo json_encode($counter_saldo_ppip_year, true);
+      die();
       
       $percentile_95_return_monthly_ppip = $montecarlo_ppip["percentile_95_return_monthly_ppip"];
       $percentile_50_return_monthly_ppip = $montecarlo_ppip["percentile_50_return_monthly_ppip"];
