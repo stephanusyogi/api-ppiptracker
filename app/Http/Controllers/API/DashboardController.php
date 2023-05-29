@@ -393,7 +393,7 @@ class DashboardController extends Controller
               
       }  // end dari for 2023 s.d. 2100
         
-        //echo json_encode($percentile_95_nab_ppip, true);
+        echo json_encode($percentile_95_nab_ppip, true);
         //echo json_encode($percentile_50_nab_ppip, true);
         //echo json_encode($percentile_05_nab_ppip, true);
         //die();
