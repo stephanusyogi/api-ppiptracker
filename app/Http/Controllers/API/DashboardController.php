@@ -778,7 +778,7 @@ class DashboardController extends Controller
               
               $previous_gaji = $gaji_hitung;
               $previous_phdp = $phdp_hitung;
-            }
+              
           } else if ($kode == $kode_input){
              $gaji_hitung = $gaji_input;
              $phdp_hitung = $phdp_input;
