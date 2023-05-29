@@ -877,10 +877,10 @@ class DashboardController extends Controller
         }
       }
       
-      echo json_encode($jumlah_ppmp, true);
-      echo json_encode($rr_ppmp, true);
-      echo json_encode($status_mp, true);
-      die();
+      //echo json_encode($jumlah_ppmp, true);
+      //echo json_encode($rr_ppmp, true);
+      //echo json_encode($status_mp, true);
+      //die();
 
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
@@ -899,6 +899,9 @@ class DashboardController extends Controller
       $counter_saldo_ppip = explode("_", $return_simulasi_gaji_phdp['counter_saldo_ppip']);
       $counter_saldo_ppip_year = $counter_saldo_ppip[0]; 
       $counter_saldo_ppip_month = $counter_saldo_ppip[1];
+      
+      //echo json_encode($counter_saldo_ppip_year, true);
+      //die();
       
       $percentile_95_return_monthly_ppip = $montecarlo_ppip["percentile_95_return_monthly_ppip"];
       $percentile_50_return_monthly_ppip = $montecarlo_ppip["percentile_50_return_monthly_ppip"];
