@@ -335,11 +335,12 @@ class DashboardController extends Controller
                   $nab_ppip_hitung[$j] = round($previous_nab[$j-1] * (1 + ($return_ppip_hitung / 100) + (($risk_ppip_hitung / 100) * $norminv[$acak]) ),2);
                   $previous_nab[$j] = $nab_ppip_hitung[$j];
               }
-              echo json_encode($acak, true);
+              
               
               //$nab_ppip[$key_loop] = $nab_ppip_hitung;
               //$previous_nab = $nab_ppip[$key_loop];
           }
+            echo json_encode($nab_ppip_hitung, true);
             die();
         } else{ //jika sudah pensiun
           for($j=1;$j<=$iter_mc;$j++){ //monte carlo 10.000 iterasi
