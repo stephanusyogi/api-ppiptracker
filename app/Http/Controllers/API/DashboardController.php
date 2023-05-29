@@ -361,7 +361,7 @@ class DashboardController extends Controller
             sort($percentile_temp1); //shorting array
             
             //echo json_encode($percentile_temp1, true);
-            $n= $percentile_temp1[1];
+            $n= $percentile_temp1[0];
             echo json_encode($n, true);
             die();
             
