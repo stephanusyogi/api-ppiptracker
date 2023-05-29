@@ -1183,9 +1183,9 @@ class DashboardController extends Controller
 
       $gaji = $return_simulasi_gaji_phdp['gaji'];
         
-      echo json_encode($naik_harga_properti, true);
-      echo json_encode($naik_sewa_properti, true);
-      die();
+      //echo json_encode($naik_harga_properti, true);
+      //echo json_encode($naik_sewa_properti, true);
+      //die();
       $counter_saldo_personal_properti = explode("_", $return_simulasi_gaji_phdp['counter_saldo_personal_properti']);
       $counter_saldo_personal_properti_year = $counter_saldo_personal_properti[0]; 
       $counter_saldo_personal_properti_month = $counter_saldo_personal_properti[1];
@@ -1208,10 +1208,17 @@ class DashboardController extends Controller
           if($year==$counter_saldo_personal_properti_year && $month==$counter_saldo_personal_properti_month){
             $harga_properti_hitung = $saldo_personal_properti_input;
             $sewa_properti_hitung = $sewa_personal_properti_input;
+            
+            $previous_harga_properti = $harga_properti_hitung;
+            $previous_sewa_properti = $sewa_properti_hitung;
+              
           } else if ($year>$counter_saldo_personal_properti_year || $month>$counter_saldo_personal_properti_month) {
             if ($month==1){ //jika sudah bulan januari maka harga rumah dan sewa naik
-              $harga_properti_hitung = $previous_harga_properti * (1+$naik_harga_properti);
-              $sewa_properti_hitung = $previous_sewa_properti * (1+$naik_sewa_properti);
+              $harga_properti_hitung = $previous_harga_properti * (1+$naik_harga_properti/100);
+              $sewa_properti_hitung = $previous_sewa_properti * (1+$naik_sewa_properti/100);
+              
+              $previous_harga_properti = $harga_properti_hitung;
+              $previous_sewa_properti = $sewa_properti_hitung;
             } else {
               $harga_properti_hitung = $previous_harga_properti;
               $sewa_properti_hitung = $previous_sewa_properti;
