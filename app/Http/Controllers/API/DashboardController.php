@@ -1182,6 +1182,8 @@ class DashboardController extends Controller
       $naik_sewa_properti=$data_user->kenaikan_sewa; // Read kenaikan sewa properti keuangan yang diinput di profil user
 
       $gaji = $return_simulasi_gaji_phdp['gaji'];
+      echo json_encode($gaji, true);
+      die();
       $counter_saldo_personal_properti = explode("_", $return_simulasi_gaji_phdp['counter_saldo_personal_properti']);
       $counter_saldo_personal_properti_year = $counter_saldo_personal_properti[0]; 
       $counter_saldo_personal_properti_month = $counter_saldo_personal_properti[1];
