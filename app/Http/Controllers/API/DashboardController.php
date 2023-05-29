@@ -625,12 +625,12 @@ class DashboardController extends Controller
         $percentile_95_nab_personal[$year] = $percentile_95_nab_personal_hitung;
         $percentile_50_nab_personal[$year] = $percentile_50_nab_personal_hitung;
         $percentile_05_nab_personal[$year] = $percentile_05_nab_personal_hitung;
-      } // end dari for 2023 s.d. 20100
+      } // end dari for 2023 s.d. 2100
       
-        echo json_encode($percentile_95_nab_personal, true);
-        echo json_encode($percentile_50_nab_personal, true);
-        echo json_encode($percentile_05_nab_personal, true);
-        die();
+        //echo json_encode($percentile_95_nab_personal, true);
+        //echo json_encode($percentile_50_nab_personal, true);
+        //echo json_encode($percentile_05_nab_personal, true);
+        //die();
       
       //--------------------------------------------------------
       //E.8., E.9., dan E.10. Hitung Montecarlo PERSONAL - hitung return dari Percentile NAB
@@ -643,12 +643,12 @@ class DashboardController extends Controller
       $percentile_50_return_monthly_personal=array();
       $percentile_05_return_monthly_personal=array();
 
-      $previous_percentile_95_nab_personal = null;
-      $previous_percentile_50_nab_personal = null;
-      $previous_percentile_05_nab_personal = null;
+      //$previous_percentile_95_nab_personal = null;
+      //$previous_percentile_50_nab_personal = null;
+      //$previous_percentile_05_nab_personal = null;
 
       for($year=2023; $year<=2100; $year++){
-        $key_tahun = $year . "_1";
+        //$key_tahun = $year . "_1";
         if ($tranche_personal[$year] != "null"){ //jika masih belum pensiun
           if ($year==2023){
             
@@ -658,20 +658,20 @@ class DashboardController extends Controller
             $percentile_05_return_personal_hitung=($percentile_05_nab_personal[$year]/100)-1;
             
             //convert monthly
-            $percentile_95_return_monthly_personal_hitung=((1+$percentile_95_return_personal_hitung)^(1/12))-1;
-            $percentile_50_return_monthly_personal_hitung=((1+$percentile_50_return_personal_hitung)^(1/12))-1;
-            $percentile_05_return_monthly_personal_hitung=((1+$percentile_05_return_personal_hitung)^(1/12))-1;
+            $percentile_95_return_monthly_personal_hitung = pow((1+$percentile_95_return_personal_hitung),(1/12))-1;
+            $percentile_50_return_monthly_personal_hitung = pow((1+$percentile_50_return_personal_hitung),(1/12))-1;
+            $percentile_05_return_monthly_personal_hitung = pow((1+$percentile_05_return_personal_hitung),(1/12))-1;
           } else {
             
             //tahunan
-            $percentile_95_return_personal_hitung=($percentile_95_nab_personal[$year]/$previous_percentile_95_nab_personal)-1;
-            $percentile_50_return_personal_hitung=($percentile_50_nab_personal[$year]/$previous_percentile_50_nab_personal)-1;
-            $percentile_05_return_personal_hitung=($percentile_05_nab_personal[$year]/$previous_percentile_05_nab_personal)-1;
+            $percentile_95_return_personal_hitung=($percentile_95_nab_personal[$year]/$percentile_95_nab_personal[$year-1])-1;
+            $percentile_50_return_personal_hitung=($percentile_50_nab_personal[$year]/$percentile_50_nab_personal[$year-1])-1;
+            $percentile_05_return_personal_hitung=($percentile_05_nab_personal[$year]/$percentile_05_nab_personal[$year-1])-1;
             
             //convert monthly
-            $percentile_95_return_monthly_personal_hitung=((1+$percentile_95_return_personal_hitung)^(1/12))-1;
-            $percentile_50_return_monthly_personal_hitung=((1+$percentile_50_return_personal_hitung)^(1/12))-1;
-            $percentile_05_return_monthly_personal_hitung=((1+$percentile_05_return_personal_hitung)^(1/12))-1;
+            $percentile_95_return_monthly_personal_hitung = pow((1+$percentile_95_return_personal_hitung),(1/12))-1;
+            $percentile_50_return_monthly_personal_hitung = pow((1+$percentile_50_return_personal_hitung),(1/12))-1;
+            $percentile_05_return_monthly_personal_hitung = pow((1+$percentile_05_return_personal_hitung),(1/12))-1;
           }
         } else {
             $percentile_95_return_personal_hitung=0;
@@ -687,15 +687,18 @@ class DashboardController extends Controller
         $percentile_50_return_personal[$year]=$percentile_50_return_personal_hitung;
         $percentile_05_return_personal[$year]=$percentile_05_return_personal_hitung;
 
-        $previous_percentile_95_nab_personal = $percentile_95_return_personal[$year];
-        $previous_percentile_50_nab_personal = $percentile_50_return_personal[$year];
-        $previous_percentile_05_nab_personal = $percentile_05_return_personal[$year];
+        //$previous_percentile_95_nab_personal = $percentile_95_return_personal[$year];
+        //$previous_percentile_50_nab_personal = $percentile_50_return_personal[$year];
+        //$previous_percentile_05_nab_personal = $percentile_05_return_personal[$year];
 
         $percentile_95_return_monthly_personal[$year]=$percentile_95_return_monthly_personal_hitung;
         $percentile_50_return_monthly_personal[$year]=$percentile_50_return_monthly_personal_hitung;
         $percentile_05_return_monthly_personal[$year]=$percentile_05_return_monthly_personal_hitung;
       }
-
+        echo json_encode($percentile_95_return_monthly_personal, true);
+        echo json_encode($percentile_50_return_monthly_personal, true);
+        echo json_encode($percentile_05_return_monthly_personal, true);
+        die();
       
       return array(
         "tranche_personal" => $tranche_personal,
