@@ -358,14 +358,15 @@ class DashboardController extends Controller
               $percentile_temp1[$k]=$nab_ppip_hitung[$j]; //loading sementara isi dari NAB untuk kemudian di shorting
               $k++;
             }
-            $n= $percentile_temp1[1];
+            
+            //$n= $percentile_temp1[1];
             //echo json_encode($percentile_temp1, true);
             //echo json_encode($n, true);
             
             sort($percentile_temp1); //shorting array
             
             //echo json_encode($percentile_temp1, true);
-            $n= $percentile_temp1[0];
+            //$n= $percentile_temp1[0];
             //echo json_encode($n, true);
             //die();
             
@@ -375,9 +376,9 @@ class DashboardController extends Controller
               $k++;
             }
             
-            $percentile_95_nab_ppip_hitung = $percentile_temp2[round(0.95 * 10000)]; //mengambil nilai percentile 95
-            $percentile_50_nab_ppip_hitung = $percentile_temp2[round(0.5 * 10000)]; //mengambil nilai percentile 50
-            $percentile_05_nab_ppip_hitung = $percentile_temp2[round(0.05 * 10000)]; //mengambil nilai percentile 5
+            $percentile_95_nab_ppip_hitung = $percentile_temp2[round(0.95 * $iter_mc)]; //mengambil nilai percentile 95
+            $percentile_50_nab_ppip_hitung = $percentile_temp2[round(0.5 * $iter_mc)]; //mengambil nilai percentile 50
+            $percentile_05_nab_ppip_hitung = $percentile_temp2[round(0.05 * $iter_mc)]; //mengambil nilai percentile 5
           
         } else {
           $percentile_95_nab_ppip_hitung = 0; // nilai percentile 95 saat sudah pensiun
