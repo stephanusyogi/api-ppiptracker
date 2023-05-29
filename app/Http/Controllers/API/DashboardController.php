@@ -249,10 +249,12 @@ class DashboardController extends Controller
        $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $masa_dinas_tahun, $masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
        //F.3. Simulasi PPIP
        $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
-        echo json_encode( $return_simulasi_ppip, true);
-        die();
+        //echo json_encode( $return_simulasi_ppip, true);
+        //die();
        //F.4. Simulasi Personal Properti
        $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
+        echo json_encode( $return_simulasi_ppip, true);
+        die();
        //F.5. Simulasi PERSONAL_KEUANGAN
        $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp);
        
