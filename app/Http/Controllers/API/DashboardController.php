@@ -340,8 +340,8 @@ class DashboardController extends Controller
               //$nab_ppip[$key_loop] = $nab_ppip_hitung;
               //$previous_nab = $nab_ppip[$key_loop];
           }
-            echo json_encode($nab_ppip_hitung, true);
-            die();
+            //echo json_encode($nab_ppip_hitung, true);
+            //die();
         } else{ //jika sudah pensiun
           for($j=1;$j<=$iter_mc;$j++){ //monte carlo 10.000 iterasi
               $nab_ppip_hitung[$j]=0;
@@ -353,23 +353,24 @@ class DashboardController extends Controller
         //D.5., D.6., dan D.7. Hitung Montecarlo PPIP - hitung percentile 95, 50, dan 5 dari NAB
         //Input: NAB yang telah dihitung sebelumnya
         if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
-            //$k=0;
+            $k=0;//index waktu sorting mulai dari nol
             for ($j=1;$j<=$iter_mc;$j++){
-              $percentile_temp1[$j]=$nab_ppip_hitung[$j]; //loading sementara isi dari NAB untuk kemudian di shorting
-              //$k++;
+              $percentile_temp1[$k]=$nab_ppip_hitung[$j]; //loading sementara isi dari NAB untuk kemudian di shorting
+              $k++;
             }
             $n= $percentile_temp1[1];
             //echo json_encode($percentile_temp1, true);
             //echo json_encode($n, true);
+            
             sort($percentile_temp1); //shorting array
             
             //echo json_encode($percentile_temp1, true);
             $n= $percentile_temp1[0];
-            echo json_encode($n, true);
-            die();
+            //echo json_encode($n, true);
+            //die();
             
-            $k=0;
-            for ($j=1;$j<=10000;$j++){
+            $k=0; //index waktu sorting mulai dari nol
+            for ($j=1;$j<=$iter_mc;$j++){
               $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
               $k++;
             }
@@ -389,11 +390,15 @@ class DashboardController extends Controller
         $percentile_50_nab_ppip[$key_loop] = $percentile_50_nab_ppip_hitung;
         $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
         
-        // end dari for 2023 s.d. 2100
-        echo json_encode($year, true);
+       
+          
+        echo json_encode($percentile_95_nab_ppip_hitung, true);
+        echo json_encode($percentile_50_nab_ppip_hitung, true);
+        echo json_encode($percentile_05_nab_ppip_hitung, true);
+        die();
       
-      }
-          die();
+      }  // end dari for 2023 s.d. 2100
+          
         
       // -----------------------------------------------------------------------
       //D.8., D.9., dan D.10. Hitung Montecarlo PPIP - hitung return dari Percentile NAB
