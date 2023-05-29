@@ -249,6 +249,8 @@ class DashboardController extends Controller
        $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $masa_dinas_tahun, $masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
        //F.3. Simulasi PPIP
        $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
+        echo json_encode( $return_simulasi_ppip, true);
+        die();
        //F.4. Simulasi Personal Properti
        $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
        //F.5. Simulasi PERSONAL_KEUANGAN
@@ -923,8 +925,8 @@ class DashboardController extends Controller
       $persentase_tambahan_iuran_ppip=$setting_nilai_asumsi_user->tambahan_iuran;// Read tambahan iuran ppip di profil user
       $saldo_ppip_input=$data_user->saldo_ppip;// Read saldo ppip yang diinput (saldo diasumsikan diinput di awal bulan)
       
-      echo json_encode($saldo_ppip_input, true);
-      die();
+      //echo json_encode($saldo_ppip_input, true);
+      //die();
 
       //nilai default pilihan pembayaran PPIP
       //Input: Read pilihan pembayaran PPIP, Read kupon SBN/SBSN dan beserta pajak dari profil user, Read Harga anuitas dari profil user
@@ -940,10 +942,10 @@ class DashboardController extends Controller
       if($pembayaran_ppip==1){
         $harga_anuitas_ppip = $setting_treatment_user->harga_anuitas_ppip;//Read harga anuitas masing-masing user
         
-        $kupon_sbn_ppip =0.06125;//default
-        $pajak_sbn_ppip =0.01;//default
+        //$kupon_sbn_ppip =0.06125;//default 
+        //$pajak_sbn_ppip =0.01;//default
       } else {
-        $harga_anuitas_ppip = 136;//default
+        //$harga_anuitas_ppip = 136;//default
         
         $kupon_sbn_ppip =$setting_treatment_user->bunga_ppip;//Read kupon SBN/SBSN dari profil user
         $pajak_sbn_ppip =$setting_treatment_user->pajak_ppip;//Read pajak SBN/SBSN dari profil user
