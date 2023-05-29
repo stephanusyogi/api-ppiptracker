@@ -489,7 +489,7 @@ class DashboardController extends Controller
         "tranche_ppip" => $tranche_ppip,
         "return_ppip" => $return_ppip,
         "risk_ppip" => $risk_ppip,
-        "nab_ppip" => $nab_ppip,
+        "nab_ppip" => $nab_ppip,//tidak dipakai karena array nya hanya 1 dimensi. 
         "percentile_95_nab_ppip" => $percentile_95_nab_ppip,
         "percentile_50_nab_ppip" => $percentile_50_nab_ppip,
         "percentile_05_nab_ppip" => $percentile_05_nab_ppip,
@@ -524,11 +524,13 @@ class DashboardController extends Controller
       $risk_personal = array();
 
       $nab_personal = array();
+      $nab_personal_hitung = = array();
+      $previous_nab_personal = array();
       
       $percentile_95_nab_personal = array();
       $percentile_50_nab_personal = array();
       $percentile_05_nab_personal = array();
-
+      $iterasi_mc=10;
       for($year=2023; $year<=2100; $year++){
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
@@ -562,30 +564,34 @@ class DashboardController extends Controller
         $return_personal[$year] = $return_personal_hitung;
         $risk_personal[$year] = $risk_personal_hitung;
           
-        echo json_encode($tranche_personal, true);
-        die();
+        //echo json_encode($tranche_personal, true);
+        //die();
 
         //+++++++++++++++++++++++++++++++++
         //E.4. Hitung Montecarlo personal - hitung NAB
         if($tranche_personal_hitung != "null"){ //jika masih belum pensiun
-          $previous_nab_personal = null;
-          for($l=1;$l<=10000;$l++){      //monte carlo 10.000 iterasi
-            if($l==1){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
+          //$previous_nab_personal = null;
+          for($l=1;$l<=$iterasi_mc;$l++){      //monte carlo 10.000 iterasi
+            if($year==2023){ // untuk perhitungan awal (karena angka sebelumnya indeks dari NAB adalah 100)
                 $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                $nab_personal_hitung = round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+                $nab_personal_hitung[$l] = round(100 * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+                $previous_nab_personal[$l] = $nab_personal_hitung[$l];
             } else{
                 $acak = mt_rand(1,10000); //generate angka acak dari 1 s.d. 10.000. (angka acak sesuai dengan primary key dari tabel normal inverse dalam database)
-                $nab_personal_hitung = round($previous_nab_personal * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+                $nab_personal_hitung[$l] = round($previous_nab_personal[$l] * (1 + ($return_personal_hitung / 100) + (($risk_personal_hitung / 100) * $norminv[$acak]) ),2);
+                $previous_nab_personal[$l] = $nab_personal_hitung[$l];
             }
-            $nab_personal[$year] = round($nab_personal_hitung, 2);
-            $previous_nab_personal = $nab_personal[$year];
+            //$nab_personal[$year] = round($nab_personal_hitung, 2);
+            //$previous_nab_personal = $nab_personal[$year];
           }
         } else{ //jika sudah pensiun
-          for($l=1;$l<=10000;$l++){ //monte carlo 10.000 iterasi
-              $nab_personal_hitung = 0;
-              $nab_personal[$year] = round($nab_personal_hitung, 2);
+          for($l=1;$l<=$iterasi_mc;$l++){ //monte carlo 10.000 iterasi
+              $nab_personal_hitung[$l] = 0;
+              //$nab_personal[$year] = round($nab_personal_hitung, 2);
           }
         }
+          echo json_encode($nab_personal_hitung, true);
+          die();
 
         //+++++++++++++++++++++++++++++++++
         //E.5., E.6., dan E.7. Hitung Montecarlo PERSONAL - hitung percentile 95, 50, dan 5 dari NAB
@@ -688,7 +694,7 @@ class DashboardController extends Controller
         "tranche_personal" => $tranche_personal,
         "return_personal" => $return_personal,
         "risk_personal" => $risk_personal,
-        "nab_personal" => $nab_personal,
+        "nab_personal" => $nab_personal, //tidak digunakan karena array nab hanya 1 dimensi
         "percentile_95_nab_personal" => $percentile_95_nab_personal,
         "percentile_50_nab_personal" => $percentile_50_nab_personal,
         "percentile_05_nab_personal" => $percentile_05_nab_personal,
