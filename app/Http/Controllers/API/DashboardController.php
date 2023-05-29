@@ -1349,6 +1349,9 @@ class DashboardController extends Controller
           $percentile_95_return_personal_keuangan_bulanan[$key] = $percentile_95_return_personal_bulanan_hitung;
           $percentile_50_return_personal_keuangan_bulanan[$key] = $percentile_50_return_personal_bulanan_hitung;
           $percentile_05_return_personal_keuangan_bulanan[$key] = $percentile_05_return_personal_bulanan_hitung;
+            
+          echo json_encode($percentile_95_return_personal_bulanan_hitung, true);
+          die();
 
           
           // +++++++++++++++++++++++++++++++++++++
@@ -1358,31 +1361,39 @@ class DashboardController extends Controller
             $saldo_personal_keuangan_awal_p95_hitung = $saldo_personal_keuangan_input;
             $pengembangan_personal_keuangan_p95_hitung = ($saldo_personal_keuangan_awal_p95_hitung + $iuran_personal_keuangan_hitung )* $percentile_95_return_personal_bulanan_hitung;
             $saldo_personal_keuangan_akhir_p95_hitung = $saldo_personal_keuangan_awal_p95_hitung + $iuran_personal_keuangan_hitung + $pengembangan_personal_keuangan_p95_hitung; //saldo merupakan saldo akhir bulan
-            
+            $previous_saldo_personal_keuangan_akhir_p95 = $saldo_personal_keuangan_akhir_p95_hitung;
+              
             //percentile 50
             $saldo_personal_keuangan_awal_p50_hitung = $saldo_personal_keuangan_input;
             $pengembangan_personal_keuangan_p50_hitung = ($saldo_personal_keuangan_awal_p50_hitung + $iuran_personal_keuangan_hitung )* $percentile_50_return_personal_bulanan_hitung;
             $saldo_personal_keuangan_akhir_p50_hitung = $saldo_personal_keuangan_awal_p50_hitung + $iuran_personal_keuangan_hitung + $pengembangan_personal_keuangan_p50_hitung; //saldo merupakan saldo akhir bulan
-            
+            $previous_saldo_personal_keuangan_akhir_p50 = $saldo_personal_keuangan_akhir_p50_hitung;
+              
             //percentile 05
             $saldo_personal_keuangan_awal_p05_hitung = $saldo_personal_keuangan_input;
             $pengembangan_personal_keuangan_p05_hitung = ($saldo_personal_keuangan_awal_p05_hitung + $iuran_personal_keuangan_hitung )* $percentile_05_return_personal_bulanan_hitung;
             $saldo_personal_keuangan_akhir_p05_hitung = $saldo_personal_keuangan_awal_p05_hitung + $iuran_personal_keuangan_hitung + $pengembangan_personal_keuangan_p05_hitung; //saldo merupakan saldo akhir bulan
+            $previous_saldo_personal_keuangan_akhir_p05 = $saldo_personal_keuangan_akhir_p05_hitung;
+              
           } else if ($year>$counter_saldo_personal_keuangan_year || $month>$counter_saldo_personal_keuangan_month) {
             //percentile 95
             $saldo_personal_keuangan_awal_p95_hitung = $previous_saldo_personal_keuangan_akhir_p95;
             $pengembangan_personal_keuangan_p95_hitung = ($saldo_personal_keuangan_awal_p95_hitung + $iuran_personal_keuangan_hitung )* $percentile_95_return_personal_bulanan_hitung;
             $saldo_personal_keuangan_akhir_p95_hitung = $saldo_personal_keuangan_awal_p95_hitung + $iuran_personal_keuangan_hitung + $pengembangan_personal_keuangan_p95_hitung; //saldo merupakan saldo akhir bulan
-            
+            $previous_saldo_personal_keuangan_akhir_p95 = $saldo_personal_keuangan_akhir_p95_hitung;
+              
             //percentile 50
             $saldo_personal_keuangan_awal_p50_hitung = $previous_saldo_personal_keuangan_akhir_p50;
             $pengembangan_personal_keuangan_p50_hitung = ($saldo_personal_keuangan_awal_p50_hitung + $iuran_personal_keuangan_hitung )* $percentile_50_return_personal_bulanan_hitung;
             $saldo_personal_keuangan_akhir_p50_hitung = $saldo_personal_keuangan_awal_p50_hitung + $iuran_personal_keuangan_hitung + $pengembangan_personal_keuangan_p50_hitung; //saldo merupakan saldo akhir bulan
-            
+            $previous_saldo_personal_keuangan_akhir_p50 = $saldo_personal_keuangan_akhir_p50_hitung;
+              
             //percentile 05
             $saldo_personal_keuangan_awal_p05_hitung = $previous_saldo_personal_keuangan_akhir_p05;
             $pengembangan_personal_keuangan_p05_hitung = ($saldo_personal_keuangan_awal_p05_hitung + $iuran_personal_keuangan_hitung )* $percentile_05_return_personal_bulanan_hitung;
             $saldo_personal_keuangan_akhir_p05_hitung = $saldo_personal_keuangan_awal_p05_hitung + $iuran_personal_keuangan_hitung + $pengembangan_personal_keuangan_p05_hitung; //saldo merupakan saldo akhir bulan
+            $previous_saldo_personal_keuangan_akhir_p05 = $saldo_personal_keuangan_akhir_p05_hitung;  
+              
           } else{
             //percentile 95
             $saldo_personal_keuangan_awal_p95_hitung = 0;
@@ -1413,9 +1424,9 @@ class DashboardController extends Controller
           $pengembangan_personal_keuangan_p05[$key] = $pengembangan_personal_keuangan_p05_hitung;
           $saldo_personal_keuangan_akhir_p05[$key] = $saldo_personal_keuangan_akhir_p05_hitung;
 
-          $previous_saldo_personal_keuangan_akhir_p95 = $saldo_personal_keuangan_akhir_p95[$key];
-          $previous_saldo_personal_keuangan_akhir_p50 = $saldo_personal_keuangan_akhir_p50[$key];
-          $previous_saldo_personal_keuangan_akhir_p05 = $saldo_personal_keuangan_akhir_p05[$key];
+          //$previous_saldo_personal_keuangan_akhir_p95 = $saldo_personal_keuangan_akhir_p95[$key];
+          //$previous_saldo_personal_keuangan_akhir_p50 = $saldo_personal_keuangan_akhir_p50[$key];
+          //$previous_saldo_personal_keuangan_akhir_p05 = $saldo_personal_keuangan_akhir_p05[$key];
           
           //++++++++++++++++++++++++++++++++++++++++
           //F.5.14., F.5.15., dan F.5.16. Simulasi PERSONAL_KEUANGAN - Hitung anuitas bulanan untuk percentile 95, 50, dan 05 (hitung MP Bulanan bila dihitung menggunakan anuitas seumur hidup)
