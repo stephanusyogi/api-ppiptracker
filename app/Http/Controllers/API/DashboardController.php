@@ -923,7 +923,7 @@ class DashboardController extends Controller
       $persentase_tambahan_iuran_ppip=$setting_nilai_asumsi_user->tambahan_iuran;// Read tambahan iuran ppip di profil user
       $saldo_ppip_input=$data_user->saldo_ppip;// Read saldo ppip yang diinput (saldo diasumsikan diinput di awal bulan)
       
-      echo json_encode($persentase_tambahan_iuran_ppip, true);
+      echo json_encode($saldo_ppip_input, true);
       die();
 
       //nilai default pilihan pembayaran PPIP
