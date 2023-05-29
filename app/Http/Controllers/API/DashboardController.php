@@ -603,19 +603,19 @@ class DashboardController extends Controller
             $k++;
           }
           
-          echo json_encode($percentile_temp1, true);
+          //echo json_encode($percentile_temp1, true);
           sort($percentile_temp1); //shorting array
-          echo json_encode($percentile_temp1, true);
-          die();
+          //echo json_encode($percentile_temp1, true);
+          //die();
           $k=0; //index waktu sorting mulai dari nol
           for ($j=1;$j<=$iterasi_mc;$j++){
             $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
             $k++;
           }
           
-          $percentile_95_nab_personal_hitung=$percentile_temp2[round(0.95 * 10000)]; //mengambil nilai percentile 95
-          $percentile_50_nab_personal_hitung=$percentile_temp2[round(0.5 * 10000)]; //mengambil nilai percentile 50
-          $percentile_05_nab_personal_hitung=$percentile_temp2[round(0.05 * 10000)]; //mengambil nilai percentile 5
+          $percentile_95_nab_personal_hitung=$percentile_temp2[round(0.95 * $iterasi_mc)]; //mengambil nilai percentile 95
+          $percentile_50_nab_personal_hitung=$percentile_temp2[round(0.5 * $iterasi_mc)]; //mengambil nilai percentile 50
+          $percentile_05_nab_personal_hitung=$percentile_temp2[round(0.05 * $iterasi_mc)]; //mengambil nilai percentile 5
         } else {
           $percentile_95_nab_personal_hitung=0; // nilai percentile 95 saat sudah pensiun
           $percentile_50_nab_personal_hitung=0; // nilai percentile 50 saat sudah pensiun
@@ -626,7 +626,12 @@ class DashboardController extends Controller
         $percentile_50_nab_personal[$year] = $percentile_50_nab_personal_hitung;
         $percentile_05_nab_personal[$year] = $percentile_05_nab_personal_hitung;
       } // end dari for 2023 s.d. 20100
-
+      
+        echo json_encode($percentile_95_nab_personal, true);
+        echo json_encode($percentile_50_nab_personal, true);
+        echo json_encode($percentile_05_nab_personal, true);
+        die();
+      
       //--------------------------------------------------------
       //E.8., E.9., dan E.10. Hitung Montecarlo PERSONAL - hitung return dari Percentile NAB
       //termasuk dengan convert monthly di E.11., E.12., dan E.13. Hitung Montecarlo PERSONAL - hitung return dari Percentile NAB - convert monthly
