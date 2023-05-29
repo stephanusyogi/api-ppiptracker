@@ -246,7 +246,7 @@ class DashboardController extends Controller
        //F.1. Simulasi Gaji dan PhDP
        $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji, $phdp, $id_user);
        //F.2. Simulasi PPMP
-       $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_masa_dinas_tahun, $sisa_masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
+       $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $masa_dinas_tahun, $masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
        //F.3. Simulasi PPIP
        $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
        //F.4. Simulasi Personal Properti
@@ -824,7 +824,7 @@ class DashboardController extends Controller
       );
     }
 
-    public function simulasi_ppmp($data_user, $id_user, $sisa_masa_dinas_tahun, $sisa_masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp){
+    public function simulasi_ppmp($data_user, $id_user, $masa_dinas_tahun, $masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp){
       //Input: variabel $phdp[$i] yang ada di memory, Read masa dinas tahun dan bulan, dan flag pensiun
       $date1 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
       $date2 = date_create("2015-01-01"); //tanggal cutoff pensiun hybrid. yang diangkat setelah 1 januari 2015 ppip murni, kalau sebelumnya hybrid ppmp dan ppip
@@ -847,7 +847,7 @@ class DashboardController extends Controller
           if ($hari > 0){ //hybrid ppmp ppip
             $status_mp_hitung = 1;//untuk hybrid ppmp ppip
             if ($flag_pensiun[$key]==0){ //belum pensiun
-              $masa_dinas_sementara = $sisa_masa_dinas_tahun[$key]+($sisa_masa_dinas_bulan[$key] / 12);
+              $masa_dinas_sementara = $masa_dinas_tahun[$key]+($masa_dinas_bulan[$key] / 12);
               $masa_dinas = min($masa_dinas_sementara,32); //maksimum masa dinas yang bisa diabsorb oleh ppmp adalah 32 tahun
               $jumlah_ppmp_hitung = 0.025 * $masa_dinas * $phdp[$key]; //rumus besar MP dalam PPMP
               $rr_ppmp_hitung = $jumlah_ppmp_hitung / $gaji[$key]; //rumus mencari replacement ratio dalam ppmp
