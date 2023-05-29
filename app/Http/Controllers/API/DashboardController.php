@@ -534,9 +534,9 @@ class DashboardController extends Controller
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
         $flag_pensiun_hitung = $flag_pensiun[$key_tahun];//Read flag pensiun setiap bulan januari
         
-        echo json_encode($sisa_kerja_tahun_hitung, true);
-        echo json_encode($flag_pensiun_hitung, true);
-        die();
+        //echo json_encode($sisa_kerja_tahun_hitung, true);
+        //echo json_encode($flag_pensiun_hitung, true);
+        //die();
 
         //+++++++++++++++++++++++++++++++++
         //E.1., E.2., dan E.3. Hitung Montecarlo Personal - hitung tranche, return, dan risk
@@ -561,6 +561,9 @@ class DashboardController extends Controller
         $tranche_personal[$year] = $tranche_personal_hitung;
         $return_personal[$year] = $return_personal_hitung;
         $risk_personal[$year] = $risk_personal_hitung;
+          
+        echo json_encode($tranche_personal, true);
+        die();
 
         //+++++++++++++++++++++++++++++++++
         //E.4. Hitung Montecarlo personal - hitung NAB
