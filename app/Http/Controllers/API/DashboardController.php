@@ -1608,6 +1608,9 @@ class DashboardController extends Controller
         $dashboard_rr_personal_keuangan_max = $rr_personal_keuangan_kupon_sbn_p95[$counter_pensiun_minus_one_month];
       }
       $dashboard_rr_personal_properti = $rr_personal_properti[$counter_pensiun_minus_one_month];
+      
+      echo json_encode($dashboard_rr_personal_keuangan_min, true);
+      die();
 
       //total rr
       $status_mp = $return_simulasi_ppmp['status_mp'];
@@ -1721,6 +1724,7 @@ class DashboardController extends Controller
       }
         return array(
         "pensiun" => $counter_pensiun,
+        //RR
         "dashboard_rr_ppip_min" => $dashboard_rr_ppip_min,
         "dashboard_rr_ppip_med" => $dashboard_rr_ppip_med,
         "dashboard_rr_ppip_max" =>  $dashboard_rr_ppip_max,
