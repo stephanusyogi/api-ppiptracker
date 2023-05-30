@@ -1719,6 +1719,16 @@ class DashboardController extends Controller
         $dashboard_penghasilan_bulanan_total_max_pv = $dashboard_penghasilan_bulanan_ppip_max_pv + $dashboard_penghasilan_bulanan_personal_keuangan_max_pv + $dashboard_penghasilan_bulanan_personal_properti_pv;
 
       }
+        return array(
+        "pensiun" => $counter_pensiun,
+        "dashboard_rr_ppip_min" => $dashboard_rr_ppip_min,
+        "dashboard_rr_ppip_med" => $dashboard_rr_ppip_med,
+        "dashboard_rr_ppip_max" =>  $dashboard_rr_ppip_max,
+           
+       "dashboard_rr_personal_keuangan_min" => $dashboard_rr_personal_keuangan_min,
+        "dashboard_rr_personal_keuangan_med" => $dashboard_rr_personal_keuangan_med,
+        "dashboard_rr_personal_keuangan_max" =>  $dashboard_rr_personal_keuangan_max,
+      );
     }
 
     // Section Development - Yogi
