@@ -1616,8 +1616,8 @@ class DashboardController extends Controller
       }
       $dashboard_rr_personal_properti = $rr_personal_properti[$counter_pensiun_minus_one_month];
       
-      echo json_encode($dashboard_rr_personal_keuangan_min, true);
-      die();
+      //echo json_encode($dashboard_rr_personal_keuangan_min, true);
+      //die();
 
       //total rr
       $status_mp = $return_simulasi_ppmp['status_mp'];
