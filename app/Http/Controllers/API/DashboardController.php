@@ -1296,7 +1296,7 @@ class DashboardController extends Controller
         $kupon_sbn_personal_keuangan =$kupon_sbn_personal_keuangan / 100;
         $pajak_sbn_personal_keuangan =$pajak_sbn_personal_keuangan / 100;
       }
-     echo json_encode($kupon_sbn_personal_keuangan_bulanan_hitung, true);
+     echo json_encode($kupon_sbn_personal_keuangan, true);
        die();
       $percentile_95_return_monthly_personal = $montecarlo_personal_keuangan["percentile_95_return_monthly_personal"];
       $percentile_50_return_monthly_personal = $montecarlo_personal_keuangan["percentile_50_return_monthly_personal"];
