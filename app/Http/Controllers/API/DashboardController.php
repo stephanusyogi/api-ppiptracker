@@ -955,6 +955,9 @@ class DashboardController extends Controller
         
         $kupon_sbn_ppip =$setting_treatment_user->bunga_ppip;//Read kupon SBN/SBSN dari profil user
         $pajak_sbn_ppip =$setting_treatment_user->pajak_ppip;//Read pajak SBN/SBSN dari profil user
+        
+        $kupon_sbn_ppip =$kupon_sbn_ppip / 100;
+        $pajak_sbn_ppip =$pajak_sbn_ppip / 100;
       }
 
       //Output: Create $iuran[$i], $tambahan_iuran_ppip[$i], $percentile_95_return_ppip_bulanan[$i], $percentile_50_return_ppip_bulanan[$i], $percentile_05_return_ppip_bulanan[$i]
