@@ -1738,7 +1738,7 @@ class DashboardController extends Controller
         "dashboard_rr_ppip_med" => $dashboard_rr_ppip_med,
         "dashboard_rr_ppip_max" =>  $dashboard_rr_ppip_max,
            
-        "dashboard_rr_ppmp" => $rr_ppmp,
+        "dashboard_rr_ppmp" => $dashboard_rr_ppmp,
         
         "dashboard_rr_personal_keuangan_min" => $dashboard_rr_personal_keuangan_min,
         "dashboard_rr_personal_keuangan_med" => $dashboard_rr_personal_keuangan_med,
