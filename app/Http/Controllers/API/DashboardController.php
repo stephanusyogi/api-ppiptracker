@@ -1292,8 +1292,12 @@ class DashboardController extends Controller
         
         $kupon_sbn_personal_keuangan =$setting_treatment_user->bunga_personal_pasar_keuangan;//Read kupon SBN/SBSN dari profil user
         $pajak_sbn_personal_keuangan =$setting_treatment_user->pajak_personal_pasar_keuangan;//Read pajak SBN/SBSN dari profil user
+        
+        $kupon_sbn_personal_keuangan =$kupon_sbn_personal_keuangan / 100;
+        $pajak_sbn_personal_keuangan =$pajak_sbn_personal_keuangan / 100;
       }
-      
+     echo json_encode($kupon_sbn_personal_keuangan_bulanan_hitung, true);
+       die();
       $percentile_95_return_monthly_personal = $montecarlo_personal_keuangan["percentile_95_return_monthly_personal"];
       $percentile_50_return_monthly_personal = $montecarlo_personal_keuangan["percentile_50_return_monthly_personal"];
       $percentile_05_return_monthly_personal = $montecarlo_personal_keuangan["percentile_05_return_monthly_personal"];
