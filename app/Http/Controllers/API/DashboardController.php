@@ -1738,7 +1738,7 @@ class DashboardController extends Controller
         "dashboard_rr_ppip_med" => $dashboard_rr_ppip_med,
         "dashboard_rr_ppip_max" =>  $dashboard_rr_ppip_max,
            
-        "dashboard_rr_ppmp" => $rr_ppmp[$counter_pensiun_minus_one_month],
+        //"dashboard_rr_ppmp" => $rr_ppmp[$counter_pensiun_minus_one_month],
         
         "dashboard_rr_personal_keuangan_min" => $dashboard_rr_personal_keuangan_min,
         "dashboard_rr_personal_keuangan_med" => $dashboard_rr_personal_keuangan_med,
@@ -1753,7 +1753,7 @@ class DashboardController extends Controller
         "dashboard_penghasilan_bulanan_ppip_med" => $dashboard_penghasilan_bulanan_ppip_med,
         "dashboard_penghasilan_bulanan_ppip_max" =>  $dashboard_penghasilan_bulanan_ppip_max,
                     
-        "dashboard_penghasilan_bulanan_ppmp" => $jumlah_ppmp[$counter_pensiun_minus_one_month],
+        //"dashboard_penghasilan_bulanan_ppmp" => $jumlah_ppmp[$counter_pensiun_minus_one_month],
         
         "dashboard_penghasilan_bulanan_personal_keuangan_min" => $dashboard_penghasilan_bulanan_personal_keuangan_min,
         "dashboard_penghasilan_bulanan_personal_keuangan_med" => $dashboard_penghasilan_bulanan_personal_keuangan_med,
