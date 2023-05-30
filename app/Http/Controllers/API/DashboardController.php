@@ -1731,7 +1731,7 @@ class DashboardController extends Controller
       }
         return array(
         "pensiun" => $counter_pensiun,
-        "status_mp" => $status_mp,
+        //"status_mp" => $status_mp,
          
         //RR
         "dashboard_rr_ppip_min" => $dashboard_rr_ppip_min,
