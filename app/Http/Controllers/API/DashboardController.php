@@ -1731,14 +1731,26 @@ class DashboardController extends Controller
       }
         return array(
         "pensiun" => $counter_pensiun,
+        "status_mp" => $status_mp,
+         
         //RR
         "dashboard_rr_ppip_min" => $dashboard_rr_ppip_min,
         "dashboard_rr_ppip_med" => $dashboard_rr_ppip_med,
         "dashboard_rr_ppip_max" =>  $dashboard_rr_ppip_max,
            
-       "dashboard_rr_personal_keuangan_min" => $dashboard_rr_personal_keuangan_min,
+        "dashboard_rr_ppmp" => $rr_ppmp,
+        
+        "dashboard_rr_personal_keuangan_min" => $dashboard_rr_personal_keuangan_min,
         "dashboard_rr_personal_keuangan_med" => $dashboard_rr_personal_keuangan_med,
         "dashboard_rr_personal_keuangan_max" =>  $dashboard_rr_personal_keuangan_max,
+            
+         "dashboard_rr_total_min" => $dashboard_rr_total_min,
+         "dashboard_rr_total_med" => $dashboard_rr_total_med,
+         "dashboard_rr_total_max" => $dashboard_rr_total_max,
+          
+          //Penghasilan Bulanan
+          
+            
       );
     }
 
