@@ -32,6 +32,7 @@ class DashboardController extends Controller
         }else{
           echo "ga sip";
         }
+        echo count($validasi_kuisioner);
 
       // Validasi Setting Portofolio PPIP
 
