@@ -40,7 +40,7 @@ class DashboardController extends Controller
 
       // Validasi Setting Treatment Pembayaran
 
-      
+      echo json_encode($validasi_kuisioner, true);
       die();
 
       // Get Input Form Data
