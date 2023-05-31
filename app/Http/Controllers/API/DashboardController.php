@@ -24,10 +24,13 @@ class DashboardController extends Controller
         ])
         ->get();
         if (empty($validasi_kuisioner)) {
+          echo "sip";
           return response()->json([
             "status" =>false,
             "message"=>"Kuisioner Kosong",
           ],200);
+        }else{
+          echo "ga sip";
         }
 
       // Validasi Setting Portofolio PPIP
