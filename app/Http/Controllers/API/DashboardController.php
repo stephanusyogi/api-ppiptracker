@@ -140,8 +140,6 @@ class DashboardController extends Controller
         ]);
       }
 
-      die();
-
       // -----------------------------------------------------------------------
       //B.1 Hitung usia diangkat
       $data_user = User::select('*')->where('id',$id_user)->get()[0];
@@ -199,6 +197,9 @@ class DashboardController extends Controller
               
           }
       }
+
+      echo json_encode($usia_bulan, true);
+      die();
        //echo json_encode($usia_tahun, true);
        //echo json_encode($usia_bulan, true);
        //die();
