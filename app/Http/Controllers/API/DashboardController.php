@@ -226,7 +226,7 @@ class DashboardController extends Controller
       echo json_encode([
         'id'=> 'adhjaa',
         'id_user' => $id_user,
-        $usia_bulan,
+        $usia_bulan[0],
         'flag' => 1,
       ], true);
       die();
