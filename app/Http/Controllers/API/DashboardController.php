@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use DateTime;
 use DB;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
