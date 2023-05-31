@@ -222,13 +222,14 @@ class DashboardController extends Controller
       //       'flag' => 1,
       //   ]);
       // }
-      
-      echo json_encode([
+
+      $data_table = array(
         'id'=> 'adhjaa',
         'id_user' => $id_user,
-        $usia_bulan,
         'flag' => 1,
-      ], true);
+      );
+      
+      echo json_encode(array_merge($data_table,$usia_bulan), true);
       die();
        //echo json_encode($usia_tahun, true);
        //echo json_encode($usia_bulan, true);
