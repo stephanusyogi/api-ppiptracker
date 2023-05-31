@@ -23,8 +23,12 @@ class DashboardController extends Controller
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
         ->get();
-        echo json_encode($validasi_kuisioner, true);
-        die();
+        if (!$validasi_kuisioner) {
+          return response()->json([
+            "status" =>false,
+            "message"=>"Kuisioner Kosong",
+          ],200);
+        }
 
       // Validasi Setting Portofolio PPIP
 
@@ -35,6 +39,9 @@ class DashboardController extends Controller
       // Validasi Setting Nilai Asumsi User
 
       // Validasi Setting Treatment Pembayaran
+
+      
+      die();
 
       // Get Input Form Data
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
