@@ -23,16 +23,12 @@ class DashboardController extends Controller
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
         ->get();
-        if (empty($validasi_kuisioner)) {
-          echo "sip";
+        if (count($validasi_kuisioner) === 0) {
           return response()->json([
             "status" =>false,
             "message"=>"Kuisioner Kosong",
           ],200);
-        }else{
-          echo "ga sip";
         }
-        echo count($validasi_kuisioner);
 
       // Validasi Setting Portofolio PPIP
 
