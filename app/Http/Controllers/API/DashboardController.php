@@ -90,6 +90,15 @@ class DashboardController extends Controller
       }
 
       // Get Input Form Data
+
+      DB::table('activity_dashboard')->insert([
+          'id' => (string) Str::uuid(),
+          'id_user' => $request->id_user,
+          'browser' => $request->browser,
+          'sistem_operasi' => $request->sistem_operasi,
+          'ip_address' => $request->ip_address,
+      ]);
+
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
       $gaji = $request->gaji;
       $phdp = $request->phdp;
@@ -104,33 +113,33 @@ class DashboardController extends Controller
         ])
         ->get();
       $target_replacement_ratio = round($res[0]->answer,2);
-      echo $target_replacement_ratio;
-      die();
-      if (count($res) > 0) {
-        DB::table('variabel_kuisioner_target_rr_answer')
-        ->where([
-            ['id_user', '=', $request->id_user],
-            ['kode_kuisioner', '=', $request->kode_kuisioner],
-            ])->update([
+
+      $check_table = DB::table('dashboard_target_rr')
+      ->where([
+          ['id_user', '=', $id_user]])
+      ->get()->toArray();
+      if (count($check_table) > 0) {
+        DB::table('dashboard_target_rr')
+        ->where([['id_user', '=', $id_user]])->update([
             'flag' => 0,
         ]);
 
-        DB::table('variabel_kuisioner_target_rr_answer')->insert([
+        DB::table('dashboard_target_rr')->insert([
             'id'=> (string) Str::uuid(),
-            'id_user' => $request->id_user,
-            'kode_kuisioner' => $request->kode_kuisioner,
-            'answer' => $request->answer,
+            'id_user' => $id_user,
+            'target_rr' => $target_replacement_ratio,
             'flag' => 1,
         ]);
-      } else {
-          DB::table('variabel_kuisioner_target_rr_answer')->insert([
-              'id'=> (string) Str::uuid(),
-              'id_user' => $request->id_user,
-              'kode_kuisioner' => $request->kode_kuisioner,
-              'answer' => $request->answer,
-              'flag' => 1,
-          ]);
+      } else {;
+        DB::table('dashboard_target_rr')->insert([
+            'id'=> (string) Str::uuid(),
+            'id_user' => $id_user,
+            'target_rr' => $target_replacement_ratio,
+            'flag' => 1,
+        ]);
       }
+
+      die();
 
       // -----------------------------------------------------------------------
       //B.1 Hitung usia diangkat
