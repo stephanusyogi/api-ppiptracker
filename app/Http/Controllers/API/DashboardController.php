@@ -318,7 +318,7 @@ class DashboardController extends Controller
  
        //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
        $sisa_kerja_tahun = array();
-       $ = array();
+       $sisa_kerja_bulan = array();
        for($year=2023; $year<=2100; $year++){
            for($month=1; $month<=12; $month++){
              if($year==2023 && $month==1){  
