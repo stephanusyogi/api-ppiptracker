@@ -156,14 +156,6 @@ class DashboardController extends Controller
       $date1=date_create($data_user->tgl_lahir); //Read tanggal lahir
       $date2=date_create("2023-01-31"); //januari 2023
       $diff=date_diff($date1,$date2);
-      
-      /* cek tahun dan bulan
-      $tahun=(int)$diff->format('%y');
-      $bulan=(int)$diff->format('%m');
-      echo json_encode($tahun, true);
-      echo json_encode($bulan, true);
-      die();
-      */
 
       //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
       $usia_tahun = array();
@@ -218,11 +210,25 @@ class DashboardController extends Controller
         DB::table('profil_usia_bulan')->insert(array_merge($data_table,$usia_bulan));
       }
       
-      // echo json_encode(array_merge($data_table,$usia_bulan), true);
-      die();
-       //echo json_encode($usia_tahun, true);
-       //echo json_encode($usia_bulan, true);
-       //die();
+      $check_table = DB::table('profil_usia_tahun')
+      ->where([
+          ['id_user', '=', $id_user]])
+      ->get()->toArray();
+      $data_table = array(
+        'id'=> (string) Str::uuid(),
+        'id_user' => $id_user,
+        'flag' => 1,
+      );
+      if (count($check_table) > 0) {
+        DB::table('profil_usia_tahun')
+        ->where([['id_user', '=', $id_user]])->update([
+            'flag' => 0,
+        ]);
+
+        DB::table('profil_usia_tahun')->insert(array_merge($data_table,$usia_tahun));
+      } else {;
+        DB::table('profil_usia_tahun')->insert(array_merge($data_table,$usia_tahun));
+      }
         
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
