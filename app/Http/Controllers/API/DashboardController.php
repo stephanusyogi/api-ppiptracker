@@ -202,34 +202,23 @@ class DashboardController extends Controller
       ->where([
           ['id_user', '=', $id_user]])
       ->get()->toArray();
-      // if (count($check_table) > 0) {
-      //   DB::table('profil_usia_bulan')
-      //   ->where([['id_user', '=', $id_user]])->update([
-      //       'flag' => 0,
-      //   ]);
-
-      //   DB::table('profil_usia_bulan')->insert([
-      //       'id'=> (string) Str::uuid(),
-      //       'id_user' => $id_user,
-      //       'target_rr' => $target_replacement_ratio,
-      //       'flag' => 1,
-      //   ]);
-      // } else {;
-      //   DB::table('profil_usia_bulan')->insert([
-      //       'id'=> (string) Str::uuid(),
-      //       'id_user' => $id_user,
-      //       'target_rr' => $target_replacement_ratio,
-      //       'flag' => 1,
-      //   ]);
-      // }
-
       $data_table = array(
-        'id'=> 'adhjaa',
+        'id'=> (string) Str::uuid(),
         'id_user' => $id_user,
         'flag' => 1,
       );
+      if (count($check_table) > 0) {
+        DB::table('profil_usia_bulan')
+        ->where([['id_user', '=', $id_user]])->update([
+            'flag' => 0,
+        ]);
+
+        DB::table('profil_usia_bulan')->insert(array_merge($data_table,$usia_bulan));
+      } else {;
+        DB::table('profil_usia_bulan')->insert(array_merge($data_table,$usia_bulan));
+      }
       
-      echo json_encode(array_merge($data_table,$usia_bulan), true);
+      // echo json_encode(array_merge($data_table,$usia_bulan), true);
       die();
        //echo json_encode($usia_tahun, true);
        //echo json_encode($usia_bulan, true);
