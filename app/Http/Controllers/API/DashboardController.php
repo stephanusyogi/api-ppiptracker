@@ -197,8 +197,38 @@ class DashboardController extends Controller
               
           }
       }
+      
+      $check_table = DB::table('profil_usia_bulan')
+      ->where([
+          ['id_user', '=', $id_user]])
+      ->get()->toArray();
+      // if (count($check_table) > 0) {
+      //   DB::table('profil_usia_bulan')
+      //   ->where([['id_user', '=', $id_user]])->update([
+      //       'flag' => 0,
+      //   ]);
 
-      echo json_encode($usia_bulan, true);
+      //   DB::table('profil_usia_bulan')->insert([
+      //       'id'=> (string) Str::uuid(),
+      //       'id_user' => $id_user,
+      //       'target_rr' => $target_replacement_ratio,
+      //       'flag' => 1,
+      //   ]);
+      // } else {;
+      //   DB::table('profil_usia_bulan')->insert([
+      //       'id'=> (string) Str::uuid(),
+      //       'id_user' => $id_user,
+      //       'target_rr' => $target_replacement_ratio,
+      //       'flag' => 1,
+      //   ]);
+      // }
+      
+      echo json_encode([
+        'id'=> 'adhjaa',
+        'id_user' => $id_user,
+        'target_rr' => 163817,
+        'flag' => 1,
+      ], true);
       die();
        //echo json_encode($usia_tahun, true);
        //echo json_encode($usia_bulan, true);
