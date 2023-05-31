@@ -89,9 +89,6 @@ class DashboardController extends Controller
         ],200);
       }
 
-      // echo json_encode($validasi_kuisioner, true);
-      die();
-
       // Get Input Form Data
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
       $gaji = $request->gaji;
@@ -105,8 +102,35 @@ class DashboardController extends Controller
             ['flag','=',1],
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
-        ->get()[0];
-      $target_replacement_ratio = round($res->answer,2);
+        ->get();
+      $target_replacement_ratio = round($res[0]->answer,2);
+      echo $target_replacement_ratio;
+      die();
+      if (count($res) > 0) {
+        DB::table('variabel_kuisioner_target_rr_answer')
+        ->where([
+            ['id_user', '=', $request->id_user],
+            ['kode_kuisioner', '=', $request->kode_kuisioner],
+            ])->update([
+            'flag' => 0,
+        ]);
+
+        DB::table('variabel_kuisioner_target_rr_answer')->insert([
+            'id'=> (string) Str::uuid(),
+            'id_user' => $request->id_user,
+            'kode_kuisioner' => $request->kode_kuisioner,
+            'answer' => $request->answer,
+            'flag' => 1,
+        ]);
+      } else {
+          DB::table('variabel_kuisioner_target_rr_answer')->insert([
+              'id'=> (string) Str::uuid(),
+              'id_user' => $request->id_user,
+              'kode_kuisioner' => $request->kode_kuisioner,
+              'answer' => $request->answer,
+              'flag' => 1,
+          ]);
+      }
 
       // -----------------------------------------------------------------------
       //B.1 Hitung usia diangkat
