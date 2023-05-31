@@ -90,7 +90,6 @@ class DashboardController extends Controller
         ],200);
       }
 
-      // Get Input Form Data
 
       DB::table('activity_dashboard')->insert([
           'id' => (string) Str::uuid(),
@@ -100,6 +99,7 @@ class DashboardController extends Controller
           'ip_address' => $request->ip_address,
       ]);
 
+      // Get Input Form Data
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
       $gaji = $request->gaji;
       $phdp = $request->phdp;
@@ -464,19 +464,21 @@ class DashboardController extends Controller
     }
 
     public function montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv){
+      // Sheet 5
       //Input: Read sisa masa kerja tahun saat awal tahun, portofolio investasi PPIP yang dipilih peserta, return dan risk portofolio ppip, tabel normal inverse;
       $setting_ppip_user = DB::table('setting_portofolio_ppip')->select('*')
       ->where('id_user', $id_user)
       ->where('flag', 1)
       ->get()[0];
 
-
+      //D.1., D.2., dan D.3. Hitung Montecarlo PPIP - hitung tranche, return, dan risk
       //mulai perhitungan
-      $tranche_ppip = array();
-      $return_ppip = array();
-      $risk_ppip = array();
+      $tranche_ppip = array(); // Sheet 5
+      $return_ppip = array(); // Sheet 5
+      $risk_ppip = array(); // Sheet 5
 
-      $nab_ppip = array();
+      //D.4. Hitung Montecarlo PPIP - hitung NAB
+      $nab_ppip = array(); // Sheet 5
 
       $percentile_95_nab_ppip = array();
       $percentile_50_nab_ppip = array();
@@ -486,6 +488,7 @@ class DashboardController extends Controller
 
       $z=1; //untuk konversi $flag_pensiun[$i] dari bulanan ke tahunan
       $iter_mc = 10000;
+    
       for($year=2023; $year<=2100; $year++){
         
         $key_loop = $year;
@@ -516,17 +519,10 @@ class DashboardController extends Controller
         $return_ppip[$key_loop] = $return_ppip_hitung;
         $risk_ppip[$key_loop] = $risk_ppip_hitung;
         
-          /*
-        echo json_encode($tranche_ppip, true);
-        echo json_encode($return_ppip, true);
-        echo json_encode($risk_ppip, true);
-        echo json_encode($setting_ppip_user, true);
-        die();
-        */
-        
 
         //+++++++++++++++++++++++++++++++++
         //D.4. Hitung Montecarlo PPIP - hitung NAB
+        //D.5., D.6., dan D.7. Hitung Montecarlo PPIP - hitung percentile 95, 50, dan 5 dari NAB
         if($tranche_ppip_hitung != "null"){ //jika masih belum pensiun
                   
           //$previous_nab = null;
@@ -597,11 +593,6 @@ class DashboardController extends Controller
         $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
               
       }  // end dari for 2023 s.d. 2100
-        
-        //echo json_encode($percentile_95_nab_ppip, true);
-        //echo json_encode($percentile_50_nab_ppip, true);
-        //echo json_encode($percentile_05_nab_ppip, true);
-        //die();
           
         
       // -----------------------------------------------------------------------
@@ -682,11 +673,7 @@ class DashboardController extends Controller
         //die();
         
       }
-      //die();      
-      //echo json_encode($percentile_95_return_monthly_ppip, true);
-      //echo json_encode($percentile_50_return_monthly_ppip, true);
-      //echo json_encode($percentile_05_return_monthly_ppip, true);
-      //die();
+
       return array(
         "tranche_ppip" => $tranche_ppip,
         "return_ppip" => $return_ppip,
@@ -705,6 +692,7 @@ class DashboardController extends Controller
     }
 
     public function montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv){
+      // Sheet 6
       //Input: Read sisa masa kerja tahun saat awal tahun, portofolio investasi Personal yang dipilih peserta, return dan risk portofolio Personal, tabel normal inverse;
       $setting_personal_lifecycle_user = array();
       // Personal Keuangan
@@ -737,10 +725,6 @@ class DashboardController extends Controller
         $key_tahun = $year . "_1";
         $sisa_kerja_tahun_hitung = $sisa_kerja_tahun[$key_tahun];//Read sisa masa kerja tahun setiap bulan januari
         $flag_pensiun_hitung = $flag_pensiun[$key_tahun];//Read flag pensiun setiap bulan januari
-        
-        //echo json_encode($sisa_kerja_tahun_hitung, true);
-        //echo json_encode($flag_pensiun_hitung, true);
-        //die();
 
         //+++++++++++++++++++++++++++++++++
         //E.1., E.2., dan E.3. Hitung Montecarlo Personal - hitung tranche, return, dan risk
@@ -765,9 +749,6 @@ class DashboardController extends Controller
         $tranche_personal[$year] = $tranche_personal_hitung;
         $return_personal[$year] = $return_personal_hitung;
         $risk_personal[$year] = $risk_personal_hitung;
-          
-        //echo json_encode($tranche_personal, true);
-        //die();
 
         //+++++++++++++++++++++++++++++++++
         //E.4. Hitung Montecarlo personal - hitung NAB
@@ -792,8 +773,6 @@ class DashboardController extends Controller
               //$nab_personal[$year] = round($nab_personal_hitung, 2);
           }
         }
-          //echo json_encode($nab_personal_hitung, true);
-          //die();
 
         //+++++++++++++++++++++++++++++++++
         //E.5., E.6., dan E.7. Hitung Montecarlo PERSONAL - hitung percentile 95, 50, dan 5 dari NAB
@@ -805,10 +784,8 @@ class DashboardController extends Controller
             $k++;
           }
           
-          //echo json_encode($percentile_temp1, true);
           sort($percentile_temp1); //shorting array
-          //echo json_encode($percentile_temp1, true);
-          //die();
+
           $k=0; //index waktu sorting mulai dari nol
           for ($j=1;$j<=$iterasi_mc;$j++){
             $percentile_temp2[$j]=$percentile_temp1[$k]; //mengembalikan lagi ke urutan array yang telah disortir
@@ -829,10 +806,6 @@ class DashboardController extends Controller
         $percentile_05_nab_personal[$year] = $percentile_05_nab_personal_hitung;
       } // end dari for 2023 s.d. 2100
       
-        //echo json_encode($percentile_95_nab_personal, true);
-        //echo json_encode($percentile_50_nab_personal, true);
-        //echo json_encode($percentile_05_nab_personal, true);
-        //die();
       
       //--------------------------------------------------------
       //E.8., E.9., dan E.10. Hitung Montecarlo PERSONAL - hitung return dari Percentile NAB
@@ -897,10 +870,6 @@ class DashboardController extends Controller
         $percentile_50_return_monthly_personal[$year]=$percentile_50_return_monthly_personal_hitung;
         $percentile_05_return_monthly_personal[$year]=$percentile_05_return_monthly_personal_hitung;
       }
-       // echo json_encode($percentile_95_return_monthly_personal, true);
-       //echo json_encode($percentile_50_return_monthly_personal, true);
-       //echo json_encode($percentile_05_return_monthly_personal, true);
-       //die();
       
       return array(
         "tranche_personal" => $tranche_personal,
@@ -920,6 +889,7 @@ class DashboardController extends Controller
     }
 
     public function simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji_form, $phdp_form,  $id_user){
+      // Tidak disimpan ke DB
       //Input: Read inputan user tentang gaji dan PhDP, tanggal input
       $timestamp = strtotime($tgl_update_gaji_phdp);
       $bulan=date('n', $timestamp);//Read bulan input
@@ -928,9 +898,6 @@ class DashboardController extends Controller
       
       $gaji_input=(int)$gaji_form; //Read gaji yang diinput
       $phdp_input=(int)$phdp_form; //Read phdp yang diinput
-        
-      //echo json_encode($kode_input, true);
-      //die();
 
       /*
       $saldo_ppip_input=0; //numpang untuk mengisi saldo ppip, Read saldo ppip yang diinput
@@ -952,9 +919,6 @@ class DashboardController extends Controller
       $gaji_naik = $setting_nilai_asumsi_user->kenaikan_gaji;//Read kenaikan gaji di admin
       $phdp_naik = $setting_nilai_asumsi_user->kenaikan_phdp;//Read kenaikan phdp di admin
         
-      //echo json_encode($gaji_naik, true);
-      //echo json_encode($phdp_naik, true);
-      //die();
 
       $year = 2023; //tahun awal di database
       $k=1;
@@ -1011,9 +975,7 @@ class DashboardController extends Controller
           
         }
       }
-      //echo json_encode($gaji, true);
-      //echo json_encode($phdp, true);
-      //die();
+      
       return array(
         "gaji" => $gaji,
         "phdp" => $phdp,
@@ -1024,25 +986,16 @@ class DashboardController extends Controller
     }
 
     public function simulasi_ppmp($data_user, $id_user, $masa_dinas_tahun, $masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp){
+      // Sheet 4 Baris 29
       //Input: variabel $phdp[$i] yang ada di memory, Read masa dinas tahun dan bulan, dan flag pensiun
       $date1 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
       $date2 = date_create("2015-01-01"); //tanggal cutoff pensiun hybrid. yang diangkat setelah 1 januari 2015 ppip murni, kalau sebelumnya hybrid ppmp dan ppip
       $diff = date_diff($date1,$date2);
       
       $hari = $diff->format('%R%a');
-      
-      //echo json_encode($date1, true);
-      //echo json_encode($date2, true);
-      //echo json_encode($diff, true);
-      //echo json_encode($hari, true);
-      //die();
 
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
-        
-      //echo json_encode($gaji, true);
-      //echo json_encode($phdp, true);
-      //die();
 
       $jumlah_ppmp = array();
       $rr_ppmp = array();
@@ -1075,11 +1028,6 @@ class DashboardController extends Controller
           $status_mp[$year] = $status_mp_hitung;
         }
       }
-      
-      //echo json_encode($jumlah_ppmp, true);
-      //echo json_encode($rr_ppmp, true);
-      //echo json_encode($status_mp, true);
-      //die();
 
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
@@ -1089,6 +1037,7 @@ class DashboardController extends Controller
     }
 
     public function simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip){
+      // Sheet 4 Baris 32
       //Input: variabel $gaji{$i] yang ada di memory serta flag pensiun, status mp yang sudah dihitung sebelumnya, Read tambahan iuran ppip, Read Saldo PPIP, Read pilihan pembayaran PPIP di profil user
       
       $status_mp = $return_simulasi_ppmp['status_mp'];
@@ -1098,9 +1047,6 @@ class DashboardController extends Controller
       $counter_saldo_ppip = explode("_", $return_simulasi_gaji_phdp['counter_saldo_ppip']);
       $counter_saldo_ppip_year = $counter_saldo_ppip[0]; 
       $counter_saldo_ppip_month = $counter_saldo_ppip[1];
-      
-      //echo json_encode($counter_saldo_ppip_month, true);
-      //die();
       
       $percentile_95_return_monthly_ppip = $montecarlo_ppip["percentile_95_return_monthly_ppip"];
       $percentile_50_return_monthly_ppip = $montecarlo_ppip["percentile_50_return_monthly_ppip"];
@@ -1121,9 +1067,6 @@ class DashboardController extends Controller
 
       $persentase_tambahan_iuran_ppip=$setting_nilai_asumsi_user->tambahan_iuran;// Read tambahan iuran ppip di profil user
       $saldo_ppip_input=$data_user->saldo_ppip;// Read saldo ppip yang diinput (saldo diasumsikan diinput di awal bulan)
-      
-      //echo json_encode($saldo_ppip_input, true);
-      //die();
 
       //nilai default pilihan pembayaran PPIP
       //Input: Read pilihan pembayaran PPIP, Read kupon SBN/SBSN dan beserta pajak dari profil user, Read Harga anuitas dari profil user
@@ -1348,13 +1291,13 @@ class DashboardController extends Controller
         "percentile_05_return_ppip_bulanan" => $percentile_05_return_ppip_bulanan,
         "saldo_ppip_awal_p95" => $saldo_ppip_awal_p95,
         "pengembangan_ppip_p95" => $pengembangan_ppip_p95,
-        "saldo_ppip_akhir_p95" => $saldo_ppip_akhir_p95,
+        "saldo_ppip_akhir_p95" => $saldo_ppip_akhir_p95, // Data FE Diagram
         "saldo_ppip_awal_p50" => $saldo_ppip_awal_p50,
         "pengembangan_ppip_p50" => $pengembangan_ppip_p50,
-        "saldo_ppip_akhir_p50" => $saldo_ppip_akhir_p50,
+        "saldo_ppip_akhir_p50" => $saldo_ppip_akhir_p50, // Data FE Diagram
         "saldo_ppip_awal_p05" => $saldo_ppip_awal_p05,
         "pengembangan_ppip_p05" => $pengembangan_ppip_p05,
-        "saldo_ppip_akhir_p05" => $saldo_ppip_akhir_p05,
+        "saldo_ppip_akhir_p05" => $saldo_ppip_akhir_p05, // Data FE Diagram
         "anuitas_ppip_p95" => $anuitas_ppip_p95,
         "anuitas_ppip_p50" => $anuitas_ppip_p50,
         "anuitas_ppip_p05" => $anuitas_ppip_p05,
@@ -1371,6 +1314,7 @@ class DashboardController extends Controller
     }
 
     public function simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp){
+      // Sheet 4 Baris 69
       //F.4.1. dan F.4.2. Simulasi Properti - Hitung harga dan sewa properti
       //Input: Read harga properti, sewa tahunan, kenaikan harga properti, dan kenaikan harga sewa di profil user
       $saldo_personal_properti_input=$data_user->jumlah_investasi_properti;// Read harga properti keuangan yang diinput di profil user
@@ -1452,6 +1396,7 @@ class DashboardController extends Controller
     }
 
     public function simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp){
+      // Sheet 4 Baris 73
       //Input: variabel $gaji{$i] yang ada di memory serta flag pensiun, Read tambahan iuran personal_keuangan, Read Saldo PERSONAL_KEUANGAN
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $counter_saldo_personal_keuangan = explode("_", $return_simulasi_gaji_phdp['counter_saldo_personal_keuangan']);
@@ -1698,13 +1643,13 @@ class DashboardController extends Controller
         "percentile_05_return_personal_keuangan_bulanan" => $percentile_05_return_personal_keuangan_bulanan,
         "saldo_personal_keuangan_awal_p95" => $saldo_personal_keuangan_awal_p95,
         "pengembangan_personal_keuangan_p95" => $pengembangan_personal_keuangan_p95,
-        "saldo_personal_keuangan_akhir_p95" => $saldo_personal_keuangan_akhir_p95,
+        "saldo_personal_keuangan_akhir_p95" => $saldo_personal_keuangan_akhir_p95, // Data FE Diagram
         "saldo_personal_keuangan_awal_p50" => $saldo_personal_keuangan_awal_p50,
         "pengembangan_personal_keuangan_p50" => $pengembangan_personal_keuangan_p50,
-        "saldo_personal_keuangan_akhir_p50" => $saldo_personal_keuangan_akhir_p50,
+        "saldo_personal_keuangan_akhir_p50" => $saldo_personal_keuangan_akhir_p50, // Data FE Diagram
         "saldo_personal_keuangan_awal_p05" => $saldo_personal_keuangan_awal_p05,
         "pengembangan_personal_keuangan_p05" => $pengembangan_personal_keuangan_p05,
-        "saldo_personal_keuangan_akhir_p05" => $saldo_personal_keuangan_akhir_p05,
+        "saldo_personal_keuangan_akhir_p05" => $saldo_personal_keuangan_akhir_p05, // Data FE Diagram
         "previous_saldo_personal_keuangan_akhir_p95" => $previous_saldo_personal_keuangan_akhir_p95,
         "previous_saldo_personal_keuangan_akhir_p50" => $previous_saldo_personal_keuangan_akhir_p50,
         "previous_saldo_personal_keuangan_akhir_p05" => $previous_saldo_personal_keuangan_akhir_p05,
@@ -1724,6 +1669,7 @@ class DashboardController extends Controller
     }
 
     public function indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp){
+      // Sheet 1
       //Input: Read flag pensiun
       $counter_pensiun=""; //counter posisi pensiun
       $previous_flag_pensiun = null;
@@ -1743,6 +1689,8 @@ class DashboardController extends Controller
           $previous_flag_pensiun = $flag_pensiun[$key];
         }
       }
+
+      // Note: Bungkus loop year month untuk total rr
 
       $parts_counter_pensiun = explode("_", $counter_pensiun);
       $counter_pensiun_year = intval($parts_counter_pensiun[0]);
@@ -1822,6 +1770,8 @@ class DashboardController extends Controller
         $dashboard_rr_total_max = $dashboard_rr_ppmp +  $dashboard_rr_ppip_max + $dashboard_rr_personal_keuangan_max + $dashboard_rr_personal_properti;
 
       } else {
+        $dashboard_rr_ppmp = null;
+
         $dashboard_rr_total_min = $dashboard_rr_ppip_min + $dashboard_rr_personal_keuangan_min + $dashboard_rr_personal_properti;
         $dashboard_rr_total_med = $dashboard_rr_ppip_med + $dashboard_rr_personal_keuangan_med + $dashboard_rr_personal_properti;
         $dashboard_rr_total_max = $dashboard_rr_ppip_max + $dashboard_rr_personal_keuangan_max + $dashboard_rr_personal_properti;
@@ -1958,195 +1908,5 @@ class DashboardController extends Controller
       );
     }
 
-    // Section Development - Yogi
-    // public function index_yogi(Request $request){
-    //   $id_user = $request->input('id_user');
-
-    //   // Get Input Form Data
-    //   $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
-    //   $gaji = $request->gaji;
-    //   $phdp = $request->phdp;
-
-    //   //A.1 Hitung Target Replacement Ratio
-    //   $res = DB::table('variabel_kuisioner_target_rr_answer')
-    //     ->select("answer")
-    //     ->where([
-    //         ['id_user','=',$id_user],
-    //         ['flag','=',1],
-    //         ['kode_kuisioner','=',"TARGET_RR"],
-    //     ])
-    //     ->get()[0];
-    //   $target_replacement_ratio = round($res->answer,2);
-
-    //   // -----------------------------------------------------------------------
-    //   //B.1 Hitung usia diangkat
-    //   $data_user = User::select('*')->where('id',$id_user)->get()[0];
-    //   $date1 = date_create($data_user->tgl_lahir); //Read tanggal lahir
-    //   $date2 = date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
-
-    //   $diff = date_diff($date1,$date2);
-
-    //   $tahun = $diff->format('%y');
-    //   $bulan = $diff->format('%m');
-
-    //   // -----------------------------------------------------------------------
-    //   //C.1. Simulasi Basic - hitung usia (usia diisi dari januari 2023 s.d. desember 2100)
-    //   $date1=date_create($data_user->tgl_lahir); //Read tanggal lahir
-    //   $date2=date_create("2023-01-01"); //januari 2023
-    //   $diff=date_diff($date1,$date2);
-
-    //   //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
-    //   $usia_tahun = array();
-    //   $usia_bulan = array();
-    //   for($year=2023; $year<=2100; $year++){
-    //     for($month=1; $month<=12; $month++){
-    //       if($year==2023 && $month==1){
-    //         $tahun=(int)$diff->format('%y');
-    //         $bulan=(int)$diff->format('%m');
-    //         $bulan = $bulan +1;
-    //       } else {
-    //         if($bulan >=12){
-    //           $tahun = $tahun+1;
-    //           $bulan = 1;
-    //         }
-    //         $bulan = $bulan +1;
-    //       }
-
-    //       $key_tahun = $year . "_" . $month;
-    //       $usia_tahun[$key_tahun] = $tahun;
-    //       $key_bulan = $year . "_" . $month;
-    //       $usia_bulan[$key_bulan] = $bulan;
-    //     }
-    //   }
-    //   // -----------------------------------------------------------------------
-    //   //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
-    //   $date1=date_create($data_user->tgl_diangkat_pegawai); //Read tanggal diangkat
-    //   $date2=date_create("2023-01-31"); //januari 2023
-    //   $diff=date_diff($date1,$date2);
-
-    //   //Output: Create $masa_dinas_tahun[$i] dan $masa_dinas_bulan[$i] ke masing-masing tahun dan bulan di database masa dinas
-    //   $sisa_masa_dinas_tahun = array();
-    //   $sisa_masa_dinas_bulan = array();
-    //   for($year=2023; $year<=2100; $year++){
-    //       for($month=1; $month<=12; $month++){
-    //           if($year==2023 && $month==1){
-    //             $tahun=(int)$diff->format('%y');
-    //             $bulan=(int)$diff->format('%m');
-    //             $bulan = $bulan +1;
-    //           } else {
-    //             if($bulan >=12){
-    //               $bulan = 1;
-    //               $tahun = $tahun+1;
-    //             }
-    //             $bulan = $bulan +1;
-    //           }
-
-    //           $key_tahun = $year . "_" . $month;
-    //           $sisa_masa_dinas_tahun[$key_tahun] = $tahun;
-    //           $key_bulan = $year . "_" . $month;
-    //           $sisa_masa_dinas_bulan[$key_bulan] = $bulan;
-    //       }
-    //   }
-    //   // -----------------------------------------------------------------------
-    //   //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
-    //   $usia_pensiun=$data_user->usia_pensiun; //read usia pensiun
-    //   $tahun_pensiun=$usia_pensiun - 1;
-    //   $bulan_pensiun=12;
-
-    //   //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
-    //   $sisa_kerja_tahun = array();
-    //   $sisa_kerja_bulan = array();
-    //   for($year=2023; $year<=2100; $year++){
-    //       for($month=1; $month<=12; $month++){
-    //         if($year==2023 && $month==1){  
-    //           $usia_tahun=$usia_tahun["2023_1"]; //read usia tahun saat januari 2023
-    //           $usia_bulan=$usia_bulan["2023_1"]; //read usia bulan saat januari 2023
-  
-    //           $sisa_kerja_tahun_hitung = $tahun_pensiun - $usia_tahun;
-    //           $sisa_kerja_bulan_hitung = $bulan_pensiun - $usia_bulan;
-    //             //konversi bulan dari posisi dari 1-12 ke 0-11
-    //             if($sisa_kerja_bulan_hitung == 12){
-    //               $sisa_kerja_tahun_hitung = $sisa_kerja_tahun_hitung + 1;
-    //               $sisa_kerja_bulan_hitung = 0;
-    //             }  
-              
-    //             //menurunkan bulan
-    //             if($sisa_kerja_bulan_hitung<=0){
-    //               $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
-    //               $sisa_kerja_bulan_hitung=11;
-    //             } else{
-    //               $sisa_kerja_bulan_hitung=$sisa_kerja_bulan_hitung-1;
-    //             }
-                
-    //         } else {
-    //           if($sisa_kerja_bulan_hitung<=0){
-    //               $sisa_kerja_tahun_hitung=$sisa_kerja_tahun_hitung-1;
-    //               $sisa_kerja_bulan_hitung=11;
-    //           }
-    //           $sisa_kerja_bulan_hitung=$sisa_kerja_bulan_hitung-1;
-    //         }
-            
-    //         $key_tahun = $year . "_" . $month;
-    //         $sisa_kerja_tahun[$key_tahun] = $sisa_kerja_tahun_hitung;
-    //         $key_bulan = $year . "_" . $month;
-    //         $sisa_kerja_bulan[$key_bulan] = $sisa_kerja_bulan_hitung;
-    //       }
-    //   }
-
-    //   // -----------------------------------------------------------------------
-    //   //C.4. Flag Pensiun/belum pensiun 
-    //   $flag_pensiun = array();
-    //   for($year=2023; $year<=2100; $year++){
-    //     for($month=1; $month<=12; $month++){
-    //       $key = $year . "_" . $month;
-    //       $flag_sisa_kerja_tahun=$sisa_kerja_tahun[$key];//Read sisa masa kerja tahun
-    //       $flag_sisa_kerja_bulan=$sisa_kerja_bulan[$key];//Read sisa masa kerja bulan
-          
-    //       if($flag_sisa_kerja_tahun<0){
-    //         $flag=1;//sudah pensiun
-    //       } else {
-    //         $flag=0;//belum pensiun
-    //       }
-    //       $flag_pensiun[$key] = $flag;
-    //     }
-    //   }
-      
-    //   // Tabel Norm Inverse
-    //   $tabel_norminv = DB::table('distribusi_normal')->select('norm_inv')
-    //     ->get()->toArray();
-    //   for ($i=1;$i<count($tabel_norminv);$i++){ //$i adalah primary key dari tabel normal inverse yang ada di database
-    //       $norminv[$i]=$tabel_norminv[$i]->norm_inv;//Read tabel normal inverse
-    //   }
-      
-    //   // -----------------------------------------------------------------------
-    //   //D. Hitung Montecarlo PPIP
-    //   $montecarlo_ppip = $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
-
-    //   // -----------------------------------------------------------------------
-    //   //E. Hitung Montecarlo Personal Keuangan
-    //   $montecarlo_personal_keuangan = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
-      
-    //   //---------------------------------------------------------
-    //   //F. Perhitungan Simulasi
-    //   //F.1. Simulasi Gaji dan PhDP
-    //   $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji, $phdp, $id_user);
-    //   //F.2. Simulasi PPMP
-    //   $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $sisa_masa_dinas_tahun, $sisa_masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
-    //   //F.3. Simulasi PPIP
-    //   $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
-    //   //F.4. Simulasi Personal Properti
-    //   $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
-    //   //F.5. Simulasi PERSONAL_KEUANGAN
-    //   $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp);
-      
-    //   //----------------------------------------------------------------------------
-    //   //G.1. Hitung indikator dashboard - lokasi pensiun4
-    //   $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp);
-
-    //   return response()->json([
-    //     "status" =>true,
-    //     "message"=>"Testing Hitung Awal!",
-    //   ],200);
-    // }
 }
 
