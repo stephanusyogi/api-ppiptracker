@@ -16,29 +16,78 @@ class DashboardController extends Controller
       // Validasi kelengkapan data
       // Validasi Kuisioner
       $validasi_kuisioner = DB::table('variabel_kuisioner_target_rr_answer')
-        ->select("answer")
-        ->where([
-            ['id_user','=',$id_user],
-            ['flag','=',1],
-            ['kode_kuisioner','=',"TARGET_RR"],
-        ])
-        ->get();
-        if (count($validasi_kuisioner) === 0) {
-          return response()->json([
-            "status" =>false,
-            "message"=>"Kuisioner Kosong",
-          ],200);
-        }
+      ->select("answer")
+      ->where([
+          ['id_user','=',$id_user],
+          ['flag','=',1],
+          ['kode_kuisioner','=',"TARGET_RR"],
+      ])
+      ->get();
+      if (count($validasi_kuisioner) === 0) {
+        return response()->json([
+          "status" =>false,
+          "message"=>"Kuisioner Kosong",
+        ],200);
+      }
 
       // Validasi Setting Portofolio PPIP
+      $validasi_setting_ppip = DB::table('setting_portofolio_ppip')->select('*')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->get();
+      if (count($validasi_setting_ppip) === 0) {
+        return response()->json([
+          "status" =>false,
+          "message"=>"Setting PPIP User Kosong",
+        ],200);
+      }
 
       // Validasi Setting Portofolio Personal
+      $validasi_setting_personal_user = DB::table('setting_portofolio_personal')->select('*')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->get();
+      if (count($validasi_setting_personal_user) === 0) {
+        return response()->json([
+          "status" =>false,
+          "message"=>"Setting Personal User Kosong",
+        ],200);
+      }
 
       // Validasi Setting Lifecycle
+      $validasi_setting_lifecycle_user = DB::table('setting_komposisi_investasi_lifecycle_fund')->select('*')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->get();
+      if (count($validasi_setting_lifecycle_user) === 0) {
+        return response()->json([
+          "status" =>false,
+          "message"=>"Setting Lifecycle User Kosong",
+        ],200);
+      }
 
       // Validasi Setting Nilai Asumsi User
-
+      $validasi_setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
+      ->where('id_user', $id_user)
+      ->where('flag', 1)
+      ->select('*')->get();
+      if (count($validasi_setting_nilai_asumsi_user) === 0) {
+        return response()->json([
+          "status" =>false,
+          "message"=>"Setting Nilai Asumsi User Kosong",
+        ],200);
+      }
       // Validasi Setting Treatment Pembayaran
+      $validasi_setting_treatment_user = DB::table('setting_treatment_pembayaran_setelah_pensiun')
+            ->where('id_user', $id_user)
+            ->where('flag', 1)
+            ->select('*')->get();
+      if (count($validasi_setting_treatment_user) === 0) {
+        return response()->json([
+          "status" =>false,
+          "message"=>"Setting Treament Pembayaran User Kosong",
+        ],200);
+      }
 
       // echo json_encode($validasi_kuisioner, true);
       die();
