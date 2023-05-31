@@ -13,6 +13,29 @@ class DashboardController extends Controller
     public function index(Request $request){
       $id_user = $request->input('id_user');
 
+      // Validasi kelengkapan data
+      // Validasi Kuisioner
+      $validasi_kuisioner = DB::table('variabel_kuisioner_target_rr_answer')
+        ->select("answer")
+        ->where([
+            ['id_user','=',$id_user],
+            ['flag','=',1],
+            ['kode_kuisioner','=',"TARGET_RR"],
+        ])
+        ->get();
+        echo json_encode($validasi_kuisioner, true);
+        die();
+
+      // Validasi Setting Portofolio PPIP
+
+      // Validasi Setting Portofolio Personal
+
+      // Validasi Setting Lifecycle
+
+      // Validasi Setting Nilai Asumsi User
+
+      // Validasi Setting Treatment Pembayaran
+
       // Get Input Form Data
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
       $gaji = $request->gaji;
