@@ -315,16 +315,10 @@ class DashboardController extends Controller
        $usia_pensiun=$data_user->usia_pensiun; //read usia pensiun
        $tahun_pensiun=$usia_pensiun - 1;
        $bulan_pensiun=12;
-       
-        /*
-       echo json_encode($usia_pensiun, true);
-       echo json_encode($tahun_pensiun, true);
-       die();
-       */
  
        //Output: Create $tahun dan $bulan ke masing-masing tahun dan bulan di database usia 
        $sisa_kerja_tahun = array();
-       $sisa_kerja_bulan = array();
+       $ = array();
        for($year=2023; $year<=2100; $year++){
            for($month=1; $month<=12; $month++){
              if($year==2023 && $month==1){  
@@ -370,11 +364,46 @@ class DashboardController extends Controller
              }             
            }
        }
-           
-       //echo json_encode($sisa_kerja_bulan, true);
-      //echo json_encode($sisa_kerja_tahun, true);
-       //die();
+       
+        $check_table = DB::table('profil_sisa_masa_kerja_tahun')
+        ->where([
+            ['id_user', '=', $id_user]])
+        ->get()->toArray();
+        $data_table = array(
+          'id'=> (string) Str::uuid(),
+          'id_user' => $id_user,
+          'flag' => 1,
+        );
+        if (count($check_table) > 0) {
+          DB::table('profil_sisa_masa_kerja_tahun')
+          ->where([['id_user', '=', $id_user]])->update([
+              'flag' => 0,
+          ]);
+
+          DB::table('profil_sisa_masa_kerja_tahun')->insert(array_merge($data_table,$sisa_kerja_tahun));
+        } else {;
+          DB::table('profil_sisa_masa_kerja_tahun')->insert(array_merge($data_table,$sisa_kerja_tahun));
+        }
         
+        $check_table = DB::table('profil_sisa_masa_kerja_bulan')
+        ->where([
+            ['id_user', '=', $id_user]])
+        ->get()->toArray();
+        $data_table = array(
+          'id'=> (string) Str::uuid(),
+          'id_user' => $id_user,
+          'flag' => 1,
+        );
+        if (count($check_table) > 0) {
+          DB::table('profil_sisa_masa_kerja_bulan')
+          ->where([['id_user', '=', $id_user]])->update([
+              'flag' => 0,
+          ]);
+
+          DB::table('profil_sisa_masa_kerja_bulan')->insert(array_merge($data_table,$sisa_kerja_bulan));
+        } else {;
+          DB::table('profil_sisa_masa_kerja_bulan')->insert(array_merge($data_table,$sisa_kerja_bulan));
+        }
         
        // -----------------------------------------------------------------------
        //C.4. Flag Pensiun/belum pensiun 
@@ -393,8 +422,6 @@ class DashboardController extends Controller
            $flag_pensiun[$key] = $flag;
          }
        }
-       //echo json_encode($flag_pensiun, true);
-       //die();
         
        // Tabel Norm Inverse
        $tabel_norminv = DB::table('distribusi_normal')->select('norm_inv')
@@ -406,16 +433,10 @@ class DashboardController extends Controller
        // -----------------------------------------------------------------------
        //D. Hitung Montecarlo PPIP
        $montecarlo_ppip = $this->montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
-       
-        //echo json_encode($montecarlo_ppip, true);
-        //die();
  
        // -----------------------------------------------------------------------
        //E. Hitung Montecarlo Personal Keuangan
        $montecarlo_personal_keuangan = $this->montecarlo_personal($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv);
-        
-       //echo json_encode($montecarlo_personal_keuangan, true);
-       //die();
        
        //---------------------------------------------------------
        //F. Perhitungan Simulasi
@@ -425,16 +446,10 @@ class DashboardController extends Controller
        $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $masa_dinas_tahun, $masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
        //F.3. Simulasi PPIP
        $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
-        //echo json_encode( $return_simulasi_ppip, true);
-        //die();
        //F.4. Simulasi Personal Properti
        $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
-        //echo json_encode($return_simulasi_personal_properti, true);
-        //die();
        //F.5. Simulasi PERSONAL_KEUANGAN
        $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp);
-       //echo json_encode($return_simulasi_personal_keuangan, true);
-       //die();
         
        //----------------------------------------------------------------------------
        //G.1. Hitung indikator dashboard - lokasi pensiun4
