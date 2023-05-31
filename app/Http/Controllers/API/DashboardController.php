@@ -23,7 +23,7 @@ class DashboardController extends Controller
             ['kode_kuisioner','=',"TARGET_RR"],
         ])
         ->get();
-        if (!$validasi_kuisioner) {
+        if (empty($validasi_kuisioner)) {
           return response()->json([
             "status" =>false,
             "message"=>"Kuisioner Kosong",
@@ -40,7 +40,7 @@ class DashboardController extends Controller
 
       // Validasi Setting Treatment Pembayaran
 
-      echo json_encode($validasi_kuisioner, true);
+      // echo json_encode($validasi_kuisioner, true);
       die();
 
       // Get Input Form Data
