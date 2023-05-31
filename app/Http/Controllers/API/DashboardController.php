@@ -268,11 +268,47 @@ class DashboardController extends Controller
               }             
           }
       }
+
+      $check_table = DB::table('profil_masa_kerja_tahun')
+      ->where([
+          ['id_user', '=', $id_user]])
+      ->get()->toArray();
+      $data_table = array(
+        'id'=> (string) Str::uuid(),
+        'id_user' => $id_user,
+        'flag' => 1,
+      );
+      if (count($check_table) > 0) {
+        DB::table('profil_masa_kerja_tahun')
+        ->where([['id_user', '=', $id_user]])->update([
+            'flag' => 0,
+        ]);
+
+        DB::table('profil_masa_kerja_tahun')->insert(array_merge($data_table,$masa_dinas_tahun));
+      } else {;
+        DB::table('profil_masa_kerja_tahun')->insert(array_merge($data_table,$masa_dinas_tahun));
+      }
+      
+      $check_table = DB::table('profil_masa_kerja_bulan')
+      ->where([
+          ['id_user', '=', $id_user]])
+      ->get()->toArray();
+      $data_table = array(
+        'id'=> (string) Str::uuid(),
+        'id_user' => $id_user,
+        'flag' => 1,
+      );
+      if (count($check_table) > 0) {
+        DB::table('profil_masa_kerja_bulan')
+        ->where([['id_user', '=', $id_user]])->update([
+            'flag' => 0,
+        ]);
+
+        DB::table('profil_masa_kerja_bulan')->insert(array_merge($data_table,$masa_dinas_bulan));
+      } else {;
+        DB::table('profil_masa_kerja_bulan')->insert(array_merge($data_table,$masa_dinas_bulan));
+      }
        
-       
-       //echo json_encode($masa_dinas_bulan, true);
-       //echo json_encode($masa_dinas_tahun, true);
-       //die();
        
        // -----------------------------------------------------------------------
        //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
