@@ -345,7 +345,6 @@ class DashboardController extends Controller
     }
 
     public function montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv){
-      $this->uploadToDatabase();
       // Sheet 5
       //Input: Read sisa masa kerja tahun saat awal tahun, portofolio investasi PPIP yang dipilih peserta, return dan risk portofolio ppip, tabel normal inverse;
       $setting_ppip_user = DB::table('setting_portofolio_ppip')->select('*')
@@ -475,7 +474,11 @@ class DashboardController extends Controller
         $percentile_05_nab_ppip[$key_loop] = $percentile_05_nab_ppip_hitung;
               
       }  // end dari for 2023 s.d. 2100
-          
+
+      $this->uploadToDatabase("ppip_tahun_tranche", $id_user, $tranche_ppip);
+      die();
+      // $this->uploadToDatabase("profil_sisa_masa_kerja_bulan", $id_user, $return_ppip);
+      // $this->uploadToDatabase("profil_sisa_masa_kerja_bulan", $id_user, $risk_ppip);
         
       // -----------------------------------------------------------------------
       //D.8., D.9., dan D.10. Hitung Montecarlo PPIP - hitung return dari Percentile NAB
