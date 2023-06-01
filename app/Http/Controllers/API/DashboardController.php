@@ -1340,6 +1340,11 @@ class DashboardController extends Controller
           $rr_personal_properti[$key] = $rr_personal_properti_hitung;
         }
       }
+
+      $this->uploadToDatabase("profil_personal_properti_harga", $id_user, $harga_properti);
+      $this->uploadToDatabase("profil_personal_properti_sewa", $id_user, $sewa_properti);
+      $this->uploadToDatabase("profil_personal_properti_rr", $id_user, $rr_personal_properti);
+
       return array(
         "harga_properti" => $harga_properti,
         "sewa_properti" => $sewa_properti,
