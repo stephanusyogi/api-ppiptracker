@@ -701,7 +701,14 @@ class DashboardController extends Controller
         $percentile_50_nab_personal[$year] = $percentile_50_nab_personal_hitung;
         $percentile_05_nab_personal[$year] = $percentile_05_nab_personal_hitung;
       } // end dari for 2023 s.d. 2100
+
+      $this->uploadToDatabase("personal_keuangan_tahun_tranche", $id_user, $tranche_personal);
+      $this->uploadToDatabase("personal_keuangan_tahun_return_portofolio", $id_user, $return_personal);
+      $this->uploadToDatabase("personal_keuangan_tahun_risk_portofolio", $id_user, $risk_personal);
       
+      $this->uploadToDatabase("personal_keuangan_nab_p5", $id_user, $percentile_95_nab_personal);
+      $this->uploadToDatabase("personal_keuangan_nab_p50", $id_user, $percentile_50_nab_personal);
+      $this->uploadToDatabase("personal_keuangan_nab_p5", $id_user, $percentile_05_nab_personal);
       
       //--------------------------------------------------------
       //E.8., E.9., dan E.10. Hitung Montecarlo PERSONAL - hitung return dari Percentile NAB
