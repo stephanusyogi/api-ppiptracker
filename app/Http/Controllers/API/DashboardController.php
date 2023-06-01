@@ -1202,7 +1202,10 @@ class DashboardController extends Controller
       }
 
       $this->uploadToDatabase("profil_ppip_besar_iuran", $id_user, $iuran);
-      die();
+
+      $this->uploadToDatabase("profil_ppip_investasi_p95", $id_user, $percentile_95_return_ppip_bulanan);
+      $this->uploadToDatabase("profil_ppip_investasi_p50", $id_user, $percentile_50_return_ppip_bulanan);
+      $this->uploadToDatabase("profil_ppip_investasi_p5", $id_user, $percentile_05_return_ppip_bulanan);
 
       return array(
         "iuran" => $iuran,
