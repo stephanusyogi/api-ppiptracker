@@ -476,8 +476,8 @@ class DashboardController extends Controller
       }  // end dari for 2023 s.d. 2100
 
       $this->uploadToDatabase("ppip_tahun_tranche", $id_user, $tranche_ppip);
+      $this->uploadToDatabase("ppip_tahun_return_portofolio", $id_user, $return_ppip);
       die();
-      // $this->uploadToDatabase("profil_sisa_masa_kerja_bulan", $id_user, $return_ppip);
       // $this->uploadToDatabase("profil_sisa_masa_kerja_bulan", $id_user, $risk_ppip);
         
       // -----------------------------------------------------------------------
