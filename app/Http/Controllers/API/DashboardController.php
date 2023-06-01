@@ -127,32 +127,8 @@ class DashboardController extends Controller
         "target_rr" => $target_replacement_ratio,
         "target_pengeluaran" => $target_pengeluaran,
       );
-      $this->uploadToDatabase("dashboard_target_rr", $id_user, $dashboard_target_rr);
-      die();
-      $check_table = DB::table('dashboard_target_rr')
-      ->where([
-          ['id_user', '=', $id_user]])
-      ->get()->toArray();
-      if (count($check_table) > 0) {
-        DB::table('dashboard_target_rr')
-        ->where([['id_user', '=', $id_user]])->update([
-            'flag' => 0,
-        ]);
 
-        DB::table('dashboard_target_rr')->insert([
-            'id'=> (string) Str::uuid(),
-            'id_user' => $id_user,
-            'target_rr' => $target_replacement_ratio,
-            'flag' => 1,
-        ]);
-      } else {;
-        DB::table('dashboard_target_rr')->insert([
-            'id'=> (string) Str::uuid(),
-            'id_user' => $id_user,
-            'target_rr' => $target_replacement_ratio,
-            'flag' => 1,
-        ]);
-      }
+      $this->uploadToDatabase("dashboard_target_rr", $id_user, $dashboard_target_rr);
 
       // -----------------------------------------------------------------------
       //B.1 Hitung usia diangkat
@@ -203,46 +179,10 @@ class DashboardController extends Controller
               
           }
       }
-      
-      $check_table = DB::table('profil_usia_bulan')
-      ->where([
-          ['id_user', '=', $id_user]])
-      ->get()->toArray();
-      $data_table = array(
-        'id'=> (string) Str::uuid(),
-        'id_user' => $id_user,
-        'flag' => 1,
-      );
-      if (count($check_table) > 0) {
-        DB::table('profil_usia_bulan')
-        ->where([['id_user', '=', $id_user]])->update([
-            'flag' => 0,
-        ]);
 
-        DB::table('profil_usia_bulan')->insert(array_merge($data_table,$usia_bulan));
-      } else {;
-        DB::table('profil_usia_bulan')->insert(array_merge($data_table,$usia_bulan));
-      }
-      
-      $check_table = DB::table('profil_usia_tahun')
-      ->where([
-          ['id_user', '=', $id_user]])
-      ->get()->toArray();
-      $data_table = array(
-        'id'=> (string) Str::uuid(),
-        'id_user' => $id_user,
-        'flag' => 1,
-      );
-      if (count($check_table) > 0) {
-        DB::table('profil_usia_tahun')
-        ->where([['id_user', '=', $id_user]])->update([
-            'flag' => 0,
-        ]);
+      $this->uploadToDatabase("profil_usia_bulan", $id_user, $usia_bulan);
 
-        DB::table('profil_usia_tahun')->insert(array_merge($data_table,$usia_tahun));
-      } else {;
-        DB::table('profil_usia_tahun')->insert(array_merge($data_table,$usia_tahun));
-      }
+      $this->uploadToDatabase("profil_usia_tahun", $id_user, $usia_tahun);
         
       // -----------------------------------------------------------------------
       //C.2. Simulasi Basic - hitung Masa Dinas (masa dinas diisi dari januari 2023 s.d. desember 2100)
