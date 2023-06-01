@@ -566,7 +566,7 @@ class DashboardController extends Controller
       $this->uploadToDatabase("ppip_return_nab_p50", $id_user, $percentile_50_return_ppip);
       $this->uploadToDatabase("ppip_return_nab_p5", $id_user, $percentile_05_return_ppip);
 
-      $this->uploadToDatabase("	ppip_return_nab_month_p95", $id_user, $percentile_95_return_monthly_ppip);
+      $this->uploadToDatabase("ppip_return_nab_month_p95", $id_user, $percentile_95_return_monthly_ppip);
       $this->uploadToDatabase("ppip_return_nab_month_p50", $id_user, $percentile_50_return_monthly_ppip);
       $this->uploadToDatabase("ppip_return_nab_month_p5", $id_user, $percentile_05_return_monthly_ppip);
 
