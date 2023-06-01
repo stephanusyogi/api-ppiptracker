@@ -475,14 +475,6 @@ class DashboardController extends Controller
               
       }  // end dari for 2023 s.d. 2100
 
-      $data_table = array(
-        'id'=> (string) Str::uuid(),
-        'id_user' => $id_user,
-        'flag' => 1,
-      );
-      echo json_encode($tranche_ppip, true);
-      // echo json_encode(array_merge($data_table, $tranche_ppip), true);
-      die();
       $this->uploadToDatabase("ppip_tahun_tranche", $id_user, $tranche_ppip);
       die();
       // $this->uploadToDatabase("profil_sisa_masa_kerja_bulan", $id_user, $return_ppip);
@@ -1820,9 +1812,9 @@ class DashboardController extends Controller
             'flag' => 0,
         ]);
 
-        DB::table($table)->insert(array_merge($data_table,$data));
+        DB::table($table)->insert($data_table+$data));
       } else {;
-        DB::table($table)->insert(array_merge($data_table,$data));
+        DB::table($table)->insert($data_table+$data);
       }
     }
 }
