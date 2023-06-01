@@ -706,7 +706,7 @@ class DashboardController extends Controller
       $this->uploadToDatabase("personal_keuangan_tahun_return_portofolio", $id_user, $return_personal);
       $this->uploadToDatabase("personal_keuangan_tahun_risk_portofolio", $id_user, $risk_personal);
       
-      $this->uploadToDatabase("personal_keuangan_nab_p5", $id_user, $percentile_95_nab_personal);
+      $this->uploadToDatabase("personal_keuangan_nab_p95", $id_user, $percentile_95_nab_personal);
       $this->uploadToDatabase("personal_keuangan_nab_p50", $id_user, $percentile_50_nab_personal);
       $this->uploadToDatabase("personal_keuangan_nab_p5", $id_user, $percentile_05_nab_personal);
       
