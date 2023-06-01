@@ -1593,6 +1593,40 @@ class DashboardController extends Controller
         }
       }
 
+      $this->uploadToDatabase("profil_personal_iuran", $id_user, $iuran_personal_keuangan);
+      
+      $this->uploadToDatabase("profil_personal_investasi_p95", $id_user, $percentile_95_return_personal_keuangan_bulanan);
+      $this->uploadToDatabase("profil_personal_investasi_p50", $id_user, $percentile_50_return_personal_keuangan_bulanan);
+      $this->uploadToDatabase("profil_personal_investasi_p5", $id_user, $percentile_05_return_personal_keuangan_bulanan);
+      
+      $this->uploadToDatabase("profil_personal_p95_saldo_awal", $id_user, $saldo_personal_keuangan_awal_p95);
+      $this->uploadToDatabase("profil_personal_p50_saldo_awal", $id_user, $saldo_personal_keuangan_awal_p50);
+      $this->uploadToDatabase("profil_personal_p5_saldo_awal", $id_user, $saldo_personal_keuangan_awal_p05);
+      
+      $this->uploadToDatabase("profil_personal_p95_saldo_akhir", $id_user, $saldo_personal_keuangan_akhir_p95);
+      $this->uploadToDatabase("profil_personal_p50_saldo_akhir", $id_user, $saldo_personal_keuangan_akhir_p50);
+      $this->uploadToDatabase("profil_personal_p5_saldo_akhir", $id_user, $saldo_personal_keuangan_akhir_p05);
+      
+      $this->uploadToDatabase("profil_personal_p95_pengembangan", $id_user, $pengembangan_personal_keuangan_p95);
+      $this->uploadToDatabase("profil_personal_p50_pengembangan", $id_user, $pengembangan_personal_keuangan_p50);
+      $this->uploadToDatabase("profil_personal_p5_pengembangan", $id_user, $pengembangan_personal_keuangan_p05);
+      
+      $this->uploadToDatabase("profil_personal_anuitas_p95", $id_user, $anuitas_personal_keuangan_p95);
+      $this->uploadToDatabase("profil_personal_anuitas_p50", $id_user, $anuitas_personal_keuangan_p50);
+      $this->uploadToDatabase("profil_personal_anuitas_p5", $id_user, $anuitas_personal_keuangan_p05);
+      
+      $this->uploadToDatabase("profil_personal_bunga_deposito_p95", $id_user, $kupon_sbn_personal_keuangan_p95);
+      $this->uploadToDatabase("profil_personal_bunga_deposito_p50", $id_user, $kupon_sbn_personal_keuangan_p50);
+      $this->uploadToDatabase("profil_personal_bunga_deposito_p5", $id_user, $kupon_sbn_personal_keuangan_p05);
+      
+      $this->uploadToDatabase("profil_personal_rr_anuitas_p95", $id_user, $rr_personal_keuangan_anuitas_p95);
+      $this->uploadToDatabase("profil_personal_rr_anuitas_p50", $id_user, $rr_personal_keuangan_anuitas_p50);
+      $this->uploadToDatabase("profil_personal_rr_anuitas_p5", $id_user, $rr_personal_keuangan_anuitas_p05);
+      
+      $this->uploadToDatabase("profil_personal_rr_bunga_deposito_p95", $id_user, $rr_personal_keuangan_kupon_sbn_p95);
+      $this->uploadToDatabase("profil_personal_rr_bunga_deposito_p50", $id_user, $rr_personal_keuangan_kupon_sbn_p50);
+      $this->uploadToDatabase("profil_personal_rr_bunga_deposito_p5", $id_user, $rr_personal_keuangan_kupon_sbn_p05);
+
       return array(
         "iuran_personal_keuangan" => $iuran_personal_keuangan,
         "percentile_95_return_personal_keuangan_bulanan" => $percentile_95_return_personal_keuangan_bulanan,
