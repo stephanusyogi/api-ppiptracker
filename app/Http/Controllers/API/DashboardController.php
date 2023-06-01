@@ -774,6 +774,14 @@ class DashboardController extends Controller
         $percentile_05_return_monthly_personal[$year]=$percentile_05_return_monthly_personal_hitung;
       }
       
+      $this->uploadToDatabase("personal_keuangan_return_nab_p95", $id_user, $percentile_95_return_personal);
+      $this->uploadToDatabase("personal_keuangan_return_nab_p50", $id_user, $percentile_50_return_personal);
+      $this->uploadToDatabase("personal_keuangan_return_nab_p95", $id_user, $percentile_05_return_personal);
+      
+      $this->uploadToDatabase("personal_keuangan_return_nab_month_p95", $id_user, $percentile_95_return_monthly_personal);
+      $this->uploadToDatabase("personal_keuangan_return_nab_month_p50", $id_user, $percentile_50_return_monthly_personal);
+      $this->uploadToDatabase("personal_keuangan_return_nab_month_p5", $id_user, $percentile_05_return_monthly_personal);
+
       return array(
         "tranche_personal" => $tranche_personal,
         "return_personal" => $return_personal,
