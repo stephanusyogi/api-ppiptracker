@@ -1206,6 +1206,34 @@ class DashboardController extends Controller
       $this->uploadToDatabase("profil_ppip_investasi_p95", $id_user, $percentile_95_return_ppip_bulanan);
       $this->uploadToDatabase("profil_ppip_investasi_p50", $id_user, $percentile_50_return_ppip_bulanan);
       $this->uploadToDatabase("profil_ppip_investasi_p5", $id_user, $percentile_05_return_ppip_bulanan);
+      
+      $this->uploadToDatabase("profil_ppip_p95_saldo_awal", $id_user, $saldo_ppip_awal_p95);
+      $this->uploadToDatabase("profil_ppip_p50_saldo_awal", $id_user, $saldo_ppip_awal_p50);
+      $this->uploadToDatabase("profil_ppip_p5_saldo_awal", $id_user, $saldo_ppip_awal_p05);
+      
+      $this->uploadToDatabase("profil_ppip_p95_saldo_akhir", $id_user, $saldo_ppip_akhir_p95);
+      $this->uploadToDatabase("profil_ppip_p50_saldo_akhir", $id_user, $saldo_ppip_akhir_p50);
+      $this->uploadToDatabase("profil_ppip_p5_saldo_akhir", $id_user, $saldo_ppip_akhir_p05);
+      
+      $this->uploadToDatabase("profil_ppip_p95_pengembangan", $id_user, $pengembangan_ppip_p95);
+      $this->uploadToDatabase("profil_ppip_p50_pengembangan", $id_user, $pengembangan_ppip_p50);
+      $this->uploadToDatabase("profil_ppip_p5_pengembangan", $id_user, $pengembangan_ppip_p05);
+      
+      $this->uploadToDatabase("profil_ppip_anuitas_p95", $id_user, $anuitas_ppip_p95);
+      $this->uploadToDatabase("profil_ppip_anuitas_p50", $id_user, $anuitas_ppip_p50);
+      $this->uploadToDatabase("profil_ppip_anuitas_p5", $id_user, $anuitas_ppip_p05);
+      
+      $this->uploadToDatabase("profil_ppip_bunga_deposito_p95", $id_user, $kupon_sbn_ppip_p95);
+      $this->uploadToDatabase("profil_ppip_bunga_deposito_p50", $id_user, $kupon_sbn_ppip_p50);
+      $this->uploadToDatabase("profil_ppip_bunga_deposito_p5", $id_user, $kupon_sbn_ppip_p05);
+      
+      $this->uploadToDatabase("profil_ppip_rr_anuitas_p95", $id_user, $rr_ppip_anuitas_p95);
+      $this->uploadToDatabase("profil_ppip_rr_anuitas_p50", $id_user, $rr_ppip_anuitas_p50);
+      $this->uploadToDatabase("profil_ppip_rr_anuitas_p5", $id_user, $rr_ppip_anuitas_p05);
+      
+      $this->uploadToDatabase("profil_ppip_rr_bunga_deposito_p95", $id_user, $rr_ppip_kupon_sbn_p95);
+      $this->uploadToDatabase("profil_ppip_rr_bunga_deposito_p50", $id_user, $rr_ppip_kupon_sbn_p50);
+      $this->uploadToDatabase("profil_ppip_rr_bunga_deposito_p5", $id_user, $rr_ppip_kupon_sbn_p05);
 
       return array(
         "iuran" => $iuran,
