@@ -477,7 +477,7 @@ class DashboardController extends Controller
 
       $this->uploadToDatabase("ppip_tahun_tranche", $id_user, $tranche_ppip);
       $this->uploadToDatabase("ppip_tahun_return_portofolio", $id_user, $return_ppip);
-      $this->uploadToDatabase("profil_sisa_masa_kerja_bulan", $id_user, $risk_ppip);
+      $this->uploadToDatabase("ppip_tahun_risk_portofolio", $id_user, $risk_ppip);
         
       // -----------------------------------------------------------------------
       //D.8., D.9., dan D.10. Hitung Montecarlo PPIP - hitung return dari Percentile NAB
