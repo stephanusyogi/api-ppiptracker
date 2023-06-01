@@ -1812,7 +1812,7 @@ class DashboardController extends Controller
             'flag' => 0,
         ]);
 
-        DB::table($table)->insert($data_table+$data));
+        DB::table($table)->insert($data_table+$data);
       } else {;
         DB::table($table)->insert($data_table+$data);
       }
