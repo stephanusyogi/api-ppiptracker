@@ -1926,7 +1926,9 @@ class DashboardController extends Controller
     public function uploadToDatabase($table, $id_user, $data){
       $check_table = DB::table($table)
       ->where([
-          ['id_user', '=', $id_user]])
+          ['id_user', '=', $id_user],
+          ['flag', '=', 1]
+        ])
       ->get()->toArray();
 
       $data_table = array(
