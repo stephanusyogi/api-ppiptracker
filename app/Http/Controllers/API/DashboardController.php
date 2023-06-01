@@ -114,7 +114,21 @@ class DashboardController extends Controller
         ])
         ->get();
       $target_replacement_ratio = round($res[0]->answer,2);
-
+      $res = DB::table('variabel_kuisioner_target_rr_answer')
+        ->select("answer")
+        ->where([
+            ['id_user','=',$id_user],
+            ['flag','=',1],
+            ['kode_kuisioner','=',"BEKERJA_TOTAL_PENGELUARAN"],
+        ])
+        ->get();
+      $target_pengeluaran = round($res[0]->answer,2);
+      $dashboard_target_rr = array(
+        "target_rr" => $target_replacement_ratio,
+        "target_pengeluaran" => $target_pengeluaran,
+      );
+      $this->uploadToDatabase("dashboard_target_rr", $id_user, $dashboard_target_rr);
+      die();
       $check_table = DB::table('dashboard_target_rr')
       ->where([
           ['id_user', '=', $id_user]])
@@ -1909,9 +1923,29 @@ class DashboardController extends Controller
       );
     }
 
-    public function uploadToDatabase(){
-      echo "sip";
-      die();
+    public function uploadToDatabase($table, $id_user, $data){
+      $check_table = DB::table($table)
+      ->where([
+          ['id_user', '=', $id_user]])
+      ->get()->toArray();
+
+      $data_table = array(
+        'id'=> (string) Str::uuid(),
+        'id_user' => $id_user,
+        'flag' => 1,
+      );
+      
+      if (count($check_table) > 0) {
+        DB::table($table)
+        ->where([['id_user', '=', $id_user]])->update([
+            'flag' => 0,
+        ]);
+
+        DB::table($table)->insert(array_merge($data_table,$data));
+      } else {;
+        DB::table($table)->insert(array_merge($data_table,$data));
+      }
     }
 }
+
 
