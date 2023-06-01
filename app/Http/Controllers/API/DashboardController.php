@@ -328,7 +328,7 @@ class DashboardController extends Controller
        //F.3. Simulasi PPIP
        $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
        //F.4. Simulasi Personal Properti
-       $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
+       $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user,$id_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
        //F.5. Simulasi PERSONAL_KEUANGAN
        $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp);
         
@@ -1265,7 +1265,7 @@ class DashboardController extends Controller
       );
     }
 
-    public function simulasi_personal_properti($data_user, $return_simulasi_gaji_phdp){
+    public function simulasi_personal_properti($data_user,$id_user, $return_simulasi_gaji_phdp){
       // Sheet 4 Baris 69
       //F.4.1. dan F.4.2. Simulasi Properti - Hitung harga dan sewa properti
       //Input: Read harga properti, sewa tahunan, kenaikan harga properti, dan kenaikan harga sewa di profil user
