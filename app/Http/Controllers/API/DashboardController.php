@@ -223,46 +223,9 @@ class DashboardController extends Controller
           }
       }
 
-      $check_table = DB::table('profil_masa_kerja_tahun')
-      ->where([
-          ['id_user', '=', $id_user]])
-      ->get()->toArray();
-      $data_table = array(
-        'id'=> (string) Str::uuid(),
-        'id_user' => $id_user,
-        'flag' => 1,
-      );
-      if (count($check_table) > 0) {
-        DB::table('profil_masa_kerja_tahun')
-        ->where([['id_user', '=', $id_user]])->update([
-            'flag' => 0,
-        ]);
+      $this->uploadToDatabase("profil_masa_kerja_tahun", $id_user, $masa_dinas_tahun);
 
-        DB::table('profil_masa_kerja_tahun')->insert(array_merge($data_table,$masa_dinas_tahun));
-      } else {;
-        DB::table('profil_masa_kerja_tahun')->insert(array_merge($data_table,$masa_dinas_tahun));
-      }
-      
-      $check_table = DB::table('profil_masa_kerja_bulan')
-      ->where([
-          ['id_user', '=', $id_user]])
-      ->get()->toArray();
-      $data_table = array(
-        'id'=> (string) Str::uuid(),
-        'id_user' => $id_user,
-        'flag' => 1,
-      );
-      if (count($check_table) > 0) {
-        DB::table('profil_masa_kerja_bulan')
-        ->where([['id_user', '=', $id_user]])->update([
-            'flag' => 0,
-        ]);
-
-        DB::table('profil_masa_kerja_bulan')->insert(array_merge($data_table,$masa_dinas_bulan));
-      } else {;
-        DB::table('profil_masa_kerja_bulan')->insert(array_merge($data_table,$masa_dinas_bulan));
-      }
-       
+      $this->uploadToDatabase("profil_masa_kerja_bulan", $id_user, $masa_dinas_bulan);
        
        // -----------------------------------------------------------------------
        //C.3. Simulasi Basic - sisa masa kerja (sisa masa kerja diisi dari januari 2023 s.d. desember 2100)
@@ -319,45 +282,9 @@ class DashboardController extends Controller
            }
        }
        
-        $check_table = DB::table('profil_sisa_masa_kerja_tahun')
-        ->where([
-            ['id_user', '=', $id_user]])
-        ->get()->toArray();
-        $data_table = array(
-          'id'=> (string) Str::uuid(),
-          'id_user' => $id_user,
-          'flag' => 1,
-        );
-        if (count($check_table) > 0) {
-          DB::table('profil_sisa_masa_kerja_tahun')
-          ->where([['id_user', '=', $id_user]])->update([
-              'flag' => 0,
-          ]);
+       $this->uploadToDatabase("profil_sisa_masa_kerja_tahun", $id_user, $sisa_kerja_tahun);
 
-          DB::table('profil_sisa_masa_kerja_tahun')->insert(array_merge($data_table,$sisa_kerja_tahun));
-        } else {;
-          DB::table('profil_sisa_masa_kerja_tahun')->insert(array_merge($data_table,$sisa_kerja_tahun));
-        }
-        
-        $check_table = DB::table('profil_sisa_masa_kerja_bulan')
-        ->where([
-            ['id_user', '=', $id_user]])
-        ->get()->toArray();
-        $data_table = array(
-          'id'=> (string) Str::uuid(),
-          'id_user' => $id_user,
-          'flag' => 1,
-        );
-        if (count($check_table) > 0) {
-          DB::table('profil_sisa_masa_kerja_bulan')
-          ->where([['id_user', '=', $id_user]])->update([
-              'flag' => 0,
-          ]);
-
-          DB::table('profil_sisa_masa_kerja_bulan')->insert(array_merge($data_table,$sisa_kerja_bulan));
-        } else {;
-          DB::table('profil_sisa_masa_kerja_bulan')->insert(array_merge($data_table,$sisa_kerja_bulan));
-        }
+       $this->uploadToDatabase("profil_sisa_masa_kerja_bulan", $id_user, $sisa_kerja_bulan);
         
        // -----------------------------------------------------------------------
        //C.4. Flag Pensiun/belum pensiun 
