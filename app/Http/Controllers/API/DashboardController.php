@@ -909,7 +909,9 @@ class DashboardController extends Controller
       $phdp = $return_simulasi_gaji_phdp['phdp'];
 
       $jumlah_ppmp = array();
+      $jumlah_ppmp_year_month = array();
       $rr_ppmp = array();
+      $rr_ppmp_year_month = array();
       $status_mp = array();
       for($year=2023; $year<=2100; $year++){
         for($month=1; $month<=12; $month++){
@@ -935,13 +937,15 @@ class DashboardController extends Controller
           }
 
           $jumlah_ppmp[$year] = $jumlah_ppmp_hitung;
+          $jumlah_ppmp_year_month[$key] = $jumlah_ppmp_hitung;
           $rr_ppmp[$year] = $rr_ppmp_hitung;
+          $rr_ppmp_year_month[$key] = $rr_ppmp_hitung;
           $status_mp[$year] = $status_mp_hitung;
         }
       }
 
-      $this->uploadToDatabase("profil_ppmp_besar", $id_user, $jumlah_ppmp);
-      $this->uploadToDatabase("profil_ppmp_rr", $id_user, $rr_ppmp);
+      $this->uploadToDatabase("profil_ppmp_besar", $id_user, $jumlah_ppmp_year_month);
+      $this->uploadToDatabase("profil_ppmp_rr", $id_user, $rr_ppmp_year_month);
 
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
