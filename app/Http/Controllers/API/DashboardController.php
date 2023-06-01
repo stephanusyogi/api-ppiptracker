@@ -1201,6 +1201,9 @@ class DashboardController extends Controller
         }
       }
 
+      $this->uploadToDatabase("profil_ppip_besar_iuran", $id_user, $iuran);
+      die();
+
       return array(
         "iuran" => $iuran,
         "tambahan_iuran_ppip" => $tambahan_iuran_ppip,
