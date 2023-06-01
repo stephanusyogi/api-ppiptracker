@@ -940,6 +940,9 @@ class DashboardController extends Controller
         }
       }
 
+      $this->uploadToDatabase("profil_ppmp_besar", $id_user, $jumlah_ppmp);
+      $this->uploadToDatabase("profil_ppmp_rr", $id_user, $rr_ppmp);
+
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
         "rr_ppmp"=>$rr_ppmp,
