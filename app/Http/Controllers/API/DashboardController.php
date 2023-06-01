@@ -475,7 +475,13 @@ class DashboardController extends Controller
               
       }  // end dari for 2023 s.d. 2100
 
-      echo json_encode($tranche_ppip, true);
+      $data_table = array(
+        'id'=> (string) Str::uuid(),
+        'id_user' => $id_user,
+        'flag' => 1,
+      );
+      
+      echo json_encode(array_merge($data_table, $tranche_ppip), true);
       die();
       $this->uploadToDatabase("ppip_tahun_tranche", $id_user, $tranche_ppip);
       die();
