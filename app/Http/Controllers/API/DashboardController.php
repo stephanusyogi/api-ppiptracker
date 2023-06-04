@@ -2402,13 +2402,13 @@ class DashboardController extends Controller
       $rr_ppip_anuitas_p50 = $return_simulasi_ppip["rr_ppip_anuitas_p50"];
       $rr_ppip_anuitas_p95 = $return_simulasi_ppip["rr_ppip_anuitas_p95"];
       
-      $rr_personal_keuangan_anuitas_p05 = $return_simulasi_personal_keuangan["rr_personal_keuangan_anuitas_p05"];
-      $rr_personal_keuangan_anuitas_p50 = $return_simulasi_personal_keuangan["rr_personal_keuangan_anuitas_p50"];
-      $rr_personal_keuangan_anuitas_p95 = $return_simulasi_personal_keuangan["rr_personal_keuangan_anuitas_p95"];
+      $rr_personal_keuangan_anuitas_p05 = $return_simulasi_personal_keuangan_solver["rr_personal_keuangan_anuitas_p05"];
+      $rr_personal_keuangan_anuitas_p50 = $return_simulasi_personal_keuangan_solver["rr_personal_keuangan_anuitas_p50"];
+      $rr_personal_keuangan_anuitas_p95 = $return_simulasi_personal_keuangan_solver["rr_personal_keuangan_anuitas_p95"];
 
-      $rr_personal_keuangan_kupon_sbn_p05 = $return_simulasi_personal_keuangan["rr_personal_keuangan_kupon_sbn_p05"];
-      $rr_personal_keuangan_kupon_sbn_p50 = $return_simulasi_personal_keuangan["rr_personal_keuangan_kupon_sbn_p50"];
-      $rr_personal_keuangan_kupon_sbn_p95 = $return_simulasi_personal_keuangan["rr_personal_keuangan_kupon_sbn_p95"];
+      $rr_personal_keuangan_kupon_sbn_p05 = $return_simulasi_personal_keuangan_solver["rr_personal_keuangan_kupon_sbn_p05"];
+      $rr_personal_keuangan_kupon_sbn_p50 = $return_simulasi_personal_keuangan_solver["rr_personal_keuangan_kupon_sbn_p50"];
+      $rr_personal_keuangan_kupon_sbn_p95 = $return_simulasi_personal_keuangan_solver["rr_personal_keuangan_kupon_sbn_p95"];
 
       $rr_personal_properti = $return_simulasi_personal_properti["rr_personal_properti"];
       //++++++++++++++++++++++++++++++++
@@ -2479,13 +2479,13 @@ class DashboardController extends Controller
       $kupon_sbn_ppip_p50 = $return_simulasi_ppip["kupon_sbn_ppip_p50"];
       $kupon_sbn_ppip_p95 = $return_simulasi_ppip["kupon_sbn_ppip_p95"];
 
-      $anuitas_personal_keuangan_p05 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p05"];
-      $anuitas_personal_keuangan_p50 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p50"];
-      $anuitas_personal_keuangan_p95 = $return_simulasi_personal_keuangan["anuitas_personal_keuangan_p95"];
+      $anuitas_personal_keuangan_p05 = $return_simulasi_personal_keuangan_solver["anuitas_personal_keuangan_p05"];
+      $anuitas_personal_keuangan_p50 = $return_simulasi_personal_keuangan_solver["anuitas_personal_keuangan_p50"];
+      $anuitas_personal_keuangan_p95 = $return_simulasi_personal_keuangan_solver["anuitas_personal_keuangan_p95"];
 
-      $kupon_sbn_personal_keuangan_p05 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p05"];
-      $kupon_sbn_personal_keuangan_p50 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p50"];
-      $kupon_sbn_personal_keuangan_p95 = $return_simulasi_personal_keuangan["kupon_sbn_personal_keuangan_p95"];
+      $kupon_sbn_personal_keuangan_p05 = $return_simulasi_personal_keuangan_solver["kupon_sbn_personal_keuangan_p05"];
+      $kupon_sbn_personal_keuangan_p50 = $return_simulasi_personal_keuangan_solver["kupon_sbn_personal_keuangan_p50"];
+      $kupon_sbn_personal_keuangan_p95 = $return_simulasi_personal_keuangan_solver["kupon_sbn_personal_keuangan_p95"];
 
       $sewa_properti = $return_simulasi_personal_properti["sewa_properti"];
       //pembayaran PPIP jika 1=anuitas; 2=kupon SBN/SBSN
