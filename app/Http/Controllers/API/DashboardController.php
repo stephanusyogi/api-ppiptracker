@@ -1841,7 +1841,8 @@ class DashboardController extends Controller
       //echo json_encode($bulan_sisa_kerja, true);
       //die();
 
-      $dashboard_penghasilan_bulanan_ppip_min_pv = $dashboard_penghasilan_bulanan_ppip_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      //$dashboard_penghasilan_bulanan_ppip_min_pv = $dashboard_penghasilan_bulanan_ppip_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      $dashboard_penghasilan_bulanan_ppip_min_pv = $dashboard_penghasilan_bulanan_ppip_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
       $dashboard_penghasilan_bulanan_ppip_med_pv = $dashboard_penghasilan_bulanan_ppip_med / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
       $dashboard_penghasilan_bulanan_ppip_max_pv = $dashboard_penghasilan_bulanan_ppip_max / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
       
