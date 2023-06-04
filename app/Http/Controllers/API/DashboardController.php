@@ -1858,6 +1858,8 @@ class DashboardController extends Controller
         $dashboard_penghasilan_bulanan_total_max_pv = $dashboard_penghasilan_bulanan_ppmp_pv +  $dashboard_penghasilan_bulanan_ppip_max_pv + $dashboard_penghasilan_bulanan_personal_keuangan_max_pv + $dashboard_penghasilan_bulanan_personal_properti_pv;
 
       } else {
+        $dashboard_penghasilan_bulanan_ppmp_pv = null;
+        
         $dashboard_penghasilan_bulanan_total_min_pv = $dashboard_penghasilan_bulanan_ppip_min_pv + $dashboard_penghasilan_bulanan_personal_keuangan_min_pv + $dashboard_penghasilan_bulanan_personal_properti_pv;
         $dashboard_penghasilan_bulanan_total_med_pv = $dashboard_penghasilan_bulanan_ppip_med_pv + $dashboard_penghasilan_bulanan_personal_keuangan_med_pv + $dashboard_penghasilan_bulanan_personal_properti_pv;
         $dashboard_penghasilan_bulanan_total_max_pv = $dashboard_penghasilan_bulanan_ppip_max_pv + $dashboard_penghasilan_bulanan_personal_keuangan_max_pv + $dashboard_penghasilan_bulanan_personal_properti_pv;
@@ -1901,6 +1903,22 @@ class DashboardController extends Controller
          "dashboard_penghasilan_bulanan_total_med" => $dashboard_penghasilan_bulanan_total_med,
          "dashboard_penghasilan_bulanan_total_max" => $dashboard_penghasilan_bulanan_total_max,
          
+         //Penghasilan Bulanan - present value
+         "dashboard_penghasilan_bulanan_ppip_min_pv" => $dashboard_penghasilan_bulanan_ppip_min_pv,
+        "dashboard_penghasilan_bulanan_ppip_med_pv" => $dashboard_penghasilan_bulanan_ppip_med_pv,
+        "dashboard_penghasilan_bulanan_ppip_max_pv" =>  $dashboard_penghasilan_bulanan_ppip_max_pv,
+                    
+        "dashboard_penghasilan_bulanan_ppmp_pv" => $dashboard_penghasilan_bulanan_ppmp_pv,
+         
+         "dashboard_penghasilan_bulanan_personal_properti_pv" => $dashboard_penghasilan_bulanan_personal_properti_pv,
+        
+        "dashboard_penghasilan_bulanan_personal_keuangan_min_pv" => $dashboard_penghasilan_bulanan_personal_keuangan_min_pv,
+        "dashboard_penghasilan_bulanan_personal_keuangan_med_pv" => $dashboard_penghasilan_bulanan_personal_keuangan_med_pv,
+        "dashboard_penghasilan_bulanan_personal_keuangan_max_pv" =>  $dashboard_penghasilan_bulanan_personal_keuangan_max_pv,
+                     
+         "dashboard_penghasilan_bulanan_total_min_pv" => $dashboard_penghasilan_bulanan_total_min_pv,
+         "dashboard_penghasilan_bulanan_total_med_pv" => $dashboard_penghasilan_bulanan_total_med_pv,
+         "dashboard_penghasilan_bulanan_total_max_pv" => $dashboard_penghasilan_bulanan_total_max_pv,
          
                      
             
