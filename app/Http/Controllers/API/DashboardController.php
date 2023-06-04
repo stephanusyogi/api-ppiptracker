@@ -1873,6 +1873,52 @@ class DashboardController extends Controller
         $dashboard_penghasilan_bulanan_total_max_pv = $dashboard_penghasilan_bulanan_ppip_max_pv + $dashboard_penghasilan_bulanan_personal_keuangan_max_pv + $dashboard_penghasilan_bulanan_personal_properti_pv;
 
       }
+        
+        //++++++++++++++++++++++++++++++++
+        //G.2.4. kekayaan pada dashboard
+        //under construction
+        $dashboard_kekayaan_ppip_min = null;
+        $dashboard_kekayaan_ppip_med = null;
+        $dashboard_kekayaan_ppip_max = null;
+                            
+        $dashboard_kekayaan_ppmp = null;
+         
+        $dashboard_kekayaan_personal_properti = null;
+        
+        $dashboard_kekayaan_personal_keuangan_min = null;
+        $dashboard_kekayaan_personal_keuangan_med = null;
+        $dashboard_kekayaan_personal_keuangan_max = null;
+                     
+         $dashboard_kekayaan_total_min = null;
+         $dashboard_kekayaan_total_med = null;
+         $dashboard_kekayaan_total_max = null;
+        
+        //++++++++++++++++++++++++++++++++
+        //G.2.5. preset value kekayaan pada dashboard
+        //under construction
+        $dashboard_kekayaan_ppip_min_pv = null;
+        $dashboard_kekayaan_ppip_med_pv = null;
+        $dashboard_kekayaan_ppip_max_pv = null;
+                            
+        $dashboard_kekayaan_ppmp_pv = null;
+         
+        $dashboard_kekayaan_personal_properti_pv = null;
+        
+        $dashboard_kekayaan_personal_keuangan_min_pv = null;
+        $dashboard_kekayaan_personal_keuangan_med_pv = null;
+        $dashboard_kekayaan_personal_keuangan_max_pv = null;
+                     
+         $dashboard_kekayaan_total_min_pv = null;
+         $dashboard_kekayaan_total_med_pv = null;
+         $dashboard_kekayaan_total_max_pv = null;
+        
+        
+        //$this->uploadToDatabase("profil_personal_iuran", $id_user, $iuran_personal_keuangan); 
+        
+        
+        
+        
+        
         return array(
         "pensiun" => $counter_pensiun,
         //"status_mp" => $status_mp,
@@ -1928,6 +1974,41 @@ class DashboardController extends Controller
          "dashboard_penghasilan_bulanan_total_med_pv" => $dashboard_penghasilan_bulanan_total_med_pv,
          "dashboard_penghasilan_bulanan_total_max_pv" => $dashboard_penghasilan_bulanan_total_max_pv,
          
+            //kekayaan
+            //Penghasilan Bulanan
+        "dashboard_kekayaan_ppip_min" => $dashboard_kekayaan_ppip_min,
+        "dashboard_kekayaan_ppip_med" => $dashboard_kekayaan_ppip_med,
+        "dashboard_kekayaan_ppip_max" =>  $dashboard_kekayaan_ppip_max,
+                    
+        "dashboard_kekayaan_ppmp" => $dashboard_kekayaan_ppmp,
+         
+         "dashboard_kekayaan_personal_properti" => $dashboard_kekayaan_personal_properti,
+        
+        "dashboard_kekayaan_personal_keuangan_min" => $dashboard_kekayaan_personal_keuangan_min,
+        "dashboard_kekayaan_personal_keuangan_med" => $dashboard_kekayaan_personal_keuangan_med,
+        "dashboard_kekayaan_personal_keuangan_max" =>  $dashboard_kekayaan_personal_keuangan_max,
+                     
+         "dashboard_kekayaan_total_min" => $dashboard_kekayaan_total_min,
+         "dashboard_kekayaan_total_med" => $dashboard_kekayaan_total_med,
+         "dashboard_kekayaan_total_max" => $dashboard_kekayaan_total_max,
+         
+         //kekayaan - present value
+         "dashboard_kekayaan_ppip_min_pv" => $dashboard_kekayaan_ppip_min_pv,
+        "dashboard_kekayaan_ppip_med_pv" => $dashboard_kekayaan_ppip_med_pv,
+        "dashboard_kekayaan_ppip_max_pv" =>  $dashboard_kekayaan_ppip_max_pv,
+                    
+        "dashboard_kekayaan_ppmp_pv" => $dashboard_kekayaan_ppmp_pv,
+         
+         "dashboard_kekayaan_personal_properti_pv" => $dashboard_kekayaan_personal_properti_pv,
+        
+        "dashboard_kekayaan_personal_keuangan_min_pv" => $dashboard_kekayaan_personal_keuangan_min_pv,
+        "dashboard_kekayaan_personal_keuangan_med_pv" => $dashboard_kekayaan_personal_keuangan_med_pv,
+        "dashboard_kekayaan_personal_keuangan_max_pv" =>  $dashboard_kekayaan_personal_keuangan_max_pv,
+                     
+         "dashboard_kekayaan_total_min_pv" => $dashboard_kekayaan_total_min_pv,
+         "dashboard_kekayaan_total_med_pv" => $dashboard_kekayaan_total_med_pv,
+         "dashboard_kekayaan_total_max_pv" => $dashboard_kekayaan_total_max_pv,
+
                      
             
       );
