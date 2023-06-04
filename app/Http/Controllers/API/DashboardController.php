@@ -1851,8 +1851,8 @@ class DashboardController extends Controller
       //die();
 
       $dashboard_penghasilan_bulanan_personal_keuangan_min_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-      $dashboard_penghasilan_bulanan_personal_keuangan_med_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-      $dashboard_penghasilan_bulanan_personal_keuangan_max_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      $dashboard_penghasilan_bulanan_personal_keuangan_med_pv = $dashboard_penghasilan_bulanan_personal_keuangan_med / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      $dashboard_penghasilan_bulanan_personal_keuangan_max_pv = $dashboard_penghasilan_bulanan_personal_keuangan_max / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
 
       $dashboard_penghasilan_bulanan_personal_properti_pv = $dashboard_penghasilan_bulanan_personal_properti / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
 
