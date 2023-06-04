@@ -1838,12 +1838,16 @@ class DashboardController extends Controller
       $tahun_sisa_kerja = $sisa_kerja_tahun[$tahun_bulan_ini];//Read sisa masa kerja tahun untuk current date
       $bulan_sisa_kerja = $sisa_kerja_bulan[$tahun_bulan_ini];//Read sisa masa kerja bulan untuk current date
       
-      echo json_encode($bulan_sisa_kerja, true);
-      die();
+      //echo json_encode($bulan_sisa_kerja, true);
+      //die();
 
       $dashboard_penghasilan_bulanan_ppip_min_pv = $dashboard_penghasilan_bulanan_ppip_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
       $dashboard_penghasilan_bulanan_ppip_med_pv = $dashboard_penghasilan_bulanan_ppip_med / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
       $dashboard_penghasilan_bulanan_ppip_max_pv = $dashboard_penghasilan_bulanan_ppip_max / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+      
+      echo json_encode($dashboard_penghasilan_bulanan_ppip_min, true);
+      echo json_encode($dashboard_penghasilan_bulanan_ppip_min_pv, true);
+      die();
 
       $dashboard_penghasilan_bulanan_personal_keuangan_min_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
       $dashboard_penghasilan_bulanan_personal_keuangan_med_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
