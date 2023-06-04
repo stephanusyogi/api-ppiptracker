@@ -360,6 +360,7 @@ class DashboardController extends Controller
             }
             $rr_kini = $this->cari_iuran($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan_solver, $return_simulasi_ppmp);
             $rr_baru = $rr_kini["dashboard_rr_total_min"];
+            echo json_encode($total_rr, true);
             echo json_encode($rr_baru, true);
             die();
         //die();
