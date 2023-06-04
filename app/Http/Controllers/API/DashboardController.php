@@ -342,13 +342,14 @@ class DashboardController extends Controller
        //H.1. dan H.2. Hitung selisih target dan kekurangan iuran personal keuangan
         //input 
         $total_rr = $return_dashboard["dashboard_rr_total_min"];
-        //$iuran_kini =
-        //$naik_sewa_properti=$data_user->kenaikan_sewa; // Read kenaikan sewa properti keuangan yang diinput di profil user
-         $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
+        $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
             ->where('id_user', $id_user)
             ->where('flag', 1)
             ->select('*')->get()[0];
-      $iuran_kini=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal;
+        
+        $iuran_kini=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal;
+        $iuran_kini=$iuran_kini/100;
+        
         echo json_encode($iuran_kini, true);
        die();
         //$target_replacement_ratio
