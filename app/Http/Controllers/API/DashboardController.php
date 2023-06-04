@@ -342,7 +342,9 @@ class DashboardController extends Controller
        //H.1. dan H.2. Hitung selisih target dan kekurangan iuran personal keuangan
         //input 
         $total_rr = $return_dashboard["dashboard_rr_total_min"];
-        echo json_encode($total_rr, true);
+        //$iuran_kini =
+            //$naik_sewa_properti=$data_user->kenaikan_sewa; // Read kenaikan sewa properti keuangan yang diinput di profil user
+        echo json_encode($data_user, true);
        die();
         //$target_replacement_ratio
         
