@@ -350,16 +350,17 @@ class DashboardController extends Controller
             ->select('*')->get()[0];
         
         $iuran_kini=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal;
-        $iuran_kini=$iuran_kini/100;
+        $iuran_hitung=$iuran_kini/100;
         
         if ($total_rr>$target_replacement_ratio){
             //simulasi lagi personal keuangan dengan iuran dinaikkan
             for ($j=1; $j<=2; $j++){
-                $iuran_hitung = $iuran_kini + 0.01;
+                $iuran_hitung = $iuran_hitung + 0.01;
                 $return_simulasi_personal_keuangan_solver = $this->simulasi_personal_keuangan_solver($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp, $iuran_hitung);
             }
             $rr_kini = $this->cari_iuran($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan_solver, $return_simulasi_ppmp);
             $rr_baru = $rr_kini["dashboard_rr_total_min"];
+            echo json_encode($total_rr, true);
             echo json_encode($total_rr, true);
             echo json_encode($rr_baru, true);
             die();
