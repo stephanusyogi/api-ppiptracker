@@ -2043,7 +2043,7 @@ class DashboardController extends Controller
       );
     }
     
-    public function simulasi_personal_keuangan_solver($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp){
+    public function simulasi_personal_keuangan_solver($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp, $iuran_hitung){
       // Sheet 4 Baris 73
       //Input: variabel $gaji{$i] yang ada di memory serta flag pensiun, Read tambahan iuran personal_keuangan, Read Saldo PERSONAL_KEUANGAN
       $gaji = $return_simulasi_gaji_phdp['gaji'];
