@@ -341,7 +341,8 @@ class DashboardController extends Controller
        //--------------------------------------------------------
        //H.1. dan H.2. Hitung selisih target dan kekurangan iuran personal keuangan
         //input 
-        echo json_encode($target_replacement_ratio, true);
+        $total_rr = $return_dashboard["dashboard_rr_total_min"];
+        echo json_encode($total_rr, true);
        die();
         //$target_replacement_ratio
         
