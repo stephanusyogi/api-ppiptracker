@@ -964,6 +964,8 @@ class DashboardController extends Controller
       $diff = date_diff($date1,$date2);
       
       $hari = $diff->format('%R%a');
+      echo json_encode($hari, true);
+      die();  
 
       $gaji = $return_simulasi_gaji_phdp['gaji'];
       $phdp = $return_simulasi_gaji_phdp['phdp'];
