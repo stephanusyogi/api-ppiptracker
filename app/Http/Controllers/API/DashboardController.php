@@ -392,8 +392,8 @@ class DashboardController extends Controller
              $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
         
-        echo json_encode($rekomendasi, true);
-        die();
+        //echo json_encode($rekomendasi, true);
+        //die();
         //echo json_encode($iuran_kini, true);
         //die();
         //$target_replacement_ratio
@@ -1654,6 +1654,8 @@ class DashboardController extends Controller
       }
 
       $this->uploadToDatabase("profil_personal_iuran", $id_user, $iuran_personal_keuangan);
+      echo json_encode($iuran_personal_keuangan, true);
+      die();
       
       $this->uploadToDatabase("profil_personal_investasi_p95", $id_user, $percentile_95_return_personal_keuangan_bulanan);
       $this->uploadToDatabase("profil_personal_investasi_p50", $id_user, $percentile_50_return_personal_keuangan_bulanan);
