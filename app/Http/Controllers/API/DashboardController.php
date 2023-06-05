@@ -367,9 +367,14 @@ class DashboardController extends Controller
                     $rekomendasi1 = "silahkan menambahkan iuran personal keuangan lebih dari ";
                     $iuran_hitung = $iuran_hitung*100;
                     $rekomendasi2 = $rekomendasi1 . $iuran_hitung;
-                    $rekomendasi = $rekomendasi2 . "%";
+                    $rekomendasi = $rekomendasi2 . "% dari gaji Anda dan running kembali hasilnya";
                 } elseif ($j<10000 && $rr_baru>=$target_replacement_ratio){
                     //target rr dapat dipenuhi dengan $iuran hitung
+                    $kesimpulan = "Replacement Ratio Anda diperkirakan kurang dari target";
+                    $rekomendasi1 = "silahkan menambahkan iuran personal keuangan lebih dari ";
+                    $iuran_hitung = $iuran_hitung*100;
+                    $rekomendasi2 = $rekomendasi1 . $iuran_hitung;
+                    $rekomendasi = $rekomendasi2 . "% dari gaji Anda";
                     $j=10001;
                 } else {
                 }
@@ -386,13 +391,9 @@ class DashboardController extends Controller
              $kesimpulan = "Selamat. Pensiun Anda telah sesuai target Replacement Ratio";
              $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
-        $kesimpulan = "Replacement Ratio Anda diperkirakan kurang dari target";
-                    $rekomendasi1 = "silahkan menambahkan iuran personal keuangan lebih dari ";
-                    $iuran_hitung = $iuran_hitung*100;
-                    $rekomendasi2 = $rekomendasi1 . $iuran_hitung;
-                    $rekomendasi = $rekomendasi2 . "%";
+        
         echo json_encode($rekomendasi, true);
-            die();
+        die();
         //echo json_encode($iuran_kini, true);
         //die();
         //$target_replacement_ratio
