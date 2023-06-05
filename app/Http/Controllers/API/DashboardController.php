@@ -1005,8 +1005,8 @@ class DashboardController extends Controller
           $status_mp[$year] = $status_mp_hitung;
         }
       }
-      echo json_encode($rr_ppmp_year_month, true);
-      die();  
+      //echo json_encode($rr_ppmp_year_month, true);
+      //die();  
       $this->uploadToDatabase("profil_ppmp_besar", $id_user, $jumlah_ppmp_year_month);
       $this->uploadToDatabase("profil_ppmp_rr", $id_user, $rr_ppmp_year_month);
 
