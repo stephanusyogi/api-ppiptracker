@@ -1975,8 +1975,8 @@ class DashboardController extends Controller
          $dashboard_kekayaan_total_max_pv = null;
         
         
-        $rr_total_rr=
-        $this->uploadToDatabase("profil_personal_iuran", $id_user, $iuran_personal_keuangan); 
+       // $rr_total_rr=
+        //$this->uploadToDatabase("profil_personal_iuran", $id_user, $iuran_personal_keuangan); 
         
         
         
