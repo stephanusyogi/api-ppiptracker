@@ -335,8 +335,8 @@ class DashboardController extends Controller
        //----------------------------------------------------------------------------
        //G.1. Hitung indikator dashboard - lokasi pensiun4
        $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp);
-       //echo json_encode($return_dashboard, true);
-       //die();
+       echo json_encode($return_dashboard, true);
+       die();
        
        //--------------------------------------------------------
        //H.1. dan H.2. Hitung selisih target dan kekurangan iuran personal keuangan
@@ -392,8 +392,8 @@ class DashboardController extends Controller
              $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
         
-        echo json_encode($total_rr, true);
-        die();
+        //echo json_encode($total_rr, true);
+        //die();
         //echo json_encode($iuran_kini, true);
         //die();
         //$target_replacement_ratio
