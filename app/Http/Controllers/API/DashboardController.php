@@ -369,10 +369,7 @@ class DashboardController extends Controller
                 } else {
                 }
             
-            } else {
-                $kesimpulan = "Selamat. Pensiun Anda telah sesuai target Replacement Ratio";
-                $rekomendasi = "pantau terus kinerja portofolio Anda";
-            }
+            } 
             
             echo json_encode($iuran_hitung, true);
             echo json_encode($total_rr, true);
@@ -381,6 +378,8 @@ class DashboardController extends Controller
         //die();
         } else {
             //iuran sudah cukup
+             $kesimpulan = "Selamat. Pensiun Anda telah sesuai target Replacement Ratio";
+                $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
         
         //echo json_encode($iuran_kini, true);
