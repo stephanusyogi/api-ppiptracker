@@ -363,6 +363,11 @@ class DashboardController extends Controller
                 
                 if ($j==10000 && $rr_baru<$target_replacement_ratio){
                     //kesimpulannya, iurannya melebihi $iuran_hitung
+                    $kesimpulan = "Replacement Ratio Anda diperkirakan kurang dari target";
+                    $rekomendasi1 = "silahkan menambahkan iuran personal keuangan lebih dari ";
+                    $iuran_hitung = $iuran_hitung*100;
+                    $rekomendasi2 = $rekomendasi1 . $iuran_hitung;
+                    $rekomendasi = $rekomendasi2 . "%";
                 } elseif ($j<10000 && $rr_baru>=$target_replacement_ratio){
                     //target rr dapat dipenuhi dengan $iuran hitung
                     $j=10001;
@@ -371,17 +376,23 @@ class DashboardController extends Controller
             
             } 
             
-            echo json_encode($iuran_hitung, true);
-            echo json_encode($total_rr, true);
-            echo json_encode($rr_baru, true);
-            die();
+           // echo json_encode($iuran_hitung, true);
+            //echo json_encode($total_rr, true);
+            //echo json_encode($rr_baru, true);
+            //die();
         //die();
         } else {
             //iuran sudah cukup
              $kesimpulan = "Selamat. Pensiun Anda telah sesuai target Replacement Ratio";
-                $rekomendasi = "pantau terus kinerja portofolio Anda";
+             $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
-        
+        $kesimpulan = "Replacement Ratio Anda diperkirakan kurang dari target";
+                    $rekomendasi1 = "silahkan menambahkan iuran personal keuangan lebih dari ";
+                    $iuran_hitung = $iuran_hitung*100;
+                    $rekomendasi2 = $rekomendasi1 . $iuran_hitung;
+                    $rekomendasi = $rekomendasi2 . "%";
+        //echo json_encode($rr_baru, true);
+            //die();
         //echo json_encode($iuran_kini, true);
         //die();
         //$target_replacement_ratio
