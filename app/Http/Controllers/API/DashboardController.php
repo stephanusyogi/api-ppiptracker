@@ -392,7 +392,7 @@ class DashboardController extends Controller
              $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
         
-        echo json_encode($rekomendasi, true);
+        echo json_encode($target_replacement_ratio, true);
         die();
         //echo json_encode($iuran_kini, true);
         //die();
