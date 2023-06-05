@@ -366,6 +366,7 @@ class DashboardController extends Controller
                 } elseif ($j<10000 && $rr_baru>=$target_replacement_ratio){
                     //target rr dapat dipenuhi dengan $iuran hitung
                     $j=10001;
+                } else {
                 }
             
             } else {
