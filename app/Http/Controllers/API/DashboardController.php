@@ -391,8 +391,8 @@ class DashboardController extends Controller
                     $iuran_hitung = $iuran_hitung*100;
                     $rekomendasi2 = $rekomendasi1 . $iuran_hitung;
                     $rekomendasi = $rekomendasi2 . "%";
-        //echo json_encode($rr_baru, true);
-            //die();
+        echo json_encode($rekomendasi, true);
+            die();
         //echo json_encode($iuran_kini, true);
         //die();
         //$target_replacement_ratio
