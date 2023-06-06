@@ -1729,6 +1729,7 @@ class DashboardController extends Controller
       //Input: Read flag pensiun
       $counter_pensiun=""; //counter posisi pensiun
       $previous_flag_pensiun = null;
+      $tahun_pensiun = null;
       
       for($year=2023; $year<=2100; $year++){
         for($month=1; $month<=12; $month++){
@@ -1736,10 +1737,12 @@ class DashboardController extends Controller
           if ($year==2023 && $month==1){
             if ($flag_pensiun[$key]==1){
               $counter_pensiun = $key;// pada saat bulan ini sudah pensiun. jadi saldo yang ditampilkan adalah saldo awal
+                $tahun_pensiun = $year;
             }
           } else {
             if ($flag_pensiun[$key]==1 && $previous_flag_pensiun==0){
               $counter_pensiun = $key; // pada saat bulan ini sudah pensiun. jadi saldo yang ditampilkan adalah saldo akhir untuk bulan sebelumnya.
+               $tahun_pensiun = $year; 
             }
           }
           $previous_flag_pensiun = $flag_pensiun[$key];
@@ -1824,7 +1827,7 @@ class DashboardController extends Controller
       die();
         
       //$status_mp=1 untuk hybrid ppmp ppip dan $status_mp=2 untuk ppip murni
-      if ($status_mp==1){
+      if ($status_mp[$tahun_pensiun]==1){
         $dashboard_rr_ppmp = $rr_ppmp[$counter_pensiun_minus_one_month];
         
         $dashboard_rr_total_min = $dashboard_rr_ppmp +  $dashboard_rr_ppip_min + $dashboard_rr_personal_keuangan_min + $dashboard_rr_personal_properti;
@@ -1884,7 +1887,7 @@ class DashboardController extends Controller
       //total penghasilan bulanan
       $jumlah_ppmp = $return_simulasi_ppmp['jumlah_ppmp'];
       //$status_mp=1 untuk hybrid ppmp ppip dan $status_mp=2 untuk ppip murni
-      if ($status_mp==1){
+      if ($status_mp[$tahun_pensiun]==1){
         $dashboard_penghasilan_bulanan_ppmp = $jumlah_ppmp[$counter_pensiun_minus_one_month];
         
         $dashboard_penghasilan_bulanan_total_min = $dashboard_penghasilan_bulanan_ppmp +  $dashboard_penghasilan_bulanan_ppip_min + $dashboard_penghasilan_bulanan_personal_keuangan_min + $dashboard_penghasilan_bulanan_personal_properti;
@@ -1929,7 +1932,7 @@ class DashboardController extends Controller
 
       //total penghasilan bulanan
       //$status_mp=1 untuk hybrid ppmp ppip dan $status_mp=2 untuk ppip murni
-      if ($status_mp==1){
+      if ($status_mp[$tahun_pensiun]==1){
         $dashboard_penghasilan_bulanan_ppmp_pv = $dashboard_penghasilan_bulanan_ppmp / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
         
         $dashboard_penghasilan_bulanan_total_min_pv = $dashboard_penghasilan_bulanan_ppmp_pv +  $dashboard_penghasilan_bulanan_ppip_min_pv + $dashboard_penghasilan_bulanan_personal_keuangan_min_pv + $dashboard_penghasilan_bulanan_personal_properti_pv;
