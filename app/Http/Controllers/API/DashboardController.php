@@ -1823,8 +1823,8 @@ class DashboardController extends Controller
       $status_mp = $return_simulasi_ppmp['status_mp'];
       $rr_ppmp = $return_simulasi_ppmp['rr_ppmp'];
       
-      echo json_encode($status_mp, true);
-      die();
+      //echo json_encode($status_mp, true);
+      //die();
         
       //$status_mp=1 untuk hybrid ppmp ppip dan $status_mp=2 untuk ppip murni
       if ($status_mp[$tahun_pensiun]==1){
