@@ -1759,8 +1759,8 @@ class DashboardController extends Controller
           $counter_pensiun_month -= 1;
       }
       $counter_pensiun_minus_one_month = sprintf("%d_%d", $counter_pensiun_year, $counter_pensiun_month);
-      echo json_encode($counter_pensiun_minus_one_month, true);
-      die();
+      //echo json_encode($counter_pensiun_minus_one_month, true);
+      //die();
 
       //----------------------------------------------------------------------------
       //G.2. Hitung indikator dashboard - posisi saat pensiun
@@ -1819,6 +1819,10 @@ class DashboardController extends Controller
       //total rr
       $status_mp = $return_simulasi_ppmp['status_mp'];
       $rr_ppmp = $return_simulasi_ppmp['rr_ppmp'];
+      
+      echo json_encode($status_mp, true);
+      die();
+        
       //$status_mp=1 untuk hybrid ppmp ppip dan $status_mp=2 untuk ppip murni
       if ($status_mp==1){
         $dashboard_rr_ppmp = $rr_ppmp[$counter_pensiun_minus_one_month];
