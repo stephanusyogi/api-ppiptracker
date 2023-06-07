@@ -1124,6 +1124,8 @@ class DashboardController extends Controller
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           $iuran_hitung = $gaji[$key] * $persentase_iuran_ppip; //hitung besar iuran
+            echo json_encode($persentase_iuran_ppip, true);
+            die();  
 
           // //+++++++++++++++++++++++++++++++++++++
           // //F.3.2., F.3.3., dan F.3.4. Simulasi PPIP - tentukan hasil investasi percentile 95, 50, dan 05
