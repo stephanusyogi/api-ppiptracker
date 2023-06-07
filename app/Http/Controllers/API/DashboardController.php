@@ -1011,7 +1011,7 @@ class DashboardController extends Controller
       $this->uploadToDatabase("profil_ppmp_rr", $id_user, $rr_ppmp_year_month);
 
       return array(
-        "jumlah_ppmp"=>$jumlah_ppmp,
+        "jumlah_ppmp"=>$jumlah_ppmp_year_month,
         "rr_ppmp"=>$rr_ppmp_year_month,
         "status_mp"=>$status_mp,
       );
