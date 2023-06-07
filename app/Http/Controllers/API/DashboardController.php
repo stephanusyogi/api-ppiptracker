@@ -411,6 +411,10 @@ class DashboardController extends Controller
        return response()->json([
          "status" =>true,
          "message"=>"Testing Hitung Awal!",
+         "data"=> array(
+          "kesimpulan" => $kesimpulan,
+          "rekomendasi" => $rekomendasi,
+         )
        ],200);
     }
 
