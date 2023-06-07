@@ -1115,6 +1115,12 @@ class DashboardController extends Controller
 
       $j=1; //counter hasil investasi percentile monthly (konversi dari tahunan ke bulanan)
       for($year=2023; $year<=2100; $year++){
+            //menentukan besar iuran
+            if ($status_mp[$year]==1){ //hybrid ppmp ppip
+                    $persentase_iuran_ppip = 0.09; //iuran ppip sebesar 9% untuk hybrid ppmp ppip
+            } else {
+                    $persentase_iuran_ppip = 0.2; //iuran ppip sebesar 20% untuk ppip murni
+            }
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           $iuran_hitung = $gaji[$key] * $persentase_iuran_ppip; //hitung besar iuran
