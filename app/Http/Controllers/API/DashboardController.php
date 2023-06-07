@@ -106,8 +106,8 @@ class DashboardController extends Controller
       
       //untuk validasi perhitungan, karena data gaji dan phdp tidak disimpan dalam database, maka perlu ditembak data gaji dan phdp disini saat cek perhitungan menggunakan postman.
       //hasil tembak gaji, akan dihilangkan ketika data dashboard frontend sudah nyambung dengan backend
-      $gaji = 47700000;
-      $phdp = 19000000;  
+      // $gaji = 47700000;
+      // $phdp = 19000000;  
       
       //echo json_encode($request, true);
       //die();
