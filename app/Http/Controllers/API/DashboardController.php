@@ -114,6 +114,8 @@ class DashboardController extends Controller
         ])
         ->get();
       $target_replacement_ratio = round($res[0]->answer,2);
+        echo json_encode($target_replacement_ratio, true);
+       die();
       $res = DB::table('variabel_kuisioner_target_rr_answer')
         ->select("answer")
         ->where([
@@ -1124,8 +1126,8 @@ class DashboardController extends Controller
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           $iuran_hitung = $gaji[$key] * $persentase_iuran_ppip; //hitung besar iuran
-            echo json_encode($gaji[$key], true);
-            die();  
+            //echo json_encode($gaji[$key], true);
+            //die();  
 
           // //+++++++++++++++++++++++++++++++++++++
           // //F.3.2., F.3.3., dan F.3.4. Simulasi PPIP - tentukan hasil investasi percentile 95, 50, dan 05
