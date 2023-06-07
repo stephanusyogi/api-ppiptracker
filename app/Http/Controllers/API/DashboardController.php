@@ -1039,12 +1039,12 @@ class DashboardController extends Controller
             ->select('*')->get()[0];
 
       //F.3.1. Simulasi PPIP - Hitung iuran
-      //menentukan besar iuran
-      if ($status_mp==1){ //hybrid ppmp ppip
-        $persentase_iuran_ppip = 0.09; //iuran ppip sebesar 9% untuk hybrid ppmp ppip
-      } else {
-        $persentase_iuran_ppip = 0.2; //iuran ppip sebesar 20% untuk ppip murni
-      }
+      //menentukan besar iuran - dipindah ke bawah
+      //if ($status_mp==1){ //hybrid ppmp ppip
+        //$persentase_iuran_ppip = 0.09; //iuran ppip sebesar 9% untuk hybrid ppmp ppip
+      //} else {
+        //$persentase_iuran_ppip = 0.2; //iuran ppip sebesar 20% untuk ppip murni
+      //}
 
       $persentase_tambahan_iuran_ppip=$setting_nilai_asumsi_user->tambahan_iuran;// Read tambahan iuran ppip di profil user
       $saldo_ppip_input=$data_user->saldo_ppip;// Read saldo ppip yang diinput (saldo diasumsikan diinput di awal bulan)
@@ -1124,7 +1124,7 @@ class DashboardController extends Controller
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           $iuran_hitung = $gaji[$key] * $persentase_iuran_ppip; //hitung besar iuran
-            echo json_encode($persentase_iuran_ppip, true);
+            echo json_encode($iuran_hitung, true);
             die();  
 
           // //+++++++++++++++++++++++++++++++++++++
