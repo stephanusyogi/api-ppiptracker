@@ -1012,7 +1012,7 @@ class DashboardController extends Controller
 
       return array(
         "jumlah_ppmp"=>$jumlah_ppmp,
-        "rr_ppmp"=>$rr_ppmp,
+        "rr_ppmp"=>$rr_ppmp_year_month,
         "status_mp"=>$status_mp,
       );
     }
