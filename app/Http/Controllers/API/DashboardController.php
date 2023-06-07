@@ -1124,7 +1124,7 @@ class DashboardController extends Controller
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           $iuran_hitung = $gaji[$key] * $persentase_iuran_ppip; //hitung besar iuran
-            echo json_encode($iuran_hitung, true);
+            echo json_encode($gaji[$key], true);
             die();  
 
           // //+++++++++++++++++++++++++++++++++++++
