@@ -103,6 +103,9 @@ class DashboardController extends Controller
       $tgl_update_gaji_phdp = $request->tgl_update_gaji_phdp;
       $gaji = $request->gaji;
       $phdp = $request->phdp;
+      
+      echo json_encode($request, true);
+      die();
 
       //A.1 Hitung Target Replacement Ratio
       $res = DB::table('variabel_kuisioner_target_rr_answer')
@@ -114,8 +117,8 @@ class DashboardController extends Controller
         ])
         ->get();
       $target_replacement_ratio = round($res[0]->answer,2);
-        echo json_encode($target_replacement_ratio, true);
-       die();
+      //echo json_encode($target_replacement_ratio, true);
+      //die();
       $res = DB::table('variabel_kuisioner_target_rr_answer')
         ->select("answer")
         ->where([
