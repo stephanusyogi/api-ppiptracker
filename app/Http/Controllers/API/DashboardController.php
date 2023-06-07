@@ -104,7 +104,7 @@ class DashboardController extends Controller
       $gaji = $request->gaji;
       $phdp = $request->phdp;
       
-      echo json_encode($request, true);
+      echo json_encode($gaji, true);
       die();
 
       //A.1 Hitung Target Replacement Ratio
