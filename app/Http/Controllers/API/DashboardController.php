@@ -104,8 +104,13 @@ class DashboardController extends Controller
       $gaji = $request->gaji;
       $phdp = $request->phdp;
       
-      echo json_encode($request->'request', true);
-      die();
+      //untuk validasi perhitungan, karena data gaji dan phdp tidak disimpan dalam database, maka perlu ditembak data gaji dan phdp disini saat cek perhitungan menggunakan postman.
+      //hasil tembak gaji, akan dihilangkan ketika data dashboard frontend sudah nyambung dengan backend
+      $gaji = 47700000;
+      $phdp = 19000000;  
+      
+      //echo json_encode($request, true);
+      //die();
 
       //A.1 Hitung Target Replacement Ratio
       $res = DB::table('variabel_kuisioner_target_rr_answer')
