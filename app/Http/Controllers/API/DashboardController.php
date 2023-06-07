@@ -900,8 +900,8 @@ class DashboardController extends Controller
       $gaji_naik = $setting_nilai_asumsi_user->kenaikan_gaji;//Read kenaikan gaji di admin
       $phdp_naik = $setting_nilai_asumsi_user->kenaikan_phdp;//Read kenaikan phdp di admin
       
-      echo json_encode($phdp_naik, true);
-      die();
+      //echo json_encode($phdp_naik, true);
+      //die();
 
       $year = 2023; //tahun awal di database
       $k=1;
