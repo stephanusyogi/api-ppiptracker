@@ -263,7 +263,7 @@ class UserController extends Controller
         
         if($request->saldo_ppip !== ""){
             DB::table('users')
-                ->where('id_user', $id_user)  // find your user by their email
+                ->where('id', $id_user)  // find your user by their email
                 ->update(array('saldo_ppip' => $request->saldo_ppip));  // update the record in the DB. 
         }
 
