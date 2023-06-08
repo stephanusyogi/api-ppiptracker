@@ -2032,7 +2032,7 @@ class DashboardController extends Controller
           //RR
           "rr_ppip_minimal" => $dashboard_rr_ppip_min,
           "rr_ppip_median" => $dashboard_rr_ppip_med,
-          "rr_ppip__maksimal" =>  $dashboard_rr_ppip_max,
+          "rr_ppip_maksimal" =>  $dashboard_rr_ppip_max,
             
           "rr_ppmp" => $dashboard_rr_ppmp,
           
@@ -2697,7 +2697,7 @@ class DashboardController extends Controller
           //RR
           "rr_ppip_minimal" => $dashboard_rr_ppip_min,
           "rr_ppip_median" => $dashboard_rr_ppip_med,
-          "rr_ppip__maksimal" =>  $dashboard_rr_ppip_max,
+          "rr_ppip_maksimal" =>  $dashboard_rr_ppip_max,
             
           "rr_ppmp" => $dashboard_rr_ppmp,
           
