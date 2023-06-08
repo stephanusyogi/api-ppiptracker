@@ -18,7 +18,7 @@ class DashboardController extends Controller
       ->where([
           ['id_user','=',$id_user],
           ['flag','=',1]
-      ])->get()->toAray();
+      ])->get()->toArray();
       
       return response()->json([
         "status" =>true,
