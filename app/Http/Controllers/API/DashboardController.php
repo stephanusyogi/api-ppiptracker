@@ -417,13 +417,12 @@ class DashboardController extends Controller
       $return_dashboard["rekomendasi"] = $rekomendasi;
       $return_dashboard["flag"] = 1;
         
-       echo json_encode($return_dashboard, true);
-       die();
+      $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
         
-       return response()->json([
-         "status" =>true,
-         "message"=>"Hitung Berhasil!",
-       ],200);
+      return response()->json([
+        "status" =>true,
+        "message"=>"Hitung Berhasil!",
+      ],200);
     }
 
     public function montecarlo_ppip($id_user, $sisa_kerja_tahun, $flag_pensiun, $norminv){
