@@ -13,6 +13,12 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
+      echo json_encode($id_user, true);
+      die();
+    }
+
+    public function generate_data(Request $request){
+      $id_user = $request->input('id_user');
 
       // Validasi kelengkapan data
       // Validasi Kuisioner
