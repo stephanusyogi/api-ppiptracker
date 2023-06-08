@@ -345,8 +345,9 @@ class DashboardController extends Controller
        //----------------------------------------------------------------------------
        //G.1. Hitung indikator dashboard - lokasi pensiun4
        $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp);
-       echo json_encode($return_dashboard, true);
-       die();
+
+
+      //  $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
        
        //--------------------------------------------------------
        //H.1. dan H.2. Hitung selisih target dan kekurangan iuran personal keuangan
@@ -407,14 +408,18 @@ class DashboardController extends Controller
         //echo json_encode($iuran_kini, true);
         //die();
         //$target_replacement_ratio
+
+      $return_dashboard["target_rr"] = $target_replacement_ratio;
+      $return_dashboard["target_pengeluaran"] = $target_pengeluaran;
+      $return_dashboard["kesimpulan"] = $kesimpulan;
+      $return_dashboard["rekomendasi"] = $rekomendasi;
+        
+       echo json_encode($return_dashboard, true);
+       die();
         
        return response()->json([
          "status" =>true,
-         "message"=>"Testing Hitung Awal!",
-         "data"=> array(
-          "kesimpulan" => $kesimpulan,
-          "rekomendasi" => $rekomendasi,
-         )
+         "message"=>"Hitung Berhasil!",
        ],200);
     }
 
