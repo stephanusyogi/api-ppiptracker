@@ -13,8 +13,17 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
       $id_user = $request->input('id_user');
-      echo json_encode($id_user, true);
-      die();
+      
+      $dashboard = DB::table('dashboard')
+      ->where([
+          ['id_user','=',$id_user],
+          ['flag','=',1]
+      ]);
+      
+      return response()->json([
+        "status" =>true,
+        "data"=> $dashboard,
+      ],200);
     }
 
     public function generate_data(Request $request){
