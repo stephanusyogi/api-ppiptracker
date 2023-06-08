@@ -367,13 +367,12 @@ class DashboardController extends Controller
        //--------------------------------------------------------
        //H.1. dan H.2. Hitung selisih target dan kekurangan iuran personal keuangan
         //input 
-        $total_rr = $return_dashboard["dashboard_rr_total_min"];
+      $total_rr = $return_dashboard["rr_total_minimal"];
         
-        
-        $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
-            ->where('id_user', $id_user)
-            ->where('flag', 1)
-            ->select('*')->get()[0];
+      $setting_nilai_asumsi_user = DB::table('nilai_asumsi_user')
+          ->where('id_user', $id_user)
+          ->where('flag', 1)
+          ->select('*')->get()[0];
         
         $iuran_kini=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal;
         $iuran_hitung=$iuran_kini/100;
@@ -406,24 +405,13 @@ class DashboardController extends Controller
                 }
             
             } 
-            
-           // echo json_encode($iuran_hitung, true);
-            //echo json_encode($total_rr, true);
-            //echo json_encode($rr_baru, true);
-            //die();
-        //die();
         } else {
             //iuran sudah cukup
              $kesimpulan = "Selamat. Pensiun Anda telah sesuai target Replacement Ratio";
              $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
-        
-        //echo json_encode($total_rr, true);
-        //die();
-        //echo json_encode($iuran_kini, true);
-        //die();
-        //$target_replacement_ratio
 
+      unset($return_dashboard['pensiun']);
       $return_dashboard["target_rr"] = $target_replacement_ratio;
       $return_dashboard["target_pengeluaran"] = $target_pengeluaran;
       $return_dashboard["kesimpulan"] = $kesimpulan;
