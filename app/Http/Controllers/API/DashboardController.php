@@ -428,6 +428,7 @@ class DashboardController extends Controller
       $return_dashboard["target_pengeluaran"] = $target_pengeluaran;
       $return_dashboard["kesimpulan"] = $kesimpulan;
       $return_dashboard["rekomendasi"] = $rekomendasi;
+      $return_dashboard["flag"] = 1;
         
        echo json_encode($return_dashboard, true);
        die();
@@ -2711,90 +2712,90 @@ class DashboardController extends Controller
         //"status_mp" => $status_mp,
          
         //RR
-        "dashboard_rr_ppip_min" => $dashboard_rr_ppip_min,
-        "dashboard_rr_ppip_med" => $dashboard_rr_ppip_med,
-        "dashboard_rr_ppip_max" =>  $dashboard_rr_ppip_max,
+        "rr_ppip_minimal" => $dashboard_rr_ppip_min,
+        "rr_ppip_median" => $dashboard_rr_ppip_med,
+        "rr_ppip__maksimal" =>  $dashboard_rr_ppip_max,
            
-        "dashboard_rr_ppmp" => $dashboard_rr_ppmp,
+        "rr_ppmp" => $dashboard_rr_ppmp,
          
-         "dashboard_rr_personal_properti" => $dashboard_rr_personal_properti,
+        "rr_personal_properti" => $dashboard_rr_personal_properti,
         
-        "dashboard_rr_personal_keuangan_min" => $dashboard_rr_personal_keuangan_min,
-        "dashboard_rr_personal_keuangan_med" => $dashboard_rr_personal_keuangan_med,
-        "dashboard_rr_personal_keuangan_max" =>  $dashboard_rr_personal_keuangan_max,
+        "rr_personal_keuangan_minimal" => $dashboard_rr_personal_keuangan_min,
+        "rr_personal_keuangan_median" => $dashboard_rr_personal_keuangan_med,
+        "rr_personal_keuangan_maksimal" =>  $dashboard_rr_personal_keuangan_max,
             
-         "dashboard_rr_total_min" => $dashboard_rr_total_min,
-         "dashboard_rr_total_med" => $dashboard_rr_total_med,
-         "dashboard_rr_total_max" => $dashboard_rr_total_max,
+        "rr_total_minimal" => $dashboard_rr_total_min,
+        "rr_total_median" => $dashboard_rr_total_med,
+        "rr_total_maksimal" => $dashboard_rr_total_max,
           
         //Penghasilan Bulanan
-        "dashboard_penghasilan_bulanan_ppip_min" => $dashboard_penghasilan_bulanan_ppip_min,
-        "dashboard_penghasilan_bulanan_ppip_med" => $dashboard_penghasilan_bulanan_ppip_med,
-        "dashboard_penghasilan_bulanan_ppip_max" =>  $dashboard_penghasilan_bulanan_ppip_max,
+        "penghasilan_ppip_minimal" => $dashboard_penghasilan_bulanan_ppip_min,
+        "penghasilan_ppip_median" => $dashboard_penghasilan_bulanan_ppip_med,
+        "penghasilan_ppip_maksimal" =>  $dashboard_penghasilan_bulanan_ppip_max,
                     
-        "dashboard_penghasilan_bulanan_ppmp" => $dashboard_penghasilan_bulanan_ppmp,
+        "penghasilan_ppmp" => $dashboard_penghasilan_bulanan_ppmp,
          
-         "dashboard_penghasilan_bulanan_personal_properti" => $dashboard_penghasilan_bulanan_personal_properti,
+        "penghasilan_personal_properti" => $dashboard_penghasilan_bulanan_personal_properti,
         
-        "dashboard_penghasilan_bulanan_personal_keuangan_min" => $dashboard_penghasilan_bulanan_personal_keuangan_min,
-        "dashboard_penghasilan_bulanan_personal_keuangan_med" => $dashboard_penghasilan_bulanan_personal_keuangan_med,
-        "dashboard_penghasilan_bulanan_personal_keuangan_max" =>  $dashboard_penghasilan_bulanan_personal_keuangan_max,
+        "penghasilan_personal_keuangan_minimal" => $dashboard_penghasilan_bulanan_personal_keuangan_min,
+        "penghasilan_personal_keuangan_median" => $dashboard_penghasilan_bulanan_personal_keuangan_med,
+        "penghasilan_personal_keuangan_maksimal" =>  $dashboard_penghasilan_bulanan_personal_keuangan_max,
                      
-         "dashboard_penghasilan_bulanan_total_min" => $dashboard_penghasilan_bulanan_total_min,
-         "dashboard_penghasilan_bulanan_total_med" => $dashboard_penghasilan_bulanan_total_med,
-         "dashboard_penghasilan_bulanan_total_max" => $dashboard_penghasilan_bulanan_total_max,
+        "penghasilan_total_minimal" => $dashboard_penghasilan_bulanan_total_min,
+        "penghasilan_total_median" => $dashboard_penghasilan_bulanan_total_med,
+        "penghasilan_total_maksimal" => $dashboard_penghasilan_bulanan_total_max,
          
          //Penghasilan Bulanan - present value
-         "dashboard_penghasilan_bulanan_ppip_min_pv" => $dashboard_penghasilan_bulanan_ppip_min_pv,
-        "dashboard_penghasilan_bulanan_ppip_med_pv" => $dashboard_penghasilan_bulanan_ppip_med_pv,
-        "dashboard_penghasilan_bulanan_ppip_max_pv" =>  $dashboard_penghasilan_bulanan_ppip_max_pv,
+        "pv_penghasilan_ppip_minimal" => $dashboard_penghasilan_bulanan_ppip_min_pv,
+        "pv_penghasilan_ppip_median" => $dashboard_penghasilan_bulanan_ppip_med_pv,
+        "pv_penghasilan_ppip_maksimal" =>  $dashboard_penghasilan_bulanan_ppip_max_pv,
                     
-        "dashboard_penghasilan_bulanan_ppmp_pv" => $dashboard_penghasilan_bulanan_ppmp_pv,
+        "pv_penghasilan_ppmp" => $dashboard_penghasilan_bulanan_ppmp_pv,
          
-         "dashboard_penghasilan_bulanan_personal_properti_pv" => $dashboard_penghasilan_bulanan_personal_properti_pv,
+        "pv_penghasilan_personal_properti" => $dashboard_penghasilan_bulanan_personal_properti_pv,
         
-        "dashboard_penghasilan_bulanan_personal_keuangan_min_pv" => $dashboard_penghasilan_bulanan_personal_keuangan_min_pv,
-        "dashboard_penghasilan_bulanan_personal_keuangan_med_pv" => $dashboard_penghasilan_bulanan_personal_keuangan_med_pv,
-        "dashboard_penghasilan_bulanan_personal_keuangan_max_pv" =>  $dashboard_penghasilan_bulanan_personal_keuangan_max_pv,
+        "pv_penghasilan_personal_keuangan_minimal" => $dashboard_penghasilan_bulanan_personal_keuangan_min_pv,
+        "pv_penghasilan_personal_keuangan_median" => $dashboard_penghasilan_bulanan_personal_keuangan_med_pv,
+        "pv_penghasilan_personal_keuangan_maksimal" =>  $dashboard_penghasilan_bulanan_personal_keuangan_max_pv,
                      
-         "dashboard_penghasilan_bulanan_total_min_pv" => $dashboard_penghasilan_bulanan_total_min_pv,
-         "dashboard_penghasilan_bulanan_total_med_pv" => $dashboard_penghasilan_bulanan_total_med_pv,
-         "dashboard_penghasilan_bulanan_total_max_pv" => $dashboard_penghasilan_bulanan_total_max_pv,
+        "pv_penghasilan_total_minimal" => $dashboard_penghasilan_bulanan_total_min_pv,
+        "pv_penghasilan_total_median" => $dashboard_penghasilan_bulanan_total_med_pv,
+        "pv_penghasilan_total_maksimal" => $dashboard_penghasilan_bulanan_total_max_pv,
          
             //kekayaan
             //Penghasilan Bulanan
-        "dashboard_kekayaan_ppip_min" => $dashboard_kekayaan_ppip_min,
-        "dashboard_kekayaan_ppip_med" => $dashboard_kekayaan_ppip_med,
-        "dashboard_kekayaan_ppip_max" =>  $dashboard_kekayaan_ppip_max,
+        "kekayaan_ppip_minimal" => $dashboard_kekayaan_ppip_min,
+        "kekayaan_ppip_median" => $dashboard_kekayaan_ppip_med,
+        "kekayaan_ppip_maksimal" =>  $dashboard_kekayaan_ppip_max,
                     
-        "dashboard_kekayaan_ppmp" => $dashboard_kekayaan_ppmp,
+        "kekayaan_ppmp" => $dashboard_kekayaan_ppmp,
          
-         "dashboard_kekayaan_personal_properti" => $dashboard_kekayaan_personal_properti,
+        "kekayaan_personal_properti" => $dashboard_kekayaan_personal_properti,
         
-        "dashboard_kekayaan_personal_keuangan_min" => $dashboard_kekayaan_personal_keuangan_min,
-        "dashboard_kekayaan_personal_keuangan_med" => $dashboard_kekayaan_personal_keuangan_med,
-        "dashboard_kekayaan_personal_keuangan_max" =>  $dashboard_kekayaan_personal_keuangan_max,
+        "kekayaan_personal_keuangan_minimal" => $dashboard_kekayaan_personal_keuangan_min,
+        "kekayaan_personal_keuangan_median" => $dashboard_kekayaan_personal_keuangan_med,
+        "kekayaan_personal_keuangan_maksimal" =>  $dashboard_kekayaan_personal_keuangan_max,
                      
-         "dashboard_kekayaan_total_min" => $dashboard_kekayaan_total_min,
-         "dashboard_kekayaan_total_med" => $dashboard_kekayaan_total_med,
-         "dashboard_kekayaan_total_max" => $dashboard_kekayaan_total_max,
+        "kekayaan_total_minimal" => $dashboard_kekayaan_total_min,
+        "kekayaan_total_median" => $dashboard_kekayaan_total_med,
+        "kekayaan_total_maksimal" => $dashboard_kekayaan_total_max,
          
          //kekayaan - present value
-         "dashboard_kekayaan_ppip_min_pv" => $dashboard_kekayaan_ppip_min_pv,
-        "dashboard_kekayaan_ppip_med_pv" => $dashboard_kekayaan_ppip_med_pv,
-        "dashboard_kekayaan_ppip_max_pv" =>  $dashboard_kekayaan_ppip_max_pv,
+        "pv_kekayaan_ppip_minimal" => $dashboard_kekayaan_ppip_min_pv,
+        "pv_kekayaan_ppip_median" => $dashboard_kekayaan_ppip_med_pv,
+        "pv_kekayaan_ppip_maksimal" =>  $dashboard_kekayaan_ppip_max_pv,
                     
-        "dashboard_kekayaan_ppmp_pv" => $dashboard_kekayaan_ppmp_pv,
+        "pv_kekayaan_ppmp" => $dashboard_kekayaan_ppmp_pv,
          
-         "dashboard_kekayaan_personal_properti_pv" => $dashboard_kekayaan_personal_properti_pv,
+        "pv_kekayaan_personal_properti" => $dashboard_kekayaan_personal_properti_pv,
         
-        "dashboard_kekayaan_personal_keuangan_min_pv" => $dashboard_kekayaan_personal_keuangan_min_pv,
-        "dashboard_kekayaan_personal_keuangan_med_pv" => $dashboard_kekayaan_personal_keuangan_med_pv,
-        "dashboard_kekayaan_personal_keuangan_max_pv" =>  $dashboard_kekayaan_personal_keuangan_max_pv,
+        "pv_kekayaan_personal_keuangan_minimal" => $dashboard_kekayaan_personal_keuangan_min_pv,
+        "pv_kekayaan_personal_keuangan_median" => $dashboard_kekayaan_personal_keuangan_med_pv,
+        "pv_kekayaan_personal_keuangan_maksimal" =>  $dashboard_kekayaan_personal_keuangan_max_pv,
                      
-         "dashboard_kekayaan_total_min_pv" => $dashboard_kekayaan_total_min_pv,
-         "dashboard_kekayaan_total_med_pv" => $dashboard_kekayaan_total_med_pv,
-         "dashboard_kekayaan_total_max_pv" => $dashboard_kekayaan_total_max_pv,
+        "pv_kekayaan_total_minimal" => $dashboard_kekayaan_total_min_pv,
+        "pv_kekayaan_total_median" => $dashboard_kekayaan_total_med_pv,
+        "pv_kekayaan_total_maksimal" => $dashboard_kekayaan_total_max_pv,
 
                      
             
