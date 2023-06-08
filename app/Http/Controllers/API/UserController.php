@@ -261,7 +261,7 @@ class UserController extends Controller
     public function update_tracking_data(Request $request){
         $id_user = $request->input('id_user');
         
-        if($request->saldo_ppip){
+        if($request->saldo_ppip !== ""){
             DB::table('users')
                 ->where('id_user', $id_user)  // find your user by their email
                 ->update(array('saldo_ppip' => $request->saldo_ppip));  // update the record in the DB. 
