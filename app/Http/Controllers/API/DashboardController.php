@@ -121,8 +121,8 @@ class DashboardController extends Controller
       
       //untuk validasi perhitungan, karena data gaji dan phdp tidak disimpan dalam database, maka perlu ditembak data gaji dan phdp disini saat cek perhitungan menggunakan postman.
       //hasil tembak gaji, akan dihilangkan ketika data dashboard frontend sudah nyambung dengan backend
-      // $gaji = 47700000;
-      // $phdp = 19000000;  
+       $gaji = 47700000;
+       $phdp = 19000000;  
       
       //echo json_encode($request, true);
       //die();
@@ -360,7 +360,8 @@ class DashboardController extends Controller
        //----------------------------------------------------------------------------
        //G.1. Hitung indikator dashboard - lokasi pensiun4
       $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp);
-
+echo json_encode($return_dashboard, true);
+      die();
       //  $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
        
        //--------------------------------------------------------
