@@ -152,6 +152,8 @@ class DashboardController extends Controller
         "target_rr" => $target_replacement_ratio,
         "target_pengeluaran" => $target_pengeluaran,
       );
+        echo json_encode($dashboard_target_rr, true);
+        die();
 
       $this->uploadToDatabase("dashboard_target_rr", $id_user, $dashboard_target_rr);
 
