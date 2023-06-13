@@ -148,13 +148,6 @@ class DashboardController extends Controller
         ])
         ->get();
       $target_pengeluaran = round($res[0]->answer,2);
-      $dashboard_target_rr = array(
-        "target_rr" => $target_replacement_ratio,
-        "target_pengeluaran" => $target_pengeluaran,
-      );
-
-      $this->uploadToDatabase("dashboard_target_rr", $id_user, $dashboard_target_rr);
-
       // -----------------------------------------------------------------------
       //B.1 Hitung usia diangkat
       $data_user = User::select('*')->where('id',$id_user)->get()[0];
