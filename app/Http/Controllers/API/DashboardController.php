@@ -339,9 +339,6 @@ class DashboardController extends Controller
        //F. Perhitungan Simulasi
        //F.1. Simulasi Gaji dan PhDP
        $return_simulasi_gaji_phdp = $this->simulasi_gaji_phdp($tgl_update_gaji_phdp, $gaji, $phdp, $id_user);
-        
-		echo json_encode($return_simulasi_gaji_phdp, true);
-		die();
        //F.2. Simulasi PPMP
        $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $masa_dinas_tahun, $masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
        //F.3. Simulasi PPIP
