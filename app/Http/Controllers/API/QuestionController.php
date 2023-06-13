@@ -95,6 +95,16 @@ class QuestionController extends Controller
 
     public function answer_question(Request $request)
     {
+        if($request->kode_kuisioner === "TARGET_RR"){
+            DB::table('dashboard')
+            ->where([
+                ['id_user', '=', $request->id_user],
+                ['flag', '=', 1],
+                ])->update([
+                'target_rr' => $request->kode_kuisioner,
+            ]);
+        }
+        
         $validator = Validator::make($request->all(), [
             'kode_kuisioner'     => 'required',
             'id_user'     => 'required',
