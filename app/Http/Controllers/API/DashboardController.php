@@ -924,9 +924,10 @@ class DashboardController extends Controller
           $key = $year . "_" . $month;
           $kode = ($year*100)+$month;
             
+            
           if($kode < $kode_input){
-              $gaji_hitung = 0;
-              $phdp_hitung = 0;
+              $gaji_hitung = $gaji_input; // Sementara diganti dengan gaji input sebelumnya adalah 0
+              $phdp_hitung = $phdp_input; // Sementara diganti dengan phdp input sebelumnya adalah 0
               
               $previous_gaji = $gaji_hitung;
               $previous_phdp = $phdp_hitung;
@@ -1002,7 +1003,11 @@ class DashboardController extends Controller
               $masa_dinas_sementara = $masa_dinas_tahun[$key]+($masa_dinas_bulan[$key] / 12);
               $masa_dinas = min($masa_dinas_sementara,32); //maksimum masa dinas yang bisa diabsorb oleh ppmp adalah 32 tahun
               $jumlah_ppmp_hitung = 0.025 * $masa_dinas * $phdp[$key]; //rumus besar MP dalam PPMP
-              $rr_ppmp_hitung = $jumlah_ppmp_hitung / $gaji[$key]; //rumus mencari replacement ratio dalam ppmp
+                if($gaji[$key] == 0){
+                  $rr_ppmp_hitung = "null"; //rumus mencari replacement ratio dalam ppmp                
+                }else{
+                  $rr_ppmp_hitung = $jumlah_ppmp_hitung / $gaji[$key]; //rumus mencari replacement ratio dalam ppmp
+                }
               //Output: create $jumlah_ppmp[$i] dan $rr_ppmp[$i]
             } else { //sudah pensiun
               $jumlah_ppmp_hitung = "null";
