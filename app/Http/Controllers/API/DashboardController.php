@@ -137,8 +137,6 @@ class DashboardController extends Controller
         ])
         ->get();
       $target_replacement_ratio = round($res[0]->answer,2);
-      echo json_encode($target_replacement_ratio, true);
-      die();
       $res = DB::table('variabel_kuisioner_target_rr_answer')
         ->select("answer")
         ->where([
@@ -410,7 +408,10 @@ class DashboardController extends Controller
       $return_dashboard["kesimpulan"] = $kesimpulan;
       $return_dashboard["rekomendasi"] = $rekomendasi;
         
+      echo json_encode($target_replacement_ratio, true);
+      die();
       $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
+        
         
       return response()->json([
         "status" =>true,
