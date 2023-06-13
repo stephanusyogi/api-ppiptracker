@@ -352,8 +352,6 @@ class DashboardController extends Controller
        $return_simulasi_ppmp = $this->simulasi_ppmp($data_user, $id_user, $masa_dinas_tahun, $masa_dinas_bulan, $flag_pensiun, $return_simulasi_gaji_phdp);
        //F.3. Simulasi PPIP
        $return_simulasi_ppip = $this->simulasi_ppip($data_user, $id_user, $return_simulasi_ppmp, $flag_pensiun, $return_simulasi_gaji_phdp, $montecarlo_ppip);
-      echo json_encode($return_simulasi_ppip, true);
-      die();
        //F.4. Simulasi Personal Properti
        $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user,$id_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
        //F.5. Simulasi PERSONAL_KEUANGAN
@@ -420,8 +418,8 @@ class DashboardController extends Controller
       $return_dashboard["rekomendasi"] = $rekomendasi;
       $return_dashboard["flag"] = 1;
        
-//       echo json_encode($return_dashboard, true);
-//       die();
+      echo json_encode($return_dashboard, true);
+      die();
         
       //$this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
         
@@ -1142,8 +1140,6 @@ class DashboardController extends Controller
       $rr_ppip_kupon_sbn_p50 = array();
       $rr_ppip_kupon_sbn_p05 = array();
         
-       $test = array();
-
       $j=1; //counter hasil investasi percentile monthly (konversi dari tahunan ke bulanan)
       for($year=2023; $year<=2100; $year++){
             //menentukan besar iuran
@@ -1152,7 +1148,6 @@ class DashboardController extends Controller
             } else {
                     $persentase_iuran_ppip = 0.2; //iuran ppip sebesar 20% untuk ppip murni
             }
-          $test[$year] = $persentase_iuran_ppip;
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           $iuran_hitung = $gaji[$key] * $persentase_iuran_ppip; //hitung besar iuran
@@ -1339,7 +1334,6 @@ class DashboardController extends Controller
       $this->uploadToDatabase("profil_ppip_rr_bunga_deposito_p5", $id_user, $rr_ppip_kupon_sbn_p05);
 
       return array(
-          "persentase_iuran_ppip" => $test,
         "iuran" => $iuran,
         "tambahan_iuran_ppip" => $tambahan_iuran_ppip,
         "percentile_95_return_ppip_bulanan" => $percentile_95_return_ppip_bulanan,
