@@ -419,6 +419,9 @@ class DashboardController extends Controller
         
       $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
         
+        echo json_encode($return_dashboard, true);
+       die();
+        
       return response()->json([
         "status" =>true,
         "message"=>"Hitung Berhasil!",
