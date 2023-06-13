@@ -1141,6 +1141,8 @@ class DashboardController extends Controller
       $rr_ppip_kupon_sbn_p95 = array();
       $rr_ppip_kupon_sbn_p50 = array();
       $rr_ppip_kupon_sbn_p05 = array();
+        
+       $test = array();
 
       $j=1; //counter hasil investasi percentile monthly (konversi dari tahunan ke bulanan)
       for($year=2023; $year<=2100; $year++){
@@ -1150,6 +1152,7 @@ class DashboardController extends Controller
             } else {
                     $persentase_iuran_ppip = 0.2; //iuran ppip sebesar 20% untuk ppip murni
             }
+          $test[$year] = $persentase_iuran_ppip;
         for($month=1; $month<=12; $month++){
           $key = $year . "_" . $month;
           $iuran_hitung = $gaji[$key] * $persentase_iuran_ppip; //hitung besar iuran
@@ -1336,6 +1339,7 @@ class DashboardController extends Controller
       $this->uploadToDatabase("profil_ppip_rr_bunga_deposito_p5", $id_user, $rr_ppip_kupon_sbn_p05);
 
       return array(
+          "persentase_iuran_ppip" => $test,
         "iuran" => $iuran,
         "tambahan_iuran_ppip" => $tambahan_iuran_ppip,
         "percentile_95_return_ppip_bulanan" => $percentile_95_return_ppip_bulanan,
