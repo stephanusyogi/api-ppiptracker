@@ -416,7 +416,6 @@ class DashboardController extends Controller
       $return_dashboard["target_pengeluaran"] = $target_pengeluaran;
       $return_dashboard["kesimpulan"] = $kesimpulan;
       $return_dashboard["rekomendasi"] = $rekomendasi;
-      $return_dashboard["flag"] = 1;
         
       $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
         
