@@ -408,9 +408,10 @@ class DashboardController extends Controller
       $return_dashboard["kesimpulan"] = $kesimpulan;
       $return_dashboard["rekomendasi"] = $rekomendasi;
         
-      echo json_encode($target_replacement_ratio, true);
-      die();
       $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
+        
+      echo json_encode($return_dashboard, true);
+      die();
         
         
       return response()->json([
