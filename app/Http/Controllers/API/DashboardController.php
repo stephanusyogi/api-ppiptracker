@@ -137,8 +137,8 @@ class DashboardController extends Controller
         ])
         ->get();
       $target_replacement_ratio = round($res[0]->answer,2);
-      //echo json_encode($target_replacement_ratio, true);
-      //die();
+      echo json_encode($target_replacement_ratio, true);
+      die();
       $res = DB::table('variabel_kuisioner_target_rr_answer')
         ->select("answer")
         ->where([
