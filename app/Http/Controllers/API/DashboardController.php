@@ -404,6 +404,13 @@ class DashboardController extends Controller
                 } else {
                 }
             
+                $nn="iuran";
+                $mm="RR baru";
+                echo json_encode($nn, true);
+                echo json_encode($iuran_hitung, true);
+            echo json_encode($mm, true);
+                echo json_encode($rr_baru, true);
+                echo json_encode($pisah, true);
             } 
         } else {
             //iuran sudah cukup
@@ -411,8 +418,8 @@ class DashboardController extends Controller
              $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
 
-      echo json_encode($iuran_hitung, true);
-        echo json_encode($pisah, true);
+      //echo json_encode($iuran_hitung, true);
+        //echo json_encode($pisah, true);
         die();
         
       unset($return_dashboard['pensiun']);
