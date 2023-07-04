@@ -374,7 +374,8 @@ class DashboardController extends Controller
         echo json_encode($total_rr, true);
         echo json_encode($pisah, true);
         echo json_encode($iuran_hitung, true);
-        die();
+        echo json_encode($pisah, true);
+        //die();
         
         if ($total_rr<$target_replacement_ratio){
             //simulasi lagi personal keuangan dengan iuran dinaikkan
@@ -410,6 +411,10 @@ class DashboardController extends Controller
              $rekomendasi = "pantau terus kinerja portofolio Anda";
         }
 
+      echo json_encode($iuran_hitung, true);
+        echo json_encode($pisah, true);
+        die();
+        
       unset($return_dashboard['pensiun']);
       $return_dashboard["target_rr"] = $target_replacement_ratio;
       $return_dashboard["target_pengeluaran"] = $target_pengeluaran;
