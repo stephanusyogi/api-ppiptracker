@@ -368,8 +368,9 @@ class DashboardController extends Controller
         
         $iuran_kini=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal;
         $iuran_hitung=$iuran_kini/100;
+        $pisah="pisah";
         echo json_encode($target_replacement_ratio, true);
-        //echo json_encode($total_rr, true);
+        echo json_encode($pisah, true);
         //echo json_encode($iuran_hitung, true);
         die();
         
