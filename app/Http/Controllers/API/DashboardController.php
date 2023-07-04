@@ -371,7 +371,9 @@ class DashboardController extends Controller
         $pisah="pisah";
         echo json_encode($target_replacement_ratio, true);
         echo json_encode($pisah, true);
-        //echo json_encode($iuran_hitung, true);
+        echo json_encode($total_rr, true);
+        echo json_encode($pisah, true);
+        echo json_encode($iuran_hitung, true);
         die();
         
         if ($total_rr<$target_replacement_ratio){
