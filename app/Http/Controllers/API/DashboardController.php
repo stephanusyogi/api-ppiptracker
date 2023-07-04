@@ -347,7 +347,8 @@ class DashboardController extends Controller
        $return_simulasi_personal_properti = $this->simulasi_personal_properti($data_user,$id_user, $return_simulasi_gaji_phdp, $return_simulasi_gaji_phdp);
        //F.5. Simulasi PERSONAL_KEUANGAN
        $return_simulasi_personal_keuangan = $this->simulasi_personal_keuangan($data_user, $id_user, $return_simulasi_gaji_phdp, $flag_pensiun, $montecarlo_personal_keuangan, $return_simulasi_ppmp);
-        
+        //echo json_encode($return_simulasi_personal_keuangan, true);
+        //die();
        //----------------------------------------------------------------------------
        //G.1. Hitung indikator dashboard - lokasi pensiun4
       $return_dashboard = $this->indikator_dashboard($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan, $return_simulasi_ppmp);
@@ -367,8 +368,8 @@ class DashboardController extends Controller
         
         $iuran_kini=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal;
         $iuran_hitung=$iuran_kini/100;
-        echo json_encode($target_replacement_ratio, true);
-        die();
+        //echo json_encode($target_replacement_ratio, true);
+        //die();
         
         if ($total_rr<$target_replacement_ratio){
             //simulasi lagi personal keuangan dengan iuran dinaikkan
@@ -1800,6 +1801,10 @@ class DashboardController extends Controller
       $rr_ppip_anuitas_p05 = $return_simulasi_ppip["rr_ppip_anuitas_p05"];
       $rr_ppip_anuitas_p50 = $return_simulasi_ppip["rr_ppip_anuitas_p50"];
       $rr_ppip_anuitas_p95 = $return_simulasi_ppip["rr_ppip_anuitas_p95"];
+
+      $rr_ppip_kupon_sbn_p05 = $return_simulasi_ppip["rr_ppip_kupon_sbn_p05"];
+      $rr_ppip_kupon_sbn_p50 = $return_simulasi_ppip["rr_ppip_kupon_sbn_p50"];
+      $rr_ppip_kupon_sbn_p95 = $return_simulasi_ppip["rr_ppip_kupon_sbn_p95"];
       
       $rr_personal_keuangan_anuitas_p05 = $return_simulasi_personal_keuangan["rr_personal_keuangan_anuitas_p05"];
       $rr_personal_keuangan_anuitas_p50 = $return_simulasi_personal_keuangan["rr_personal_keuangan_anuitas_p50"];
