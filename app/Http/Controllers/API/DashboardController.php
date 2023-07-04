@@ -367,6 +367,8 @@ class DashboardController extends Controller
         
         $iuran_kini=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal;
         $iuran_hitung=$iuran_kini/100;
+        echo json_encode($target_replacement_ratio, true);
+        die();
         
         if ($total_rr<$target_replacement_ratio){
             //simulasi lagi personal keuangan dengan iuran dinaikkan
