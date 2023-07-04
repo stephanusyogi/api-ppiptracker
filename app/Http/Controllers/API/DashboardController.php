@@ -2475,6 +2475,10 @@ class DashboardController extends Controller
       $rr_ppip_anuitas_p05 = $return_simulasi_ppip["rr_ppip_anuitas_p05"];
       $rr_ppip_anuitas_p50 = $return_simulasi_ppip["rr_ppip_anuitas_p50"];
       $rr_ppip_anuitas_p95 = $return_simulasi_ppip["rr_ppip_anuitas_p95"];
+
+      $rr_ppip_kupon_sbn_p05 = $return_simulasi_ppip["rr_ppip_kupon_sbn_p05"];
+      $rr_ppip_kupon_sbn_p50 = $return_simulasi_ppip["rr_ppip_kupon_sbn_p50"];
+      $rr_ppip_kupon_sbn_p95 = $return_simulasi_ppip["rr_ppip_kupon_sbn_p95"];
       
       $rr_personal_keuangan_anuitas_p05 = $return_simulasi_personal_keuangan_solver["rr_personal_keuangan_anuitas_p05"];
       $rr_personal_keuangan_anuitas_p50 = $return_simulasi_personal_keuangan_solver["rr_personal_keuangan_anuitas_p50"];
