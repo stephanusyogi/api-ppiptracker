@@ -2045,60 +2045,29 @@ class DashboardController extends Controller
         //++++++++++++++++++++++++++++++++
         //G.2.5. preset value kekayaan pada dashboard
         //Input: Read sisa masa kerja saat membuka
-      $tahun_ini=date('Y');//Read current date untuk tahun
-      $bulan_ini=date('n');////Read current date untuk bulan
-      $tahun_bulan_ini = $tahun_ini."_".$bulan_ini;
-      $inflasi=0.04;//Read asumsi inflasi yang di admin
+        $tahun_ini=date('Y');//Read current date untuk tahun
+        $bulan_ini=date('n');////Read current date untuk bulan
+        $tahun_bulan_ini = $tahun_ini."_".$bulan_ini;
+        $inflasi=0.04;//Read asumsi inflasi yang di admin
 
-      $tahun_sisa_kerja = $sisa_kerja_tahun[$tahun_bulan_ini];//Read sisa masa kerja tahun untuk current date
-      $bulan_sisa_kerja = $sisa_kerja_bulan[$tahun_bulan_ini];//Read sisa masa kerja bulan untuk current date
-      
-      //echo json_encode($bulan_sisa_kerja, true);
-      //die();
+        $tahun_sisa_kerja = $sisa_kerja_tahun[$tahun_bulan_ini];//Read sisa masa kerja tahun untuk current date
+        $bulan_sisa_kerja = $sisa_kerja_bulan[$tahun_bulan_ini];//Read sisa masa kerja bulan untuk current date
+              
+        $dashboard_kekayaan_ppip_min_pv = $dashboard_kekayaan_ppip_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+        $dashboard_kekayaan_ppip_med_pv = $dashboard_kekayaan_ppip_med / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+        $dashboard_kekayaan_ppip_max_pv = $dashboard_kekayaan_ppip_max / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
 
-      //$dashboard_penghasilan_bulanan_ppip_min_pv = $dashboard_penghasilan_bulanan_ppip_min / ((1+$inflasi)^($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-      $dashboard_penghasilan_bulanan_ppip_min_pv = $dashboard_penghasilan_bulanan_ppip_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-      $dashboard_penghasilan_bulanan_ppip_med_pv = $dashboard_penghasilan_bulanan_ppip_med / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-      $dashboard_penghasilan_bulanan_ppip_max_pv = $dashboard_penghasilan_bulanan_ppip_max / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-      
-      //echo json_encode($dashboard_penghasilan_bulanan_ppip_min, true);
-      //echo json_encode($dashboard_penghasilan_bulanan_ppip_min_pv, true);
-      //die();
+        $dashboard_kekayaan_personal_keuangan_min_pv = $dashboard_kekayaan_personal_keuangan_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+        $dashboard_kekayaan_personal_keuangan_med_pv = $dashboard_kekayaan_personal_keuangan_med / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+        $dashboard_kekayaan_personal_keuangan_max_pv = $dashboard_kekayaan_personal_keuangan_max / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
 
-      $dashboard_penghasilan_bulanan_personal_keuangan_min_pv = $dashboard_penghasilan_bulanan_personal_keuangan_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-      $dashboard_penghasilan_bulanan_personal_keuangan_med_pv = $dashboard_penghasilan_bulanan_personal_keuangan_med / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-      $dashboard_penghasilan_bulanan_personal_keuangan_max_pv = $dashboard_penghasilan_bulanan_personal_keuangan_max / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+        $dashboard_kekayaan_personal_properti_pv = $dashboard_kekayaan_personal_properti / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
 
-      $dashboard_penghasilan_bulanan_personal_properti_pv = $dashboard_penghasilan_bulanan_personal_properti / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
-
-
-
-
-
-        
-        $dashboard_kekayaan_ppip_min_pv = null;
-        $dashboard_kekayaan_ppip_med_pv = null;
-        $dashboard_kekayaan_ppip_max_pv = null;
-                            
         $dashboard_kekayaan_ppmp_pv = null;
-         
-        $dashboard_kekayaan_personal_properti_pv = null;
-        
-        $dashboard_kekayaan_personal_keuangan_min_pv = null;
-        $dashboard_kekayaan_personal_keuangan_med_pv = null;
-        $dashboard_kekayaan_personal_keuangan_max_pv = null;
-                     
-         $dashboard_kekayaan_total_min_pv = null;
-         $dashboard_kekayaan_total_med_pv = null;
-         $dashboard_kekayaan_total_max_pv = null;
-        
-        
-       // $rr_total_rr=
-        //$this->uploadToDatabase("profil_personal_iuran", $id_user, $iuran_personal_keuangan); 
-        
-        
-        
-        
+
+        $dashboard_kekayaan_total_min_pv = $dashboard_kekayaan_total_min / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+        $dashboard_kekayaan_total_med_pv = $dashboard_kekayaan_total_med / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
+        $dashboard_kekayaan_total_max_pv = $dashboard_kekayaan_total_max / pow((1+$inflasi),($tahun_sisa_kerja+($bulan_sisa_kerja/12)));
         
       return array(
           "pensiun" => $counter_pensiun,
