@@ -369,6 +369,7 @@ class DashboardController extends Controller
         $iuran_kini=$setting_nilai_asumsi_user->jumlah_pembayaran_iuran_personal;
         $iuran_hitung=$iuran_kini/100;
         $pisah="pisah";
+        /*
         echo json_encode($target_replacement_ratio, true);
         echo json_encode($pisah, true);
         echo json_encode($total_rr, true);
@@ -376,7 +377,7 @@ class DashboardController extends Controller
         echo json_encode($iuran_hitung, true);
         echo json_encode($pisah, true);
         //die();
-        
+        */
         if ($total_rr<$target_replacement_ratio){
             //simulasi lagi personal keuangan dengan iuran dinaikkan
             for ($j=1; $j<=10000; $j++){
@@ -387,6 +388,8 @@ class DashboardController extends Controller
                 
                 $rr_kini = $this->cari_iuran1($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan_solver1, $return_simulasi_ppmp);
                 $rr_baru = $rr_kini["rr_total_minimal"];
+                echo json_encode($iuran_hitung, true);
+                echo json_encode($pisah, true);
                 
                 if ($j==10000 && $rr_baru<$target_replacement_ratio){
                     //kesimpulannya, iurannya melebihi $iuran_hitung
@@ -405,7 +408,7 @@ class DashboardController extends Controller
                     $j=10001;
                 } else {
                 }
-                
+                /*
                 $nn="iuran";
                 $mm="RR baru";
                 echo json_encode($nn, true);
@@ -413,7 +416,7 @@ class DashboardController extends Controller
                 echo json_encode($mm, true);
                 echo json_encode($rr_baru, true);
                 echo json_encode($pisah, true);
-                
+                */
             } 
         } else {
             //iuran sudah cukup
@@ -423,14 +426,15 @@ class DashboardController extends Controller
 
       //echo json_encode($iuran_hitung, true);
         //echo json_encode($pisah, true);
-        die();
+        //die();
         
       unset($return_dashboard['pensiun']);
       $return_dashboard["target_rr"] = $target_replacement_ratio;
       $return_dashboard["target_pengeluaran"] = $target_pengeluaran;
       $return_dashboard["kesimpulan"] = $kesimpulan;
       $return_dashboard["rekomendasi"] = $rekomendasi;
-        
+      echo json_encode($return_dashboard, true);
+      die();  
       $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
         
         
