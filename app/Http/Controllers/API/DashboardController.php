@@ -433,8 +433,8 @@ class DashboardController extends Controller
       $return_dashboard["target_pengeluaran"] = $target_pengeluaran;
       $return_dashboard["kesimpulan"] = $kesimpulan;
       $return_dashboard["rekomendasi"] = $rekomendasi;
-      echo json_encode($return_dashboard, true);
-      die();  
+      //echo json_encode($return_dashboard, true);
+      //die();  
       $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
         
         
