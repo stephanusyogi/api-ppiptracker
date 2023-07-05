@@ -388,9 +388,9 @@ class DashboardController extends Controller
                 
                 $rr_kini = $this->cari_iuran1($data_user, $id_user, $flag_pensiun, $sisa_kerja_tahun, $sisa_kerja_bulan, $return_simulasi_ppip, $return_simulasi_personal_properti, $return_simulasi_personal_keuangan_solver1, $return_simulasi_ppmp);
                 $rr_baru = $rr_kini["rr_total_minimal"];
-                echo json_encode($rr_kini, true);
-                echo json_encode($pisah, true);
-                die();
+                //echo json_encode($rr_kini, true);
+                //echo json_encode($pisah, true);
+                //die();
                 if ($j==10000 && $rr_baru<$target_replacement_ratio){
                     //kesimpulannya, iurannya melebihi $iuran_hitung
                     $kesimpulan = "Replacement Ratio Anda diperkirakan kurang dari target";
