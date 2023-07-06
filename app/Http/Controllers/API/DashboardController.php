@@ -401,7 +401,7 @@ class DashboardController extends Controller
                 } elseif ($j<10000 && $rr_baru>=$target_replacement_ratio){
                     //target rr dapat dipenuhi dengan $iuran hitung
                     $kesimpulan = "Replacement Ratio Anda diperkirakan kurang dari target";
-                    $rekomendasi1 = "silahkan menambahkan iuran personal keuangan sebesar ";
+                    $rekomendasi1 = "silahkan menambahkan iuran personal keuangan menjadi sebesar ";
                     $iuran_hitung = $iuran_hitung*100;
                     $rekomendasi2 = $rekomendasi1 . $iuran_hitung;
                     $rekomendasi = $rekomendasi2 . "% dari gaji Anda";
