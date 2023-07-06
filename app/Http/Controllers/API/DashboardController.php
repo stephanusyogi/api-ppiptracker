@@ -974,7 +974,7 @@ class DashboardController extends Controller
             if($month==1){
               $gaji_hitung = $previous_gaji*(1+$gaji_naik/100);
               //$phdp_hitung = $previous_phdp*(1+$phdp_naik/100);
-              $phdp_hitung = $previous_phdp+$gaji_hitung*($phdp_naik/100);
+              $phdp_hitung = $previous_phdp+$gaji_hitung*0.45*($phdp_naik/100);
                 
               $previous_gaji = $gaji_hitung;
               $previous_phdp = $phdp_hitung;
