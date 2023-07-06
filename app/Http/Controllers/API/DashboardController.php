@@ -930,8 +930,8 @@ class DashboardController extends Controller
 
       //$gaji_naik = $setting_nilai_asumsi_user->kenaikan_gaji;//Read kenaikan gaji di admin
       //$phdp_naik = $setting_nilai_asumsi_user->kenaikan_phdp;//Read kenaikan phdp di admin
-      $gaji_naik =10;
-      $phdp_naik =5;
+      $gaji_naik =7.5; //diinjek disini karena kode di atas masih salah baca setting di user, harusnya setting di admin
+      $phdp_naik =5; //diinjek disini karena kode di atas masih salah baca setting di user, harusnya setting di admin
         
       //echo json_encode($phdp_naik, true);
       //die();
