@@ -436,7 +436,7 @@ class DashboardController extends Controller
        
       $this->uploadToDatabase("dashboard", $id_user, $return_dashboard);
         
-      echo json_encode($return_dashboard, true);
+      echo json_encode($return_simulasi_gaji_phdp, true);
       die(); 
         
       return response()->json([
