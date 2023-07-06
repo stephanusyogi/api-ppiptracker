@@ -928,9 +928,11 @@ class DashboardController extends Controller
             ->where('flag', 1)
             ->select('*')->get()[0];
 
-      $gaji_naik = $setting_nilai_asumsi_user->kenaikan_gaji;//Read kenaikan gaji di admin
-      $phdp_naik = $setting_nilai_asumsi_user->kenaikan_phdp;//Read kenaikan phdp di admin
-      
+      //$gaji_naik = $setting_nilai_asumsi_user->kenaikan_gaji;//Read kenaikan gaji di admin
+      //$phdp_naik = $setting_nilai_asumsi_user->kenaikan_phdp;//Read kenaikan phdp di admin
+      $gaji_naik =0.1;
+      $phdp_naik =0.05;
+        
       //echo json_encode($phdp_naik, true);
       //die();
 
